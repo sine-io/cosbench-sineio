@@ -1,0 +1,920 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workload name="111" description="workload description" config="">
+    <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+    <storage type="s3" config=""/>
+    <workflow config="">
+        <workstage name="w(4)KB_c1_init_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(4)KB_c1_init_1" type="init" workers="1"
+                interval="5" division="container" runtime="0" rampup="0"
+                rampdown="0" afr="0" totalOps="1" totalBytes="0" config="containers=r(1,1)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="init" ratio="100" division="container"
+                    config="containers=r(1,1);containers=r(1,1);objects=r(0,0);sizes=c(0)B;containers=r(1,1)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c100_init_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(4)KB_c100_init_1" type="init" workers="1"
+                interval="5" division="container" runtime="0" rampup="0"
+                rampdown="0" afr="0" totalOps="1" totalBytes="0" config="containers=r(101,200)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="init" ratio="100" division="container"
+                    config="containers=r(101,200);containers=r(101,200);objects=r(0,0);sizes=c(0)B;containers=r(101,200)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c1_init_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(128)KB_c1_init_1" type="init" workers="1"
+                interval="5" division="container" runtime="0" rampup="0"
+                rampdown="0" afr="0" totalOps="1" totalBytes="0" config="containers=r(201,201)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="init" ratio="100" division="container"
+                    config="containers=r(201,201);containers=r(201,201);objects=r(0,0);sizes=c(0)B;containers=r(201,201)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c100_init_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(128)KB_c100_init_1" type="init" workers="1"
+                interval="5" division="container" runtime="0" rampup="0"
+                rampdown="0" afr="0" totalOps="1" totalBytes="0" config="containers=r(301,400)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="init" ratio="100" division="container"
+                    config="containers=r(301,400);containers=r(301,400);objects=r(0,0);sizes=c(0)B;containers=r(301,400)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c1_init_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(512)KB_c1_init_1" type="init" workers="1"
+                interval="5" division="container" runtime="0" rampup="0"
+                rampdown="0" afr="0" totalOps="1" totalBytes="0" config="containers=r(401,401)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="init" ratio="100" division="container"
+                    config="containers=r(401,401);containers=r(401,401);objects=r(0,0);sizes=c(0)B;containers=r(401,401)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c100_init_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(512)KB_c100_init_1" type="init" workers="1"
+                interval="5" division="container" runtime="0" rampup="0"
+                rampdown="0" afr="0" totalOps="1" totalBytes="0" config="containers=r(501,600)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="init" ratio="100" division="container"
+                    config="containers=r(501,600);containers=r(501,600);objects=r(0,0);sizes=c(0)B;containers=r(501,600)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c1_o1000_prepare_1000" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(4)KB_c1_o1000_prepare_1000" type="prepare"
+                workers="1000" interval="5" division="object"
+                runtime="0" rampup="0" rampdown="0" afr="0"
+                totalOps="1000" totalBytes="0" config="containers=r(1,1);objects=r(1,1000);sizes=c(4)KB">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="prepare" ratio="100" division="object"
+                    config="containers=r(1,1);objects=r(1,1000);sizes=c(4)KB;containers=r(1,1);objects=r(1,1000);sizes=c(4)KB;createContainer=false;containers=r(1,1);objects=r(1,1000);sizes=c(4)KB" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c100_o1000_prepare_1000"
+            closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(4)KB_c100_o1000_prepare_1000" type="prepare"
+                workers="1000" interval="5" division="object"
+                runtime="0" rampup="0" rampdown="0" afr="0"
+                totalOps="1000" totalBytes="0" config="containers=r(101,200);objects=r(1001,2000);sizes=c(4)KB">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="prepare" ratio="100" division="object"
+                    config="containers=r(101,200);objects=r(1001,2000);sizes=c(4)KB;containers=r(101,200);objects=r(1001,2000);sizes=c(4)KB;createContainer=false;containers=r(101,200);objects=r(1001,2000);sizes=c(4)KB" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c1_o1000_prepare_1000"
+            closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(128)KB_c1_o1000_prepare_1000" type="prepare"
+                workers="1000" interval="5" division="object"
+                runtime="0" rampup="0" rampdown="0" afr="0"
+                totalOps="1000" totalBytes="0" config="containers=r(201,201);objects=r(2001,3000);sizes=c(128)KB">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="prepare" ratio="100" division="object"
+                    config="containers=r(201,201);objects=r(2001,3000);sizes=c(128)KB;containers=r(201,201);objects=r(2001,3000);sizes=c(128)KB;createContainer=false;containers=r(201,201);objects=r(2001,3000);sizes=c(128)KB" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c100_o1000_prepare_1000"
+            closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(128)KB_c100_o1000_prepare_1000" type="prepare"
+                workers="1000" interval="5" division="object"
+                runtime="0" rampup="0" rampdown="0" afr="0"
+                totalOps="1000" totalBytes="0" config="containers=r(301,400);objects=r(3001,4000);sizes=c(128)KB">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="prepare" ratio="100" division="object"
+                    config="containers=r(301,400);objects=r(3001,4000);sizes=c(128)KB;containers=r(301,400);objects=r(3001,4000);sizes=c(128)KB;createContainer=false;containers=r(301,400);objects=r(3001,4000);sizes=c(128)KB" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c1_o1000_prepare_1000"
+            closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(512)KB_c1_o1000_prepare_1000" type="prepare"
+                workers="1000" interval="5" division="object"
+                runtime="0" rampup="0" rampdown="0" afr="0"
+                totalOps="1000" totalBytes="0" config="containers=r(401,401);objects=r(4001,5000);sizes=c(512)KB">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="prepare" ratio="100" division="object"
+                    config="containers=r(401,401);objects=r(4001,5000);sizes=c(512)KB;containers=r(401,401);objects=r(4001,5000);sizes=c(512)KB;createContainer=false;containers=r(401,401);objects=r(4001,5000);sizes=c(512)KB" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c100_o1000_prepare_1000"
+            closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(512)KB_c100_o1000_prepare_1000" type="prepare"
+                workers="1000" interval="5" division="object"
+                runtime="0" rampup="0" rampdown="0" afr="0"
+                totalOps="1000" totalBytes="0" config="containers=r(501,600);objects=r(5001,6000);sizes=c(512)KB">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="prepare" ratio="100" division="object"
+                    config="containers=r(501,600);objects=r(5001,6000);sizes=c(512)KB;containers=r(501,600);objects=r(5001,6000);sizes=c(512)KB;createContainer=false;containers=r(501,600);objects=r(5001,6000);sizes=c(512)KB" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c1_o1000_r80w15d5_1" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="1" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(1,1);objects=u(1,1000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(1,1);objects=u(1,1000);sizes=c(4)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(1,1);objects=u(1,1000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c1_o1000_r80w15d5_2" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="2" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(1,1);objects=u(1,1000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(1,1);objects=u(1,1000);sizes=c(4)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(1,1);objects=u(1,1000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c1_o1000_r80w15d5_4" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="4" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(1,1);objects=u(1,1000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(1,1);objects=u(1,1000);sizes=c(4)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(1,1);objects=u(1,1000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c1_o1000_r80w15d5_16" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="16" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(1,1);objects=u(1,1000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(1,1);objects=u(1,1000);sizes=c(4)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(1,1);objects=u(1,1000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c1_o1000_r80w15d5_32" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="32" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(1,1);objects=u(1,1000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(1,1);objects=u(1,1000);sizes=c(4)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(1,1);objects=u(1,1000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c1_o1000_r80w15d5_64" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="64" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(1,1);objects=u(1,1000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(1,1);objects=u(1,1000);sizes=c(4)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(1,1);objects=u(1,1000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c100_o1000_r80w15d5_1" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="1" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000);sizes=c(4)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c100_o1000_r80w15d5_2" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="2" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000);sizes=c(4)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c100_o1000_r80w15d5_4" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="4" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000);sizes=c(4)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c100_o1000_r80w15d5_16"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="16" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000);sizes=c(4)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c100_o1000_r80w15d5_32"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="32" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000);sizes=c(4)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c100_o1000_r80w15d5_64"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="64" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000);sizes=c(4)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(101,200);objects=u(1001,2000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c1_o1000_r80w15d5_1" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="1" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000);sizes=c(128)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c1_o1000_r80w15d5_2" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="2" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000);sizes=c(128)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c1_o1000_r80w15d5_4" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="4" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000);sizes=c(128)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c1_o1000_r80w15d5_16"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="16" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000);sizes=c(128)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c1_o1000_r80w15d5_32"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="32" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000);sizes=c(128)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c1_o1000_r80w15d5_64"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="64" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000);sizes=c(128)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(201,201);objects=u(2001,3000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c100_o1000_r80w15d5_1"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="1" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000);sizes=c(128)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c100_o1000_r80w15d5_2"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="2" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000);sizes=c(128)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c100_o1000_r80w15d5_4"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="4" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000);sizes=c(128)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c100_o1000_r80w15d5_16"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="16" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000);sizes=c(128)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c100_o1000_r80w15d5_32"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="32" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000);sizes=c(128)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c100_o1000_r80w15d5_64"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="64" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000);sizes=c(128)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(301,400);objects=u(3001,4000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c1_o1000_r80w15d5_1" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="1" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000);sizes=c(512)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c1_o1000_r80w15d5_2" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="2" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000);sizes=c(512)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c1_o1000_r80w15d5_4" closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="4" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000);sizes=c(512)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c1_o1000_r80w15d5_16"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="16" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000);sizes=c(512)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c1_o1000_r80w15d5_32"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="32" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000);sizes=c(512)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c1_o1000_r80w15d5_64"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="64" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000);sizes=c(512)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(401,401);objects=u(4001,5000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c100_o1000_r80w15d5_1"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="1" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000);sizes=c(512)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c100_o1000_r80w15d5_2"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="2" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000);sizes=c(512)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c100_o1000_r80w15d5_4"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="4" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000);sizes=c(512)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c100_o1000_r80w15d5_16"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="16" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000);sizes=c(512)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c100_o1000_r80w15d5_32"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="32" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000);sizes=c(512)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c100_o1000_r80w15d5_64"
+            closuredelay="30" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="main" type="normal" workers="64" interval="5"
+                division="none" runtime="300" rampup="50" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="read" ratio="80" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000)" id="none"/>
+                <operation type="write" ratio="15" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000);sizes=c(512)KB" id="none"/>
+                <operation type="delete" ratio="5" division="none"
+                    config="containers=u(501,600);objects=u(5001,6000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c1_o1000_cleanup_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(4)KB_c1_o1000_cleanup_1" type="cleanup"
+                workers="1" interval="5" division="object" runtime="0"
+                rampup="0" rampdown="0" afr="0" totalOps="1"
+                totalBytes="0" config="containers=r(1,1);objects=r(1,1000)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="cleanup" ratio="100" division="object"
+                    config="containers=r(1,1);objects=r(1,1000);containers=r(1,1);objects=r(1,1000);deleteContainer=false;containers=r(1,1);objects=r(1,1000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c100_o1000_cleanup_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(4)KB_c100_o1000_cleanup_1" type="cleanup"
+                workers="1" interval="5" division="object" runtime="0"
+                rampup="0" rampdown="0" afr="0" totalOps="1"
+                totalBytes="0" config="containers=r(101,200);objects=r(1001,2000)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="cleanup" ratio="100" division="object"
+                    config="containers=r(101,200);objects=r(1001,2000);containers=r(101,200);objects=r(1001,2000);deleteContainer=false;containers=r(101,200);objects=r(1001,2000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c1_o1000_cleanup_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(128)KB_c1_o1000_cleanup_1" type="cleanup"
+                workers="1" interval="5" division="object" runtime="0"
+                rampup="0" rampdown="0" afr="0" totalOps="1"
+                totalBytes="0" config="containers=r(201,201);objects=r(2001,3000)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="cleanup" ratio="100" division="object"
+                    config="containers=r(201,201);objects=r(2001,3000);containers=r(201,201);objects=r(2001,3000);deleteContainer=false;containers=r(201,201);objects=r(2001,3000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c100_o1000_cleanup_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(128)KB_c100_o1000_cleanup_1" type="cleanup"
+                workers="1" interval="5" division="object" runtime="0"
+                rampup="0" rampdown="0" afr="0" totalOps="1"
+                totalBytes="0" config="containers=r(301,400);objects=r(3001,4000)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="cleanup" ratio="100" division="object"
+                    config="containers=r(301,400);objects=r(3001,4000);containers=r(301,400);objects=r(3001,4000);deleteContainer=false;containers=r(301,400);objects=r(3001,4000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c1_o1000_cleanup_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(512)KB_c1_o1000_cleanup_1" type="cleanup"
+                workers="1" interval="5" division="object" runtime="0"
+                rampup="0" rampdown="0" afr="0" totalOps="1"
+                totalBytes="0" config="containers=r(401,401);objects=r(4001,5000)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="cleanup" ratio="100" division="object"
+                    config="containers=r(401,401);objects=r(4001,5000);containers=r(401,401);objects=r(4001,5000);deleteContainer=false;containers=r(401,401);objects=r(4001,5000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c100_o1000_cleanup_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(512)KB_c100_o1000_cleanup_1" type="cleanup"
+                workers="1" interval="5" division="object" runtime="0"
+                rampup="0" rampdown="0" afr="0" totalOps="1"
+                totalBytes="0" config="containers=r(501,600);objects=r(5001,6000)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="cleanup" ratio="100" division="object"
+                    config="containers=r(501,600);objects=r(5001,6000);containers=r(501,600);objects=r(5001,6000);deleteContainer=false;containers=r(501,600);objects=r(5001,6000)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c1_dispose_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(4)KB_c1_dispose_1" type="dispose" workers="1"
+                interval="5" division="container" runtime="0" rampup="0"
+                rampdown="0" afr="0" totalOps="1" totalBytes="0" config="containers=r(1,1)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="dispose" ratio="100"
+                    division="container"
+                    config="containers=r(1,1);containers=r(1,1);objects=r(0,0);sizes=c(0)B;containers=r(1,1)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(4)KB_c100_dispose_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(4)KB_c100_dispose_1" type="dispose"
+                workers="1" interval="5" division="container"
+                runtime="0" rampup="0" rampdown="0" afr="0" totalOps="1"
+                totalBytes="0" config="containers=r(101,200)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="dispose" ratio="100"
+                    division="container"
+                    config="containers=r(101,200);containers=r(101,200);objects=r(0,0);sizes=c(0)B;containers=r(101,200)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c1_dispose_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(128)KB_c1_dispose_1" type="dispose"
+                workers="1" interval="5" division="container"
+                runtime="0" rampup="0" rampdown="0" afr="0" totalOps="1"
+                totalBytes="0" config="containers=r(201,201)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="dispose" ratio="100"
+                    division="container"
+                    config="containers=r(201,201);containers=r(201,201);objects=r(0,0);sizes=c(0)B;containers=r(201,201)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(128)KB_c100_dispose_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(128)KB_c100_dispose_1" type="dispose"
+                workers="1" interval="5" division="container"
+                runtime="0" rampup="0" rampdown="0" afr="0" totalOps="1"
+                totalBytes="0" config="containers=r(301,400)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="dispose" ratio="100"
+                    division="container"
+                    config="containers=r(301,400);containers=r(301,400);objects=r(0,0);sizes=c(0)B;containers=r(301,400)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c1_dispose_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(512)KB_c1_dispose_1" type="dispose"
+                workers="1" interval="5" division="container"
+                runtime="0" rampup="0" rampdown="0" afr="0" totalOps="1"
+                totalBytes="0" config="containers=r(401,401)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="dispose" ratio="100"
+                    division="container"
+                    config="containers=r(401,401);containers=r(401,401);objects=r(0,0);sizes=c(0)B;containers=r(401,401)" id="none"/>
+            </work>
+        </workstage>
+        <workstage name="w(512)KB_c100_dispose_1" closuredelay="0" config="">
+            <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+            <storage type="s3" config=""/>
+            <work name="w(512)KB_c100_dispose_1" type="dispose"
+                workers="1" interval="5" division="container"
+                runtime="0" rampup="0" rampdown="0" afr="0" totalOps="1"
+                totalBytes="0" config="containers=r(501,600)">
+                <auth type="none" config="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0"/>
+                <storage type="s3" config=""/>
+                <operation type="dispose" ratio="100"
+                    division="container"
+                    config="containers=r(501,600);containers=r(501,600);objects=r(0,0);sizes=c(0)B;containers=r(501,600)" id="none"/>
+            </work>
+        </workstage>
+    </workflow>
+</workload>

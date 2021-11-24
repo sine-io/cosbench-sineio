@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="httpclient-4.5.13-sources.jar"/>
+	<classpathentry kind="lib" path="annotations-2.17.48.jar"/>
+	<classpathentry kind="lib" path="annotations-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="apache-client-2.17.48.jar" sourcepath="apache-client-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="apache-client-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="arns-2.17.48.jar"/>
+	<classpathentry kind="lib" path="arns-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="auth-2.17.48.jar"/>
+	<classpathentry kind="lib" path="auth-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="aws-core-2.17.48.jar" sourcepath="aws-core-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="aws-core-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="aws-query-protocol-2.17.48.jar"/>
+	<classpathentry kind="lib" path="aws-query-protocol-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="aws-xml-protocol-2.17.48.jar"/>
+	<classpathentry kind="lib" path="aws-xml-protocol-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="commons-codec-1.11.jar"/>
+	<classpathentry kind="lib" path="commons-codec-1.11-sources.jar"/>
+	<classpathentry kind="lib" path="commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="commons-logging-1.2-sources.jar"/>
+	<classpathentry kind="lib" path="eventstream-1.0.1.jar"/>
+	<classpathentry kind="lib" path="eventstream-1.0.1-sources.jar"/>
+	<classpathentry kind="lib" path="http-client-spi-2.17.48.jar" sourcepath="http-client-spi-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="http-client-spi-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="httpcore-4.4.11.jar"/>
+	<classpathentry kind="lib" path="httpcore-4.4.11-sources.jar"/>
+	<classpathentry kind="lib" path="json-utils-2.17.48.jar"/>
+	<classpathentry kind="lib" path="json-utils-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="metrics-spi-2.17.48.jar"/>
+	<classpathentry kind="lib" path="metrics-spi-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="netty-buffer-4.1.68.Final.jar"/>
+	<classpathentry kind="lib" path="netty-buffer-4.1.68.Final-sources.jar"/>
+	<classpathentry kind="lib" path="netty-codec-4.1.68.Final.jar"/>
+	<classpathentry kind="lib" path="netty-codec-4.1.68.Final-sources.jar"/>
+	<classpathentry kind="lib" path="netty-codec-http2-4.1.68.Final.jar"/>
+	<classpathentry kind="lib" path="netty-codec-http2-4.1.68.Final-sources.jar"/>
+	<classpathentry kind="lib" path="netty-codec-http-4.1.68.Final.jar"/>
+	<classpathentry kind="lib" path="netty-codec-http-4.1.68.Final-sources.jar"/>
+	<classpathentry kind="lib" path="netty-common-4.1.68.Final.jar"/>
+	<classpathentry kind="lib" path="netty-common-4.1.68.Final-sources.jar"/>
+	<classpathentry kind="lib" path="netty-handler-4.1.68.Final.jar"/>
+	<classpathentry kind="lib" path="netty-handler-4.1.68.Final-sources.jar"/>
+	<classpathentry kind="lib" path="netty-nio-client-2.17.48.jar"/>
+	<classpathentry kind="lib" path="netty-nio-client-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="netty-reactive-streams-2.0.5.jar"/>
+	<classpathentry kind="lib" path="netty-reactive-streams-2.0.5-sources.jar"/>
+	<classpathentry kind="lib" path="netty-reactive-streams-http-2.0.5.jar"/>
+	<classpathentry kind="lib" path="netty-reactive-streams-http-2.0.5-sources.jar"/>
+	<classpathentry kind="lib" path="netty-resolver-4.1.68.Final.jar"/>
+	<classpathentry kind="lib" path="netty-resolver-4.1.68.Final-sources.jar"/>
+	<classpathentry kind="lib" path="netty-transport-4.1.68.Final.jar"/>
+	<classpathentry kind="lib" path="netty-transport-4.1.68.Final-sources.jar"/>
+	<classpathentry kind="lib" path="netty-transport-native-epoll-4.1.68.Final-linux-x86_64.jar"/>
+	<classpathentry kind="lib" path="netty-transport-native-epoll-4.1.68.Final-sources.jar"/>
+	<classpathentry kind="lib" path="netty-transport-native-unix-common-4.1.68.Final.jar"/>
+	<classpathentry kind="lib" path="netty-transport-native-unix-common-4.1.68.Final-sources.jar"/>
+	<classpathentry kind="lib" path="profiles-2.17.48.jar"/>
+	<classpathentry kind="lib" path="profiles-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="protocol-core-2.17.48.jar"/>
+	<classpathentry kind="lib" path="protocol-core-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="reactive-streams-1.0.3.jar"/>
+	<classpathentry kind="lib" path="regions-2.17.48.jar"/>
+	<classpathentry kind="lib" path="regions-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="s3-2.17.48.jar" sourcepath="s3-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="s3-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="sdk-core-2.17.48.jar" sourcepath="aws-sdk-java-v2-2.17.48"/>
+	<classpathentry kind="lib" path="slf4j-api-1.7.30.jar"/>
+	<classpathentry kind="lib" path="slf4j-api-1.7.30-sources.jar"/>
+	<classpathentry kind="lib" path="third-party-jackson-core-2.17.48.jar"/>
+	<classpathentry kind="lib" path="third-party-jackson-core-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="utils-2.17.48.jar" sourcepath="utils-2.17.48-sources.jar"/>
+	<classpathentry kind="lib" path="utils-2.17.48-sources.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

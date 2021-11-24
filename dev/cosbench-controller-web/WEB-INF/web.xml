@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+
+	<!-- Application Name -->
+
+	<display-name>COSBench Controller</display-name>
+
+	<!-- Servlet Configuration and Mapping -->
+
+	<servlet>
+		<servlet-name>main</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>org.springframework.osgi.web.context.support.OsgiBundleXmlWebApplicationContext</param-value>
+		</init-param>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/controller-web-context.xml</param-value>
+		</init-param>
+		<!-- 表示容器再启动时立即加载servlet -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>main</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>main</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>main</servlet-name>
+		<url-pattern>*.csv</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>main</servlet-name>
+		<url-pattern>/prometheus</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>client</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>org.springframework.osgi.web.context.support.OsgiBundleXmlWebApplicationContext</param-value>
+		</init-param>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/controller-handler-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>client</servlet-name>
+		<url-pattern>*.action</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>resource</servlet-name>
+		<servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>0</param-value>
+		</init-param>
+		<init-param>
+			<param-name>listings</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>resource</servlet-name>
+		<url-pattern>*.css</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>resource</servlet-name>
+		<url-pattern>*.js</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>resource</servlet-name>
+		<url-pattern>*.png</url-pattern>
+	</servlet-mapping>
+
+	<!-- Spring Context Facilities Configuration -->
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+      /WEB-INF/spring/controller-web-osgi-context.xml
+    </param-value>
+	</context-param>
+	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>org.springframework.osgi.web.context.support.OsgiBundleXmlWebApplicationContext</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<mime-mapping>
+		<extension>html</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>css</extension>
+		<mime-type>text/css</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>js</extension>
+		<mime-type>text/javascript</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>png</extension>
+		<mime-type>image/png</mime-type>
+	</mime-mapping>
+
+	<welcome-file-list>
+		<welcome-file>/index.html</welcome-file>
+	</welcome-file-list>
+	
+	<filter>
+    	<description>Requires user to log in as a member</description>
+    	<filter-name>MemberLoginFilter</filter-name>
+    	<filter-class>com.intel.cosbench.controller.web.CliLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+    	<filter-name>MemberLoginFilter</filter-name>
+    	<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+    
+	<security-constraint>
+    	<web-resource-collection>
+      		<web-resource-name>Form WRCollection</web-resource-name>
+      		<url-pattern>*.html</url-pattern>
+      		<url-pattern>*.do</url-pattern>
+      		<url-pattern>*.csv</url-pattern>
+    	</web-resource-collection>
+     	<auth-constraint>
+      		<role-name>cosbench</role-name>
+    	</auth-constraint>
+    	<user-data-constraint>
+      		<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+  	</security-constraint>
+  
+  	<login-config>
+    	<auth-method>FORM</auth-method>
+    	<form-login-config>
+      		<form-login-page>/logon.html</form-login-page>
+      		<form-error-page>/logonError.html</form-error-page>
+    	</form-login-config>
+  	</login-config>
+
+  	<security-role>
+    	<role-name>cosbench</role-name>
+  	</security-role>
+</web-app>

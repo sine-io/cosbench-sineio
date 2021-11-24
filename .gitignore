@@ -1,0 +1,9 @@
+*.class
+#dist/osgi/plugins/cosbench*.jar
+
+# Package Files #
+#/0.3.0.10
+#/0.3.0.8
+#/0.3.0.9
+#/META-INF
+#/OSGI-INF
