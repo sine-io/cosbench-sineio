@@ -19,11 +19,13 @@ limitations under the License.
 package com.intel.cosbench.api.S3Stor;
 
 import java.io.*;
+import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
 
 import com.amazonaws.*;
 import com.amazonaws.auth.*;
+import com.amazonaws.util.IOUtils;
 import com.amazonaws.services.s3.*;
 import com.amazonaws.services.s3.model.*;
 import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;
@@ -46,6 +48,11 @@ public class S3Storage extends NoneStorage {
 	private AmazonS3 client;
 	private AmazonS3 restoreClient; // add
 
+	private boolean isPrefetch; 
+    private boolean isRangeRequest; 
+    private long fileLength;
+    private long chunkLength;
+
 	@Override
 	public void init(Config config, Logger logger) {
 		super.init(config, logger);
@@ -63,6 +70,11 @@ public class S3Storage extends NoneStorage {
 
 		String proxyHost = config.get(PROXY_HOST_KEY, "");
 		String proxyPort = config.get(PROXY_PORT_KEY, "");
+
+		isPrefetch = config.getBoolean("is_prefetch", false);
+		isRangeRequest = config.getBoolean("is_range_request", false);
+		fileLength = config.getLong("file_length", 4000000L); // 4000000L = 4MB
+		chunkLength = config.getLong("chunk_length", 1000000L); // 1000000L = 1MB
 
 		parms.put(ENDPOINT_KEY, endpoint);
 		parms.put(AUTH_USERNAME_KEY, accessKey);
@@ -103,7 +115,7 @@ public class S3Storage extends NoneStorage {
 	}
 
 	// You can set different singType to get different client(common client type vs
-	// restore client type). 2021.7.14£¬sine
+	// restore client type). 2021.7.14ï¿½ï¿½sine
 	private ClientConfiguration getDefaultClientConfiguration(String signType) {
 
 		ClientConfiguration defaultClientConfiguration = new ClientConfiguration();
@@ -182,9 +194,27 @@ public class S3Storage extends NoneStorage {
 		InputStream stream = null;
 		try {
 
-			S3Object s3Obj = client.getObject(container, object);
-			stream = s3Obj.getObjectContent();
+			if (isPrefetch) {
+        		GetObjectRequest prefetchObjectRequest = new GetObjectRequest(container, object);
+        		prefetchObjectRequest.putCustomRequestHeader("prefetch", "value");
+        		S3Object s3Obj = client.getObject(prefetchObjectRequest);
+        		stream = s3Obj.getObjectContent();
+        	} else if (isRangeRequest) {
+        		GetObjectRequest rangeObjectRequest = new GetObjectRequest(container, object);
 
+        		Random rand = new Random();
+
+        		long start = (long)(rand.nextDouble() * (fileLength - chunkLength));
+        		long end = start + chunkLength - 1;
+
+        		rangeObjectRequest.setRange(start, end);
+
+        		S3Object s3Obj = client.getObject(rangeObjectRequest);
+        		stream = s3Obj.getObjectContent();
+        	} else {
+        		S3Object s3Obj = client.getObject(container, object);
+                stream = s3Obj.getObjectContent();
+        	}
 		} catch (AmazonServiceException ase) {
 			throw new StorageException(ase);
 		} catch (SdkClientException sce) {
