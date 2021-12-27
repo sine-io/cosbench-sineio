@@ -1,6 +1,24 @@
 COSBench - Cloud Object Storage Benchmark
 =========================================
 
+New feature from bissenbay/s3-range-and-prefetch, thanks for this PR.
+-----------
+e.g. :
+
+	```xml
+        <workstage name="prefetch">
+          <work name="prefetch" workers="10" totalOps="10">
+            <storage type="s3" config="accesskey=<accesskey>;secretkey=<secretkey>;is_prefetch=true;endpoint=<endpoint>;path_style_access=true" />
+            <operation type="read" ratio="100" config="containers=r(1,1);objects=r(1,10)" />
+          </work>
+        </workstage>
+	<workstage name="range">
+          <work name="range" workers="10" totalOps="10">
+            <storage type="s3" config="...;is_range_request=true;file_length=15000000;chunk_length=5000000;path_style_access=true" />
+            <operation type="read" ratio="100" config="containers=r(1,1);objects=r(1,10)" />
+          </work>
+        </workstage>
+	```
 
 Add new feature: head object
 -----------
