@@ -25,7 +25,6 @@ import java.util.ArrayList;
 
 import com.amazonaws.*;
 import com.amazonaws.auth.*;
-import com.amazonaws.util.IOUtils;
 import com.amazonaws.services.s3.*;
 import com.amazonaws.services.s3.model.*;
 import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;

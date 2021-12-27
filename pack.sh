@@ -32,7 +32,7 @@ cp -f NOTICE $1/
 cp -f VERSION $1/
 
 cp -f README.md $1/
-cp -f README-ehualu.md $1/
+cp -f README-intel.md $1/
 cp -f BUILD.md $1/
 cp -f BUILD-ehualu.md $1/
 
