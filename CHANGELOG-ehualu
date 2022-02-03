@@ -2,6 +2,12 @@
 
  COSBench 0.4.7.5(ehualu 2021.10.30)
 ------------------------------------
+- #299: New feature: add prefetch and range read.(by @bissenbay)
+- #298: New feature to s3v2: add aws_region parameter(default is us-east-1)
+		e.g: <storage type="s3v2" config="endpoint=xxx;aws_region=us-east-1" />
+
+ COSBench 0.4.7.5(ehualu 2021.10.30)
+------------------------------------
 - #297: New feature: add Head-object method.
 - #296: Bug fixed: launch s3v2 failed when starting driver.
 

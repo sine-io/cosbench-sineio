@@ -1,6 +1,27 @@
 COSBench - Cloud Object Storage Benchmark
 =========================================
 
+New feature: aws_region for s3v2.
+-----------
+e.g. :
+	```xml
+	<storage type="s3v2" config="endpoint=xxx;aws_region=what-you-want" />
+	<operation type="write" ratio="100" config="cprefix=fullstack0..." />
+	```
+	
+	```xml
+	<storage type="s3v2" config="endpoint=xxx;aws_region=us-east-1" />
+	
+	<workstage name="init">
+      <work type="init" workers="1" config="cprefix=concurrenttest-0;containers=r(1,1)" />
+    </workstage>
+	```
+	
+	Note: 
+	Create bucket: Accordingly, the signature calculations in Signature Version 4 must use us-east-1 as the Region, even if the location constraint in the request specifies another Region where the bucket is to be created.
+	(https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
+
+
 New feature from bissenbay/s3-range-and-prefetch, thanks for this PR.
 -----------
 e.g. :
@@ -24,7 +45,7 @@ Add new feature: head object
 -----------
 e.g. :
 	```xml
-	<storage type="s3v2" config="endpoint=xxx" />
+	<storage type="s3" config="endpoint=xxx" />
 	<operation type="head" ratio="100" config="cprefix=fullstack0..." />
 	```
 
@@ -62,6 +83,14 @@ e.g. :
 	```xml
 	<operation type="restore" ...>
 	<storage type="s3" config="restore_days=1;...path_style_access=true;timeout=100000"/>
+	```
+
+StorageClass Usage
+-----------
+e.g. :
+	```xml
+	<storage type="s3" config="endpoint=xxx;storage_class=GLACIER" />
+	<operation type="write" ratio="100" config="cprefix=fullstack0..." />
 	```
 
 HTTPS Usage

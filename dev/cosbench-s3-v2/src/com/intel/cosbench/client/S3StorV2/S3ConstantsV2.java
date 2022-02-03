@@ -89,5 +89,12 @@ public interface S3ConstantsV2 {
     // --------------------------------------------------------------------------
     String PART_SIZE_KEY = "part_size";
     long PART_SIZE_DEFAULT = 5 * 1024 * 1024; // 5MiB
+    
+    // --------------------------------------------------------------------------
+    // 2022.02.03, add region
+    // Default region is US-EAST-1.
+    // --------------------------------------------------------------------------
+    String REGION_KEY = "aws_region";
+    String REGION_DEFAULT = "us-east-1";
 
 }

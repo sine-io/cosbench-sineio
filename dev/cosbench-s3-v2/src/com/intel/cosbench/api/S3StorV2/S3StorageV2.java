@@ -32,6 +32,9 @@ import software.amazon.awssdk.http.SdkHttpClient;
 import software.amazon.awssdk.http.SdkHttpConfigurationOption;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.http.apache.ProxyConfiguration;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.regions.providers.AwsProfileRegionProvider;
+import software.amazon.awssdk.regions.providers.AwsRegionProvider;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.S3Configuration;
 import software.amazon.awssdk.services.s3.model.*;
@@ -98,6 +101,11 @@ public class S3StorageV2 extends NoneStorage {
 		// You can set no_verify_ssl to true in storage part to disable SSL checking.
 		boolean noVerifySSL = config.getBoolean(NO_VERIFY_SSL_KEY, NO_VERIFY_SSL_DEFAULT);
 		parms.put(NO_VERIFY_SSL_KEY, noVerifySSL);
+		
+		// 2022.02.03
+		// You can set region now, and default is us-east-1.
+		String awsRegion = config.get(REGION_KEY, REGION_DEFAULT);
+		parms.put(REGION_KEY, awsRegion);
 
 		initClient();
 
@@ -145,6 +153,9 @@ public class S3StorageV2 extends NoneStorage {
 		client = S3Client.builder()
 				.credentialsProvider(StaticCredentialsProvider.create(awsCreds))
 				.endpointOverride(URI.create(endpoint))
+				// solve issue: 
+				// https://github.com/kisscelia/cosbench-ehualu/issues/3
+				.region(Region.of(parms.getStr(REGION_KEY, REGION_DEFAULT)))
 				.serviceConfiguration(s3Config)
 				.httpClient(httpClient)
 				.build();
