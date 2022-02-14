@@ -1,113 +1,94 @@
 COSBench - Cloud Object Storage Benchmark
 =========================================
 
-New feature: aws_region for s3v2.
------------
-e.g. :
+COSBench is a benchmarking tool to measure the performance of Cloud Object Storage services. Object storage is an
+emerging technology that is different from traditional file systems (e.g., NFS) or block device systems (e.g., iSCSI).
+Amazon S3 and Openstack* swift are well-known object storage solutions.
 
-	```xml
-	<storage type="s3v2" config="endpoint=xxx;aws_region=what-you-want" />
-	<operation type="write" ratio="100" config="cprefix=fullstack0..." />
-	```
-	
-	```xml
-	<storage type="s3v2" config="endpoint=xxx;aws_region=us-east-1" />
-	
-	<workstage name="init">
-      <work type="init" workers="1" config="cprefix=concurrenttest-0;containers=r(1,1)" />
-    </workstage>
-	```
-	
-	Note: 
-	Create bucket: Accordingly, the signature calculations in Signature Version 4 must use us-east-1 as the Region, even if the location constraint in the request specifies another Region where the bucket is to be created.
-	(https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
+COSBench now supports OpenStack* Swift, Amazon* S3, OpenIO*, Amplidata v2.3, 2.5 and 3.1, Scality*, Ceph, CDMI, Google* Cloud Storage, Aliyun OSS as well as custom adaptors.
 
 
-New feature from bissenbay/s3-range-and-prefetch, thanks for this PR.
------------
-e.g. :
+New features(Usage, pls read CHANGELOG-ehualu, thanks.)
+----------------------------------------
+- aws_region parameter for s3v2.
+- New feature from bissenbay/s3-range-and-prefetch, thanks for this PR.
+- head object
+- s3v2(same to s3 except sdk version: s3v2 is aws-sdk-java-v2.)
+- GiB, MiB, KiB: Now GB is 10^n, GiB is 2^n.  
+- Multipart upload: Add Multipart upload method and part_size parameter: You can set it now. Default is 5MiB.  
+- Restore Object: Add Restore method and restore_days parameter: restore_days. You can set it now. Default is 1.  
+- StorageClass: Now you can set object's storageclass.
+- HTTPS: If want to disable verify SSL, please set no_verify_ssl to true.  
 
-	```xml
-        <workstage name="prefetch">
-          <work name="prefetch" workers="10" totalOps="10">
-            <storage type="s3" config="accesskey=<accesskey>;secretkey=<secretkey>;is_prefetch=true;endpoint=<endpoint>;path_style_access=true" />
-            <operation type="read" ratio="100" config="containers=r(1,1);objects=r(1,10)" />
-          </work>
-        </workstage>
-	<workstage name="range">
-          <work name="range" workers="10" totalOps="10">
-            <storage type="s3" config="...;is_range_request=true;file_length=15000000;chunk_length=5000000;path_style_access=true" />
-            <operation type="read" ratio="100" config="containers=r(1,1);objects=r(1,10)" />
-          </work>
-        </workstage>
-	```
 
-Add new feature: head object
------------
-e.g. :
+Important Notice and Contact Information
+----------------------------------------
 
-	```xml
-	<storage type="s3" config="endpoint=xxx" />
-	<operation type="head" ratio="100" config="cprefix=fullstack0..." />
-	```
+a) COSBench is not a product, and it does not have a full-time support team. Before you use this tool, please understand 
+the need to invest enough effort to learn how to use it effectively and to address possible bugs.
 
-New Storage: s3v2
------------
-same to s3 except sdk version: s3v2 is aws-sdk-java-v2.  
-e.g. : 
+b) To help COSBench develop further, please become an active member of the community and consider giving back by making
+contributions.
 
-	```xml
-	<storage type="s3v2" config="endpoint=xxx" />
-	```
+For other questions, contact jian.zhang@intel.com.
 
-Add new feature: GiB, MiB, KiB
------------
-Now GB is 10^n, GiB is 2^n.  
-e.g. :
 
-	```xml
-	<operation type="write" ratio="100" config="cprefix=fullstack0;containers=c(1);sizes=c(1)GiB" />
-	<operation type="write" ratio="100" config="cprefix=fullstack0;containers=c(1);sizes=c(1)MiB" />
-	<operation type="write" ratio="100" config="cprefix=fullstack0;containers=c(1);sizes=c(1)KiB" />
-	```
+Licensing
+---------
 
-Multipart upload Usage
------------
-Add Multipart upload method and part_size parameter: You can set it now. Default is 5MiB.  
-e.g. : 
+a) Intel source code is being released under the Apache 2.0 license.
 
-	```xml
-	<operation type="mwrite" ...>
-	<storage type="s3" config="part_size=5242880;...path_style_access=true;timeout=100000"/>
-	```
+b) Additional libraries used with COSBench have their own licensing; refer to 3rd-party-licenses.pdf for details.
 
-Restore Usage
------------
-Add Restore method and restore_days parameter: restore_days. You can set it now. Default is 1.  
-e.g. : 
 
-	```xml
-	<operation type="restore" ...>
-	<storage type="s3" config="restore_days=1;...path_style_access=true;timeout=100000"/>
-	```
+Distribution Packages
+---------------------
 
-StorageClass Usage
------------
-e.g. :
+Please refer to "DISTRIBUTIONS.md" to get the link for distribution packages.
 
-	```xml
-	<storage type="s3" config="endpoint=xxx;storage_class=GLACIER" />
-	<operation type="write" ratio="100" config="cprefix=fullstack0..." />
-	```
 
-HTTPS Usage
------------
-If https, please set no_verify_ssl to true.  
-e.g. :
+Installation & Usage
+--------------------
 
-	```xml
-	<storage type="s3" config="accesskey=accesskey;secretkey=secretkey;endpoint=https://ip:port;no_verify_ssl=true;path_style_access=true"/>
-	```
+Please refer to "COSBenchUserGuide.pdf" for details.
+
+
+Adaptor Development
+-------------------
+If needed, adaptors can be developed for new storage services; please refer to "COSBenchAdaptorDevGuide.pdf" for details.
+
+
+Build
+-----
+If a build from source code is needed, please refer to BUILD.md for details.
+
+
+Resources
+---------
+
+Wiki: (https://github.com/intel-cloud/cosbench/wiki)
+
+Issue tracking: (https://github.com/intel-cloud/cosbench/issues)
+
+Mailing list: (http://cosbench.1094679.n5.nabble.com/)
+
+
+*Other names and brands may be claimed as the property of others.
+
+
+Other related projects
+----------------------
+COSBench-Workload-Generator: (https://github.com/giteshnandre/COSBench-Workload-Generator)
+
+COSBench-Plot: (https://github.com/icclab/cosbench-plot)
+
+COSBench-Appliance: (https://susestudio.com/a/8Kp374/cosbench)
+
+COSBench Ansible Playbook:
+
+- (http://www.ksingh.co.in/blog/2016/05/29/deploy-cosbench-using-ansible/)
+- (https://github.com/ksingh7/ansible-role-cosbench)
+- (https://galaxy.ansible.com/ksingh7/cosbench/)
+
 
 = END =
-========================================= 
