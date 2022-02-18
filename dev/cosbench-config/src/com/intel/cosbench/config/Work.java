@@ -274,6 +274,27 @@ public class Work implements Iterable<Operation> {
         op.setConfig(StringUtils.join(cfgs, ';'));
         setOperations(Collections.singletonList(op));
     }
+    
+    // 2022.2.18, sine
+    private void toMPrepareWork() {
+        if (name == null)
+            name = "mprepare";
+        setDivision("object");
+        setRuntime(0);
+        setDefaultAfr(0);
+        setTotalBytes(0);
+        setTotalOps(getWorkers());
+        Operation op = new Operation();
+        op.setType("mprepare");
+        op.setRatio(100);
+        Object[] cfgs = null;
+        if (config.indexOf("createContainer=") < 0)
+            cfgs = new Object[] { "createContainer=false", config };
+        else
+            cfgs = new Object[] { config };
+        op.setConfig(StringUtils.join(cfgs, ';'));
+        setOperations(Collections.singletonList(op));
+    }
 
     private void toCleanupWork() {
         if (name == null)
@@ -349,18 +370,28 @@ public class Work implements Iterable<Operation> {
     }
 
     public void validate() {
-        if (type.equals("prepare"))
+        if (type.equals("prepare")) {
             toPrepareWork();
-        else if (type.equals("cleanup"))
+        }
+        else if (type.equals("mprepare")) { // 2022.2.18, sine
+			toMPrepareWork();
+		}
+        else if (type.equals("cleanup")) {
             toCleanupWork();
-        else if (type.equals("init"))
+        }
+        else if (type.equals("init")) {
             toInitWork();
-        else if (type.equals("dispose"))
+        }
+        else if (type.equals("dispose")) {
             toDisposeWork();
-        else if (type.equals("delay"))
+        }
+        else if (type.equals("delay")) {
             toDelayWork();
-        else
+        }
+        else {
             setDefaultAfr(200000);
+        }
+        
         setName(getName());
         setWorkers(getWorkers());
         if (runtime == 0 && totalOps == 0 && totalBytes == 0)

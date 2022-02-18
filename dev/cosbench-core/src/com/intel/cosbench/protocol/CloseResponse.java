@@ -17,12 +17,12 @@ limitations under the License.
 
 package com.intel.cosbench.protocol;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import com.intel.cosbench.bench.Metrics;
-import com.intel.cosbench.bench.Report;
+//import com.intel.cosbench.bench.Report;
 import com.intel.cosbench.model.TaskState;
 
 /**

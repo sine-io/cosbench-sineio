@@ -1,7 +1,7 @@
 /**
 
 Copyright 2013 Intel Corporation, All Rights Reserved.
-Copyright 2021 EHualu Corporation, All Rights Reserved.
+Copyright 2021-2022 eHualu Corporation, All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import com.intel.cosbench.service.AbortedException;
 /**
  * This class represents primitive DELETE operation.
  *
- * @author ywang19, qzheng7
+ * @author ywang19, qzheng7, sine
  *
  */
 class Deleter extends AbstractOperator {

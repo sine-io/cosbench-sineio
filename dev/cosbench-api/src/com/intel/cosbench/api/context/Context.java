@@ -17,7 +17,6 @@ limitations under the License.
 
 package com.intel.cosbench.api.context;
 
-import java.time.Duration;
 import java.util.*;
 
 public class Context {

@@ -17,7 +17,7 @@ limitations under the License.
 
 package com.intel.cosbench.controller.model;
 
-import java.awt.List;
+//import java.awt.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 

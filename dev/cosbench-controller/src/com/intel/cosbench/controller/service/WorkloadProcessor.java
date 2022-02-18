@@ -23,7 +23,7 @@ import static java.util.concurrent.TimeUnit.*;
 import java.util.*;
 import java.util.concurrent.*;
 
-import org.apache.commons.lang.StringUtils;
+//import org.apache.commons.lang.StringUtils;
 
 import com.intel.cosbench.config.*;
 import com.intel.cosbench.config.castor.CastorConfigTools;

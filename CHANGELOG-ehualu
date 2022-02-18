@@ -1,4 +1,36 @@
 
+ COSBench 0.4.7.6(ehualu 2022.02.14)
+------------------------------------
+- #300: Refactor: s3 and s3v2 will not be supported, so s3v2 was deleted, add ess and essv2.
+		e.g: <storage type="ess" config="endpoint=xxx" />
+		e.g: <storage type="essv2" config="endpoint=xxx" />
+		
+		Notice:
+			if need new features, please use ess/essv2, thanks.
+			ess means e-SuperStor(s3), ^_^
+			ess use aws-sdk-java(version is 1.12.158 now)
+			essv2 use aws-sdk-java-v2(version is 2.17.129)
+		
+		ess/essv2 storage Features: 
+			no_verify_ssl: <storage type="ess" config="no_verify_ssl=true;...other config..."/> 
+			storage_class: <storage type="ess" config="storage_class="GLACIER";...other config..."/>
+			Restore object: <operation type="restore" ...>
+					 <storage type="ess" config="restore_days=1;...path_style_access=true;timeout=100000"/>
+			Multipart upload: <operation type="mwrite" ...>
+							  <storage type="s3" config="part_size=5242880;...path_style_access=true;timeout=100000"/>
+			Support GiB，MiB，KiB(2^n，not 10^n): 
+				<operation type="write" ratio="100" config="cprefix=xx;containers=c(1);oprefix=xx;objects=s(1,10);sizes=c(4)KiB" />
+			Head object: <operation type="head" ...>
+			mprepare, multipart upload object at prepare stage.
+			mfilewrite, multipart upload object at filewrite stage.
+			
+		ess Features special:
+			prefetch and range read: please read s3-config-prefetch-sample.xml and s3-config-range-sample.xml in the config dir.
+			
+		essv2 Features special::
+			aws_region: <storage type="essv2" config="endpoint=xxx;aws_region=us-east-1" />
+						default is us-east-1
+
 
  COSBench 0.4.7.5(ehualu 2021.10.30)
 ------------------------------------
@@ -62,5 +94,5 @@
 
   COSBench 0.4.7(ehualu 2020.11.23)
 ------------------------------------
-- #280: Coding start here.
+- #280: Coding start.
 

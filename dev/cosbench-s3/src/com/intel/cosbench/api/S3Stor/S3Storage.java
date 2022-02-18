@@ -20,6 +20,7 @@ package com.intel.cosbench.api.S3Stor;
 
 import java.io.*;
 import java.util.Random;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -271,13 +272,16 @@ public class S3Storage extends NoneStorage {
 			metadata.setHeader("x-amz-storage-class", storageClass);
 		}
 
+		// 2021.7.27, sine. another way to put object, and set Read limit to 5GiB+1.
+		// https://github.com/awsdocs/aws-java-developer-guide/blob/master/doc_source/best-practices.rst
+		PutObjectRequest request = new PutObjectRequest(container, object, data, metadata);
+		
+		request.getRequestClientOptions().setReadLimit((int)length + 1); // set limit to object length+1
+
 		try {
-			client.putObject(container, object, data, metadata);
-			
-			// 2021.7.27, sine. another way to put object, and set Read limit to 50MB.
-			// PutObjectRequest request = new PutObjectRequest(container, object, data, metadata);
-			// request.getRequestClientOptions().setReadLimit(50000000); // set limit = 50MB
-			// client.putObject(request);
+			// client.putObject(container, object, data, metadata);
+
+			client.putObject(request);
 
 		} catch (AmazonServiceException ase) {
 			throw new StorageException(ase);
@@ -334,7 +338,7 @@ public class S3Storage extends NoneStorage {
 						.withInputStream(data)
 						.withPartSize(partSize);
 
-				// uploadRequest.getRequestClientOptions().setReadLimit(50000000); // 50MB
+				uploadRequest.getRequestClientOptions().setReadLimit((int)length+1); // length+1
 
 				// Upload the part and add the response's ETag to our list.
 				UploadPartResult uploadResult = client.uploadPart(uploadRequest);

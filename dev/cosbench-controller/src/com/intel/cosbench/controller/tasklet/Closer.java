@@ -17,7 +17,7 @@ limitations under the License.
 
 package com.intel.cosbench.controller.tasklet;
 
-import java.util.List;
+//import java.util.List;
 
 import com.intel.cosbench.bench.*;
 import com.intel.cosbench.controller.model.TaskContext;
