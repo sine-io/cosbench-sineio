@@ -87,7 +87,7 @@
         <maven-source-plugin.version>2.4</maven-source-plugin.version>
         <maven-surefire-plugin.version>2.19</maven-surefire-plugin.version>
         <!-- Dependency versions -->
-        <dependency.checkstyle.version>6.12.1</dependency.checkstyle.version>
+        <dependency.checkstyle.version>8.29</dependency.checkstyle.version>
         <dependency.java-manta.version>2.0.0</dependency.java-manta.version>
         <dependency.slf4j-log4j12.version>1.7.7</dependency.slf4j-log4j12.version>
         <dependency.osgi4.version>1.0</dependency.osgi4.version>
