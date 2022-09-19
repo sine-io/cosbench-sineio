@@ -21,7 +21,6 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/controller-web-context.xml</param-value>
 		</init-param>
-		<!-- 表示容器再启动时立即加载servlet -->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>

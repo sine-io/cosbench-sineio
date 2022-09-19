@@ -10,6 +10,7 @@ bash stop-driver.sh
 ip=127.0.0.1 
 num=1 
 base_port=18088 
+log_level=INFO
 
 if [ $# -eq 0 ];then 
 	num=1 
@@ -18,16 +19,22 @@ elif [ $# -eq 1 ]; then
 elif [ $# -eq 2 ]; then 
  	num=$1 
  	ip=$2 
-elif [ $# -eq 3 ];then 
+elif [ $# -eq 3 ]; then 
  	num=$1 
  	ip=$2 
  	base_port=$3 
+elif [ $# -eq 4 ]; then
+	num=$1 
+ 	ip=$2 
+ 	base_port=$3 
+	log_level=$4 
 else 
  	echo "<default>:none of parameter,create one driver" 
 	echo "<mult>:pareameters" 
  	echo "	   	<1>the number of drivers on one node" 
 	echo "	   	<2>the ip of driver" 
 	echo "		<3>base of port" 
+	echo "		<4>the log level of driver: [TRACE, DEBUG, INFO, WARN, ERROR], default is INFO" 
 	exit 1 
 fi 
 
@@ -35,7 +42,7 @@ fi
 SERVICE_NAME=driver
 VERSION=`cat VERSION`
 
-OSGI_BUNDLES="cosbench-log_${VERSION} cosbench-tomcat_${VERSION} cosbench-config_${VERSION} cosbench-http_${VERSION} cosbench-cdmi-util_${VERSION} cosbench-core_${VERSION} cosbench-core-web_${VERSION} cosbench-api_${VERSION} cosbench-mock_${VERSION} cosbench-ampli_${VERSION} cosbench-openio_${VERSION} cosbench-swift_${VERSION} cosbench-keystone_${VERSION} cosbench-httpauth_${VERSION} cosbench-s3_${VERSION} cosbench-ehualu_${VERSION} cosbench-oss_${VERSION} cosbench-gcs_${VERSION} cosbench-librados_${VERSION} cosbench-scality_${VERSION} cosbench-ecs_${VERSION} cosbench-cdmi-swift_${VERSION} cosbench-cdmi-base_${VERSION} cosbench-driver_${VERSION} cosbench-driver-web_${VERSION}"
+OSGI_BUNDLES="cosbench-log_${VERSION} cosbench-tomcat_${VERSION} cosbench-config_${VERSION} cosbench-http_${VERSION} cosbench-cdmi-util_${VERSION} cosbench-core_${VERSION} cosbench-core-web_${VERSION} cosbench-api_${VERSION} cosbench-mock_${VERSION} cosbench-ampli_${VERSION} cosbench-openio_${VERSION} cosbench-swift_${VERSION} cosbench-keystone_${VERSION} cosbench-httpauth_${VERSION} cosbench-s3_${VERSION} cosbench-sineio_${VERSION} cosbench-gdas_${VERSION} cosbench-oss_${VERSION} cosbench-gcs_${VERSION} cosbench-librados_${VERSION} cosbench-scality_${VERSION} cosbench-ecs_${VERSION} cosbench-cdmi-swift_${VERSION} cosbench-cdmi-base_${VERSION} cosbench-driver_${VERSION} cosbench-driver-web_${VERSION}"
 
 
 rm -f ip-port.list
@@ -53,6 +60,12 @@ do
 	url="http:\/\/$ip:$x\/driver"
 	sed -i "s/^name=.*$/name=${name}/" driver_$i.conf
 	sed -i "s/^url=.*$/url=${url}/" driver_$i.conf
+	
+	#add three args to conf
+	echo "log_level=${log_level}" >> driver_$i.conf
+	echo "log_file=log/system.log" >> driver_$i.conf
+	echo "mission_dir=log/mission" >> driver_$i.conf
+	
 	ln -s driver_$i.conf driver.conf
 
 	#make driver-tomcat-server.xml

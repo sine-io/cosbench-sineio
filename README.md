@@ -5,44 +5,47 @@ COSBench is a benchmarking tool to measure the performance of Cloud Object Stora
 emerging technology that is different from traditional file systems (e.g., NFS) or block device systems (e.g., iSCSI).
 Amazon S3 and Openstack* swift are well-known object storage solutions.
 
-COSBench now supports GDAS, E-SuperStor, OpenStack* Swift, Amazon* S3, OpenIO*, Amplidata v2.3, 2.5 and 3.1, Scality*, Ceph, CDMI, Google* Cloud Storage, Aliyun OSS as well as custom adaptors.
+COSBench now supports GDAS, SineIO*, OpenStack* Swift, Amazon* S3, OpenIO*, Amplidata v2.3, 2.5 and 3.1, Scality*, Ceph, CDMI, Google* Cloud Storage, Aliyun OSS as well as custom adaptors.
 
 
-New storage: gdas(Usage, please refer to conf/ehualu-config-sample.xml, thanks.)
+LTS
+----------------------------------------
+- SDK will be updated monthly for SineIO and GDAS if needed.
+
+
+New storage: gdas(Usage, please refer to conf/gdas-config-sample.xml, thanks.)
 ----------------------------------------
 - GDAS is S3 storage and hardware is Blu-ray Disc.
 - mprepare, multipart upload object at prepare stage.
 - mfilewrite, multipart upload object at filewrite stage.
 - aws_region parameter for gdas.
 - Head object
-- GiB, MiB, KiB: Now GB is 10^n, GiB is 2^n.  
-- Multipart upload: Add Multipart upload method and part_size parameter: You can set it now. Default is 5MiB.  
-- Restore Object: Add Restore method and restore_days parameter: restore_days. You can set it now. Default is 1.  
+- GiB, MiB, KiB: GB is 10^n, GiB is 2^n.
+- Multipart upload: Add Multipart upload method and part_size parameter: You can set it now. Default is 5MiB.
+- Restore Object: Add Restore method and restore_days parameter: restore_days. You can set it now. Default is 1.
 - HTTPS: If want to disable verify SSL, please set no_verify_ssl to true. Default is false.
 
 
-New storage: ess and essv2(Usage, please refer to conf/ehualu-config-sample.xml, thanks.)
+New storage: sio and siov2(Usage, please refer to conf/sio-config-sample.xml, thanks.)
 ----------------------------------------
-- ESS is e-SuperStor and hardware can be 'fullstack' (NVMe, SSD, HDD, Tape, Disc, etc.). 
+- SineIO: hardware can be 'fullstack' (NVMe, SSD, HDD, Tape, Disc, etc.).
 - mprepare, multipart upload object at prepare stage.
 - mfilewrite, multipart upload object at filewrite stage.
-- aws_region parameter for essv2.
-- New feature from bissenbay/s3-range-and-prefetch, thanks for this PR(only for ess, please read conf/s3-config-prefetch-sample.xml and conf/s3-config-range-sample.xml).
+- aws_region parameter for siov2.
+- New feature from bissenbay/s3-range-and-prefetch, thanks for this PR(only for sio, please read conf/s3-config-prefetch-sample.xml and conf/s3-config-range-sample.xml).
 - Head object
-- GiB, MiB, KiB: Now GB is 10^n, GiB is 2^n.  
-- Multipart upload: Add Multipart upload method and part_size parameter: You can set it now. Default is 5MiB.  
-- Restore Object: Add Restore method and restore_days parameter: restore_days. You can set it now. Default is 1.  
+- GiB, MiB, KiB: GB is 10^n, GiB is 2^n.
+- Multipart upload: Add Multipart upload method and part_size parameter: You can set it now. Default is 5MiB.
+- Restore Object: Add Restore method and restore_days parameter: restore_days. You can set it now. Default is 1.
 - StorageClass: Now you can set object's storageclass. Default is STANDARD.
 - HTTPS: If want to disable verify SSL, please set no_verify_ssl to true. Default is false.
 
 
-eHualu - Notice
+Notice
 ----------------------------------------
-- s3v2 was deleted(essv2 instead), s3 is no longer actively maintained.
-- if need new features, please use ess/essv2, thanks.
-- ess means e-SuperStor(s3)
-- ess use aws-sdk-java(now, version is 1.12.158)
-- essv2 use aws-sdk-java-v2(now, version is 2.17.129)
+- if want to use new features, please use sio/gdas, thanks.
+- sio use aws-sdk-java(now, version is 1.12.158)
+- siov2 use aws-sdk-java-v2(now, version is 2.17.129)
 
 
 Important Notice and Contact Information

@@ -32,12 +32,11 @@ cp -f NOTICE $1/
 cp -f VERSION $1/
 
 cp -f README.md $1/
-cp -f README-intel.md $1/
 cp -f BUILD.md $1/
-cp -f BUILD-ehualu.md $1/
+cp -f BUILD-sineio.md $1/
 
 cp -f CHANGELOG $1/
-cp -f CHANGELOG-ehualu $1/
+cp -f CHANGELOG-sineio $1/
 cp -f TODO.md $1/
 
 cp -f COSBenchUserGuide.pdf $1/
