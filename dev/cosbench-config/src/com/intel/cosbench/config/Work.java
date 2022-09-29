@@ -19,6 +19,8 @@ package com.intel.cosbench.config;
 
 import java.util.*;
 
+import javax.naming.ConfigurationException;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.intel.cosbench.config.common.ConfigUtils;
@@ -419,6 +421,11 @@ public class Work implements Iterable<Operation> {
             sum += op.getRatio();
         if (sum != 100)
             throw new ConfigException("op ratio should sum to 100");
+        
+        // 2022.9.22, sine, bug fix: #10
+        if (workers > totalOps) {
+			throw new ConfigException("If use totalOps, workers should be less than or equal to totalOps.");
+		}
     }
 
 }
