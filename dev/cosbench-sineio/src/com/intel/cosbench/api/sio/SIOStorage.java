@@ -152,7 +152,7 @@ public class SIOStorage extends NoneStorage {
 
 	private AmazonS3 initRestoreClient() {
 
-		logger.debug("initialize S3 client with storage config: {}", parms);
+		logger.debug("initialize S3 Restore client with storage config: {}", parms);
 
 		ClientConfiguration clientConf = getDefaultClientConfiguration("AWSS3V4SignerType");
 
@@ -164,7 +164,7 @@ public class SIOStorage extends NoneStorage {
 				.withEndpointConfiguration(myendpoint)
 				.withPathStyleAccessEnabled(pathStyleAccess).build();
 
-		logger.debug("S3 client has been initialized");
+		logger.debug("S3 Restore client has been initialized");
 
 		return restoreClient;
 	}

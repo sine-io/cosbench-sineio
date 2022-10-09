@@ -88,76 +88,88 @@ public class NoneStorage implements StorageAPI {
 
 	@Override
 	public InputStream getObject(String container, String object, Config config) {
-		if (logging)
+		if (logging) {
 			logger.info("performing GET(get-object) at /{}/{}", container, object);
+		}
 		return new ByteArrayInputStream(new byte[] {});
 	}
 	
 	// 2021.07.13, Add restoreObject method.
 	@Override
 	public void restoreObject(String container, String object, Config config) {
-		if (logging)
+		if (logging) {
 			logger.info("performing RESTORE(restore-object) at /{}/{}", container, object);
+		}
 	}
 
 	@Override
 	public InputStream getList(String container, String object, Config config) {
-		if (logging)
+		if (logging) {
 			logger.info("performing LIST(list-objects) at /{}/{}", container, object);
+		}
 		return new ByteArrayInputStream(new byte[] {});
 	}
 
 	@Override
 	public void createContainer(String container, Config config) {
-		if (logging)
+		if (logging) {
 			logger.info("performing PUT(create-bucket) at /{}", container);
+		}
 	}
 
 	@Deprecated
 	public void createObject(String container, String object, byte[] data, Config config) {
-		if (logging)
+		if (logging) {
 			logger.info("performing PUT at /{}/{}", container, object);
+		}
 	}
 
 	@Override
 	public void createObject(String container, String object, InputStream data, long length, Config config) {
-		if (logging)
+		if (logging) {
 			logger.info("performing PUT(put-object) at /{}/{}", container, object);
+		}
 	}
 	
 	// 2021.7.27, sine.
 	@Override
 	public void createMultipartObject(String container, String object, InputStream data, long length, Config config) {
-		if (logging)
+		if (logging) {
 			logger.info("performing PUT(multipart-upload) at /{}/{}", container, object);
+		}
 	}
 	
 	@Override
 	public void deleteContainer(String container, Config config) {
-		if (logging)
+		if (logging) {
 			logger.info("performing DELETE(delete-bucket) at /{}", container);
+		}
 	}
 
 	@Override
 	public void deleteObject(String container, String object, Config config) {
-		if (logging)
+		if (logging) {
 			logger.info("performing DELETE(delete-object) at /{}/{}", container, object);
+		}
 	}
 	
 	@Override
 	public void headObject(String container, String object, Config config) {
-		if (logging)
+		if (logging) {
 			logger.info("performing HEAD(head-object) at /{}/{}", container, object);
+		}
 	}
 
 	protected void createMetadata(String container, String object, Map<String, String> map, Config config) {
-		if (logging)
+		if (logging) {
 			logger.info("performing POST at /{}/{}", container, object);
+		}
 	}
 
 	protected Map<String, String> getMetadata(String container, String object, Config config) {
-		if (logging)
+		if (logging) {
 			logger.info("performing HEAD at /{}/{}", container, object);
+		}
 		return Collections.emptyMap();
 	}
 

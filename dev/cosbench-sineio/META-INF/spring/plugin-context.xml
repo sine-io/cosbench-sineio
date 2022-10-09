@@ -11,12 +11,18 @@
 	<bean name="storageFactorySIO" class="com.intel.cosbench.api.sio.SIOStorageFactory" />
 	
 	<bean name="storageFactorySIOV2" class="com.intel.cosbench.api.sio.SIOStorageFactoryV2" />
+	
+	<bean name="storageFactoryGdas" class="com.intel.cosbench.api.gdas.GdasStorageFactory" />
 
 	<osgi:service ref="storageFactorySIO" context-class-loader="service-provider"
 		interface="com.intel.cosbench.api.storage.StorageAPIFactory">
 	</osgi:service>
 	
 	<osgi:service ref="storageFactorySIOV2" context-class-loader="service-provider"
+		interface="com.intel.cosbench.api.storage.StorageAPIFactory">
+	</osgi:service>
+	
+	<osgi:service ref="storageFactoryGdas" context-class-loader="service-provider"
 		interface="com.intel.cosbench.api.storage.StorageAPIFactory">
 	</osgi:service>
 

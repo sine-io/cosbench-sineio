@@ -10,20 +10,7 @@ COSBench now supports GDAS, SineIO*, OpenStack* Swift, Amazon* S3, OpenIO*, Ampl
 
 LTS
 ----------------------------------------
-- SDK will be updated monthly for SineIO and GDAS if needed.
-
-
-New storage: gdas(Usage, please refer to conf/gdas-config-sample.xml, thanks.)
-----------------------------------------
-- GDAS is S3 storage and hardware is Blu-ray Disc.
-- mprepare, multipart upload object at prepare stage.
-- mfilewrite, multipart upload object at filewrite stage.
-- aws_region parameter for gdas.
-- Head object
-- GiB, MiB, KiB: GB is 10^n, GiB is 2^n.
-- Multipart upload: Add Multipart upload method and part_size parameter: You can set it now. Default is 5MiB.
-- Restore Object: Add Restore method and restore_days parameter: restore_days. You can set it now. Default is 1.
-- HTTPS: If want to disable verify SSL, please set no_verify_ssl to true. Default is false.
+- AWS SDK version will be updated monthly for SineIO and GDAS if needed.
 
 
 New storage: sio and siov2(Usage, please refer to conf/sio-config-sample.xml, thanks.)
@@ -40,12 +27,24 @@ New storage: sio and siov2(Usage, please refer to conf/sio-config-sample.xml, th
 - StorageClass: Now you can set object's storageclass. Default is STANDARD.
 - HTTPS: If want to disable verify SSL, please set no_verify_ssl to true. Default is false.
 
+New storage: gdas(Usage, please refer to conf/gdas-config-sample.xml, thanks.)
+----------------------------------------
+- GDAS is S3 storage and hardware is Blu-ray Disc.
+- mprepare, multipart upload object at prepare stage.
+- mfilewrite, multipart upload object at filewrite stage.
+- aws_region parameter for gdas.
+- Head object
+- GiB, MiB, KiB: GB is 10^n, GiB is 2^n.
+- Multipart upload: Add Multipart upload method and part_size parameter: You can set it now. Default is 5MiB.
+- Restore Object: Add Restore method and restore_days parameter: restore_days. You can set it now. Default is 1.
+- HTTPS: If want to disable verify SSL, please set no_verify_ssl to true. Default is false.
+
 
 Notice
 ----------------------------------------
 - if want to use new features, please use sio/gdas, thanks.
-- sio use aws-sdk-java(now, version is 1.12.158)
-- siov2 use aws-sdk-java-v2(now, version is 2.17.129)
+- sio/gdas use aws-sdk-java(now, version is 1.12.312)
+- siov2 use aws-sdk-java-v2(now, version is 2.17.290)
 
 
 Important Notice and Contact Information
@@ -56,6 +55,8 @@ the need to invest enough effort to learn how to use it effectively and to addre
 
 b) To help COSBench develop further, please become an active member of the community and consider giving back by making
 contributions.
+
+c) Email: sinecelia.wang@gmail.com, WeChat/Twitter: SineCelia
 
 
 Licensing

@@ -1,7 +1,8 @@
 
- COSBench 0.4.7.8(sine 2022.07.20)
+ COSBench 0.4.7.8(sine 2022.10.09)
 ------------------------------------
-- 25: add dockerfile and docker-compose.yml, now you can use cosbench in docker.
+- 26: change ess and essv2 to sio and siov2, pls use the new one.
+- 25: upgrade sdk version.
 - 24: add log level argument to start-driver.sh, now you can set log level.
 
 
