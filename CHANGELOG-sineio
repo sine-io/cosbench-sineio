@@ -1,4 +1,12 @@
 
+ COSBench 0.4.7.9(sine 2022.10.13)
+------------------------------------
+- 30: upgrade all Bundle-RequiredExecutionEnvironments to JavaSE-1.8
+- 29: upgrade osgi and equinox version.
+- 28: bug fix: #18 #19 #20 #21.
+- 27: add COSBench Storages Comparision in README.md
+
+
  COSBench 0.4.7.8(sine 2022.10.09)
 ------------------------------------
 - 26: change ess and essv2 to sio and siov2, pls use the new one.

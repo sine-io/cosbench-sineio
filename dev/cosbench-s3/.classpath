@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry exported="true" kind="lib" path="aspectjrt.jar"/>
+	<classpathentry exported="true" kind="lib" path="aspectjweaver.jar"/>
+	<classpathentry exported="true" kind="lib" path="freemarker-2.3.20.jar"/>
+	<classpathentry exported="true" kind="lib" path="mail-1.4.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="aspectjrt.jar"/>
-	<classpathentry kind="lib" path="aspectjweaver.jar"/>
-	<classpathentry kind="lib" path="freemarker-2.3.20.jar"/>
 	<classpathentry kind="lib" path="jackson-core-asl-1.8.7.jar"/>
 	<classpathentry kind="lib" path="jackson-mapper-asl-1.8.7.jar"/>
-	<classpathentry kind="lib" path="mail-1.4.3.jar"/>
-	<classpathentry kind="lib" path="spring-beans-3.0.7.jar"/>
-	<classpathentry kind="lib" path="spring-context-3.0.7.jar"/>
-	<classpathentry kind="lib" path="spring-core-3.0.7.jar"/>
 	<classpathentry kind="lib" path="aws-java-sdk-core-1.10.76.jar"/>
 	<classpathentry kind="lib" path="aws-java-sdk-kms-1.10.76.jar"/>
 	<classpathentry kind="lib" path="commons-codec-1.6.jar"/>

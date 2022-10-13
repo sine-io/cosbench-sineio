@@ -22,6 +22,7 @@ import java.io.*;
 import java.net.URI;
 import java.time.Duration;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.ArrayList;
 
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -129,7 +130,7 @@ public class SIOStorageV2 extends NoneStorage {
 				.expectContinueEnabled(false).proxyConfiguration(proxyConfig.build());
 
 		SdkHttpClient httpClient;
-
+		
 		if (noVerifySSL) {
 			httpClient = httpClientBuilder.buildWithDefaults(AttributeMap.builder()
 					.put(SdkHttpConfigurationOption.TRUST_ALL_CERTIFICATES, Boolean.TRUE).build());
@@ -315,19 +316,27 @@ public class SIOStorageV2 extends NoneStorage {
 			throw new StorageException(e);
 		}
 	}
-
+	
 	@Override
 	public InputStream getList(String container, String object, Config config) {
 		super.getList(container, object, config);
 		InputStream stream = null;
+		
 		try {
-
-			ListObjectsV2Request listObjectsV2Request = ListObjectsV2Request.builder().bucket(container).prefix(object)
+			StringBuilder sb = new StringBuilder();
+			
+			ListObjectsV2Request req = ListObjectsV2Request.builder().bucket(container).prefix(object).maxKeys(1000)
 					.build();
-
-			ListObjectsV2Response result = client.listObjectsV2(listObjectsV2Request);
-
-			stream = new ByteArrayInputStream(result.toString().getBytes());
+			ListObjectsV2Response result = client.listObjectsV2(req);
+			
+			List<S3Object> objects = result.contents();
+			
+            for (ListIterator<S3Object> iterVals = objects.listIterator(); iterVals.hasNext(); ) {
+                S3Object obj = (S3Object) iterVals.next();
+                sb.append(obj.key()).append("\n");
+             }
+            
+			stream = new ByteArrayInputStream(sb.toString().getBytes());
 		} catch (Exception e) {
 			throw new StorageException(e);
 		}

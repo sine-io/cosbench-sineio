@@ -1,6 +1,7 @@
 /**
 
 Copyright 2013 Intel Corporation, All Rights Reserved.
+Copyright 2021-Present SineIO, All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -102,6 +103,7 @@ class Cleaner extends AbstractOperator {
 
 		boolean isEmpty = true;
 		boolean tryAgain = false;
+		
 		do {
 			if (isEmpty) {
 				try {
@@ -111,13 +113,13 @@ class Cleaner extends AbstractOperator {
 				} catch (StorageInterruptedException sie) {
 					throw new AbortedException();
 				} catch (StorageException se) {
-					String msg = "Error deleting container " + conName;
-					doLogErr(session.getLogger(), msg, se);
 					if (isConflictException(session, se)) {
 						isEmpty = false;
 						tryAgain = true;
 					} else {
 						tryAgain = false;
+						String msg = "Error deleting container " + conName + ", Error msg is: " + se.getMessage();
+						doLogErr(session.getLogger(), msg, se);
 					}
 				} catch (Exception e) {
 					doLogErr(session.getLogger(), "fail to perform clean operation " + conName, e);
@@ -125,9 +127,16 @@ class Cleaner extends AbstractOperator {
 				}
 			} else {
 				try {
-					for (String objName : getObjectsList(conName, config, session)) {
-						doDelete(conName, objName, config, session, this);
-					}
+					// 2022.10.12, sine. bug fix: #20
+					String[] obs;
+					
+					do {
+						obs = getObjectsList(conName, config, session); // max-keys is 1000 per time when use sio/siov2/gdas.
+						for (String objName : obs) {
+							doDelete(conName, objName, config, session, this);
+						}
+					} while (obs.length == 0);
+
 				} catch (StorageException se) {
 					doLogErr(session.getLogger(), "fail to get : " + conName + " objects list ", se);
 					tryAgain = false;
@@ -142,7 +151,6 @@ class Cleaner extends AbstractOperator {
 				tryAgain = true;
 			}
 		} while (tryAgain == true);
-
 	}
 
 	private static String[] getObjectsList(String conName, Config config, Session session) throws IOException {
@@ -163,7 +171,8 @@ class Cleaner extends AbstractOperator {
 	private static boolean isConflictException(Session session, Exception e) {
 		if (e != null && e.getMessage() != null)
 			try {
-				if (409 == Integer.valueOf(e.getMessage().substring(9, 12))) {
+				// 2022.10.12, sine. bug fix: #18
+				if (e.getMessage().contains("409") || e.getMessage().contains("BucketNotEmpty")) {
 					doLogDebug(session.getLogger(),
 							"catch 409 error, will clean up the unempty container and try again");
 					return true;
@@ -172,6 +181,7 @@ class Cleaner extends AbstractOperator {
 				ne.printStackTrace(); // mask ignore
 				return false;
 			}
+		
 		return false;
 	}
 

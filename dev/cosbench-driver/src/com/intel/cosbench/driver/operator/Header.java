@@ -1,6 +1,6 @@
 /**
 
-Copyright 2021-2022 eHualu Corporation, All Rights Reserved.
+Copyright 2021-Present SineIO, All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -75,9 +75,10 @@ class Header extends AbstractOperator {
 	}
 
 	public static Sample doHead(String conName, String objName, Config config, Session session, Operator op) {
-
-		if (Thread.interrupted())
+		
+		if (Thread.interrupted()) {
 			throw new AbortedException();
+		}
 
 		long start = System.nanoTime();
 

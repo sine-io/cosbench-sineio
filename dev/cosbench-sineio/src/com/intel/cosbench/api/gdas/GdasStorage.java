@@ -30,6 +30,7 @@ import com.amazonaws.services.s3.model.*;
 import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;
 
 import com.intel.cosbench.log.Logger;
+
 import com.intel.cosbench.api.storage.*;
 import com.intel.cosbench.api.context.*;
 import com.intel.cosbench.config.Config;
@@ -321,18 +322,40 @@ public class GdasStorage extends NoneStorage {
 
 	@Override
 	public InputStream getList(String container, String object, Config config) {
-		// List objects with marker and with max-keys 1000.
 		super.getList(container, object, config);
 		InputStream stream = null;
+		
 		try {
-			ListObjectsRequest req = new ListObjectsRequest().withBucketName(container).withMarker(object);
-			ObjectListing result = client.listObjects(req);
+			StringBuilder sb = new StringBuilder();
 			
-			stream = new ByteArrayInputStream(result.getObjectSummaries().toString().getBytes());
-		} catch (Exception e) {
-			throw new StorageException(e);
+			ListObjectsV2Request req = new ListObjectsV2Request().withBucketName(container).withPrefix(object).withMaxKeys(1000);
+            ListObjectsV2Result result;
+            result = client.listObjectsV2(req);
+
+            for (S3ObjectSummary objectSummary : result.getObjectSummaries()) {
+            	sb.append(objectSummary.getKey()).append("\n");
+            }
+			
+			stream = new ByteArrayInputStream(sb.toString().getBytes());
+		} catch (AmazonServiceException ase) {
+			throw new StorageException(ase);
+		} catch (SdkClientException sce) {
+			throw new StorageTimeoutException(sce);
 		}
 
 		return stream;
+	}
+	
+	@Override
+	public void headObject(String container, String object, Config config) {
+		super.headObject(container, object, config);
+
+		GetObjectMetadataRequest gmr = new GetObjectMetadataRequest(container, object);
+
+		try {
+			client.getObjectMetadata(gmr);
+		} catch (Exception e) {
+			throw new StorageException(e);
+		}
 	}
 }
