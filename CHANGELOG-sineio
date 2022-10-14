@@ -1,7 +1,17 @@
 
- COSBench 0.4.7.8(sine 2022.07.20)
+ COSBench 0.4.7.9(sine 2022.10.13)
 ------------------------------------
-- 25: add dockerfile and docker-compose.yml, now you can use cosbench in docker.
+- 31: detect tool changed: from nc to telnet
+- 30: upgrade all Bundle-RequiredExecutionEnvironments to JavaSE-1.8
+- 29: upgrade osgi and equinox version.
+- 28: bug fix: #18 #19 #20 #21.
+- 27: add COSBench Storages Comparision in README.md
+
+
+ COSBench 0.4.7.8(sine 2022.10.09)
+------------------------------------
+- 26: change ess and essv2 to sio and siov2, pls use the new one.
+- 25: upgrade sdk version.
 - 24: add log level argument to start-driver.sh, now you can set log level.
 
 

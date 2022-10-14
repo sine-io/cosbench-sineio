@@ -28,11 +28,10 @@ import com.amazonaws.*;
 import com.amazonaws.auth.*;
 import com.amazonaws.services.s3.*;
 import com.amazonaws.services.s3.model.*;
-import com.amazonaws.services.s3.transfer.TransferManager;
-import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;
 
 import com.intel.cosbench.log.Logger;
+
 import com.intel.cosbench.api.storage.*;
 import com.intel.cosbench.api.context.*;
 import com.intel.cosbench.config.Config;
@@ -152,7 +151,7 @@ public class SIOStorage extends NoneStorage {
 
 	private AmazonS3 initRestoreClient() {
 
-		logger.debug("initialize S3 client with storage config: {}", parms);
+		logger.debug("initialize S3 Restore client with storage config: {}", parms);
 
 		ClientConfiguration clientConf = getDefaultClientConfiguration("AWSS3V4SignerType");
 
@@ -164,7 +163,7 @@ public class SIOStorage extends NoneStorage {
 				.withEndpointConfiguration(myendpoint)
 				.withPathStyleAccessEnabled(pathStyleAccess).build();
 
-		logger.debug("S3 client has been initialized");
+		logger.debug("S3 Restore client has been initialized");
 
 		return restoreClient;
 	}
@@ -386,15 +385,52 @@ public class SIOStorage extends NoneStorage {
 	public InputStream getList(String container, String object, Config config) {
 		super.getList(container, object, config);
 		InputStream stream = null;
+		
 		try {
-			// 2021.7.14 Change SDK version: 1.10.x -> 1.12.x
-			ListObjectsV2Result result = client.listObjectsV2(container, object);
+			StringBuilder sb = new StringBuilder();
+			
+			ListObjectsV2Request req = new ListObjectsV2Request().withBucketName(container).withPrefix(object).withMaxKeys(1000);
+            ListObjectsV2Result result;
+            result = client.listObjectsV2(req);
 
-			stream = new ByteArrayInputStream(result.getObjectSummaries().toString().getBytes());
-		} catch (Exception e) {
-			throw new StorageException(e);
+            for (S3ObjectSummary objectSummary : result.getObjectSummaries()) {
+            	sb.append(objectSummary.getKey()).append("\n");
+            }
+
+//            do {
+//                result = client.listObjectsV2(req);
+//
+//                for (S3ObjectSummary objectSummary : result.getObjectSummaries()) {
+//                	sb.append(objectSummary.getKey()).append("\n");
+//                }
+//                // If there are more than maxKeys keys in the bucket, get a continuation token
+//                // and list the next objects.
+//                String token = result.getNextContinuationToken();
+//                req.setContinuationToken(token);
+//                
+//            } while (result.isTruncated());
+			
+			stream = new ByteArrayInputStream(sb.toString().getBytes());
+		} catch (AmazonServiceException ase) {
+			throw new StorageException(ase);
+		} catch (SdkClientException sce) {
+			throw new StorageTimeoutException(sce);
 		}
 
 		return stream;
+	}
+	
+	@Override
+	public void headObject(String container, String object, Config config) {
+		super.headObject(container, object, config);
+		
+		GetObjectMetadataRequest gmr = new GetObjectMetadataRequest(container, object);
+
+		try {
+			client.getObjectMetadata(gmr);
+			
+		} catch (Exception e) {
+			throw new StorageException(e);
+		}
 	}
 }

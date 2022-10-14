@@ -1,6 +1,7 @@
 /**
 
 Copyright 2013 Intel Corporation, All Rights Reserved.
+Copyright 2021-Present SineIO, All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,8 +19,6 @@ limitations under the License.
 package com.intel.cosbench.config;
 
 import java.util.*;
-
-import javax.naming.ConfigurationException;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -279,6 +278,14 @@ public class Work implements Iterable<Operation> {
     
     // 2022.2.18, sine
     private void toMPrepareWork() {
+    	// 2022.10.12, sine, bug fix: #19
+    	String storageType = getStorage().getType();
+    	if (storageType.equals("sio") || storageType.equals("siov2") || storageType.equals("gdas")) {
+    		// do nothing.
+		} else {
+			throw new ConfigException("You should change the storage type to sio or siov2 or gdas to use mprepare operation");
+		}
+    	
         if (name == null)
             name = "mprepare";
         setDivision("object");
@@ -414,8 +421,9 @@ public class Work implements Iterable<Operation> {
         for (Operation op : operations)
             if (op.getDivision() == null)
                 op.setDivision(division);
-        for (Operation op : operations)
+        for (Operation op : operations) {
             op.validate();
+        }
         int sum = 0;
         for (Operation op : operations)
             sum += op.getRatio();
@@ -426,6 +434,21 @@ public class Work implements Iterable<Operation> {
         if (workers > totalOps) {
 			throw new ConfigException("If use totalOps, workers should be less than or equal to totalOps.");
 		}
+        
+        // 2022.10.12, sine, bug fix: #19
+        String storageType = getStorage().getType();
+        
+        for (Operation op : operations) {
+        	String opType = op.getType();
+        	
+        	if (opType.equals("mwrite") || opType.equals("head") || opType.equals("restore") || opType.equals("mfilewrite")) {
+            	if (storageType.equals("sio") || storageType.equals("siov2") || storageType.equals("gdas")) {
+            		// do nothing.
+        		} else {
+        			throw new ConfigException("You should change storage type to [sio or siov2 or gdas] to use [mwrite, head, restore, mfilewrite] operations");
+				}
+			}
+        }
     }
 
 }

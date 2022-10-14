@@ -77,6 +77,7 @@ public class Lister extends AbstractOperator {
         long xferTime = 0L;
         try {
             doLogDebug(session.getLogger(), "worker "+ session.getIndex() + " List target " + conName + "/" + objName);
+            
             in = session.getApi().getList(conName, objName, config);
             long xferStart = System.nanoTime();
             copyLarge(in, cout);
@@ -89,7 +90,7 @@ public class Lister extends AbstractOperator {
 			doLogWarn(session.getLogger(), msg);
 			
 			return new Sample(new Date(), getId(), getOpType(), getSampleType(), getName(), false);
-		}catch (Exception e) { // TODO: catch IOException, need to improve.
+		} catch (Exception e) { // TODO: catch IOException, need to improve.
             isUnauthorizedException(e, session);
             errorStatisticsHandle(e, session, conName + "/" + objName);
 

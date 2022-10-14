@@ -1,10 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Automatic-Module-Name: cosbench.oss
 Bundle-Name: Cosbench-oss
 Bundle-SymbolicName: cosbench-oss
-Bundle-Version: 0.4.7.8
+Bundle-Version: 0.4.7.9
 Bundle-Vendor: intel
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .,
  aliyun-sdk-oss-2.8.1.jar,
  httpcore-4.4.jar,

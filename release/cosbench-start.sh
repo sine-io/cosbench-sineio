@@ -31,7 +31,8 @@ OSGI_CONFIG=conf/.$SERVICE_NAME
 
 TOMCAT_CONFIG=conf/$SERVICE_NAME-tomcat-server.xml
 
-TOOL="nc"
+TOOL="telnet"
+#TOOL="nc"
 TOOL_PARAMS=""
 
 #-------------------------------
@@ -80,7 +81,8 @@ do
         attempts=60
         while [ $ready -ne 1 ];
         do
-                echo -e "ss -s ACTIVE cosbench\ndisconnect\n" | $TOOL $TOOL_PARAMS 0.0.0.0 $OSGI_CONSOLE_PORT | grep $module >> /dev/null
+				(echo -e "ss -s ACTIVE cosbench\n";sleep 0.1) | $TOOL $TOOL_PARAMS 0.0.0.0 $OSGI_CONSOLE_PORT 2>&1 | grep $module >> /dev/null
+                #echo -e "ss -s ACTIVE cosbench\ndisconnect\n" | $TOOL $TOOL_PARAMS 0.0.0.0 $OSGI_CONSOLE_PORT | grep $module >> /dev/null
                 if [ $? -ne 0 ];
                 then
                         attempts=`expr $attempts - 1`

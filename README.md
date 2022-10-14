@@ -10,42 +10,40 @@ COSBench now supports GDAS, SineIO*, OpenStack* Swift, Amazon* S3, OpenIO*, Ampl
 
 LTS
 ----------------------------------------
-- SDK will be updated monthly for SineIO and GDAS if needed.
+- AWS SDK version will be updated monthly for SineIO and GDAS if needed.
 
-
-New storage: gdas(Usage, please refer to conf/gdas-config-sample.xml, thanks.)
+COSBench Storages Comparision
 ----------------------------------------
-- GDAS is S3 storage and hardware is Blu-ray Disc.
-- mprepare, multipart upload object at prepare stage.
-- mfilewrite, multipart upload object at filewrite stage.
-- aws_region parameter for gdas.
-- Head object
-- GiB, MiB, KiB: GB is 10^n, GiB is 2^n.
-- Multipart upload: Add Multipart upload method and part_size parameter: You can set it now. Default is 5MiB.
-- Restore Object: Add Restore method and restore_days parameter: restore_days. You can set it now. Default is 1.
-- HTTPS: If want to disable verify SSL, please set no_verify_ssl to true. Default is false.
 
+> 1. SineIO: hardware can be 'fullstack' (NVMe, SSD, HDD, Tape, Disc, etc.)
+> 2. GDAS is S3 storage and hardware is Blu-ray Disc.
+> 3. sio and siov2: Usage, please refer to conf/sio-config-sample.xml
+> 4. gdas: Usage, please refer to conf/gdas-config-sample.xml
 
-New storage: sio and siov2(Usage, please refer to conf/sio-config-sample.xml, thanks.)
-----------------------------------------
-- SineIO: hardware can be 'fullstack' (NVMe, SSD, HDD, Tape, Disc, etc.).
-- mprepare, multipart upload object at prepare stage.
-- mfilewrite, multipart upload object at filewrite stage.
-- aws_region parameter for siov2.
-- New feature from bissenbay/s3-range-and-prefetch, thanks for this PR(only for sio, please read conf/s3-config-prefetch-sample.xml and conf/s3-config-range-sample.xml).
-- Head object
-- GiB, MiB, KiB: GB is 10^n, GiB is 2^n.
-- Multipart upload: Add Multipart upload method and part_size parameter: You can set it now. Default is 5MiB.
-- Restore Object: Add Restore method and restore_days parameter: restore_days. You can set it now. Default is 1.
-- StorageClass: Now you can set object's storageclass. Default is STANDARD.
-- HTTPS: If want to disable verify SSL, please set no_verify_ssl to true. Default is false.
-
-
-Notice
-----------------------------------------
-- if want to use new features, please use sio/gdas, thanks.
-- sio use aws-sdk-java(now, version is 1.12.158)
-- siov2 use aws-sdk-java-v2(now, version is 2.17.129)
+| Work/Operations/Features/SDK version |  Storage type: s3  | Storage type: sio  | Storage type: siov2 | Storage type: gdas |
+| :----------------------------------: | :----------------: | :----------------: | :-----------------: | :----------------: |
+|                 init                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|               prepare                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|         [New Work]: mprepare         |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|                write                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|       [New Operation]: mwrite        |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|                 read                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|              filewrite               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|     [New Operation]: mfilewrite      |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|       [New Operation]: restore       |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|        [New Operation]: head         |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|                delete                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|               cleanup                |      not sure      | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|               dispose                |      not sure      | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|                 list                 |      not sure      | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|     [New Feature]: no_verify_ssl     |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|      [New Feature]: aws_region       |      no need       |      no need       | :heavy_check_mark:  |      no need       |
+| [New Feature]: s3-range-and-prefetch |        :x:         | :heavy_check_mark: |        todo         |      no need       |
+|     [New Feature]: GiB, MiB, KiB     |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|     [New Feature]: storage_class     |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |      no need       |
+|     [New Feature]: restore_days      |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|     [SDK version]: aws-sdk-java      |      1.10.76       |      1.12.312      |          -          |      1.12.312      |
+|    [SDK version]: aws-sdk-java-v2    |         -          |         -          |      2.17.290       |         -          |
 
 
 Important Notice and Contact Information
@@ -56,6 +54,8 @@ the need to invest enough effort to learn how to use it effectively and to addre
 
 b) To help COSBench develop further, please become an active member of the community and consider giving back by making
 contributions.
+
+c) Email: sinecelia.wang@gmail.com, WeChat/Twitter: SineCelia
 
 
 Licensing
@@ -76,6 +76,10 @@ Installation & Usage
 --------------------
 
 Please refer to "COSBenchUserGuide.pdf" for details.
+
+> **Version more than or equal to  0.4.7.9: should install telnet**
+>
+> **Version less than 0.4.7.9: should install nmap-ncat**
 
 
 Adaptor Development
