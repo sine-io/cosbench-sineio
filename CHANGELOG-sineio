@@ -1,6 +1,7 @@
 
  COSBench 0.4.7.9(sine 2022.10.13)
 ------------------------------------
+- 31: detect tool changed: from nc to telnet
 - 30: upgrade all Bundle-RequiredExecutionEnvironments to JavaSE-1.8
 - 29: upgrade osgi and equinox version.
 - 28: bug fix: #18 #19 #20 #21.

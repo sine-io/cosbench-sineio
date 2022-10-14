@@ -77,7 +77,7 @@ do
 	ln -s driver-tomcat-server_$i.xml driver-tomcat-server.xml
 	cd ../
 	OSGI_CONSOLE_PORT=$x
-        sh cosbench-start.sh $SERVICE_NAME "$OSGI_BUNDLES" $OSGI_CONSOLE_PORT
+	sh cosbench-start.sh $SERVICE_NAME "$OSGI_BUNDLES" $OSGI_CONSOLE_PORT
 
 	#ip/port list
 	echo "$name" >> ip-port.list

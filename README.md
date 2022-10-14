@@ -77,6 +77,10 @@ Installation & Usage
 
 Please refer to "COSBenchUserGuide.pdf" for details.
 
+> **Version more than or equal to  0.4.7.9: should install telnet**
+>
+> **Version less than 0.4.7.9: should install nmap-ncat**
+
 
 Adaptor Development
 -------------------
