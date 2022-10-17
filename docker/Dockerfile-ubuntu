@@ -1,0 +1,25 @@
+FROM ubuntu:16.04
+MAINTAINER "sine.wang" <sinecelia.wang@gmail.com>
+
+ARG VERSION=0.4.7.9
+ENV COS_VERSION=${VERSION}
+ENV COS_PREFIX="cosbench-"
+ENV COS_SUFFIX="-sineio"
+ENV COS_FILENAMEEXT=".tar.gz"
+
+WORKDIR /
+
+ADD ${COS_PREFIX}${COS_VERSION}${COS_SUFFIX}${COS_FILENAMEEXT} .
+
+RUN mv /${COS_PREFIX}${COS_VERSION}${COS_SUFFIX} /cosbench \
+    && apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+         dpkg apt-transport-https curl apt-utils telnet netcat net-tools openjdk-8-jre \
+    && rm -f /bin/sh && ln -s /bin/bash /bin/sh
+
+
+WORKDIR /cosbench
+
+COPY start-cosbench.sh .
+
+CMD ["sh", "/cosbench/start-cosbench.sh"]

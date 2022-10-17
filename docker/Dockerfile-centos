@@ -1,0 +1,26 @@
+FROM centos:centos7.9.2009
+MAINTAINER "sine.wang" <sinecelia.wang@gmail.com>
+
+ARG VERSION=0.4.7.9
+ENV COS_VERSION=${VERSION}
+ENV COS_PREFIX="cosbench-"
+ENV COS_SUFFIX="-sineio"
+ENV COS_FILENAMEEXT=".tar.gz"
+
+WORKDIR /
+
+ADD ${COS_PREFIX}${COS_VERSION}${COS_SUFFIX}${COS_FILENAMEEXT} .
+
+RUN mv /${COS_PREFIX}${COS_VERSION}${COS_SUFFIX} /cosbench \
+    && yum update -y \
+    && yum install telnet nmap-ncat curl wget vim -y \
+    && yum install java-1.8.0-openjdk -y \
+    && unset http_proxy \
+    && rm -f /bin/sh && ln -s /bin/bash /bin/sh
+
+
+WORKDIR /cosbench
+
+COPY start-cosbench.sh .
+
+CMD ["sh", "/cosbench/start-cosbench.sh"]

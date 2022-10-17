@@ -1,0 +1,98 @@
+version: '3.9'
+
+services:
+  driver1:
+    image: "sineio/cosbench-sineio:0.4.7.9-alpine"
+    environment:
+      CONTROLLER: false
+      DRIVER: true
+      DRIVER_PORT: 18088
+      COSBENCH_PLUGINS: "SIO,S3"
+    volumes:
+      - /data/cosbench/driver1-log/:/cosbench/log
+      - /etc/resolv.conf:/etc/resolv.conf:ro
+      - /etc/hosts:/etc/hosts:ro
+      - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:18088/driver"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    network_mode: "host"
+
+  driver2:
+    image: "sineio/cosbench-sineio:0.4.7.9-alpine"
+    environment:
+      CONTROLLER: false
+      DRIVER: true
+      DRIVER_PORT: 18188
+      COSBENCH_PLUGINS: "SIO,S3"
+    volumes:
+      - /data/cosbench/driver2-log/:/cosbench/log
+      - /etc/resolv.conf:/etc/resolv.conf:ro
+      - /etc/hosts:/etc/hosts:ro
+      - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:18188/driver"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    network_mode: "host"
+
+  driver3:
+    image: "sineio/cosbench-sineio:0.4.7.9-alpine"
+    environment:
+      CONTROLLER: false
+      DRIVER: true
+      DRIVER_PORT: 18288
+      COSBENCH_PLUGINS: "SIO,S3"
+    volumes:
+      - /data/cosbench/driver3-log/:/cosbench/log
+      - /etc/resolv.conf:/etc/resolv.conf:ro
+      - /etc/hosts:/etc/hosts:ro
+      - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:18288/driver"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    network_mode: "host"
+
+  controller:
+    image: "sineio/cosbench-sineio:0.4.7.9-alpine"
+    environment:
+      CONTROLLER: true
+      DRIVER: false
+      DRIVERS: "http://127.0.0.1:18088/driver,http://127.0.0.1:18188/driver,http://127.0.0.1:18288/driver,"
+    depends_on:
+      driver1:
+        condition: service_healthy
+      driver2:
+        condition: service_healthy
+      driver3:
+        condition: service_healthy
+    volumes:
+      - /data/cosbench/archive/:/cosbench/archive
+      - /data/cosbench/controller-log/:/cosbench/log
+      - /etc/resolv.conf:/etc/resolv.conf
+      - /etc/hosts:/etc/hosts
+      - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:19088/controller/index.html"]
+      interval: 60s
+      timeout: 20s
+      retries: 3
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    network_mode: "host"
+
