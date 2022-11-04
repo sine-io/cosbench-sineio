@@ -76,93 +76,56 @@
 			</div>
 			
 			<div id="workload.as" class="a2">
-					<table class="info-table">
-						<thead>
+				<table class="info-table">
+					<thead>
+						<tr>
+							<th ><strong></strong> </th>
+							<th ><strong>Type</strong></a> </th>
+							<th ></strong>Configuration</strong></a> </th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td >Authentication</td>
+							<td >
+								<select name="auth.type" id="auth.type" onChange="changeAuth()">
+								  <option value="none" selected="true">none</option>
+								  <option value="swauth">swauth/tempauth</option>
+								  <option value="keystone">keystone</option>
+								  <option value="httpauth">basic/digest</option>									
+								  <option value="mock">mock</option>
+								</select>
+							</td>
+							<td >
+								<input name="auth.config" id="auth.config" type="text" style="width:500px" value=""
+								title="different auth system has different parameters: &#10;[swauth]: username=<account:username>;password=<password>;url=<url> &#10;[keystone]: username=<account:username>;password=<password>;url=<url> &#10;[mock]: delay=<time> &#10;[none]: " /> 
+				
+							</td>
+						</tr>
 						
-							<tr>
-							
-								<th ><strong></strong> </th>
-								<th ><strong>Type</strong></a> </th>
-								<th ></strong>Configuration</strong></a> </th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td >Authentication</td>
-								<td >
-									<select name="auth.type">
-									  <option value="swauth" selected="true">swauth</option>
-									  <option value="keystone">keystone</option>
-									  <option value="mock">mock</option>
-									  <option value="none">none</option>
-									</select>
-								</td>
-								<td >
-									<input name="auth.config" type="text" style="width:500px" value="username=test:tester;password=testing;url=http://192.168.10.1:8080/auth/v1.0" 
-					title="different auth system has different parameters: &#10;[swauth]: username=<account:username>;password=<password>;url=<url> &#10;[keystone]: username=<account:username>;password=<password>;url=<url> &#10;[mock]: delay=<time> &#10;[none]: " /> 
-								</td>
-							</tr>
-							
-							<tr>
-								<td >Storage</td>
-								<td >
-									<select name="storage.type">
-									  <option value="swift" selected="true">swift</option>
-									  <option value="ampli">amplistor</option>
-									  <option value="mock">mock</option>
-									  <option value="none">none</option>
-									</select>
-								</td>
-								<td >
-									<input name="storage.config" type="text" style="width:500px" value=""
-					title="different storage system has different parameters: &#10 [swift]:  &#10 [ampli]: host=<host>;port=<port>;nsroot=<namespace root>;policy=<policy id> &#10; [mock]: delay=<time>;&#10 [none]: " /> 
-								</td>
-							</tr>
-						</tbody>
-						
-<!--						
-						<tbody>
-							<tr>
-								<td >Authentication</td>
-								<td >
-									<select name="auth.type" id="auth.type" onChange="changeAuth()">
-									  <option value="swauth" selected="true">swauth/tempauth</option>
-									  <option value="keystone">keystone</option>
-									  <option value="httpauth">basic/digest</option>									
-									  <option value="mock">mock</option>
-									  <option value="none">none</option>
-									</select>
-								</td>
-								<td >
-									<input name="auth.config" id="auth.config" type="text" style="width:500px" value="username=<username>;password=<password>;auth_url=<url>"
-									title="different auth system has different parameters: &#10;[swauth]: username=<account:username>;password=<password>;url=<url> &#10;[keystone]: username=<account:username>;password=<password>;url=<url> &#10;[mock]: delay=<time> &#10;[none]: " /> 
-					
-								</td>
-							</tr>
-							
-							<tr>
-								<td >Storage</td>
-								<td >
-									<select name="storage.type" id="storage.type" onChange="changeStorage()">
-									  <option value="swift" selected="true">Swift</option>
-									  <option value="ampli">Amplistor</option>
-									  <option value="s3">S3</option>
-									  <option value="librados">Ceph LibRados</option>
-									  <option value="cdmi">CDMI</option>
-									  <option value="cdmi_swift">CDMI for Swift</option>
-									  <option value="mock">mock</option>
-									  <option value="none">none</option>
-									</select>
-								</td>
-								<td >
-									<input name="storage.config" id="storage.config" type="text" style="width:500px" value="" 
-									title="different storage system has different parameters: &#10 [swift]:  &#10 [ampli]: host=<host>;port=<port>;nsroot=<namespace root>;policy=<policy id> &#10; [mock]: delay=<time>;&#10 [none]: " /> 
-					
-								</td>
-							</tr>
-						</tbody>
--->
-					</table>
+						<tr>
+							<td >Storage</td>
+							<td >
+								<select name="storage.type" id="storage.type" onChange="changeStorage()">
+								  <option value="sio" selected="true">SineIO</option>
+								  <option value="s3">S3</option>
+								  <option value="swift">Swift</option>
+								  <option value="ampli">Amplistor</option>
+								  <option value="librados">Ceph LibRados</option>
+								  <option value="cdmi">CDMI</option>
+								  <option value="cdmi_swift">CDMI for Swift</option>
+								  <option value="mock">mock</option>
+								  <option value="none">none</option>
+								</select>
+							</td>
+							<td >
+								<input name="storage.config" id="storage.config" type="text" style="width:500px" value="endpoint=<endpoint>;accesskey=<ak>;secretkey=<sk>;path_style_access=true" 
+								title="different storage system has different parameters: &#10 [swift]:  &#10 [ampli]: host=<host>;port=<port>;nsroot=<namespace root>;policy=<policy id> &#10; [mock]: delay=<time>;&#10 [none]: " /> 
+				
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	
@@ -268,8 +231,12 @@
 										<select name="prepare.sizes.unit">
 										  <option value="B">Byte</option>
 										  <option value="KB" selected="true">KB</option>
+										  <option value="KiB">KiB</option>
 										  <option value="MB">MB</option>
-										  <option value="GB">GB</option>	</select>
+										  <option value="MiB">MiB</option>
+										  <option value="GB">GB</option>
+										  <option value="GiB">GiB</option>
+										</select>
 									</td>
 								</tr>
 							</tbody>							
@@ -689,6 +656,10 @@
 				config.title="where nsroot and policy are optional, but policy is mandatory at init stage."
 				break;
 			case "s3":
+				config.value="accesskey=<accesskey>;secretkey=<scretkey>;proxyhost=<proxyhost>;proxyport=<proxyport>;endpoint=<endpoint>";
+				config.title="where proxyhost, proxyport and endpoint are optional.";
+				break;
+			case "sio":
 				config.value="accesskey=<accesskey>;secretkey=<scretkey>;proxyhost=<proxyhost>;proxyport=<proxyport>;endpoint=<endpoint>";
 				config.title="where proxyhost, proxyport and endpoint are optional.";
 				break;

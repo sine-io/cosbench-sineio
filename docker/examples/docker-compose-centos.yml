@@ -84,7 +84,7 @@ services:
       - /data/cosbench/archive/:/cosbench/archive
       - /data/cosbench/controller-log/:/cosbench/log
       - /etc/resolv.conf:/etc/resolv.conf
-      - /etc/hosts:/etc/hosts
+      - /etc/hosts:/etc/hosts:ro
       - /etc/localtime:/etc/localtime:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:19088/controller/index.html"]

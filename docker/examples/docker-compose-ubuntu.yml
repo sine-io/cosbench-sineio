@@ -90,7 +90,7 @@ services:
       - /data/cosbench/archive/:/cosbench/archive
       - /data/cosbench/controller-log/:/cosbench/log
       - /etc/resolv.conf:/etc/resolv.conf
-      - /etc/hosts:/etc/hosts
+      - /etc/hosts:/etc/hosts:ro
       - /etc/localtime:/etc/localtime:ro
       #- controller-archive:/cosbench/archive
       #- controller-log/:/cosbench/log
