@@ -4,6 +4,7 @@ services:
   driver1:
     image: "sineio/cosbench-sineio:0.4.7.9-ubuntu"
     environment:
+      TZ: "Asia/Shanghai"
       CONTROLLER: false
       DRIVER: true
       DRIVER_PORT: 18088
@@ -13,8 +14,7 @@ services:
       - /etc/resolv.conf:/etc/resolv.conf:ro
       - /etc/hosts:/etc/hosts:ro
       - /etc/localtime:/etc/localtime:ro
-      #- driver1-archive:/cosbench/archive
-      #- driver1-log/:/cosbench/log
+      - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:18088/driver"]
       interval: 30s
@@ -28,6 +28,7 @@ services:
   driver2:
     image: "sineio/cosbench-sineio:0.4.7.9-ubuntu"
     environment:
+      TZ: "Asia/Shanghai"
       CONTROLLER: false
       DRIVER: true
       DRIVER_PORT: 18188
@@ -37,8 +38,7 @@ services:
       - /etc/resolv.conf:/etc/resolv.conf:ro
       - /etc/hosts:/etc/hosts:ro
       - /etc/localtime:/etc/localtime:ro
-      #- driver2-archive:/cosbench/archive
-      #- driver2-log/:/cosbench/log
+      - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:18188/driver"]
       interval: 30s
@@ -52,6 +52,7 @@ services:
   driver3:
     image: "sineio/cosbench-sineio:0.4.7.9-ubuntu"
     environment:
+      TZ: "Asia/Shanghai"
       CONTROLLER: false
       DRIVER: true
       DRIVER_PORT: 18288
@@ -61,8 +62,7 @@ services:
       - /etc/resolv.conf:/etc/resolv.conf:ro
       - /etc/hosts:/etc/hosts:ro
       - /etc/localtime:/etc/localtime:ro
-      #- driver2-archive:/cosbench/archive
-      #- driver2-log/:/cosbench/log
+      - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:18288/driver"]
       interval: 30s
@@ -76,6 +76,7 @@ services:
   controller:
     image: "sineio/cosbench-sineio:0.4.7.9-ubuntu"
     environment:
+      TZ: "Asia/Shanghai"
       CONTROLLER: true
       DRIVER: false
       DRIVERS: "http://127.0.0.1:18088/driver,http://127.0.0.1:18188/driver,http://127.0.0.1:18288/driver,"
@@ -92,8 +93,7 @@ services:
       - /etc/resolv.conf:/etc/resolv.conf
       - /etc/hosts:/etc/hosts:ro
       - /etc/localtime:/etc/localtime:ro
-      #- controller-archive:/cosbench/archive
-      #- controller-log/:/cosbench/log
+      - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:19088/controller/index.html"]
       interval: 60s
@@ -103,11 +103,3 @@ services:
     tty: true
     stdin_open: true
     network_mode: "host"
-
-#volumes:
-#  controller-archive:
-#  controller-log:
-#  driver1-archive:
-#  driver1-log:
-#  driver2-archive:
-#  driver2-log:

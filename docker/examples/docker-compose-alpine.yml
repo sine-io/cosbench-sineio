@@ -4,6 +4,7 @@ services:
   driver1:
     image: "sineio/cosbench-sineio:0.4.7.9-alpine"
     environment:
+      TZ: "Asia/Shanghai"
       CONTROLLER: false
       DRIVER: true
       DRIVER_PORT: 18088
@@ -13,6 +14,7 @@ services:
       - /etc/resolv.conf:/etc/resolv.conf:ro
       - /etc/hosts:/etc/hosts:ro
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:18088/driver"]
       interval: 30s
@@ -26,6 +28,7 @@ services:
   driver2:
     image: "sineio/cosbench-sineio:0.4.7.9-alpine"
     environment:
+      TZ: "Asia/Shanghai"
       CONTROLLER: false
       DRIVER: true
       DRIVER_PORT: 18188
@@ -35,6 +38,7 @@ services:
       - /etc/resolv.conf:/etc/resolv.conf:ro
       - /etc/hosts:/etc/hosts:ro
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:18188/driver"]
       interval: 30s
@@ -48,6 +52,7 @@ services:
   driver3:
     image: "sineio/cosbench-sineio:0.4.7.9-alpine"
     environment:
+      TZ: "Asia/Shanghai"
       CONTROLLER: false
       DRIVER: true
       DRIVER_PORT: 18288
@@ -57,6 +62,7 @@ services:
       - /etc/resolv.conf:/etc/resolv.conf:ro
       - /etc/hosts:/etc/hosts:ro
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:18288/driver"]
       interval: 30s
@@ -70,6 +76,7 @@ services:
   controller:
     image: "sineio/cosbench-sineio:0.4.7.9-alpine"
     environment:
+      TZ: "Asia/Shanghai"
       CONTROLLER: true
       DRIVER: false
       DRIVERS: "http://127.0.0.1:18088/driver,http://127.0.0.1:18188/driver,http://127.0.0.1:18288/driver,"
@@ -86,6 +93,7 @@ services:
       - /etc/resolv.conf:/etc/resolv.conf
       - /etc/hosts:/etc/hosts:ro
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:19088/controller/index.html"]
       interval: 60s
