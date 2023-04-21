@@ -26,6 +26,7 @@ mkdir $1
 
 cp -f -R release/* $1/
 cp -f -R dist/* $1/
+cp -f -R docker $1/
 
 cp -f LICENSE $1/
 cp -f NOTICE $1/

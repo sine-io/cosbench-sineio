@@ -1,7 +1,8 @@
 
-    <script type="text/javascript">
+<script type="text/javascript">
     function forchart(xvalue,yvalue,name,sp,stagename,axis){
         var seriesdate="[";
+
         for(var i=0;i<yvalue.length;i++){
             seriesdate+="{";
             seriesdate+="\"name\":\""+axis[i]+"\",";
@@ -18,7 +19,6 @@
        
         var axistitle="{\"data\":[";
         for(var j=0;j<axis.length;j++){
-
             axistitle+="\""+axis[j]+"\","
         }
         axistitle=axistitle.substring(0,axistitle.length-1);
