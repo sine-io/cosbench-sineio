@@ -1,9 +1,37 @@
 #!/bin/bash
 
-# Stop before start.
-echo
-echo "======================================================"
-echo
+usage() {
+	# Stop before start.
+	echo
+	echo "======================================================"
+	echo
+	echo "Usage:"
+	echo
+	echo "<default>:none of parameter, create only one driver."
+	echo "    'sh start-driver.sh' --- create one driver, ip->127.0.0.1, port->18088, log mode->INFO"
+	echo "<mult>:pareameters"
+	echo "    <1>the number of drivers on one node"
+	echo "        sh start-driver.sh 3 --- create three drivers, ip->127.0.0.1, ports->18088/18188/18288, log mode->INFO"
+	echo "    <2>the ip of driver"
+	echo "        'sh start-driver.sh 3 172.38.30.133' --- create three drivers, ip->172.38.30.133, ports->18088/18188/18288, log mode->INFO"
+	echo "    <3>base of port"
+	echo "        'sh start-driver.sh 3 172.38.30.133 18111' --- create three drivers, ip->172.38.30.133, ports->18111/18211/18311, log mode->INFO"
+	echo "    <4>the log level of driver: [TRACE, DEBUG, INFO, WARN, ERROR], default is INFO"
+	echo "        'sh start-driver.sh 3 172.38.30.133 18111 DEBUG' --- create three drivers, ip->172.38.30.133, ports->18111/18211/18311, log mode->DEBUG"
+	echo
+	echo "======================================================"
+	echo
+}
+
+
+if [[ $1 = "-h" ]] || [[ $1 = "--help" ]];then
+	usage
+	exit 1
+else
+	usage
+fi
+
+# Stop first
 bash stop-driver.sh
 
 # Start here.
@@ -29,13 +57,12 @@ elif [ $# -eq 4 ]; then
  	base_port=$3 
 	log_level=$4 
 else 
- 	echo "<default>:none of parameter,create one driver" 
-	echo "<mult>:pareameters" 
- 	echo "	   	<1>the number of drivers on one node" 
-	echo "	   	<2>the ip of driver" 
-	echo "		<3>base of port" 
-	echo "		<4>the log level of driver: [TRACE, DEBUG, INFO, WARN, ERROR], default is INFO" 
-	exit 1 
+	echo 
+	echo "------------------------------------------------------"
+ 	echo "|      Error params, Refer to the Usage, Exit.       |"
+	echo "------------------------------------------------------"
+	echo 
+	exit 1
 fi 
 
 
@@ -82,8 +109,3 @@ do
 	#ip/port list
 	echo "$name" >> ip-port.list
 done
-
-
-
-
-

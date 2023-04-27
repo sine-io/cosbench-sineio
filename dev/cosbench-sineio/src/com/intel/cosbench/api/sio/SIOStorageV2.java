@@ -262,24 +262,25 @@ public class SIOStorageV2 extends NoneStorage {
 			String uploadId = response.uploadId();
 
 			long position = 0;
+			long tempPartSize; // avoid to change the partSize, bug fix:#25
 
 			for (int i = 1; position < length; i++) {
 				// Because the last part could be less than 5 MiB, adjust the part size as
 				// needed.
-				partSize = Math.min(partSize, (length - position));
+				tempPartSize = Math.min(partSize, (length - position));
 
 				// Create the request to upload a part.
-				UploadPartRequest uploadRequest = UploadPartRequest.builder().contentLength(partSize) // TODO: needed?
+				UploadPartRequest uploadRequest = UploadPartRequest.builder().contentLength(tempPartSize) // TODO: needed?
 						.bucket(container).key(object).uploadId(uploadId).partNumber(i).build();
 
 				// Upload the part and add the response's ETag to our list.
-				RequestBody requestBody = RequestBody.fromInputStream(data, partSize);
+				RequestBody requestBody = RequestBody.fromInputStream(data, tempPartSize);
 				UploadPartResponse uploadPartResponse = client.uploadPart(uploadRequest, requestBody);
 
 				CompletedPart tempPart = CompletedPart.builder().partNumber(i).eTag(uploadPartResponse.eTag()).build();
 				partETags.add(tempPart);
 
-				position += partSize;
+				position += tempPartSize;
 			}
 
 			CompletedMultipartUpload completedMultipartUpload = CompletedMultipartUpload.builder().parts(partETags)

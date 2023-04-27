@@ -148,9 +148,12 @@ public class SIOStorage extends NoneStorage {
 
 		EndpointConfiguration myEndpoint = new EndpointConfiguration(endpoint, "");
 
-		client = AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(myCredentials))
-				.withClientConfiguration(clientConf).withEndpointConfiguration(myEndpoint)
-				.withPathStyleAccessEnabled(pathStyleAccess).build();
+		client = AmazonS3ClientBuilder.standard()
+				.withCredentials(new AWSStaticCredentialsProvider(myCredentials))
+				.withClientConfiguration(clientConf)
+				.withEndpointConfiguration(myEndpoint)
+				.withPathStyleAccessEnabled(pathStyleAccess)
+				.build();
 
 		logger.debug("S3 client has been initialized");
 
@@ -312,11 +315,12 @@ public class SIOStorage extends NoneStorage {
 			String uploadID = initResponse.getUploadId();
 
 			long position = 0;
+			long tempPartSize; // avoid to change the partSize, bug fix:#25
 
 			for (int i = 1; position < length; i++) {
 				// Because the last part could be less than 5 MiB, adjust the part size as
 				// needed.
-				partSize = Math.min(partSize, (length - position));
+				tempPartSize = Math.min(partSize, (length - position));
 
 				// Create the request to upload a part.
 				UploadPartRequest uploadRequest = new UploadPartRequest()
@@ -325,7 +329,7 @@ public class SIOStorage extends NoneStorage {
 						.withUploadId(uploadID)
 						.withPartNumber(i)
 						.withInputStream(data)
-						.withPartSize(partSize);
+						.withPartSize(tempPartSize);
 
 				uploadRequest.getRequestClientOptions().setReadLimit((int)length+1); // length+1
 
@@ -333,7 +337,7 @@ public class SIOStorage extends NoneStorage {
 				UploadPartResult uploadResult = client.uploadPart(uploadRequest);
 				partETags.add(uploadResult.getPartETag());
 
-				position += partSize;
+				position += tempPartSize;
 			}
 
 			// Complete the multipart upload.

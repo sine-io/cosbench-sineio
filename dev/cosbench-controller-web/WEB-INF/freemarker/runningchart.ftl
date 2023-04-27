@@ -34,7 +34,7 @@
     var id="${sInfo.id}";
 
     <#list sInfo.snapshots as snapshot>
-       <#list snapshot.report.allMetrics as mInfo>
+        <#list snapshot.report.allMetrics as mInfo>
             // bandwidth
             bandwidth="${mInfo.bandwidth}";
             bandwidth=bandwidth.replace(/,/gi,'');
