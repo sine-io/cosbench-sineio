@@ -1,7 +1,7 @@
 /**
 
 Copyright 2013 Intel Corporation, All Rights Reserved.
-Copyright 2021-2022 eHualu Corporation, All Rights Reserved.
+Copyright 2021-Present SineIO, All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -78,6 +78,10 @@ public class Operators {
 		}
 		if (StringUtils.equals(type, MFileWriter.OP_TYPE)) {
 			return new MFileWriter();
+		}
+		// 2023.5.23, sine
+		if (StringUtils.equals(type, LocalWriter.OP_TYPE)) {
+			return new LocalWriter();
 		}
 
 		String msg = "unrecognized operation: " + type;

@@ -285,6 +285,7 @@ class WorkAgent extends AbstractAgent implements Session, OperationListener {
             bytes += mark.getByteCount();
         return bytes;
     }
+    
     public void reLogin() {
         LOGGER.debug("WorkAgent {} auth failed, now relogin",workerContext.getIndex());
         AuthContext authContext = workerContext.getStorageApi().getAuthContext();

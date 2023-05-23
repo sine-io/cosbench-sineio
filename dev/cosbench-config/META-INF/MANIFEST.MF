@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Automatic-Module-Name: cosbench.config
 Bundle-Name: COSBench Config Bundle
 Bundle-SymbolicName: cosbench-config
-Bundle-Version: 0.4.7.9
+Bundle-Version: 0.4.7.10
 Bundle-Vendor: intel
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.intel.cosbench.config,

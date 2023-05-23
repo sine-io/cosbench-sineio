@@ -21,6 +21,22 @@
     </workstage>
 	<!-- end -->
 	
+	<!-- mfilewrite, multipart upload object -->
+    <workstage name="mfilewrite example">
+	  <work name="mfilewrite test" workers="5" totalOps="10">
+        <operation type="mfilewrite" ratio="100" config="cprefix=s3testqwer;containers=c(1);fileselection=s;files=/dev/shm/testfiles/" />
+      </work>
+	</workstage>
+	<!-- end -->
+	
+	<!-- localwrite, generate file to local path -->
+    <workstage name="localwrite example">
+	  <work name="localwrite test" workers="5" totalOps="10">
+        <operation type="localwrite" ratio="100" config="cprefix=s3testqwer;containers=r(1,1);objects=s(1,10);sizes=c(64)KB;files=/dev/shm/testfiles/" />
+      </work>
+	</workstage>
+	<!-- end -->
+	
 	<!-- restore, restore object -->
 	<workstage name="restore object example">
       <work name="restore test" workers="8" runtime="30">
@@ -98,6 +114,12 @@
         <operation type="write" ratio="20" config="cprefix=s3testqwer;containers=u(1,2);objects=u(11,20);sizes=c(64)KB" />
       </work>
     </workstage>
+	
+	<workstage name="test filewrite">
+	  <work name="w_1" workers="5" totalOps="10">
+        <operation type="filewrite" ratio="100" config="cprefix=s3testqwer;containers=c(1);fileselection=s;files=/dev/shm/testfiles/" />
+      </work>
+	</workstage>
 
     <workstage name="cleanup">
       <work type="cleanup" workers="1" config="cprefix=s3testqwer;containers=r(1,2);objects=r(1,20)" />

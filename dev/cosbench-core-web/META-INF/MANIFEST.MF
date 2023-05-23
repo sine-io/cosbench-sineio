@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Automatic-Module-Name: cosbench.core.web
 Bundle-Name: COSBench Web Core Bundle
 Bundle-SymbolicName: cosbench-core-web
-Bundle-Version: 0.4.7.9
+Bundle-Version: 0.4.7.10
 Bundle-Vendor: intel
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.intel.cosbench.web

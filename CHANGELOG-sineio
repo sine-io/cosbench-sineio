@@ -1,4 +1,12 @@
 
+ COSBench 0.4.7.10(sine 2023.05.23)
+------------------------------------
+- 35: add filewrite and localwrite examples to sio-config-sample.xml
+- 34: bug fix: #25 [Bug]: mwrite's partSize parameter was changed to the last part size when upload-part completed. 
+- 33: buf fix: #24 [Bug]: can't load ‘Performance Graph’ when workstage‘s name had any space characters
+- 32: add localwrite feature, we can generate files to local dirs now.
+
+
  COSBench 0.4.7.9(sine 2022.10.13)
 ------------------------------------
 - 31: detect tool changed: from nc to telnet
