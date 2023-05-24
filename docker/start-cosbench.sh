@@ -54,6 +54,8 @@ drivers = $nbdrivers
 log_level = INFO
 log_file = log/system.log
 archive_dir = archive
+name = SineIO-Controller
+url = http://127.0.0.1:19088/controller/index.html
 EOF
 
   # Driver configuration
