@@ -22,13 +22,13 @@ import java.util.concurrent.Future;
 
 import com.intel.cosbench.bench.*;
 import com.intel.cosbench.config.*;
-import com.intel.cosbench.log.LogFactory;
+//import com.intel.cosbench.log.LogFactory;
 import com.intel.cosbench.log.Logger;
 import com.intel.cosbench.model.*;
 
 public class WorkloadContext implements WorkloadInfo {
 
-    private static final Logger LOGGER = LogFactory.getSystemLogger();
+//    private static final Logger LOGGER = LogFactory.getSystemLogger();
     private String id;
     private Date submitDate;
     private Date startDate;
@@ -201,12 +201,12 @@ public class WorkloadContext implements WorkloadInfo {
     @Override
     public String[] getAllOperations() {
         if(opInfo == null) {
-        Set<String> ops = new LinkedHashSet<String>();
-        for (Stage stage : workload.getWorkflow())
-            for (Work work : stage)
-                for (Operation op : work)
-                    ops.add(op.getType());
-        setOpInfo(ops.toArray(new String[ops.size()]));
+	        Set<String> ops = new LinkedHashSet<String>();
+	        for (Stage stage : workload.getWorkflow())
+	            for (Work work : stage)
+	                for (Operation op : work)
+	                    ops.add(op.getType());
+	        setOpInfo(ops.toArray(new String[ops.size()]));
         }
         return getOpInfo();
     }
@@ -231,9 +231,10 @@ public class WorkloadContext implements WorkloadInfo {
 
     @Override
     public StageInfo getStageInfo(String id) {
-        for (StageInfo info : stageRegistry)
-            if (info.getId().equals(id))
+        for (StageInfo info : stageRegistry) {
+            if (info.getId().equals(id)) 
                 return info;
+        }
         return null;
     }
 

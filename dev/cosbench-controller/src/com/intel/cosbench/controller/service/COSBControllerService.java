@@ -55,7 +55,7 @@ class COSBControllerService implements ControllerService, WorkloadListener {
     private OrderThreadPoolExecutor executor;
     private WorkloadArchiver archiver = new SimpleWorkloadArchiver();
     private WorkloadLoader loader = new SimpleWorkloadLoader();
-    private WorkloadRepository memRepo = new RAMWorkloadRepository();
+    private WorkloadRepository memRepo = new RAMWorkloadRepository(); // in-memory repository to store all workloads information.
 
     private boolean loadArch = false;
 

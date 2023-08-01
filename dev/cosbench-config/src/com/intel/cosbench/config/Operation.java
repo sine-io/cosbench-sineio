@@ -69,7 +69,7 @@ public class Operation {
 
     public void setDivision(String division) {
         if (StringUtils.isEmpty(division))
-            throw new ConfigException("oepration must have its division");
+            throw new ConfigException("operation must have its division");
         this.division = division;
     }
 
@@ -81,7 +81,6 @@ public class Operation {
         /* configuration might be empty */
         this.config = config;
     }
-
 
     public String getId() {
         return id;

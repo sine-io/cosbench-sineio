@@ -23,8 +23,8 @@ import java.io.File;
 import org.apache.commons.lang.StringUtils;
 
 import com.intel.cosbench.config.common.ConfigUtils;
-import com.intel.cosbench.log.LogFactory;
-import com.intel.cosbench.log.Logger;
+//import com.intel.cosbench.log.LogFactory;
+//import com.intel.cosbench.log.Logger;
 
 /**
  * The model class mapping to "workload" in configuration xml with following form:

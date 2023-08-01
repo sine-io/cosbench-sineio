@@ -18,11 +18,11 @@ limitations under the License.
 package com.intel.cosbench.controller.archiver;
 
 import java.io.*;
-import java.util.List;
+//import java.util.List;
 import java.util.Scanner;
 
-import com.intel.cosbench.bench.Metrics;
-import com.intel.cosbench.bench.TaskReport;
+//import com.intel.cosbench.bench.Metrics;
+//import com.intel.cosbench.bench.TaskReport;
 import com.intel.cosbench.config.*;
 import com.intel.cosbench.config.castor.CastorConfigTools;
 import com.intel.cosbench.exporter.*;
@@ -99,7 +99,7 @@ public class SimpleWorkloadArchiver implements WorkloadArchiver {
 
     private void exportWorkerInfo(WorkloadInfo info,File parent)throws IOException{
         for(StageInfo sInfo :info.getStageInfos()){
-            File file = new File(parent,getStageFileName(sInfo) +"-worker"+ ".csv");
+            File file = new File(parent,getStageFileName(sInfo) +"-worker"+ ".csv"); // stageId-worker.csv
             Writer writer = new BufferedWriter(new FileWriter(file));
             WorkerExporter exporter = Exporters.newWorkExporter(sInfo);
              try {
@@ -116,7 +116,7 @@ public class SimpleWorkloadArchiver implements WorkloadArchiver {
 
     private void exportTaskInfo(WorkloadInfo info,File parent)throws IOException{
         for(DriverInfo dInfo:info.getDriverInfos()){
-            File file = new File(parent, dInfo.getName() + ".csv");
+            File file = new File(parent, dInfo.getName() + ".csv"); // driverx.csv
             Writer writer = new BufferedWriter(new FileWriter(file));
             TaskExporter exporter = Exporters.newTaskExporter(info,dInfo);
              try {
@@ -333,11 +333,15 @@ public class SimpleWorkloadArchiver implements WorkloadArchiver {
         if (!file.exists() || file.length() == 0)
             return 0;
         int count;
+        Scanner sc = null; // 2023.6.13
         Reader reader = new BufferedReader(new FileReader(file));
         try {
-            count = new Scanner(reader).nextInt();
+        	sc = new Scanner(reader); // 2023.6.13
+        	count = sc.nextInt();
+            // count = new Scanner(reader).nextInt();
         } finally {
             reader.close();
+            sc.close(); // 2023.6.13, fix warning: Resource leak: '<unassigned Closeable value>' is never closed
         }
         LOGGER.debug("workload count has been retrieved as {}", count);
         return count;

@@ -28,6 +28,10 @@
                     <#if allOps!false || write!false >checked="true"</#if> /></span> Write
                 <span class="checkbox"><input name="ops" type="checkbox" value="delete"
                     <#if allOps!false || delete!false >checked="true"</#if> /></span> Delete
+                <span class="checkbox"><input name="ops" type="checkbox" value="list"
+                    <#if allOps!false || head!false >checked="true"</#if> /></span> List
+                <span class="checkbox"><input name="ops" type="checkbox" value="filewrite"
+                    <#if allOps!false || head!false >checked="true"</#if> /></span> FileWrite
                 <span class="checkbox"><input name="ops" type="checkbox" value="head"
                     <#if allOps!false || head!false >checked="true"</#if> /></span> Head
                 <span class="checkbox"><input name="ops" type="checkbox" value="restore"
@@ -44,6 +48,10 @@
                     <#if allOps!false || cleanup!false >checked="true"</#if> /></span> Cleanup
                 <span class="checkbox"><input name="ops" type="checkbox" value="dispose"
                     <#if allOps!false || dispose!false >checked="true"</#if> /></span> Dispose
+                <span class="checkbox"><input name="ops" type="checkbox" value="mfilewrite"
+                    <#if allOps!false || head!false >checked="true"</#if> /></span> MFileWrite
+                <span class="checkbox"><input name="ops" type="checkbox" value="localwrite"
+                    <#if allOps!false || head!false >checked="true"</#if> /></span> LocalWrite
                 <br /><br />
                 <span class="label">General Metrics:</span>
                 <span class="checkbox"><input name="metrics" type="checkbox" value="oc"
@@ -114,7 +122,9 @@
                         <#if allOps!false || (mInfo.opType == "read" && read!false) || (mInfo.opType == "write" && write!false) || 
                         (mInfo.opType == "delete" && delete!false) || (mInfo.opType == "head" && head!false) || (mInfo.opType == "restore" && restore!false) || 
                         (mInfo.opType == "mwrite" && mwrite!false) || (mInfo.opType == "init" && init!false) || (mInfo.opType == "prepare" && prepare!false) || 
-                        (mInfo.opType == "mprepare" && mprepare!false) || (mInfo.opType == "cleanup" && cleanup!false) || (mInfo.opType == "dispose" && dispose!false) >
+                        (mInfo.opType == "mprepare" && mprepare!false) || (mInfo.opType == "cleanup" && cleanup!false) || (mInfo.opType == "dispose" && dispose!false) ||
+                        (mInfo.opType == "list" && list!false) || (mInfo.opType == "filewrite" && filewrite!false) || (mInfo.opType == "mfilewrite" && mfilewrite!false) || 
+                        (mInfo.opType == "localwrite" && localwrite!false) >
                             <tr>
                                 <td>${hInfo.id}-${sInfo.id}-${mid}</td>
                                 <#assign mid = mid + 1 >
@@ -314,7 +324,8 @@
             </#list>
         </table>
 
-        <p>
+        <p> 
+            'Read,Write,Delete' are selected as default.  
             <a href="matrix.html?type=${type}&ops=read&ops=write&ops=delete&metrics=rt&rthisto=_95rt&others=cfg">| Show RT only </a>
             <a href="matrix.html?type=${type}&ops=read&ops=write&ops=delete&metrics=t&others=cfg">| Show T only </a>
             <a href="matrix.html?type=${type}&ops=read&ops=write&ops=delete&metrics=bw&others=cfg">| Show BW only |</a>

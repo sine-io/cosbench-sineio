@@ -139,7 +139,7 @@
                 <#if highlightId?? && aInfo.id == highlightId >
                     <tr class="high-light">
                 <#else>
-                <tr>
+                	<tr>
                 </#if>
                     <td><input type="checkbox" id="checkbox-${aInfo.id}" name="ActiveWorkload" onclick="checkItem(event,'AllActive')" value="${aInfo.id}"></td>
                     <td onclick="checkMe('${aInfo.id}','AllActive');">${aInfo.id}</td>
@@ -189,7 +189,7 @@
                         <td><input type="checkbox" id="checkbox-${hInfo.id}" name="HistoryWorkload" onclick="checkItem(event,'AllHistory')" value="${hInfo.id}"></td>
                         <td onclick="checkMe('${hInfo.id}','AllHistory');");">${hInfo.id}</td>
                         <td onclick="checkMe('${hInfo.id}','AllHistory');");">${hInfo.workload.name}</td>
-                        <td onclick="checkMe('${hInfo.id}','AllHistory');");"><#if hInfo.startDate?? >${hInfo.startDate?datetime}<#else>N/A</#if> - ${hInfo.stopDate?time}</td>
+                        <td onclick="checkMe('${hInfo.id}','AllHistory');");"><#if hInfo.startDate?? >${hInfo.startDate?datetime}<#else>N/A</#if> - ${hInfo.stopDate?datetime}</td>
                         <td onclick="checkMe('${hInfo.id}','AllHistory');");">
                             <#list hInfo.allOperations as op >
                                 ${op}<#if op_has_next>,</#if>
@@ -236,7 +236,7 @@
                         <td><input type="checkbox" id="checkbox-${aInfo.id}" name="ArchivedWorkload" onclick="checkItem(event,'AllArchived')" value="${aInfo.id}"></td>
                         <td onclick="checkMe('${aInfo.id}','AllArchived');");">${aInfo.id}</td>
                         <td onclick="checkMe('${aInfo.id}','AllArchived');");">${aInfo.workload.name}</td>
-                        <td onclick="checkMe('${aInfo.id}','AllArchived');");"><#if aInfo.startDate?? >${aInfo.startDate?datetime}<#else>N/A</#if> - ${aInfo.stopDate?time}</td>
+                        <td onclick="checkMe('${aInfo.id}','AllArchived');");"><#if aInfo.startDate?? >${aInfo.startDate?datetime}<#else>N/A</#if> - ${aInfo.stopDate?datetime}</td>
                         <td onclick="checkMe('${aInfo.id}','AllArchived');");">
                             <#list aInfo.allOperations as op >
                             ${op}<#if op_has_next>,</#if>

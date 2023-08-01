@@ -37,6 +37,7 @@ class CSVWorkloadExporter extends AbstractWorkloadExporter {
     protected void writeHeader(Writer writer) throws IOException {
         StringBuilder buffer = new StringBuilder();
         buffer.append("Stage").append(',');
+        buffer.append("Op-Id").append(','); // 2023.6.14, sine. add Op-Id
         buffer.append("Op-Name").append(',');
         buffer.append("Op-Type").append(',');
         buffer.append("Op-Count").append(',');
@@ -62,6 +63,7 @@ class CSVWorkloadExporter extends AbstractWorkloadExporter {
             throws IOException {
         StringBuilder buffer = new StringBuilder();
         buffer.append(stage.getId()).append(',');
+        buffer.append(metrics.getOpId()).append(','); // 2023.6.14, sine.
         String opt = metrics.getOpName();
         String spt = metrics.getSampleType();
         if (spt.equals(opt))
@@ -110,6 +112,7 @@ class CSVWorkloadExporter extends AbstractWorkloadExporter {
          StringBuilder buffer = new StringBuilder();
          buffer.append(stage.getStage().getName()).append(',');
          buffer.append("N/A").append(',');
+         buffer.append("N/A").append(','); // 2023.6.14, sine.
          buffer.append("N/A").append(',');
          buffer.append("N/A").append(',');
          buffer.append("N/A").append(',');

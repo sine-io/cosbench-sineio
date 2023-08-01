@@ -210,7 +210,7 @@ public class Mission implements Iterable<Operation> {
 
     public void setStorage(Storage storage) {
         if (storage == null)
-            throw new ConfigException("a mission must have its storge");
+            throw new ConfigException("a mission must have its storage");
         this.storage = storage;
     }
 
@@ -220,7 +220,7 @@ public class Mission implements Iterable<Operation> {
 
     public void setOperations(List<Operation> operations) {
         if (operations == null || operations.isEmpty())
-            throw new ConfigException("a mission must have opertations");
+            throw new ConfigException("a mission must have operations");
         for(Operation op: operations) {
             op.setConfig(ConfigUtils.inherit(op.getConfig(), this.config));
         }
@@ -241,7 +241,7 @@ public class Mission implements Iterable<Operation> {
                     "conflicting workers, totalWorkers, and offset");
         if (runtime == 0 && totalOps == 0 && totalBytes == 0)
             throw new ConfigException(
-                    "no mission limits detectd, either runtime, total ops or total bytes has been set");
+                    "no mission limits detected, either runtime, total ops or total bytes has been set");
         auth.validate();
         storage.validate();
         setOperations(getOperations());

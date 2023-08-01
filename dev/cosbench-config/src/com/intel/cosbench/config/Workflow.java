@@ -20,8 +20,8 @@ package com.intel.cosbench.config;
 import java.util.*;
 
 import com.intel.cosbench.config.common.ConfigUtils;
-import com.intel.cosbench.log.LogFactory;
-import com.intel.cosbench.log.Logger;
+//import com.intel.cosbench.log.LogFactory;
+//import com.intel.cosbench.log.Logger;
 
 /**
  * The model class mapping to "workflow" in configuration xml with following form:
@@ -72,7 +72,8 @@ public class Workflow implements Iterable<Stage> {
     @Override
     public Iterator<Stage> iterator() {
         if(stages == null){
-            stages = new ArrayList();
+//        	stages = new ArrayList(); // ArrayList is a raw type. References to generic type ArrayList<E> should be parameterized
+            stages = new ArrayList<Stage>();
         }
         return stages.iterator();
     }

@@ -56,12 +56,13 @@ class CSVSnapshotLoader extends AbstractSnapshotLoader {
         }
         name = new String[opNum];
         for (int i = 0; i < opNum; i++)
-            name[i] = columns[i + 1];
+            name[i] = "op" + (i+1) + "." + columns[i + 1]; // need different name
     }
 
     @Override
     protected void readSnapshot() throws IOException {
         String workloadRecordLine = null;
+        
         while ((workloadRecordLine = this.reader.readLine()) != null) {
             String[] columns = workloadRecordLine.split(",");
             Date timestamp = null;
@@ -82,15 +83,17 @@ class CSVSnapshotLoader extends AbstractSnapshotLoader {
         Report report = new Report();
         List<Metrics> metrics = loadMetrics(columns);
         for (Metrics metric : metrics)
-            report.addMetrics(metric);
+            report.addMetrics(metric); // map, needs different keys.
         return report;
     }
 
     private List<Metrics> loadMetrics(String[] columns) {
         List<Metrics> metrics = new ArrayList<Metrics>();
+        
         for (int i = 0; i < opNum; i++) {
             Metrics metric = new Metrics();
             metric.setName(name[i]);
+            
             int n = name[i].lastIndexOf("-");
             if (n > 0) {
                 metric.setOpName(name[i].substring(0, n));
@@ -107,9 +110,6 @@ class CSVSnapshotLoader extends AbstractSnapshotLoader {
             metric.setAvgXferTime(rt - pt);
             metric.setThroughput(getDoubleValue(columns[i + opNum * 4 + 1]));
             metric.setBandwidth(getDoubleValue(columns[i + opNum * 5 + 1]));
-//            metric.setRatio(columns[i + opNum * 5 + 1].equalsIgnoreCase("N/A") ? 0D
-//                    : Double.valueOf(columns[i + opNum * 5 + 1].substring(0,
-//                            columns[i + opNum * 5 + 1].length() - 1)) / 100.0);
             setRatio(columns[i + opNum * 6 + 1], metric);
             metrics.add(metric);
         }

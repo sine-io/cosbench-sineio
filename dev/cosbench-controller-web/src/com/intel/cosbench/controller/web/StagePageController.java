@@ -59,8 +59,7 @@ public class StagePageController extends AbstractController {
             throw new NotFoundException();
         if (controller.getloadArch() && sInfo.getSnapshotRegistry().getSize() == 0)
             try {
-                controller.getWorkloadLoader().loadStagePageInfo(wInfo,
-                        sInfo.getId());
+                controller.getWorkloadLoader().loadStagePageInfo(wInfo, sInfo.getId());
             } catch (IOException e) {
                 e.printStackTrace();
             }

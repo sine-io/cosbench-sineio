@@ -57,7 +57,7 @@ class CSVStageExporter extends AbstractStageExporter {
             // 7 metrics
             for (Metrics metrics : snapshots[0].getReport())
                 buffer.append(
-                        StringUtils.join(new Object[] {
+                		StringUtils.join(new Object[] {
                                 (metrics.getOpName().equals(
                                         metrics.getSampleType()) ? null
                                         : metrics.getOpName() + "-"),
@@ -74,9 +74,8 @@ class CSVStageExporter extends AbstractStageExporter {
         buffer.append(TIME.format(snapshot.getTimestamp())).append(',');
         Report report = snapshot.getReport();
 
-        if(report.getSize() == 0)
-        {
-               report.addMetrics(Metrics.newMetrics("na.na"));
+        if(report.getSize() == 0) {
+        	report.addMetrics(Metrics.newMetrics("na.na"));
         }
 
         /* Operation Count */

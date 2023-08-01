@@ -73,9 +73,9 @@ public class SimpleWorkloadLoader implements WorkloadLoader {
         if (!file.exists())
             return null;
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        RunLoader loader = Loaders.newRunExporter(reader);
+        RunLoader loader = Loaders.newRunExporter(reader); // CSVRunLoader(reader)
         List<WorkloadInfo> workloads = new ArrayList<WorkloadInfo>();
-        workloads = loader.load();
+        workloads = loader.load(); // #CSVRunLoader.java -> #readWorkload
         if (reader != null)
             reader.close();
         return workloads;
@@ -86,6 +86,7 @@ public class SimpleWorkloadLoader implements WorkloadLoader {
             throws IOException {
         loadWorkloadConfig(workloadContext);
         loadWorkloadFile(workloadContext);
+//        loadStagePageInfo(workloadContext, null);
     }
 
     private void loadWorkloadConfig(WorkloadInfo workloadContext)
@@ -123,7 +124,9 @@ public class SimpleWorkloadLoader implements WorkloadLoader {
 
     private static StageContext createStageContext(String id, Stage stage) {
         StageContext context = new StageContext();
-        context.setId(id);
+        String sid = id + "-" + stage.getName(); // 2023.6.15, sine. s1-test restore, not s1.
+        context.setId(sid);
+        //context.setId(id);
         context.setStage(stage);
         context.setState(StageState.COMPLETED, true);
         return context;
@@ -143,14 +146,14 @@ public class SimpleWorkloadLoader implements WorkloadLoader {
         if (!file.exists())
             return;
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        WorkloadFileLoader loader = Loaders.newWorkloadLoader(reader,
-                workloadContext);
-        loader.load();
+        WorkloadFileLoader loader = Loaders.newWorkloadLoader(reader, 
+        		workloadContext); // CSVWorkloadFileLoader(reader, workloadContext)
+        loader.load(); // CSVWorkloadFileLoader.java#readWorkload
     }
 
     private static String getStageFileName(StageInfo info) {
         String name = info.getId();
-        name += "-" + info.getStage().getName();
+        //name += "-" + info.getStage().getName(); // because of stageId is s1-xxx
         return name;
     }
 
@@ -165,8 +168,8 @@ public class SimpleWorkloadLoader implements WorkloadLoader {
             return;
         BufferedReader reader = new BufferedReader(new FileReader(file));
         SnapshotLoader loader = Loaders.newSnapshotLoader(reader,
-                workloadContext, stageId);
-        loader.load();
+                workloadContext, stageId); // CSVSnapshotLoader(reader, workloadContext, stageId)
+        loader.load(); // CSVSnapshotLoader.java#readSnapshot
     }
 
 }

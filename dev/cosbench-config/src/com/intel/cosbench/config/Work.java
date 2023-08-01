@@ -235,7 +235,7 @@ public class Work implements Iterable<Operation> {
 
     public void setOperations(List<Operation> operations) {
         if (operations == null || operations.isEmpty())
-            throw new ConfigException("a work must have opertations");
+            throw new ConfigException("a work must have operations");
         for(Operation op: operations) {
             op.setConfig(ConfigUtils.inherit(op.getConfig(), this.config));
         }
@@ -405,7 +405,7 @@ public class Work implements Iterable<Operation> {
         setWorkers(getWorkers());
         if (runtime == 0 && totalOps == 0 && totalBytes == 0)
             throw new ConfigException(
-                    "no work limits detectd, either runtime, total ops or total bytes");
+                    "no work limits detected, either runtime, totalOps or totalBytes");
         setAuth(getAuth());
         auth.validate();
         setStorage(getStorage());
@@ -441,11 +441,14 @@ public class Work implements Iterable<Operation> {
         for (Operation op : operations) {
         	String opType = op.getType();
         	
-        	if (opType.equals("mwrite") || opType.equals("head") || opType.equals("restore") || opType.equals("mfilewrite")) {
+        	if (opType.equals("mwrite") || opType.equals("head") || 
+        			opType.equals("restore") || opType.equals("mfilewrite") || 
+        			opType.equals("localwrite")) {
             	if (storageType.equals("sio") || storageType.equals("siov2") || storageType.equals("gdas")) {
             		// do nothing.
         		} else {
-        			throw new ConfigException("You should change storage type to [sio or siov2 or gdas] to use [mwrite, head, restore, mfilewrite] operations");
+        			throw new ConfigException(
+        					"You should change storage type to [sio or siov2 or gdas] to use [mwrite, head, restore, mfilewrite, localwrite] operations");
 				}
 			}
         }
