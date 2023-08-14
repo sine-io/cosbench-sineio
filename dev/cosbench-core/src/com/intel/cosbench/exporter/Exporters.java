@@ -34,7 +34,7 @@ public class Exporters {
         return exporter;
     }
 
-    public static TaskExporter newTaskExporter(WorkloadInfo workloadInfo,DriverInfo driverInfo){
+    public static TaskExporter newTaskExporter(WorkloadInfo workloadInfo, DriverInfo driverInfo){
         AbstractTaskExporter exporter = new CSVTaskExporter();
         exporter.setWorkloadInfo(workloadInfo);
         exporter.setDriverInfo(driverInfo);
