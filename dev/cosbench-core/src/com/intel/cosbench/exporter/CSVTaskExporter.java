@@ -20,87 +20,121 @@ package com.intel.cosbench.exporter;
 
 import static com.intel.cosbench.exporter.Formats.NUM;
 import static com.intel.cosbench.exporter.Formats.RATIO;
-import static com.intel.cosbench.exporter.Formats.TIME;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Arrays;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 
 import com.intel.cosbench.bench.Metrics;
 import com.intel.cosbench.bench.Report;
-import com.intel.cosbench.bench.Snapshot;
 import com.intel.cosbench.bench.TaskReport;
+import com.intel.cosbench.model.TaskInfo;
 
 public class CSVTaskExporter extends AbstractTaskExporter{
 
     public CSVTaskExporter() {
         /* empty */
     }
+    
     protected void writeHeader(Writer writer) throws IOException {
-        StringBuilder buffer = new StringBuilder();
-        char[] cs = new char[8];
-        buffer.append("Op-Type").append(',');
-        buffer.append("Sample-Type").append(',');
-        buffer.append("Op-Count").append(',');
-        buffer.append("Byte-Count").append(',');
-        buffer.append("Avg-ResTime").append(',');
-        buffer.append("Avg-ProcTime").append(',');
-        buffer.append("Throughput").append(',');
-        buffer.append("Bandwidth").append(',');
-        buffer.append("Succ-Ratio").append('\n');
-        writer.write(buffer.toString());
+    	// 2023.8.22, sine. overwrite, use common-csv.jar
+    	final String[] header= {
+    			"Stage-ID", "Task-Interval",
+    			"Mission-ID", "Schedule-Offset",
+    			"Schedule-Workers", "Work-Name",
+    			"Op-Type", "Op-Ratio",
+        		"Sample-Type", "Op-Count", 
+        		"Byte-Count", "Avg-ResTime", 
+        		"Avg-ProcTime", "Throughput", 
+        		"Bandwidth", "Succ-Ratio"};
+    	
+    	try {
+            CSVFormat.DEFAULT.builder().setHeader(header).build().print(writer);
+        } catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+            if(null != writer) {
+            	writer.flush();
+            }
+        }
     }
 
-    protected void writeMetrics(Writer writer,TaskReport tReport)throws IOException {
-        StringBuilder buffer = new StringBuilder();
-        Report report = tReport.getReport();
-        /*Operation Type*/
-        for(Metrics metrics:report)
-            buffer.append(metrics.getOpType()).append(',');
-        /*sample Type*/
-        for(Metrics metrics:report)
-            buffer.append(metrics.getSampleType()).append(',');
-        /* Operation Count */
-        for (Metrics metrics :report)
-            buffer.append(metrics.getSampleCount()).append(',');
-        /* Byte Count */
-        for (Metrics metrics : report)
-            buffer.append(metrics.getByteCount()).append(',');
-        /* Response Time */
-        for (Metrics metrics : report) {
-            double r = metrics.getAvgResTime();
-            if (r > 0)
-                buffer.append(NUM.format(r));
-            else
-                buffer.append("N/A");
-            buffer.append(',');
+    protected void writeMetrics(Writer writer, TaskReport tReport)throws IOException {
+    	// 2023.8.22, sine. use common-csv.jar
+    	try {
+    		CSVPrinter csvPrinter = CSVFormat.DEFAULT.builder()
+    				.setSkipHeaderRecord(true).build().print(writer);
+    		Report report = tReport.getReport();
+    		
+    		for (Metrics metrics : report) {
+    			// taskContext
+    			TaskInfo tInfo = tReport.getTaskInfo();
+    			
+    			/* Stage ID */
+    			String stageName = tReport.getStageName();
+    			/* Task-Interval */
+    			tReport.getTaskInfo();
+            	/* Mission ID */
+    			String  missionId= tReport.getTaskInfo().getMissionId();
+    			/* Schedule-Offset */
+    			tReport.getTaskInfo().getSchedule();
+    			/* Schedule-Workers */
+    			int workers = tReport.getTaskInfo().getSchedule().getWorkers();
+    			/* Work-Name */
+    			String workName = tReport.getTaskInfo().getSchedule().getWork().getName();
+            	/* Operation Type */
+    			String opType = metrics.getOpType();
+    			/* Op-Ratio */
+    			double ratio = metrics.getRatio();
+            	/* Sample Type */
+    			String sampleType = metrics.getSampleType();
+            	/* Operation Count */
+    			int sampleCount = metrics.getSampleCount();
+            	/* Byte Count */
+    			long byteCount = metrics.getByteCount();
+    			
+            	/* Response Time */
+    			String resTime = "N/A";
+            	double r = metrics.getAvgResTime();
+                if (r > 0) {
+                	resTime = NUM.format(r);
+                }
+                
+            	/* Transfer Time */
+                String transTime = "N/A";
+                double pt = metrics.getAvgResTime() - metrics.getAvgXferTime();
+                if (pt > 0) {
+                	transTime = NUM.format(pt);
+                }
+                
+            	/* Throughput */
+                String throught = NUM.format(metrics.getThroughput());
+            	/* Bandwidth */
+                String bandwidth = NUM.format(metrics.getBandwidth());
+                
+            	/* Success Ratio */
+                String succRatio = "N/A";
+                double t = (double) metrics.getRatio();
+                if (t > 0) {
+                	succRatio = RATIO.format(metrics.getRatio());
+                }
+
+                // write records.
+                csvPrinter.printRecord(
+                		stageName, missionId, opType, 
+                		sampleType, sampleCount, 
+                		byteCount, resTime, 
+                		transTime, throught, 
+                		bandwidth, succRatio);
+			}
+        } catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+            if(null != writer) {
+            	writer.flush();
+            }
         }
-        /* Transfer Time */
-        for (Metrics metrics : report) {
-            double pt = metrics.getAvgResTime() - metrics.getAvgXferTime();
-            if (pt > 0)
-                buffer.append(NUM.format(pt));
-            else
-                buffer.append("N/A");
-            buffer.append(',');
-        }
-        /* Throughput */
-        for (Metrics metrics : report)
-            buffer.append(NUM.format(metrics.getThroughput())).append(',');
-        /* Bandwidth */
-        for (Metrics metrics : report)
-            buffer.append(NUM.format(metrics.getBandwidth())).append(',');
-        /* Success Ratio */
-        for (Metrics metrics : report) {
-            double t = (double) metrics.getRatio();
-            if (t > 0)
-                buffer.append(RATIO.format(metrics.getRatio()));
-            else
-                buffer.append("N/A");
-            buffer.append('\n');
-        }
-        writer.write(buffer.toString());
     }
 }

@@ -277,7 +277,6 @@ public class WorkloadContext implements WorkloadInfo {
         listeners.add(listener);
     }
 
-
     public HashMap<String, ErrorSummary> getErrorStatistics() {
         return errorStatistics;
     }
@@ -306,6 +305,7 @@ public class WorkloadContext implements WorkloadInfo {
             }
         }
     }
+    
     public void logErrorStatistics(Logger logger){
         for (Map.Entry<String, ErrorSummary> driverEntry : errorStatistics.entrySet()){
             for (Map.Entry<String, Integer> codeEntry : driverEntry.getValue().getErrorCodeAndNum().entrySet()){

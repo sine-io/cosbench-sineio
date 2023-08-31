@@ -54,12 +54,6 @@ public class WorkloadPageController extends AbstractController {
         if (controller.getloadArch() && info.getArchived() && info.getReport().getAllMetrics().length==0) {
             try {
                 controller.getWorkloadLoader().loadWorkloadPageInfo(info);
-                
-                // 2023.6.15, sine. aim to load Performance Graph.
-                StageInfo[] stageInfos = info.getStageInfos();
-                for(StageInfo sInfo : stageInfos) {
-                	controller.getWorkloadLoader().loadStagePageInfo(info, sInfo.getId());
-                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

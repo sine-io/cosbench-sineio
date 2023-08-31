@@ -21,6 +21,8 @@ import static com.intel.cosbench.exporter.Formats.*;
 
 import java.io.*;
 
+//import org.apache.commons.csv.CSVFormat;
+
 import com.intel.cosbench.bench.*;
 import com.intel.cosbench.config.*;
 import com.intel.cosbench.model.StageInfo;
@@ -35,6 +37,28 @@ class CSVMatrixExporter extends AbstractMatrixExporter {
 
     @Override
     protected void writeHeader(Writer writer) throws IOException {
+    	/* 2023.8.22, sine. reflect, use common-csv.jar */
+//    	final String[] header= {
+//    			"Id", "Op-Name", 
+//    			"Op-Count", "Byte-Count", 
+//        		"Op-Count", "Byte-Count", 
+//        		"Worker-Count", "Avg-ResTime", 
+//        		"Avg-ProcTime", "60%-ResTime", 
+//        		"80%-ResTime", "90%-ResTime", 
+//        		"95%-ResTime", "100%-ResTime", 
+//        		"Throughput", "Bandwidth", 
+//        		"Succ-Ratio", "Config-Info"};
+//    	try {
+//            CSVFormat.DEFAULT.builder().setHeader(header).build().print(writer);
+//        } catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//            if(null != writer) {
+//            	writer.flush();
+//            }
+//        }
+    	/* end */
+    	
         StringBuilder buffer = new StringBuilder();
         buffer.append("Id").append(',');
         buffer.append("Op-Name").append(',');
@@ -59,6 +83,7 @@ class CSVMatrixExporter extends AbstractMatrixExporter {
     @Override
     protected void writeMetrics(Writer writer, StageInfo stage,
             Metrics metrics, int idx) throws IOException {
+    	
         StringBuilder buffer = new StringBuilder();
         String uuid = workload.getId() + '-' + stage.getId() + '-' + idx;
         buffer.append(uuid).append(',');

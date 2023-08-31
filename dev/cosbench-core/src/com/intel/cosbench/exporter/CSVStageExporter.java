@@ -39,6 +39,16 @@ class CSVStageExporter extends AbstractStageExporter {
     }
 
     protected void writeHeader(Writer writer) throws IOException {
+    	/*
+    	 * Header:
+    	 * Timestamp,Op-Count,...,Version-Info,,\n,
+    	 * 
+    	 * CSV:
+         * Timestamp	Op-Count		Byte-Count	Avg-ResTime	Avg-ProcTime	Throughput	Bandwidth	Succ-Ratio	Version-Info		
+						write...write	write		write		write			write		write		write		Min-Version		Version		Max-Version
+         * 
+         * */
+    	
         StringBuilder buffer = new StringBuilder();
         buffer.append("Timestamp").append(',');
         char[] cs = new char[numOpTypes];
@@ -53,18 +63,22 @@ class CSVStageExporter extends AbstractStageExporter {
         buffer.append("Succ-Ratio").append(suffix);
         buffer.append("Version-Info");
         buffer.append(',').append(',').append('\n').append(',');
-        for (int i = 0; i < 7; i++)
+        
+        for (int i = 0; i < 7; i++) { // Op-count ~ Succ-Ratio, total is 7
             // 7 metrics
-            for (Metrics metrics : snapshots[0].getReport())
+            for (Metrics metrics : snapshots[0].getReport()) {
                 buffer.append(
-                		StringUtils.join(new Object[] {
-                                (metrics.getOpName().equals(
-                                        metrics.getSampleType()) ? null
-                                        : metrics.getOpName() + "-"),
-                                metrics.getSampleType() })).append(',');
+                		StringUtils.join(
+                				new Object[] {(metrics.getOpName().equals(metrics.getSampleType()) ? null : metrics.getOpName() + "-"), 
+                				metrics.getSampleType()})
+                		).append(',');
+            }
+        }
+        
         buffer.append("Min-Version").append(',');
         buffer.append("Version").append(',');
         buffer.append("Max-Version").append('\n');
+        
         writer.write(buffer.toString());
     }
 

@@ -26,6 +26,7 @@ import java.util.Date;
 import com.intel.cosbench.bench.Histogram;
 import com.intel.cosbench.bench.Metrics;
 import com.intel.cosbench.bench.Report;
+import com.intel.cosbench.controller.model.StageContext;
 import com.intel.cosbench.model.StageState;
 import com.intel.cosbench.model.WorkloadInfo;
 
@@ -68,26 +69,44 @@ class CSVWorkloadFileLoader extends AbstractWorkloadFileLoader {
                 sameStage = false;
             }
             
-            if (columns[17].equalsIgnoreCase("completed")) { // because of Op-Id, column is 17.
+            if (columns[18].equalsIgnoreCase("completed")) { // because of Interval and Op-Id, column is 18.
                 Metrics metrics = loadMetrics(columns);
                 if (!sameStage) {
                     Report report = new Report();
                     workloadContext.getStageInfo(stageId).setReport(report); // add an empty report container.
                 }
                 workloadContext.getStageInfo(stageId).getReport().addMetrics(metrics);
+                
+                /*
+                 * 2023.8.24, sine.
+                 * key should be w40-s1-create bucket-1, w40-s2-test write-1, w40-s2-test write-2...
+                 * actually, the key is op1.write.write.write...
+                 * and the name not used, so let it be.
+                 * */
                 workloadContext.getReport().addMetrics(metrics);
+                
+                // 2023.8.16, sine. set stage interval.
+                int interval = 5; // default if 5.
+                try {
+                	interval = Integer.parseInt(columns[1]);
+				} catch (NumberFormatException nfe) {
+					// do nothing.
+					nfe.printStackTrace();
+				}
+                // StageInfo does not have setInterval, so turn to StageContext.
+                ((StageContext) workloadContext.getStageInfo(stageId)).setInterval(interval);
             }
             
             for (StageState state : StageState.values()) {
                 // if (columns[16].equalsIgnoreCase(state.toString().toLowerCase())) {
-            	if (columns[17].equalsIgnoreCase(state.toString().toLowerCase())) { // because of Op-Id, column is 17.
+            	if (columns[18].equalsIgnoreCase(state.toString().toLowerCase())) { // because of Interval and Op-Id, column is 18.
                 	workloadContext.getStageInfo(stageId).setState(state, true);
                     break;
                 }
             }
             
             // int pos = 16;
-            int pos = 17; // because of Op-Id, here is 17.
+            int pos = 18; // because of Interval and Op-Id, column is 18.
             while (!sameStage && ++pos <= columns.length - 1) {
                 String[] strArray = columns[pos].split("@");
                 String stateName = strArray[0].trim();
@@ -97,7 +116,6 @@ class CSVWorkloadFileLoader extends AbstractWorkloadFileLoader {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                
                 workloadContext.getStageInfo(stageId).setState(stateName, stateDate);
             }
         }
@@ -105,29 +123,29 @@ class CSVWorkloadFileLoader extends AbstractWorkloadFileLoader {
 
     private Metrics loadMetrics(String[] columns) {
         Metrics metrics = new Metrics();
-        metrics.setOpId(columns[1]); // 2023.6.14, sine.
+        metrics.setOpId(columns[2]); // 2023.6.14, sine.
         
-        // 2023.6.14 because of Op-id column, all numbers should +1.
-        int n = columns[2].lastIndexOf("-");
+        // 2023.6.14 because of Interval and Op-id column, all numbers should +2.
+        int n = columns[3].lastIndexOf("-");
         if (n > 0) {
-            metrics.setOpName(columns[2].substring(0, n));
-            metrics.setSampleType(columns[2].substring(n + 1));
+            metrics.setOpName(columns[3].substring(0, n));
+            metrics.setSampleType(columns[3].substring(n + 1));
         } else {
-            metrics.setOpName(columns[2]);
-            metrics.setSampleType(columns[2]);
+            metrics.setOpName(columns[3]);
+            metrics.setSampleType(columns[3]);
         }
         
-        metrics.setOpType(columns[3]);
-        metrics.setSampleCount(Integer.valueOf(columns[4]));
-        metrics.setByteCount(Long.valueOf(columns[5]));
-        double rt = columns[6].equalsIgnoreCase("N/A") ? 0 : Double.valueOf(columns[6]);
+        metrics.setOpType(columns[4]);
+        metrics.setSampleCount(Integer.valueOf(columns[5]));
+        metrics.setByteCount(Long.valueOf(columns[6]));
+        double rt = columns[7].equalsIgnoreCase("N/A") ? 0 : Double.valueOf(columns[7]);
         metrics.setAvgResTime(rt);
-        double pt = columns[7].equalsIgnoreCase("N/A") ? 0 : Double.valueOf(columns[7]);
+        double pt = columns[8].equalsIgnoreCase("N/A") ? 0 : Double.valueOf(columns[8]);
         metrics.setAvgXferTime(rt - pt);
         metrics.setLatency(loadHistogram(columns));
-        metrics.setThroughput(Double.valueOf(columns[14]));
-        metrics.setBandwidth(Double.valueOf(columns[15]));
-        setRatio(columns[16], metrics);
+        metrics.setThroughput(Double.valueOf(columns[15]));
+        metrics.setBandwidth(Double.valueOf(columns[16]));
+        setRatio(columns[17], metrics);
         
         // 2023.6.15, sine. metrics's name should be op1.head.head.head, etc.
         String mType = Metrics.getMetricsType(metrics.getOpId(), metrics.getOpType(), metrics.getSampleType(), metrics.getOpName());
@@ -151,29 +169,31 @@ class CSVWorkloadFileLoader extends AbstractWorkloadFileLoader {
 
     private Histogram loadHistogram(String[] columns) {
         Histogram histogram = new Histogram();
+        
+     // 2023.8.16 because of Interval and Op-id column, all numbers should +2.
         long[] l_60 = new long[2];
-        l_60[1] = columns[8].equalsIgnoreCase("N/A") ? 0L : Long
-                .valueOf(columns[8]);
+        l_60[1] = columns[9].equalsIgnoreCase("N/A") ? 0L : Long
+                .valueOf(columns[9]);
         histogram.set_60(l_60);
         long[] l_80 = new long[2];
-        l_80[1] = columns[9].equalsIgnoreCase("N/A") ? 0L : Long
-                .valueOf(columns[9]);
+        l_80[1] = columns[10].equalsIgnoreCase("N/A") ? 0L : Long
+                .valueOf(columns[10]);
         histogram.set_80(l_80);
         long[] l_90 = new long[2];
-        l_90[1] = columns[10].equalsIgnoreCase("N/A") ? 0L : Long
-                .valueOf(columns[10]);
+        l_90[1] = columns[11].equalsIgnoreCase("N/A") ? 0L : Long
+                .valueOf(columns[11]);
         histogram.set_90(l_90);
         long[] l_95 = new long[2];
-        l_95[1] = columns[11].equalsIgnoreCase("N/A") ? 0L : Long
-                .valueOf(columns[11]);
+        l_95[1] = columns[12].equalsIgnoreCase("N/A") ? 0L : Long
+                .valueOf(columns[12]);
         histogram.set_95(l_95);
         long[] l_99 = new long[2];
-        l_99[1] = columns[12].equalsIgnoreCase("N/A") ? 0L : Long
-                .valueOf(columns[12]);
+        l_99[1] = columns[13].equalsIgnoreCase("N/A") ? 0L : Long
+                .valueOf(columns[13]);
         histogram.set_99(l_99);
         long[] l_100 = new long[2];
-        l_100[1] = columns[13].equalsIgnoreCase("N/A") ? 0L : Long
-                .valueOf(columns[13]);
+        l_100[1] = columns[14].equalsIgnoreCase("N/A") ? 0L : Long
+                .valueOf(columns[14]);
         histogram.set_100(l_100);
         return histogram;
     }

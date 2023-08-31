@@ -7,11 +7,16 @@
             seriesdate+="{";
             seriesdate+="\"name\":\""+axis[i]+"\",";
             seriesdate+="\"type\":\"line\",";
+            
+            // 2023.8.17, sine. if yvalue is null, we should push 0 to it, so we can get yvalue[0].toString() = '0'
+            if (yvalue.length==0) {
+            	yvalue.push(0);
+            }
+            
             seriesdate+="\"data\":["+yvalue[i].toString()+"],";
             seriesdate+="\"markPoint\":{\"data\":[{\"type\":\"max\",\"name\":\"max\"},{\"type\":\"min\",\"name\":\"min\"}]},";
             seriesdate+="\"markLine\":{\"data\":[{\"type\":\"average\",\"name\":\"average\"}]}";
             seriesdate+="},";
-           
         }
         seriesdate=seriesdate.substring(0,seriesdate.length-1);
         seriesdate+="]";

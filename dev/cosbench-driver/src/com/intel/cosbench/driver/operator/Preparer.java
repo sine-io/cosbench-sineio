@@ -108,11 +108,12 @@ class Preparer extends AbstractOperator {
 	public static void doInit(String conName, Config config, Session session) {
 		if (Thread.interrupted())
 			throw new AbortedException();
-
+		
 		try {
 			session.getApi().createContainer(conName, config);
 		} catch (StorageInterruptedException sie) {
 			doLogErr(session.getLogger(), sie.getMessage(), sie);
+			
 			throw new AbortedException();
 		} catch (StorageException se) {
 			isUnauthorizedException(se, session);

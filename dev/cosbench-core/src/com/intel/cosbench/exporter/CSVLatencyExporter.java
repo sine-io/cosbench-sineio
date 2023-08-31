@@ -35,12 +35,11 @@ class CSVLatencyExporter extends AbstractLatencyExporter {
 
     @Override
     protected void writeHeader(Writer writer) throws IOException {
-        StringBuilder buffer = new StringBuilder();
+    	StringBuilder buffer = new StringBuilder();
         buffer.append("ResTime").append(',');
         for (StageInfo stage : workload.getStageInfos()) {
             writeOpType(buffer, stage);
         }
-
         buffer.setCharAt(buffer.length() - 1, '\n');
         writer.write(buffer.toString());
     }

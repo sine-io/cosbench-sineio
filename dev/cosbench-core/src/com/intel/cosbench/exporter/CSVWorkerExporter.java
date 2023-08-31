@@ -25,15 +25,12 @@ import java.io.IOException;
 import java.io.Writer;
 
 import com.intel.cosbench.bench.Metrics;
-import com.intel.cosbench.bench.Report;
-import com.intel.cosbench.bench.TaskReport;
 
 public class CSVWorkerExporter extends AbstractWorkerExporter{
 
     @Override
     protected void writeHeader(Writer writer) throws IOException {
         StringBuilder buffer = new StringBuilder();
-        char[] cs = new char[8];
         buffer.append("Op-Type").append(',');
         buffer.append("Sample-Type").append(',');
         buffer.append("Op-Count").append(',');

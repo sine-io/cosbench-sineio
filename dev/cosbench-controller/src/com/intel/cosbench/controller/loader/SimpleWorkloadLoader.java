@@ -28,9 +28,11 @@ import com.intel.cosbench.config.XmlConfig;
 import com.intel.cosbench.config.castor.CastorConfigTools;
 import com.intel.cosbench.controller.model.StageContext;
 import com.intel.cosbench.controller.model.StageRegistry;
+import com.intel.cosbench.controller.model.TaskRegistry;
 import com.intel.cosbench.controller.model.WorkloadContext;
 import com.intel.cosbench.log.LogFactory;
 import com.intel.cosbench.log.Logger;
+import com.intel.cosbench.model.DriverInfo;
 import com.intel.cosbench.model.StageInfo;
 import com.intel.cosbench.model.StageState;
 import com.intel.cosbench.model.WorkloadInfo;
@@ -84,19 +86,93 @@ public class SimpleWorkloadLoader implements WorkloadLoader {
     @Override
     public void loadWorkloadPageInfo(WorkloadInfo workloadContext)
             throws IOException {
-        loadWorkloadConfig(workloadContext);
+    	/*
+    	 * WorkloadContext
+    	 * 		DriverRegistry --- Map <--(1)-----loadAllDriversFile
+    	 * 			|--->DriverContext ------------------
+    	 * 												|
+    	 * 		Report <-------- add report -----------~|~---------------------(6)
+    	 * 												|						|
+    	 * 		StageRegistry --- List <-----(3)-------~|~------|		loadWorkloadFile						
+    	 * 			|--->StageContext					|		|				|
+    	 * 					Interval					|		|				|
+    	 * 					ID <--(4)------------------~|~------|				|
+    	 * 		------------Report --- Map <------------|------~|~----------(7)-|
+    	 * 		|			ScheduleRegistry --- List -~|~-----~|~-------------~|~---- TODO: add schedule registry?
+    	 * 		|				SchedulePlan ----------~|~-----~|~-------		|
+    	 *	 	|					DriverContext -------		|	    |		|
+    	 * 		|					offset						|		|		|
+    	 * 		|					Work ----------------------~|~---	|		|
+    	 * 		|	|<------SnapshotRegistry --- List <-(9)----~|~-~|~-~|~-----~|~---loadStagePageInfo
+    	 * 		|	----------->Snapshot---------------------	|	|	|		|
+    	 * 		|		|----------->minVersion				|	|	|	|		|
+    	 * 		|		|----------->maxVersion				|	|	|	|		|
+    	 * 		|		|----------->Report --- Map			|	|	|	|		|
+    	 * 		|		|----------->timestamp				|	|	|	|		|
+    	 * 		|		------------>version				|	|	|	|		|
+    	 * 		|			Stage <----------(5)-----------~|~--|	|	|		|
+    	 * 		|				name						|	|	|	|		|
+    	 * 		|				storage						|	|	|	|		|
+    	 * 		|				works --- List				|	|	|	|		|
+    	 * 		|					Work ------------------~|~-~|~---	|		|
+    	 * 		|			State <------------------------~|~--|		|		|
+    	 * 		|			StateHistory <-----------------~|~-~|~-----~|~-----(8)
+    	 * 		|			TaskRegistry --- List ---------~|~-~|~-----~|~------------ TODO: add task registry
+    	 * 		|				TaskContext					|	|		|
+    	 * 		|					Id						|	|		|
+    	 * 		|					Interval				|	|		|
+    	 * 		|					missionId				|	|		|
+    	 * 		--------------------Report --- Map			|	|		|
+    	 * 							SchedulePlan ----------~|~-~|~------- TODO: add schedule registry
+    	 * 							Snapshot ----------------	|
+    	 * 							TaskState					|
+    	 * 					TaskReports							|
+    	 * 														|
+    	 * 		Workload <----(2)-loadWorkloadConfig			|
+    	 * 		|--->Workflow				|					|
+    	 * 			|--->stages				|				  	|
+    	 * 				|--->Stage			|------------------>|
+    	 * 						
+    	 * */
+    	
+    	/* DriverRegistry - DriverContext - Map */
+    	loadAllDriversFile(workloadContext); // 2023.8.23, sine.
+    	
+    	/* Workload */
+    	loadWorkloadConfig(workloadContext);
+    	
+    	/* StageRegistry - StageContext - List */
         loadWorkloadFile(workloadContext);
-//        loadStagePageInfo(workloadContext, null);
+        
+        // 2023.8.16, sine. load stage page info.
+        for (StageInfo stage : workloadContext.getStageInfos()) {
+        	loadStagePageInfo(workloadContext, stage.getId()); // SnapshotRegistry
+        	// TaskRegistry
+        	loadTaskInfoFile(workloadContext, stage.getId()); // 2023.8.24, sine.
+		}
+    }
+    
+    // 2023.8.23, sine. load driver into to driver registry
+    private void loadAllDriversFile(WorkloadInfo workloadContext) throws IOException {
+    	File file = new File(
+                new File(ARCHIVE_DIR, getRunDirName(workloadContext)), "all-drivers.csv");
+        if (!file.exists())
+            return;
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        AllDriversFileLoader loader = Loaders.newAllDriversFileLoader(reader,
+                workloadContext);
+        loader.load();
     }
 
     private void loadWorkloadConfig(WorkloadInfo workloadContext)
             throws FileNotFoundException {
         XmlConfig config = getWorkloadConfg(workloadContext);
+        
         if(config != null) {
             WorkloadResolver resolver = CastorConfigTools.getWorkloadResolver();
             workloadContext.setWorkload(resolver.toWorkload(config));
             createStages(workloadContext);
-        }else {
+        } else {
             ((WorkloadContext) workloadContext).setStageRegistry(new StageRegistry());
         }
     }
@@ -109,6 +185,7 @@ public class SimpleWorkloadLoader implements WorkloadLoader {
         if (!file.exists())
             return null;
         XmlConfig config = new XmlConfig(new FileInputStream(file));
+        
         return config;
     }
 
@@ -123,21 +200,21 @@ public class SimpleWorkloadLoader implements WorkloadLoader {
     }
 
     private static StageContext createStageContext(String id, Stage stage) {
-        StageContext context = new StageContext();
+        StageContext sContext = new StageContext();
         String sid = id + "-" + stage.getName(); // 2023.6.15, sine. s1-test restore, not s1.
-        context.setId(sid);
-        //context.setId(id);
-        context.setStage(stage);
-        context.setState(StageState.COMPLETED, true);
-        return context;
+        sContext.setId(sid);
+        sContext.setStage(stage);
+        sContext.setState(StageState.COMPLETED, true);
+        
+        sContext.setTaskRegistry(new TaskRegistry()); // 2023.8.30, sine. add an empty container
+        
+        // TODO: can set stage interval
+        // 1. if stage has one work, stage interval = work interval
+        // 2. if stage has more works, stage interval = which work's interval when works's interval are different? --- how to decide?
+        
+        return sContext;
     }
-
-    private static String getWorkloadFileName(WorkloadInfo info) {
-        String name = info.getId();
-        name += "-" + info.getWorkload().getName();
-        return name;
-    }
-
+    
     private void loadWorkloadFile(WorkloadInfo workloadContext)
             throws IOException {
         File file = new File(
@@ -150,10 +227,10 @@ public class SimpleWorkloadLoader implements WorkloadLoader {
         		workloadContext); // CSVWorkloadFileLoader(reader, workloadContext)
         loader.load(); // CSVWorkloadFileLoader.java#readWorkload
     }
-
-    private static String getStageFileName(StageInfo info) {
+    
+    private static String getWorkloadFileName(WorkloadInfo info) {
         String name = info.getId();
-        //name += "-" + info.getStage().getName(); // because of stageId is s1-xxx
+        name += "-" + info.getWorkload().getName();
         return name;
     }
 
@@ -171,5 +248,25 @@ public class SimpleWorkloadLoader implements WorkloadLoader {
                 workloadContext, stageId); // CSVSnapshotLoader(reader, workloadContext, stageId)
         loader.load(); // CSVSnapshotLoader.java#readSnapshot
     }
-
+    
+    private static String getStageFileName(StageInfo info) {
+        String name = info.getId();
+        //name += "-" + info.getStage().getName(); // because of stageId is s1-xxx
+        return name;
+    }
+    
+    // 2023.8.23, sine.
+    // load task info to task registry
+    private void loadTaskInfoFile(WorkloadInfo workloadContext, String stageId) throws IOException {
+    	for (DriverInfo dInfo : workloadContext.getDriverInfos()) {
+    		File file = new File(
+                    new File(ARCHIVE_DIR, getRunDirName(workloadContext)), dInfo.getName() + ".csv");
+            if (!file.exists())
+                return;
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            TaskInfoFileLoader loader = Loaders.newTaskInfoFileLoader(reader,
+                    workloadContext, dInfo, stageId);
+            loader.load();
+		}
+	}
 }

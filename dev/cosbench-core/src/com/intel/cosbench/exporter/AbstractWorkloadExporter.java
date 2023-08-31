@@ -46,10 +46,13 @@ abstract class AbstractWorkloadExporter implements WorkloadExporter {
         writeHeader(writer);
         writer.flush();
         for (StageInfo stage : workload.getStageInfos()) {
-            for (Metrics metrics : stage.getReport())
-                writeMetrics(writer, metrics, stage);
-            if (stage.getReport().getSize() == 0)
-                writeMetrics(writer, stage);
+            for (Metrics metrics : stage.getReport()) {
+            	writeMetrics(writer, metrics, stage);
+            }
+            
+            if (stage.getReport().getSize() == 0) {
+            	writeMetrics(writer, stage);
+            }
         }
         writer.flush();
     }

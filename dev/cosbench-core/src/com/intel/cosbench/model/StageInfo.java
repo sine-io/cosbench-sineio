@@ -46,11 +46,11 @@ public interface StageInfo extends LifeCycle, Benchmark {
     public Set<String> getOperations();
 
     public int getInterval();
-
+    
     public int getTaskCount();
 
     public TaskInfo[] getTaskInfos();
-
+    
     public Snapshot[] getSnapshots();
 
     public int getSnapshotCount();

@@ -29,6 +29,4 @@ public interface WorkloadFileLoader {
 
     public void load() throws IOException;
 
-
-
 }

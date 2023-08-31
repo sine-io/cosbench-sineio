@@ -25,5 +25,11 @@ public class Initializer extends Preparer {
     public String getOpType() {
         return OP_TYPE;
     }
+    
+    // 2023.8.17, sine. Preparer's SampleType is write, change this.
+	@Override
+	public String getSampleType() {
+		return OP_TYPE;
+	}
 
 }

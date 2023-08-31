@@ -18,14 +18,11 @@ limitations under the License.
 package com.intel.cosbench.controller.archiver;
 
 import java.io.*;
-//import java.util.List;
 import java.util.Scanner;
 
-//import com.intel.cosbench.bench.Metrics;
-//import com.intel.cosbench.bench.TaskReport;
 import com.intel.cosbench.config.*;
 import com.intel.cosbench.config.castor.CastorConfigTools;
-import com.intel.cosbench.exporter.*;
+import com.intel.cosbench.controller.exporter.*;
 import com.intel.cosbench.log.*;
 import com.intel.cosbench.model.*;
 
@@ -81,222 +78,7 @@ public class SimpleWorkloadArchiver implements WorkloadArchiver {
         String id = info.getId();
         LOGGER.info("workload {} has been successfully archived", id);
     }
-
-    private void doArchive(WorkloadInfo info, File runDir) throws IOException {
-        exportWorkloadRun(info);
-        runDir.mkdir();
-        exportWorkload(info, runDir);
-        exportLatency(info, runDir);
-        for (StageInfo sInfo : info.getStageInfos())
-            exportStage(sInfo, runDir);
-        exportConfig(info.getWorkload(), runDir);
-        exportLog(info, runDir);
-        exportScriptsLog(info, runDir);
-        exportPerformanceMatrix(info);
-        exportTaskInfo(info,runDir);
-        exportWorkerInfo(info,runDir);
-    }
-
-    private void exportWorkerInfo(WorkloadInfo info,File parent)throws IOException{
-        for(StageInfo sInfo :info.getStageInfos()){
-            File file = new File(parent,getStageFileName(sInfo) +"-worker"+ ".csv"); // stageId-worker.csv
-            Writer writer = new BufferedWriter(new FileWriter(file));
-            WorkerExporter exporter = Exporters.newWorkExporter(sInfo);
-             try {
-                 exporter.export(writer);
-             } finally {
-                 writer.close();
-             }
-             String name = sInfo.getId()+"worker";
-             String path = file.getAbsolutePath();
-             String msg = "perf details of {} has been exported to {}";
-             LOGGER.debug(msg, name, path);
-        }
-    }
-
-    private void exportTaskInfo(WorkloadInfo info,File parent)throws IOException{
-        for(DriverInfo dInfo:info.getDriverInfos()){
-            File file = new File(parent, dInfo.getName() + ".csv"); // driverx.csv
-            Writer writer = new BufferedWriter(new FileWriter(file));
-            TaskExporter exporter = Exporters.newTaskExporter(info,dInfo);
-             try {
-                 exporter.export(writer);
-             } finally {
-                 writer.close();
-             }
-             String name = dInfo.getName();
-             String path = file.getAbsolutePath();
-             String msg = "perf details of {} has been exported to {}";
-             LOGGER.debug(msg, name, path);
-        }
-    }
-
-
-    private static String getRunDirName(WorkloadInfo info) {
-        String name = info.getId();
-        name += '-' + info.getWorkload().getName();
-        return name;
-    }
-
-    private void exportWorkloadRun(WorkloadInfo info) throws IOException {
-        File file = new File(ARCHIVE_DIR, "run-history.csv");
-        boolean ready = file.exists() && file.length() > 0;
-        Writer writer = new BufferedWriter(new FileWriter(file, true));
-        RunExporter exporter = Exporters.newRunExporter(info);
-        try {
-            if (!ready)
-                exporter.init(writer);
-            exporter.export(writer);
-        } finally {
-            writer.close();
-        }
-        String id = info.getId();
-        String path = file.getAbsolutePath();
-        String msg = "run item for workload {} has been added to {}";
-        LOGGER.debug(msg, id, path);
-    }
-
-    private void exportWorkload(WorkloadInfo info, File parent)
-            throws IOException {
-        File file = new File(parent, getWorkloadFileName(info) + ".csv");
-        Writer writer = new BufferedWriter(new FileWriter(file));
-        WorkloadExporter exporter = Exporters.newWorkloadExporter(info);
-        try {
-            exporter.export(writer);
-        } finally {
-            writer.close();
-        }
-        String id = info.getId();
-        String path = file.getAbsolutePath();
-        String msg = "perf details of workload {} has been exported to {}";
-        LOGGER.debug(msg, id, path);
-    }
-
-    private static String getWorkloadFileName(WorkloadInfo info) {
-        String name = info.getId();
-        name += "-" + info.getWorkload().getName();
-        return name;
-    }
-
-    private void exportLatency(WorkloadInfo info, File parent)
-            throws IOException {
-        File file = new File(parent, getLatencyFileName(info) + ".csv");
-        Writer writer = new BufferedWriter(new FileWriter(file));
-        LatencyExporter exporter = Exporters.newLatencyExporter(info);
-        try {
-            exporter.export(writer);
-        } finally {
-            writer.close();
-        }
-        String id = info.getId();
-        String path = file.getAbsolutePath();
-        String msg = "latency details of workload {} has been exported to {}";
-        LOGGER.debug(msg, id, path);
-    }
-
-    private static String getLatencyFileName(WorkloadInfo info) {
-        String name = info.getId();
-        name += "-" + info.getWorkload().getName();
-        name += "-rt-histogram";
-        return name;
-    }
-
-    private void exportStage(StageInfo info, File parent) throws IOException {
-        File file = new File(parent, getStageFileName(info) + ".csv");
-        Writer writer = new BufferedWriter(new FileWriter(file));
-        StageExporter exporter = Exporters.newStageExporter(info);
-        try {
-            exporter.export(writer);
-        } finally {
-            writer.close();
-        }
-        String id = info.getId();
-        String path = file.getAbsolutePath();
-        String msg = "perf details of stage {} has been exported to {}";
-        LOGGER.debug(msg, id, path);
-    }
-
-    private static String getStageFileName(StageInfo info) {
-        return info.getId();
-    }
-
-    private void exportConfig(Workload workload, File parent)
-            throws IOException {
-        File file = new File(parent, "workload-config.xml");
-        Writer writer = new BufferedWriter(new FileWriter(file));
-        WorkloadWriter ww = CastorConfigTools.getWorkloadWriter();
-        try {
-            writer.write(ww.toXmlString(workload));
-        } finally {
-            writer.close();
-        }
-        String name = workload.getName();
-        String path = file.getAbsolutePath();
-        String msg = "config xml for workload {} has been generated at {}";
-        LOGGER.debug(msg, name, path);
-    }
-
-    @Override
-    public File getWorkloadConfig(WorkloadInfo info) {
-        File runDir = new File(ARCHIVE_DIR, getRunDirName(info));
-        return new File(runDir, "workload-config.xml");
-    }
-
-    private void exportLog(WorkloadInfo info, File parent) throws IOException {
-        File file = new File(parent, "workload.log");
-        Writer writer = new BufferedWriter(new FileWriter(file));
-        LogExporter exporter = Exporters.newLogExporter(info);
-        try {
-            exporter.export(writer);
-        } finally {
-            writer.close();
-        }
-        String id = info.getId();
-        String path = file.getAbsolutePath();
-        String msg = "driver logs for workload {} has been merged at {}";
-        LOGGER.debug(msg, id, path);
-    }
-
-
-    private void exportScriptsLog(WorkloadInfo info, File parent) throws IOException {
-        File file = new File(parent, "scripts.log");
-        Writer writer = new BufferedWriter(new FileWriter(file));
-        LogExporter exporter = Exporters.newScriptLogExporter(info);
-        try {
-            exporter.export(writer);
-        } finally {
-            writer.close();
-        }
-        String id = info.getId();
-        String path = file.getAbsolutePath();
-        String msg = "driver script logs for workload {} has been merged at {}";
-        LOGGER.debug(msg, id, path);
-    }
-
-    @Override
-    public File getWorkloadLog(WorkloadInfo info) {
-        File runDir = new File(ARCHIVE_DIR, getRunDirName(info));
-        return new File(runDir, "workload.log");
-    }
-
-    private void exportPerformanceMatrix(WorkloadInfo info) throws IOException {
-        File file = new File(ARCHIVE_DIR, "workloads.csv");
-        boolean ready = file.exists() && file.length() > 0;
-        Writer writer = new BufferedWriter(new FileWriter(file, true));
-        MatrixExporter exporter = Exporters.newMatrixExporter(info);
-        try {
-            if (!ready)
-                exporter.init(writer);
-            exporter.export(writer);
-        } finally {
-            writer.close();
-        }
-        String id = info.getId();
-        String path = file.getAbsolutePath();
-        String msg = "perf details of workload {} has been added to {}";
-        LOGGER.debug(msg, id, path);
-    }
-
+    
     private void updateCount(WorkloadInfo info) throws IOException {
         int count = 0;
         File file = new File(ARCHIVE_DIR, ".meta");
@@ -315,6 +97,255 @@ public class SimpleWorkloadArchiver implements WorkloadArchiver {
             writer.close();
         }
         LOGGER.debug("workload count has been updated as {}", count);
+    }
+
+    private void doArchive(WorkloadInfo info, File runDir) throws IOException {
+        exportWorkloadRun(info);
+        runDir.mkdir();
+        exportWorkload(info, runDir);
+        exportLatency(info, runDir);
+        for (StageInfo sInfo : info.getStageInfos()) {
+        	exportStage(sInfo, runDir);
+        }
+        exportConfig(info.getWorkload(), runDir);
+        exportLog(info, runDir);
+        exportScriptsLog(info, runDir);
+        exportPerformanceMatrix(info);
+        exportTaskInfo(info, runDir);
+        exportAllDriversInfo(info, runDir);
+        exportWorkerInfo(info, runDir);
+    }
+    
+    private void exportWorkloadRun(WorkloadInfo info) throws IOException {
+        File file = new File(ARCHIVE_DIR, "run-history.csv");
+        boolean ready = file.exists() && file.length() > 0;
+        Writer writer = new BufferedWriter(new FileWriter(file, true));
+        RunExporter exporter = Exporters.newRunExporter(info);
+        try {
+            if (!ready)
+                exporter.init(writer);
+            exporter.export(writer);
+        } finally {
+            writer.close();
+        }
+        String id = info.getId();
+        String path = file.getAbsolutePath();
+        String msg = "run item for workload {} has been added to {}";
+        LOGGER.debug(msg, id, path);
+    }
+    
+    private void exportWorkload(WorkloadInfo info, File parent)
+            throws IOException {
+        File file = new File(parent, getWorkloadFileName(info) + ".csv");
+        Writer writer = new BufferedWriter(new FileWriter(file));
+        WorkloadExporter exporter = Exporters.newWorkloadExporter(info);
+        try {
+            exporter.export(writer);
+        } finally {
+            writer.close();
+        }
+        String id = info.getId();
+        String path = file.getAbsolutePath();
+        String msg = "perf details of workload {} has been exported to {}";
+        LOGGER.debug(msg, id, path);
+    }
+    
+    private static String getWorkloadFileName(WorkloadInfo info) {
+        String name = info.getId();
+        name += "-" + info.getWorkload().getName();
+        return name;
+    }
+    
+    private void exportLatency(WorkloadInfo info, File parent)
+            throws IOException {
+        File file = new File(parent, getLatencyFileName(info) + ".csv");
+        Writer writer = new BufferedWriter(new FileWriter(file));
+        LatencyExporter exporter = Exporters.newLatencyExporter(info);
+        try {
+            exporter.export(writer);
+        } finally {
+            writer.close();
+        }
+        String id = info.getId();
+        String path = file.getAbsolutePath();
+        String msg = "latency details of workload {} has been exported to {}";
+        LOGGER.debug(msg, id, path);
+    }
+    
+    private static String getLatencyFileName(WorkloadInfo info) {
+        String name = info.getId();
+        name += "-" + info.getWorkload().getName();
+        name += "-rt-histogram";
+        return name;
+    }
+
+    // Stage snapshot
+    private void exportStage(StageInfo info, File parent) throws IOException {
+        File file = new File(parent, getStageFileName(info) + ".csv");
+        Writer writer = new BufferedWriter(new FileWriter(file));
+        StageExporter exporter = Exporters.newStageExporter(info);
+        try {
+            exporter.export(writer);
+        } finally {
+            writer.close();
+        }
+        String id = info.getId();
+        String path = file.getAbsolutePath();
+        String msg = "perf details of stage {} has been exported to {}";
+        LOGGER.debug(msg, id, path);
+    }
+    
+//    // 2023.8.23, sine.
+//    private void exportStageExtra(StageInfo info, File parent) throws IOException {
+//        File file = new File(parent, getStageFileName(info) + "-extra.csv");
+//        Writer writer = new BufferedWriter(new FileWriter(file));
+//        StageExtraExporter exporter = Exporters.newStageExporter(info);
+//        try {
+//            exporter.export(writer);
+//        } finally {
+//            writer.close();
+//        }
+//        String id = info.getId();
+//        String path = file.getAbsolutePath();
+//        String msg = "extra infos of stage {} has been exported to {}";
+//        LOGGER.debug(msg, id, path);
+//    }
+    
+    private void exportConfig(Workload workload, File parent)
+            throws IOException {
+        File file = new File(parent, "workload-config.xml");
+        Writer writer = new BufferedWriter(new FileWriter(file));
+        WorkloadWriter ww = CastorConfigTools.getWorkloadWriter();
+        try {
+            writer.write(ww.toXmlString(workload));
+        } finally {
+            writer.close();
+        }
+        String name = workload.getName();
+        String path = file.getAbsolutePath();
+        String msg = "config xml for workload {} has been generated at {}";
+        LOGGER.debug(msg, name, path);
+    }
+
+    private void exportLog(WorkloadInfo info, File parent) throws IOException {
+        File file = new File(parent, "workload.log");
+        Writer writer = new BufferedWriter(new FileWriter(file));
+        LogExporter exporter = Exporters.newLogExporter(info);
+        try {
+            exporter.export(writer);
+        } finally {
+            writer.close();
+        }
+        String id = info.getId();
+        String path = file.getAbsolutePath();
+        String msg = "driver logs for workload {} has been merged at {}";
+        LOGGER.debug(msg, id, path);
+    }
+
+    private void exportScriptsLog(WorkloadInfo info, File parent) throws IOException {
+        File file = new File(parent, "scripts.log");
+        Writer writer = new BufferedWriter(new FileWriter(file));
+        LogExporter exporter = Exporters.newScriptLogExporter(info);
+        try {
+            exporter.export(writer);
+        } finally {
+            writer.close();
+        }
+        String id = info.getId();
+        String path = file.getAbsolutePath();
+        String msg = "driver script logs for workload {} has been merged at {}";
+        LOGGER.debug(msg, id, path);
+    }
+    
+    private void exportPerformanceMatrix(WorkloadInfo info) throws IOException {
+        File file = new File(ARCHIVE_DIR, "workloads.csv");
+        boolean ready = file.exists() && file.length() > 0;
+        Writer writer = new BufferedWriter(new FileWriter(file, true));
+        MatrixExporter exporter = Exporters.newMatrixExporter(info);
+        try {
+            if (!ready)
+                exporter.init(writer);
+            exporter.export(writer);
+        } finally {
+            writer.close();
+        }
+        String id = info.getId();
+        String path = file.getAbsolutePath();
+        String msg = "perf details of workload {} has been added to {}";
+        LOGGER.debug(msg, id, path);
+    }
+    
+    private void exportTaskInfo(WorkloadInfo info, File parent) throws IOException{
+        for(DriverInfo dInfo : info.getDriverInfos()) {
+        	File file = new File(parent, dInfo.getName() + ".csv"); // driverx.csv
+        	Writer writer = new BufferedWriter(new FileWriter(file));
+            TaskExporter exporter = Exporters.newTaskExporter(info, dInfo);
+             try {
+                 exporter.export(writer);
+             } finally {
+                 writer.close();
+             }
+             String name = dInfo.getName();
+             String path = file.getAbsolutePath();
+             String msg = "perf details of {} has been exported to {}";
+             LOGGER.debug(msg, name, path);
+        }
+    }
+    
+    // 2023.8.23, sine.
+    private void exportAllDriversInfo(WorkloadInfo info, File parent) throws IOException {
+    	File file = new File(parent, "all-drivers.csv");
+    	Writer writer = new BufferedWriter(new FileWriter(file));
+    	
+    	AllDriversExporter exporter = Exporters.newAllDriversExporter(info);
+    	try {
+            exporter.export(writer);
+        } finally {
+            writer.close();
+        }
+    	
+        String path = file.getAbsolutePath();
+        String msg = "driver extra info has been exported to {}";
+        LOGGER.debug(msg, path);
+    }
+    
+    private void exportWorkerInfo(WorkloadInfo info, File parent) throws IOException {
+        for(StageInfo sInfo :info.getStageInfos()){
+            File file = new File(parent, getStageFileName(sInfo) +"-worker"+ ".csv"); // stageId(sx-stage name)-worker.csv
+            Writer writer = new BufferedWriter(new FileWriter(file));
+            WorkerExporter exporter = Exporters.newWorkExporter(sInfo);
+             try {
+                 exporter.export(writer);
+             } finally {
+                 writer.close();
+             }
+             String name = sInfo.getId()+"worker";
+             String path = file.getAbsolutePath();
+             String msg = "perf details of {} has been exported to {}";
+             LOGGER.debug(msg, name, path);
+        }
+    }
+
+    private static String getStageFileName(StageInfo info) {
+        return info.getId();
+    }
+    
+    @Override
+    public File getWorkloadConfig(WorkloadInfo info) {
+        File runDir = new File(ARCHIVE_DIR, getRunDirName(info));
+        return new File(runDir, "workload-config.xml");
+    }
+
+    @Override
+    public File getWorkloadLog(WorkloadInfo info) {
+        File runDir = new File(ARCHIVE_DIR, getRunDirName(info));
+        return new File(runDir, "workload.log");
+    }
+    
+    private static String getRunDirName(WorkloadInfo info) {
+        String name = info.getId();
+        name += '-' + info.getWorkload().getName();
+        return name;
     }
 
     @Override

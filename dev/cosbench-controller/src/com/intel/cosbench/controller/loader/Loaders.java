@@ -20,6 +20,7 @@ package com.intel.cosbench.controller.loader;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import com.intel.cosbench.model.DriverInfo;
 import com.intel.cosbench.model.WorkloadInfo;
 
 /**
@@ -47,6 +48,22 @@ public class Loaders {
             WorkloadInfo workload, String stageId) throws IOException {
         AbstractSnapshotLoader loader = new CSVSnapshotLoader(reader, workload,
                 stageId);
+        return loader;
+    }
+    
+    // 2023.8.23, sine.
+    public static AllDriversFileLoader newAllDriversFileLoader(BufferedReader reader,
+            WorkloadInfo workloadContext) throws IOException {
+        AbstractAllDriversFileLoader loader = new CSVAllDriversFileLoader(reader,
+                workloadContext);
+        return loader;
+    }
+    
+    // 2023.8.18, sine.
+    public static TaskInfoFileLoader newTaskInfoFileLoader(BufferedReader reader,
+            WorkloadInfo workloadContext, DriverInfo dInfo, String stageId) throws IOException {
+        AbstractTaskInfoFileLoader loader = new CSVTaskInfoFileLoader(reader,
+                workloadContext, dInfo, stageId);
         return loader;
     }
 

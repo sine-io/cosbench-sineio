@@ -17,7 +17,6 @@ limitations under the License.
 
 package com.intel.cosbench.exporter;
 
-import com.intel.cosbench.bench.TaskReport;
 import com.intel.cosbench.model.*;
 
 /**
@@ -40,6 +39,13 @@ public class Exporters {
         exporter.setDriverInfo(driverInfo);
         return exporter;
     }
+    
+    // 2023.8.23, sine.
+    public static DriverExtraExporter newDriverExtraExporter(WorkloadInfo workloadInfo){
+        AbstractDriverExtraExporter exporter = new CSVDriverExtraExporter();
+        exporter.setWorkloadInfo(workloadInfo);
+        return exporter;
+    }
 
     public static RunExporter newRunExporter(WorkloadInfo workload) {
         AbstractRunExporter exporter = new CSVRunExporter();
@@ -49,6 +55,13 @@ public class Exporters {
 
     public static StageExporter newStageExporter(StageInfo stage) {
         AbstractStageExporter exporter = new CSVStageExporter();
+        exporter.setStage(stage);
+        return exporter;
+    }
+    
+    // 2023.8.23, sine.
+    public static StageExtraExporter newStageExtraExporter(StageInfo stage) {
+        AbstractStageExtraExporter exporter = new CSVStageExtraExporter();
         exporter.setStage(stage);
         return exporter;
     }

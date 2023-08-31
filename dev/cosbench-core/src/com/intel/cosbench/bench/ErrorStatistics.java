@@ -20,8 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import javax.lang.model.element.Element;
-
 import com.intel.cosbench.log.Logger;
 
 public class ErrorStatistics {

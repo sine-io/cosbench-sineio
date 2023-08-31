@@ -9,7 +9,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.intel.cosbench.bench,
  com.intel.cosbench.config,
  com.intel.cosbench.config.castor,
- com.intel.cosbench.exporter,
+ com.intel.cosbench.controller.exporter,
  com.intel.cosbench.log,
  com.intel.cosbench.model,
  com.intel.cosbench.service,

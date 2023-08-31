@@ -251,7 +251,15 @@
         yvalue.push(yrtimelocalwrite);
         axis.push("localwrite");
     }
-    xvalue.length=yvalue[0].length;
+    
+    if (yvalue.length>1) {
+    	// if operation types total number > 1, we should set xvalue.length to yvalue[0].length
+    	// because: 
+    	// 		1. yvalue.length = operation type total number, also = axis.length
+    	// 		2. xvalue.length = yvalue[0].length * operation type total number
+    	xvalue.length=yvalue[0].length;
+    }
+    
     forchart(xvalue,yvalue,"resTime","sp",id,axis);
 
     //ratio
@@ -268,51 +276,39 @@
     // 2023.6.14, sine. add other ops.
     if(yralist.length>0){
         yvalue.push(yralist);
-        axis.push("list");
     }
     if(yrafilewrite.length>0){
         yvalue.push(yrafilewrite);
-        axis.push("filewrite");
     }
     if(yraprepare.length>0){
         yvalue.push(yraprepare);
-        axis.push("prepare");
     }
     if(yracleanup.length>0){
         yvalue.push(yracleanup);
-        axis.push("cleanup");
     }
     if(yrainit.length>0){
         yvalue.push(yrainit);
-        axis.push("init");
     }
     if(yradispose.length>0){
         yvalue.push(yradispose);
-        axis.push("dispose");
     }
     if(yrarestore.length>0){
         yvalue.push(yrarestore);
-        axis.push("restore");
     }
     if(yramwrite.length>0){
         yvalue.push(yramwrite);
-        axis.push("mwrite");
     }
     if(yrahead.length>0){
         yvalue.push(yrahead);
-        axis.push("head");
     }
     if(yramprepare.length>0){
         yvalue.push(yramprepare);
-        axis.push("mprepare");
     }
     if(yramfilewrite.length>0){
         yvalue.push(yramfilewrite);
-        axis.push("mfilewrite");
     }
     if(yralocalwrite.length>0){
         yvalue.push(yralocalwrite);
-        axis.push("localwrite");
     }
     forchart(xvalue,yvalue,"ratio","%",id,axis);
     
@@ -330,51 +326,39 @@
     // 2023.6.14, sine. add other ops.
     if(ybandlist.length>0){
         yvalue.push(ybandlist);
-        axis.push("list");
     }
     if(ybandfilewrite.length>0){
         yvalue.push(ybandfilewrite);
-        axis.push("filewrite");
     }
     if(ybandprepare.length>0){
         yvalue.push(ybandprepare);
-        axis.push("prepare");
     }
     if(ybandcleanup.length>0){
         yvalue.push(ybandcleanup);
-        axis.push("cleanup");
     }
     if(ybandinit.length>0){
         yvalue.push(ybandinit);
-        axis.push("init");
     }
     if(ybanddispose.length>0){
         yvalue.push(ybanddispose);
-        axis.push("dispose");
     }
     if(ybandrestore.length>0){
         yvalue.push(ybandrestore);
-        axis.push("restore");
     }
     if(ybandmwrite.length>0){
         yvalue.push(ybandmwrite);
-        axis.push("mwrite");
     }
     if(ybandhead.length>0){
         yvalue.push(ybandhead);
-        axis.push("head");
     }
     if(ybandmprepare.length>0){
         yvalue.push(ybandmprepare);
-        axis.push("mprepare");
     }
     if(ybandmfilewrite.length>0){
         yvalue.push(ybandmfilewrite);
-        axis.push("mfilewrite");
     }
     if(ybandlocalwrite.length>0){
         yvalue.push(ybandlocalwrite);
-        axis.push("localwrite");
     }
     forchart(xvalue,yvalue,"bandwidth","KB/S",id,axis);
     
@@ -392,51 +376,39 @@
     // 2023.6.14, sine. add other ops.
     if(ytputlist.length>0){
         yvalue.push(ytputlist);
-        axis.push("list");
     }
     if(ytputfilewrite.length>0){
         yvalue.push(ytputfilewrite);
-        axis.push("filewrite");
     }
     if(ytputprepare.length>0){
         yvalue.push(ytputprepare);
-        axis.push("prepare");
     }
     if(ytputcleanup.length>0){
         yvalue.push(ytputcleanup);
-        axis.push("cleanup");
     }
     if(ytputinit.length>0){
         yvalue.push(ytputinit);
-        axis.push("init");
     }
     if(ytputdispose.length>0){
         yvalue.push(ytputdispose);
-        axis.push("dispose");
     }
     if(ytputrestore.length>0){
         yvalue.push(ytputrestore);
-        axis.push("restore");
     }
     if(ytputmwrite.length>0){
         yvalue.push(ytputmwrite);
-        axis.push("mwrite");
     }
     if(ytputhead.length>0){
         yvalue.push(ytputhead);
-        axis.push("head");
     }
     if(ytputmprepare.length>0){
         yvalue.push(ytputmprepare);
-        axis.push("mprepare");
     }
     if(ytputmfilewrite.length>0){
         yvalue.push(ytputmfilewrite);
-        axis.push("mfilewrite");
     }
     if(ytputlocalwrite.length>0){
         yvalue.push(ytputlocalwrite);
-        axis.push("localwrite");
     }
     forchart(xvalue,yvalue,"throughput","op/s",id,axis);
 </script>

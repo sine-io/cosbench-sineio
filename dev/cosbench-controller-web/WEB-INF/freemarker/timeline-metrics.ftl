@@ -31,6 +31,9 @@
             <#list allMetrics as mInfo >
                 <td>${mInfo.opName}</td>
             </#list>
+            <#list allMetrics as mInfo >
+                <td>${mInfo.opName}</td>
+            </#list>
         </tr>
         <#break>
     </#list>

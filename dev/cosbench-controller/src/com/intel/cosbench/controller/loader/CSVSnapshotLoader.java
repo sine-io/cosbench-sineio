@@ -55,8 +55,9 @@ class CSVSnapshotLoader extends AbstractSnapshotLoader {
             opNum += work.getOperations().size();
         }
         name = new String[opNum];
-        for (int i = 0; i < opNum; i++)
-            name[i] = "op" + (i+1) + "." + columns[i + 1]; // need different name
+        for (int i = 0; i < opNum; i++) {
+            name[i] = columns[i + 1]; // 2023.8.18, sine. different operation types, different name
+        }
     }
 
     @Override
@@ -92,7 +93,6 @@ class CSVSnapshotLoader extends AbstractSnapshotLoader {
         
         for (int i = 0; i < opNum; i++) {
             Metrics metric = new Metrics();
-            metric.setName(name[i]);
             
             int n = name[i].lastIndexOf("-");
             if (n > 0) {
@@ -111,6 +111,16 @@ class CSVSnapshotLoader extends AbstractSnapshotLoader {
             metric.setThroughput(getDoubleValue(columns[i + opNum * 4 + 1]));
             metric.setBandwidth(getDoubleValue(columns[i + opNum * 5 + 1]));
             setRatio(columns[i + opNum * 6 + 1], metric);
+            
+            // 2023.8.30, sine.
+            /*
+             * because, report is a Map.
+             * */
+            int opIndex = i + 1;
+            metric.setOpId("op" + opIndex);
+            String mName = Metrics.getMetricsType(metric.getOpId(), metric.getOpType(), metric.getSampleType(), metric.getOpName());
+            metric.setName(mName);
+            
             metrics.add(metric);
         }
         return metrics;

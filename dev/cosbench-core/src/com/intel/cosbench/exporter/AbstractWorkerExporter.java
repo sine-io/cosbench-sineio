@@ -20,16 +20,10 @@ package com.intel.cosbench.exporter;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.intel.cosbench.bench.Metrics;
-import com.intel.cosbench.bench.Report;
-import com.intel.cosbench.bench.TaskReport;
-import com.intel.cosbench.model.DriverInfo;
 import com.intel.cosbench.model.StageInfo;
 import com.intel.cosbench.model.TaskInfo;
-import com.intel.cosbench.model.WorkloadInfo;
 
 public abstract class AbstractWorkerExporter implements WorkerExporter {
 

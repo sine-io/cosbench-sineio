@@ -23,8 +23,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.nio.channels.ReadableByteChannel;
 
 import com.intel.cosbench.config.castor.CastorConfigTools;
 import com.intel.cosbench.controller.model.*;

@@ -96,8 +96,7 @@ class BalancedScheduler extends AbstractScheduler {
         for (DriverContext driver : drivers.values()) {
             if ((workers = allocMap[idx++]) == 0)
                 continue;
-            schedules
-                    .addSchedule(createSchedule(work, driver, offset, workers));
+            schedules.addSchedule(createSchedule(work, driver, offset, workers));
             offset += workers;
         }
     }
