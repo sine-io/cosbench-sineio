@@ -42,7 +42,7 @@ COSBench Storages Comparision
 |     [New Feature]: GiB, MiB, KiB     |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
 |     [New Feature]: storage_class     |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |      no need       |
 |     [New Feature]: restore_days      |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|     [SDK version]: aws-sdk-java      |      1.10.76       |      1.12.312      |          -          |      1.12.312      |
+|     [SDK version]: aws-sdk-java      |      1.10.76       |      1.12.528      |          -          |      1.12.528      |
 |    [SDK version]: aws-sdk-java-v2    |         -          |         -          |      2.17.290       |         -          |
 |      [New Feature]: localwrite       |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
 

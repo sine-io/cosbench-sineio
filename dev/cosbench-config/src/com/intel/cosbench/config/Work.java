@@ -430,8 +430,8 @@ public class Work implements Iterable<Operation> {
         if (sum != 100)
             throw new ConfigException("op ratio should sum to 100");
         
-        // 2022.9.22, sine, bug fix: #10
-        if (workers > totalOps) {
+        // 2023.09.07, sine, bug fix: #10
+        if (totalOps > 0 && workers > totalOps) {
 			throw new ConfigException("If use totalOps, workers should be less than or equal to totalOps.");
 		}
         

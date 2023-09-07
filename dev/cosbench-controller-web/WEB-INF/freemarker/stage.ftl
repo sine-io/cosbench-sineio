@@ -98,7 +98,8 @@
                 <th>Worker-Info</th>
                 <th>Op-Info</th>
                 <th>State</th>
-                <th>Link</th>
+                <#if !wInfo.archived ><th>Link</th></#if> <#-- 2023.9.7, sine. bug fux: #38 -->
+                
             </tr>
             <#list sInfo.taskInfos as tInfo >
                 <tr>
@@ -113,13 +114,18 @@
                         </#list>
                     </td>
                     <td><span class="task-state-${tInfo.state?lower_case} state">${tInfo.state?lower_case}</span></td>
-                    <td>
-                        <#if tInfo.missionId?? >
-                        <a href="${schedule.driver.url}/mission.html?id=${tInfo.missionId}" target="_blank">View details</a>
-                        <#else>
-                        N/A
-                        </#if>
-                    </td>
+                    
+                    <#-- 2023.9.7, sine. bug fix: #38 -->
+                    <#if !wInfo.archived >
+	                    <td>
+	                        <#if tInfo.missionId?? >
+	                        <a href="${schedule.driver.url}/mission.html?id=${tInfo.missionId}" target="_blank">View details</a>
+	                        <#else>
+	                        N/A
+	                        </#if>
+	                    </td>
+                    </#if>
+                    
                 </tr>
             </#list>
             </table>
