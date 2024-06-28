@@ -1,6 +1,6 @@
 # cosbench-sineio
 
-This image provides an easy way to run [COSbench](https://github.com/sine-io/cosbench-sineio.git) with the [sio, siov2, gdas] backend support.
+This image provides an easy way to run [COSbench](https://github.com/sine-io/cosbench-sineio.git) with the [sio] backend support.
 
 ## How to use this image
 
@@ -13,7 +13,7 @@ Environment variables available are:
 - `DRIVERS`: Comma separated list of COSbench drivers to be used by the controller
  (Default to `http://127.0.0.1:18088/driver`)
 - `DRIVER_PORT`: driver base port(Default to 18088)
-- `COSBENCH_PLUGINS`: Comma separated list of COSbench OSGI plugins to load. The more you add, the slower it is to start (Default to `SIO`. Available values: `SIO,SIOV2,GDAS,OPENIO,CDMI,SWIFT,SCALITY,S3,CEPH,AMPLI`)
+- `COSBENCH_PLUGINS`: Comma separated list of COSbench OSGI plugins to load. The more you add, the slower it is to start (Default to `SIO`. Available values: `SIO,OPENIO,CDMI,SWIFT,SCALITY,S3,CEPH,AMPLI`)
 
 ## Start a controller and two drivers COSbench container on the same machine(via docker-compose):
 ```console
@@ -36,7 +36,7 @@ docker-compose up -d
 -e DRIVER_PORT=18088 \
 -e DRIVERS="http://192.168.0.1:18088/driver" \
 -e COSBENCH_PLUGINS="SIO,OPENIO,SWIFT,S3" \
-sineio/cosbench-sineio:0.4.7.9-ubuntu
+sineio/cosbench-sineio:0.5.0.0-ubuntu
 ```
 Then you can access the COSbench Web Interface through `http://192.168.0.1:19088/controller/index.html`
 
@@ -50,7 +50,7 @@ Then you can access the COSbench Web Interface through `http://192.168.0.1:19088
 -e DRIVER=true \
 -e DRIVER_PORT=18188 \
 -e COSBENCH_PLUGINS="SIO,OPENIO,SWIFT,S3" \
-sineio/cosbench-sineio:0.4.7.9-ubuntu
+sineio/cosbench-sineio:0.5.0.0-ubuntu
 ```
 
 ### 2. Add more drivers on the same machine(Just change the DRIVER_PORT) if you need
@@ -61,7 +61,7 @@ sineio/cosbench-sineio:0.4.7.9-ubuntu
 -e DRIVER=true \
 -e DRIVER_PORT=18188 \
 -e COSBENCH_PLUGINS="SIO,OPENIO,SWIFT,S3" \
-sineio/cosbench-sineio:0.4.7.9-ubuntu
+sineio/cosbench-sineio:0.5.0.0-ubuntu
 ```
 
 ### 3. Start a controller COSbench container if you need:  
@@ -70,7 +70,7 @@ sineio/cosbench-sineio:0.4.7.9-ubuntu
 -e CONTROLLER=true \
 -e DRIVER=false \
 -e DRIVERS="http://192.168.0.1:18088/driver,http://192.168.0.1:18188/driver" \
-sineio/cosbench-sineio:0.4.7.9-ubuntu
+sineio/cosbench-sineio:0.5.0.0-ubuntu
 ```
 Then you can access the COSbench Web Interface through `http://192.168.0.1:19088/controller/index.html`
 
@@ -82,14 +82,6 @@ You need to start your controller with the `SIO` support.
   * Type: `None`
   * Storage
   * Type: `sio`
-  * Configuration: `accesskey=<accesskey>;secretkey=<scretkey>;proxyhost=<proxyhost>;proxyport=<proxyport>;endpoint=<endpoint>;no_verify_ssl=true;path_style_access=true`
-
-- Using the GDAS API:
-You need to start your controller with the `GDAS` support.
-  * Authentication
-  * Type: `None`
-  * Storage
-  * Type: `gdas`
   * Configuration: `accesskey=<accesskey>;secretkey=<scretkey>;proxyhost=<proxyhost>;proxyport=<proxyport>;endpoint=<endpoint>;no_verify_ssl=true;path_style_access=true`
 
 - Using the OpenIO SDS Java API

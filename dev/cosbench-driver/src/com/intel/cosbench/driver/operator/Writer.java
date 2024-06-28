@@ -99,12 +99,12 @@ class Writer extends AbstractOperator {
 			doLogErr(session.getLogger(), sie.getMessage(), sie);
 			throw new AbortedException();
 		} catch (StorageTimeoutException ste) {
-			String msg = "Error put-object " + conName + "/" + objName + " " + ste.getMessage();
+			String msg = "Error: put-object " + conName + "/" + objName + " " + ste.getMessage();
 			doLogWarn(session.getLogger(), msg);
 			
 			return new Sample(new Date(), op.getId(), op.getOpType(), op.getSampleType(), op.getName(), false);
 		} catch (StorageException se) {
-			String msg = "Error put-object " + conName + "/" + objName + " " + se.getMessage();
+			String msg = "Error: put-object " + conName + "/" + objName + " " + se.getMessage();
 			doLogWarn(session.getLogger(), msg);
 			
 			return new Sample(new Date(), op.getId(), op.getOpType(), op.getSampleType(), op.getName(), false);

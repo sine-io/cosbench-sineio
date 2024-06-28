@@ -104,5 +104,20 @@ public interface SIOConstants {
     // --------------------------------------------------------------------------
     String REGION_KEY = "aws_region";
     String REGION_DEFAULT = "us-east-1";
+    
+    // --------------------------------------------------------------------------
+    // 2024.06.25, add ifPrefetch, isRangeRequest, fileLength, chunkLength
+    // --------------------------------------------------------------------------
+    String IS_PREFETCH_KEY = "is_prefetch";
+    boolean IS_PREFETCH_DEFAULT = false;
+    
+    String IS_RANGE_REQUEST_KEY = "is_range_request";
+    boolean IS_RANGE_REQUEST_DEFAULT = false;
+    
+    String FILE_LENGTH_KEY = "file_length";
+    long FILE_LENGTH_DEFAULT = 4000000L; // 4000000L = 4MB
+    
+    String CHUNK_LENGTH_KEY = "chunk_length";
+    long CHUNK_LENGTH_DEFAULT = 1000000L; // 1000000L = 1MB
 
 }

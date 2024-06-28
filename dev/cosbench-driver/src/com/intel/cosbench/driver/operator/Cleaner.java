@@ -131,7 +131,7 @@ class Cleaner extends AbstractOperator {
 					String[] obs;
 					
 					do {
-						obs = getObjectsList(conName, config, session); // max-keys is 1000 per time when use sio/siov2/gdas.
+						obs = getObjectsList(conName, config, session);
 						for (String objName : obs) {
 							doDelete(conName, objName, config, session, this);
 						}

@@ -38,7 +38,6 @@ import com.amazonaws.services.s3.model.*;
 import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;
 
 import com.intel.cosbench.log.Logger;
-
 import com.intel.cosbench.api.storage.*;
 import com.intel.cosbench.api.context.*;
 import com.intel.cosbench.config.Config;
@@ -167,6 +166,7 @@ public class GdasStorage extends NoneStorage {
 	public void dispose() {
 		super.dispose();
 		client = null;
+		restoreClient = null;
 	}
 
 	@Override

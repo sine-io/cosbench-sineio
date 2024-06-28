@@ -27,8 +27,7 @@ if [ "$DRIVER" = true ]; then
       'S3')      COSBENCH_OSGI="$COSBENCH_OSGI"' cosbench-s3_${VERSION}' ;;
       'CEPH')    COSBENCH_OSGI="$COSBENCH_OSGI"' cosbench-librados_${VERSION}' ;;
       'AMPLI')   COSBENCH_OSGI="$COSBENCH_OSGI"' cosbench-ampli_${VERSION}' ;;
-      'SIO' | 'SIOV2' | 'GDAS')   COSBENCH_OSGI="$COSBENCH_OSGI"' cosbench-sineio_${VERSION}' ;;
-      'GDAS')   COSBENCH_OSGI="$COSBENCH_OSGI"' cosbench-gdas_${VERSION}' ;;
+      'SIO' | 'SIOV1' | 'GDAS')   COSBENCH_OSGI="$COSBENCH_OSGI"' cosbench-sineio_${VERSION}' ;;
     esac
   done
 
@@ -54,7 +53,7 @@ drivers = $nbdrivers
 log_level = INFO
 log_file = log/system.log
 archive_dir = archive
-name = SineIO-Controller
+name = Controller
 url = http://127.0.0.1:19088/controller/index.html
 EOF
 

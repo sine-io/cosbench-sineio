@@ -8,9 +8,9 @@ First, please read [BUILD.md](BUILD.md).
 Development Environment
 -----------------------
 
-To get a running comilation environment, please refer to the same section in [BUILD.md#development-environment](BUILD.md#development-environment).
+To get a running completion environment, please refer to the same section in [BUILD.md#development-environment](BUILD.md#development-environment).
 
-Note that Eclipse **4.7.3a** is a knwon working release. You must use **JDK 1.8** and configure eclipse this way:
+Note that Eclipse **4.27.0** is a known working release. You must use **JDK 1.8** and configure eclipse this way:
 
 1. in `Window -> Preferences -> Java -> Prefered JRE` ensure a JDK 1.8 is selected.
 
@@ -27,10 +27,10 @@ When you are ready to release a new version:
 
 3. Remove previous JAR: `rm dist/osgi/plugins/cosbench-*.jar`.
 
-4. In eclipe, select all project, right click then `export ... -> Plug-in Development -> Deployable plugins and fragments`.
+4. In eclipse, select all project, right click then `export ... -> Plug-in Development -> Deployable plugins and fragments`.
 
 5. Run `./pack-sineio.sh` to generate `cosbench-$VERSION-sineio.tar.gz`.
 
 6. Commit changes, tag to `${VERSION}-sineio` and push to git (tagging can be done when making a new release from the github page).
 
-7. Create a release from [github page](https://github.com/open-io/cosbench/releases).
+7. Create a release from [Github page](https://github.com/sine-io/cosbench-sineio/releases).

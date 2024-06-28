@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Automatic-Module-Name: cosbench.api
 Bundle-Name: COSBench API Bundle
 Bundle-SymbolicName: cosbench-api
-Bundle-Version: 0.5.0.0
+Bundle-Version: 0.5.0.1
 Bundle-Vendor: intel
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.intel.cosbench.config,

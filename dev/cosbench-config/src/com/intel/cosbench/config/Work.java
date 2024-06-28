@@ -280,10 +280,10 @@ public class Work implements Iterable<Operation> {
     private void toMPrepareWork() {
     	// 2022.10.12, sine, bug fix: #19
     	String storageType = getStorage().getType();
-    	if (storageType.equals("sio") || storageType.equals("siov2") || storageType.equals("gdas")) {
+    	if (storageType.equals("sio") || storageType.equals("siov1") || storageType.equals("gdas")) {
     		// do nothing.
 		} else {
-			throw new ConfigException("You should change the storage type to sio or siov2 or gdas to use mprepare operation");
+			throw new ConfigException("You should change the storage type to siov1 or sio or gdas to use mprepare operation");
 		}
     	
         if (name == null)
@@ -444,11 +444,11 @@ public class Work implements Iterable<Operation> {
         	if (opType.equals("mwrite") || opType.equals("head") || 
         			opType.equals("restore") || opType.equals("mfilewrite") || 
         			opType.equals("localwrite")) {
-            	if (storageType.equals("sio") || storageType.equals("siov2") || storageType.equals("gdas")) {
+            	if (storageType.equals("sio") || storageType.equals("siov1") || storageType.equals("gdas")) {
             		// do nothing.
         		} else {
         			throw new ConfigException(
-        					"You should change storage type to [sio or siov2 or gdas] to use [mwrite, head, restore, mfilewrite, localwrite] operations");
+        					"You should change storage type to [sio or siov1 or gdas] to use [mwrite, head, restore, mfilewrite, localwrite] operations");
 				}
 			}
         }

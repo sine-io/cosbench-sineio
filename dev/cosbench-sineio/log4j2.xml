@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<RollingFile name="RollingFileAppender" fileName="log/sio-log4j2.log" filePattern="log/sio-log4j2.log.%i" >
+            <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c:%L - %m%n" />
+			<SizeBasedTriggeringPolicy size="10MB" />
+			<DefaultRolloverStrategy max="10" />
+         </RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Root level="ERROR">
+			<AppenderRef ref="RollingFileAppender" />
+		</Root>
+		<Logger name="software.amazon.awssdk" level="ERROR" />
+		<Logger name="software.amazon.awssdk.request" level="ERROR" />
+		<Logger name="org.apache.http.wire" level="ERROR" />
+	</Loggers>
+</Configuration>

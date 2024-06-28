@@ -6,7 +6,7 @@
 	<classpathentry kind="lib" path="commons-codec-1.4.jar"/>
 	<classpathentry kind="lib" path="commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="httpclient-4.5.jar"/>
-	<classpathentry kind="lib" path="httpcore-4.4.1.jar"/>
+	<classpathentry kind="lib" path="httpcore-4.4.1.jar" sourcepath="/cosbench-sineio/httpcore-4.4.13-sources.jar"/>
 	<classpathentry kind="lib" path="javax.mail-api-1.4.6.jar"/>
 	<classpathentry kind="lib" path="jdom2-2.0.5.jar"/>
 	<classpathentry kind="lib" path="jersey-apache-client4-1.18.3.jar"/>

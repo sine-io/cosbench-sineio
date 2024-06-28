@@ -27,23 +27,36 @@ package com.intel.cosbench.api.sio;
 import static com.intel.cosbench.client.sio.SIOConstants.*;
 
 import java.io.*;
-import java.util.Random;
-
+import java.net.URI;
+import java.time.Duration;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Random;
 import java.util.ArrayList;
 
-import com.amazonaws.*;
-import com.amazonaws.auth.*;
-import com.amazonaws.services.s3.*;
-import com.amazonaws.services.s3.model.*;
-import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;
-
-import com.intel.cosbench.log.Logger;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.awscore.AwsRequestOverrideConfiguration;
+import software.amazon.awssdk.core.ResponseBytes;
+import software.amazon.awssdk.core.exception.SdkClientException;
+import software.amazon.awssdk.core.internal.util.Mimetype;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.http.ContentStreamProvider;
+import software.amazon.awssdk.http.SdkHttpClient;
+import software.amazon.awssdk.http.SdkHttpConfigurationOption;
+import software.amazon.awssdk.http.apache.ApacheHttpClient;
+import software.amazon.awssdk.http.apache.ProxyConfiguration;
+import software.amazon.awssdk.regions.Region;
+//import software.amazon.awssdk.services.s3.S3AsyncClient;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.S3Configuration;
+import software.amazon.awssdk.services.s3.model.*;
+import software.amazon.awssdk.utils.AttributeMap;
 
 import com.intel.cosbench.api.storage.*;
 import com.intel.cosbench.api.context.*;
 import com.intel.cosbench.config.Config;
-
+import com.intel.cosbench.log.Logger;
 
 public class SIOStorage extends NoneStorage {
 
@@ -53,23 +66,25 @@ public class SIOStorage extends NoneStorage {
 	private String secretKey;
 	private String endpoint;
 
-	private AmazonS3 client;
-	private AmazonS3 restoreClient; // 2021.7.13, sine.
+	private S3Client client;
+//	private S3AsyncClient asyncClient;
 
-	private boolean isPrefetch; 
-    private boolean isRangeRequest; 
-    private long fileLength;
-    private long chunkLength;
-    
-    private String storageClass;
+	private String storageClass;
 	private int restoreDays;
-	private long partSize; // 2021.7.13, sine. Upload the file parts.
+	private long partSize; // Upload the file parts.
 	private boolean noVerifySSL;
+	private String awsRegion;
 
 	private boolean pathStyleAccess;
 	private int maxConnections;
 	private String proxyHost;
 	private String proxyPort;
+	
+	private boolean isPrefetch; 
+    private boolean isRangeRequest; 
+    private long fileLength;
+    private long chunkLength;
+	
 
 	@Override
 	public void init(Config config, Logger logger) {
@@ -85,98 +100,89 @@ public class SIOStorage extends NoneStorage {
 
 		proxyHost = config.get(PROXY_HOST_KEY, "");
 		proxyPort = config.get(PROXY_PORT_KEY, "");
-		parms.put(PROXY_PORT_KEY, proxyPort); // because proxyPort is String, but setProxyPort needs a int.
-		
-		// for prefetch and range read.
-		isPrefetch = config.getBoolean("is_prefetch", false);
-		isRangeRequest = config.getBoolean("is_range_request", false);
-		fileLength = config.getLong("file_length", 4000000L); // 4000000L = 4MB
-		chunkLength = config.getLong("chunk_length", 1000000L); // 1000000L = 1MB
 
-		// 2021.02.14, sine
+		// 2021.02.14, sine.
 		// You can set storage_class to other value in storage part.
 		storageClass = config.get(STORAGE_CLASS_KEY, STORAGE_CLASS_DEFAULT);
+
+		// 2021.07.11, sine.
 		// You can set restore_days to other value(int) in storage part.
 		restoreDays = config.getInt(RESTORE_DAYS_KEY, RESTORE_DAYS_DEFAULT);
+
+		// 2021.08.03, sine.
 		// You can set part_size to other value in storage part.
 		partSize = config.getLong(PART_SIZE_KEY, PART_SIZE_DEFAULT);
+
+		// 2020.11.26, sine.
 		// You can set no_verify_ssl to true in storage part to disable SSL checking.
 		noVerifySSL = config.getBoolean(NO_VERIFY_SSL_KEY, NO_VERIFY_SSL_DEFAULT);
-		if (noVerifySSL) {
-			// This property is meant to be used as a flag
-			// (i.e. -Dcom.amazonaws.sdk.disableCertChecking) rather then taking a value
-			// (-Dcom.amazonaws.sdk.disableCertChecking=true).
-			System.setProperty(SDKGlobalConfiguration.DISABLE_CERT_CHECKING_SYSTEM_PROPERTY, "true");
-		}
 
+		// 2022.02.03, sine.
+		// You can set region now, and default is us-east-1.
+		awsRegion = config.get(REGION_KEY, REGION_DEFAULT);
+		
+		// 2024.6.25, for prefetch and range read.
+		isPrefetch = config.getBoolean(IS_PREFETCH_KEY, IS_PREFETCH_DEFAULT);
+		isRangeRequest = config.getBoolean(IS_RANGE_REQUEST_KEY, IS_RANGE_REQUEST_DEFAULT);
+		fileLength = config.getLong(FILE_LENGTH_KEY, FILE_LENGTH_DEFAULT); // 4MB
+		chunkLength = config.getLong(CHUNK_LENGTH_KEY, CHUNK_LENGTH_DEFAULT); // 1MB
+		
+		
 		initClient();
-		initRestoreClient();
 
 	}
 
-	// You can set different singType to get different client(common client type vs
-	// restore client type). 2021.7.14 sine
-	private ClientConfiguration getDefaultClientConfiguration(String signType) {
+	private S3Client initClient() {
+		logger.debug("initialize S3 client with storage config: {}", parms);
+		
+		// ak and sk
+		AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKey, secretKey);
+		// set path style
+		S3Configuration s3Config = S3Configuration.builder().pathStyleAccessEnabled(pathStyleAccess).build();
 
-		ClientConfiguration defaultClientConfiguration = new ClientConfiguration();
-		// Set connection timeout for initially establishing a connection.
-		defaultClientConfiguration.setConnectionTimeout(timeout);
-		// Set socket timeout for data to be transferred.
-		defaultClientConfiguration.setSocketTimeout(timeout);
-		// Set max connections.
-		defaultClientConfiguration.setMaxConnections(maxConnections);
-		// use expect continue HTTP/1.1 header.
-		defaultClientConfiguration.withUseExpectContinue(false);
-		// Set Signer type.
-		defaultClientConfiguration.withSignerOverride(signType);
-
+		// set http configuration.
+		ApacheHttpClient.Builder httpClientBuilder = ApacheHttpClient.builder()
+				// max connections.
+				.maxConnections(maxConnections)
+				// Set socket timeout for data to be transferred.
+				.socketTimeout(Duration.ofMillis(timeout))
+				// Set connection timeout for initially establishing a connection.
+				.connectionTimeout(Duration.ofMillis(timeout))
+				// disable expect continue for HTTP/1.1.
+				.expectContinueEnabled(false);
+		
+		// set proxy
 		if ((!proxyHost.equals("")) && (!proxyPort.equals(""))) {
-			defaultClientConfiguration.setProxyHost(proxyHost);
-			defaultClientConfiguration.setProxyPort(parms.getInt(PROXY_PORT_KEY));
+			// warning: no QA!
+			// Set proxy configuration.
+			httpClientBuilder.proxyConfiguration(ProxyConfiguration.builder()
+					// https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/http-configuration-apache.html#http-configuration-apache-proxy-conf-ex
+					.endpoint(URI.create("http://" + proxyHost + ":" + proxyPort))
+					.build());
 		}
 
-		return defaultClientConfiguration;
-	}
-
-	// 2021.7.13 Change SDK version: 1.10.x -> 1.12.x
-	private AmazonS3 initClient() {
-		logger.debug("initialize S3 client with storage config: {}", parms);
-
-		ClientConfiguration clientConf = getDefaultClientConfiguration("S3SignerType");
-
-		AWSCredentials myCredentials = new BasicAWSCredentials(accessKey, secretKey);
-
-		EndpointConfiguration myEndpoint = new EndpointConfiguration(endpoint, "");
-
-		client = AmazonS3ClientBuilder.standard()
-				.withCredentials(new AWSStaticCredentialsProvider(myCredentials))
-				.withClientConfiguration(clientConf)
-				.withEndpointConfiguration(myEndpoint)
-				.withPathStyleAccessEnabled(pathStyleAccess)
+		// set http client configuration.
+		SdkHttpClient httpClient;
+		if (noVerifySSL) {
+			httpClient = httpClientBuilder.buildWithDefaults(AttributeMap.builder()
+					.put(SdkHttpConfigurationOption.TRUST_ALL_CERTIFICATES, Boolean.TRUE)
+					.build());
+		} else {
+			httpClient = httpClientBuilder.build();
+		}
+		
+		client = S3Client.builder()
+				.credentialsProvider(StaticCredentialsProvider.create(awsCreds))
+				.endpointOverride(URI.create(endpoint))
+				// solve issue: https://github.com/sine-io/cosbench-sineio/issues/3
+				.region(Region.of(awsRegion))
+				.serviceConfiguration(s3Config)
+				.httpClient(httpClient)
 				.build();
 
 		logger.debug("S3 client has been initialized");
 
 		return client;
-	}
-
-	private AmazonS3 initRestoreClient() {
-
-		logger.debug("initialize S3 Restore client with storage config: {}", parms);
-
-		ClientConfiguration clientConf = getDefaultClientConfiguration("AWSS3V4SignerType");
-
-		AWSCredentials myCredentials = new BasicAWSCredentials(accessKey, secretKey);
-
-		EndpointConfiguration myendpoint = new EndpointConfiguration(endpoint, "");
-		restoreClient = AmazonS3ClientBuilder.standard()
-				.withCredentials(new AWSStaticCredentialsProvider(myCredentials)).withClientConfiguration(clientConf)
-				.withEndpointConfiguration(myendpoint)
-				.withPathStyleAccessEnabled(pathStyleAccess).build();
-
-		logger.debug("S3 Restore client has been initialized");
-
-		return restoreClient;
 	}
 
 	@Override
@@ -187,6 +193,7 @@ public class SIOStorage extends NoneStorage {
 	@Override
 	public void dispose() {
 		super.dispose();
+		client.close(); // https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/using.html#work-witih-clients
 		client = null;
 	}
 
@@ -195,33 +202,38 @@ public class SIOStorage extends NoneStorage {
 		super.getObject(container, object, config);
 		InputStream stream = null;
 		try {
-
+			
+			GetObjectRequest.Builder getObjectRequest = GetObjectRequest.builder()
+					.bucket(container)
+					.key(object);
+			
+			// warning: no QA!
 			if (isPrefetch) {
-        		GetObjectRequest prefetchObjectRequest = new GetObjectRequest(container, object);
-        		prefetchObjectRequest.putCustomRequestHeader("prefetch", "value");
-        		S3Object s3Obj = client.getObject(prefetchObjectRequest);
-        		stream = s3Obj.getObjectContent();
-        	} else if (isRangeRequest) {
-        		GetObjectRequest rangeObjectRequest = new GetObjectRequest(container, object);
-
-        		Random rand = new Random();
-
-        		long start = (long)(rand.nextDouble() * (fileLength - chunkLength));
+				getObjectRequest.overrideConfiguration(AwsRequestOverrideConfiguration.builder()
+						.putHeader("prefetch", "value").build());
+			}
+			
+			// warning: no QA!
+			if (isRangeRequest) {
+				Random rand = new Random();
+				long start = (long)(rand.nextDouble() * (fileLength - chunkLength));
         		long end = start + chunkLength - 1;
+				
+        		getObjectRequest.range("bytes=" + String.valueOf(start) + "-" + String.valueOf(end));
+			}
+			
+			ResponseBytes<GetObjectResponse> objectBytes = client.getObjectAsBytes(getObjectRequest.build());
 
-        		rangeObjectRequest.setRange(start, end);
-
-        		S3Object s3Obj = client.getObject(rangeObjectRequest);
-        		stream = s3Obj.getObjectContent();
-        	} else {
-        		S3Object s3Obj = client.getObject(container, object);
-                stream = s3Obj.getObjectContent();
-        	}
-		} catch (AmazonServiceException ase) {
-			throw new StorageException(ase);
+			stream = objectBytes.asInputStream();
+			
+		} catch (S3Exception se) {
+			logger.debug("Service exception thrown.");
+			throw new StorageException(se);
 		} catch (SdkClientException sce) {
+			logger.debug("Client exception thrown.");
 			throw new StorageTimeoutException(sce);
 		}
+
 		return stream;
 	}
 
@@ -231,13 +243,13 @@ public class SIOStorage extends NoneStorage {
 		try {
 			// Create and submit a request to restore an object from Glacier/Deep Archive
 			// for some days.
-			RestoreObjectRequest request = new RestoreObjectRequest(container, object, restoreDays);
-			restoreClient.restoreObjectV2(request);
+			RestoreObjectRequest restoreObjectRequest = RestoreObjectRequest.builder()
+					.bucket(container)
+					.key(object)
+					.restoreRequest(RestoreRequest.builder().days(restoreDays).build())
+					.build();
 
-			ObjectMetadata response = restoreClient.getObjectMetadata(container, object);
-			Boolean restoreFlag = response.getOngoingRestore();
-			logger.info(object + " at bucket -> " + container + " | Restore days: " + restoreDays
-					+ ", and ongoing-request status is: " + restoreFlag);
+			client.restoreObject(restoreObjectRequest);
 
 		} catch (Exception e) {
 			throw new StorageException(e);
@@ -247,13 +259,15 @@ public class SIOStorage extends NoneStorage {
 	@Override
 	public void createContainer(String container, Config config) {
 		super.createContainer(container, config);
+		
 		try {
 			container = container.split("/")[0];
-
-			// 2021.7.13 Change SDK version: 1.10.x -> 1.12.x
-			if (!client.doesBucketExistV2(container)) {
-				client.createBucket(container);
-			}
+			
+			CreateBucketRequest createBucketRequest = CreateBucketRequest.builder()
+					.bucket(container)
+					.build();
+			client.createBucket(createBucketRequest);
+			
 		} catch (Exception e) {
 			throw new StorageException(e);
 		}
@@ -263,28 +277,30 @@ public class SIOStorage extends NoneStorage {
 	public void createObject(String container, String object, InputStream data, long length, Config config) {
 		super.createObject(container, object, data, length, config);
 
-		ObjectMetadata metadata = new ObjectMetadata();
-		metadata.setContentLength(length);
-		metadata.setContentType("application/octet-stream");
-
-		// 2021.02.14
-		// Set storage_class to other value if you need.
-		metadata.setHeader("x-amz-storage-class", storageClass);
-
-		// 2021.7.27, sine. another way to put object, and set Read limit to 5GiB+1.
-		// https://github.com/awsdocs/aws-java-developer-guide/blob/master/doc_source/best-practices.rst
-		PutObjectRequest request = new PutObjectRequest(container, object, data, metadata);
-		
-		request.getRequestClientOptions().setReadLimit((int)length + 1); // set limit to object length+1
-
 		try {
-			// client.putObject(container, object, data, metadata);
-
-			client.putObject(request);
-
-		} catch (AmazonServiceException ase) {
-			throw new StorageException(ase);
+			PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+					.storageClass(storageClass)
+					.bucket(container)
+					.key(object)
+					.contentLength(length)
+					.contentType(Mimetype.MIMETYPE_OCTET_STREAM)
+					.build();
+			
+			// 2024.6.25, sine.
+			RequestBody rBody = RequestBody.fromInputStream(data, length); // not support resetting.
+			
+			// set read limit to 128KB, don't know whether useful or not.
+			// warning: no QA!
+//			RequestBody rBody = RequestBody.fromContentProvider(
+//					ContentStreamProvider.fromInputStream(data), 
+//					length, Mimetype.MIMETYPE_OCTET_STREAM);
+			
+			client.putObject(putObjectRequest, rBody);
+		} catch (S3Exception se) {
+			logger.debug("Service exception thrown.");
+			throw new StorageException(se);
 		} catch (SdkClientException sce) {
+			logger.debug("Client exception thrown.");
 			throw new StorageTimeoutException(sce);
 		}
 	}
@@ -294,25 +310,20 @@ public class SIOStorage extends NoneStorage {
 	public void createMultipartObject(String container, String object, InputStream data, long length, Config config) {
 		super.createMultipartObject(container, object, data, length, config);
 
-		// Set Metadata.
-		ObjectMetadata metadata = new ObjectMetadata();
-		metadata.setContentLength(length);
-		metadata.setContentType("application/octet-stream");
-		metadata.setHeader("x-amz-storage-class", storageClass);
+		CreateMultipartUploadRequest mRequest = CreateMultipartUploadRequest.builder()
+				.storageClass(storageClass)
+				.bucket(container)
+				.key(object)
+				.build();
 
-		// Create a list of ETag objects. You retrieve ETags for each object part
-		// uploaded,
+		// Create a list of ETag objects. You retrieve ETags for each object part uploaded,
 		// then, after each individual part has been uploaded, pass the list of ETags to
 		// the request to complete the upload.
-		List<PartETag> partETags = new ArrayList<PartETag>();
+		List<CompletedPart> partETags = new ArrayList<CompletedPart>();
 
 		try {
-			// Initiate the multipart upload.
-			InitiateMultipartUploadRequest initRequest = new InitiateMultipartUploadRequest(container, object,
-					metadata);
-			InitiateMultipartUploadResult initResponse = client.initiateMultipartUpload(initRequest);
-			
-			String uploadID = initResponse.getUploadId();
+			CreateMultipartUploadResponse mResponse = client.createMultipartUpload(mRequest);
+			String uploadId = mResponse.uploadId();
 
 			long position = 0;
 			long tempPartSize; // avoid to change the partSize, bug fix:#25
@@ -323,61 +334,65 @@ public class SIOStorage extends NoneStorage {
 				tempPartSize = Math.min(partSize, (length - position));
 
 				// Create the request to upload a part.
-				UploadPartRequest uploadRequest = new UploadPartRequest()
-						.withBucketName(container)
-						.withKey(object)
-						.withUploadId(uploadID)
-						.withPartNumber(i)
-						.withInputStream(data)
-						.withPartSize(tempPartSize);
-
-				uploadRequest.getRequestClientOptions().setReadLimit((int)length+1); // length+1
-
+				UploadPartRequest uRequest = UploadPartRequest.builder()
+						.bucket(container)
+						.key(object)
+						.uploadId(uploadId)
+						.partNumber(i)
+						.build();
+				
+				// 2024.6.25, sine.
+//				RequestBody rBody = RequestBody.fromInputStream(data, tempPartSize); // not support resetting.
+				
+				// set read limit to 128KB, don't know whether useful or not.
+				// warning: no QA!
+				RequestBody rBody = RequestBody.fromContentProvider(
+						ContentStreamProvider.fromInputStream(data), 
+						tempPartSize, Mimetype.MIMETYPE_OCTET_STREAM);
+				
 				// Upload the part and add the response's ETag to our list.
-				UploadPartResult uploadResult = client.uploadPart(uploadRequest);
-				partETags.add(uploadResult.getPartETag());
+				UploadPartResponse uResponse = client.uploadPart(uRequest, rBody);
+
+				CompletedPart tempPart = CompletedPart.builder()
+						.partNumber(i)
+						.eTag(uResponse.eTag())
+						.build();
+				partETags.add(tempPart);
 
 				position += tempPartSize;
 			}
 
 			// Complete the multipart upload.
-			CompleteMultipartUploadRequest compRequest = new CompleteMultipartUploadRequest(container, object,
-					uploadID, partETags);
+			CompleteMultipartUploadRequest compRequest = CompleteMultipartUploadRequest.builder()
+					.bucket(container)
+					.key(object)
+					.uploadId(uploadId)
+					.multipartUpload(CompletedMultipartUpload.builder().parts(partETags).build())
+					.build();
+			
 			client.completeMultipartUpload(compRequest);
 
-		} catch (AmazonServiceException ase) {
-			throw new StorageException(ase);
+		} catch (S3Exception se) {
+			logger.debug("Service exception thrown.");
+			throw new StorageException(se);
 		} catch (SdkClientException sce) {
+			logger.debug("Client exception thrown.");
 			throw new StorageTimeoutException(sce);
 		}
 	}
-	
-//	@Override
-//	public void createObjectByTransferManager(String container, String object, InputStream data, long length, Config config) {
-//		
-//		// Set Metadata.
-//		ObjectMetadata metadata = new ObjectMetadata();
-//		metadata.setContentLength(length);
-//		metadata.setContentType("application/octet-stream");
-//		metadata.setHeader("x-amz-storage-class", storageClass);
-//		
-//		TransferManager tManager = TransferManagerBuilder.standard().withS3Client(client).build();
-//		
-//		PutObjectRequest request = new PutObjectRequest(container, object, data, metadata);
-//		request.getRequestClientOptions().setReadLimit((int)length + 1); // set limit to object length+1
-//		
-//		tManager.upload(request);
-//	}
 
 	@Override
 	public void deleteContainer(String container, Config config) {
 		super.deleteContainer(container, config);
+		
 		try {
 			container = container.split("/")[0];
-			// 2021.07.13, sine: SDK version 1.10.x -> 1.12.x
-			if (client.doesBucketExistV2(container)) {
-				client.deleteBucket(container);
-			}
+
+			DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder()
+					.bucket(container).build();
+			
+			client.deleteBucket(deleteBucketRequest);
+
 		} catch (Exception e) {
 			throw new StorageException(e);
 		}
@@ -387,12 +402,17 @@ public class SIOStorage extends NoneStorage {
 	public void deleteObject(String container, String object, Config config) {
 		super.deleteObject(container, object, config);
 		try {
-			client.deleteObject(container, object);
+			DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+					.bucket(container)
+					.key(object)
+					.build();
+
+			client.deleteObject(deleteObjectRequest);
 		} catch (Exception e) {
 			throw new StorageException(e);
 		}
 	}
-
+	
 	@Override
 	public InputStream getList(String container, String object, Config config) {
 		super.getList(container, object, config);
@@ -401,46 +421,38 @@ public class SIOStorage extends NoneStorage {
 		try {
 			StringBuilder sb = new StringBuilder();
 			
-			ListObjectsV2Request req = new ListObjectsV2Request().withBucketName(container).withPrefix(object).withMaxKeys(1000);
-            ListObjectsV2Result result;
-            result = client.listObjectsV2(req);
-
-            for (S3ObjectSummary objectSummary : result.getObjectSummaries()) {
-            	sb.append(objectSummary.getKey()).append("\n");
-            }
-
-//            do {
-//                result = client.listObjectsV2(req);
-//
-//                for (S3ObjectSummary objectSummary : result.getObjectSummaries()) {
-//                	sb.append(objectSummary.getKey()).append("\n");
-//                }
-//                // If there are more than maxKeys keys in the bucket, get a continuation token
-//                // and list the next objects.
-//                String token = result.getNextContinuationToken();
-//                req.setContinuationToken(token);
-//                
-//            } while (result.isTruncated());
+			ListObjectsV2Request req = ListObjectsV2Request.builder()
+					.bucket(container)
+					.prefix(object)
+					.build();
+			ListObjectsV2Response result = client.listObjectsV2(req);
 			
+			List<S3Object> objects = result.contents();
+			
+            for (ListIterator<S3Object> iterVals = objects.listIterator(); iterVals.hasNext(); ) {
+                S3Object obj = (S3Object) iterVals.next();
+                sb.append(obj.key()).append("\n");
+             }
+            
 			stream = new ByteArrayInputStream(sb.toString().getBytes());
-		} catch (AmazonServiceException ase) {
-			throw new StorageException(ase);
-		} catch (SdkClientException sce) {
-			throw new StorageTimeoutException(sce);
+		} catch (Exception e) {
+			throw new StorageException(e);
 		}
 
 		return stream;
 	}
-	
+
 	@Override
 	public void headObject(String container, String object, Config config) {
 		super.headObject(container, object, config);
-		
-		GetObjectMetadataRequest gmr = new GetObjectMetadataRequest(container, object);
 
 		try {
-			client.getObjectMetadata(gmr);
-			
+			HeadObjectRequest headObjectRequest = HeadObjectRequest.builder()
+					.bucket(container)
+					.key(object)
+					.build();
+			client.headObject(headObjectRequest);
+
 		} catch (Exception e) {
 			throw new StorageException(e);
 		}

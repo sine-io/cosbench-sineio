@@ -23,21 +23,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
-package com.intel.cosbench.api.ehualu;
+package com.intel.cosbench.api.sio;
 
 import com.intel.cosbench.api.storage.StorageAPI;
 import com.intel.cosbench.api.storage.StorageAPIFactory;
 
 
-public class AsyncEssStorageFactoryV2 implements StorageAPIFactory {
+public class AsyncSIOStorageFactory implements StorageAPIFactory {
 
     @Override
     public String getStorageName() {
-        return "aessv2";
+        return "asio";
     }
 
     @Override
     public StorageAPI getStorageAPI() {
-        return new AsyncEssStorageV2();
+        return new AsyncSIOStorage();
     }
 }

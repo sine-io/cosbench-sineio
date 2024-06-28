@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<workload name="smoke test" description="for sio smoke test, update.">
+  
+  <storage type="sio" config="endpoint=http://ip:port;accesskey=xxx;secretkey=xxx;no_verify_ssl=true;path_style_access=true;timeout=10000000" />
+
+  <workflow>
+	
+	<workstage name="create bucket">
+      <work type="init" workers="1" config="cprefix=thisistestbucket-0;containers=r(1,10)" />
+    </workstage>
+	
+	
+	<workstage name="prepare example">
+      <work type="prepare" workers="5" config="cprefix=thisistestbucket-0;containers=r(1,5);oprefix=preobject-;objects=r(1,10);sizes=c(1)KB" />
+    </workstage>
+	
+	
+	<workstage name="mprepare example">
+      <work type="mprepare" workers="5" config="cprefix=thisistestbucket-0;containers=r(6,10);oprefix=mpreobject-;objects=r(1,10);sizes=c(4)KiB" />
+    </workstage>
+	
+
+	<workstage name="test write">
+	  <work name="w_1" workers="5" totalOps="10" driver="driver1">
+        <operation type="write" ratio="100" config="cprefix=thisistestbucket-0;containers=c(1);oprefix=w1-testwrite-;objects=s(1,10);sizes=c(12)KiB" />
+      </work>
+	</workstage>
+	
+	
+	<workstage name="test mwrite">
+	  <work name="w_1" workers="5" totalOps="10" driver="driver1">
+        <operation type="mwrite" ratio="100" config="cprefix=thisistestbucket-0;containers=c(1);oprefix=w1-testmwrite-;objects=s(1,10);sizes=c(16)KiB" />
+      </work>
+	</workstage>
+	
+	
+	<workstage name="test read">
+	  <work name="w_1" workers="5" totalOps="10" driver="driver1">
+        <operation type="read" ratio="100" config="cprefix=thisistestbucket-0;containers=c(1);oprefix=w1-testwrite-;objects=s(1,10)" />
+      </work>
+	</workstage>
+	
+	
+	<!--
+	<workstage name="test filewrite">
+	  <work name="w_1" workers="5" totalOps="10" driver="driver1">
+        <operation type="filewrite" ratio="100" config="cprefix=thisistestbucket-0;containers=c(1);fileselection=s;files=/dev/shm/testfiles/driver1/" />
+      </work>
+	</workstage>
+	
+	
+	<workstage name="test mfilewrite">
+	  <work name="w_2" workers="5" totalOps="10" driver="driver1">
+        <operation type="mfilewrite" ratio="100" config="cprefix=thisistestbucket-0;containers=c(1);fileselection=s;files=/dev/shm/testfiles/driver2/" />
+      </work>
+	</workstage>
+	-->
+	
+	
+	<workstage name="test restore">
+	  <work name="w_1" workers="5" totalOps="10" driver="driver1">
+        <operation type="restore" ratio="100" config="cprefix=thisistestbucket-0;containers=c(1);oprefix=w1-testwrite-;objects=s(1,10)" />
+      </work>
+	</workstage>
+	
+	
+	<workstage name="test head and closuredelay" closuredelay="10">
+	  <work name="w_1" workers="5" totalOps="10" driver="driver1">
+        <operation type="head" ratio="100" config="cprefix=thisistestbucket-0;containers=c(1);oprefix=w1-testwrite-;objects=s(1,10)" />
+      </work>
+	</workstage>
+	
+	<workstage name="test list">
+	  <work name="w_1" workers="5" totalOps="10" driver="driver1">
+        <operation type="list" ratio="100" config="cprefix=thisistestbucket-0;containers=c(1);oprefix=w1-testwrite-;objects=s(1,10)" />
+      </work>
+	</workstage>
+	
+	
+	<workstage name="test head">
+	  <work name="w_1" workers="5" totalOps="10" driver="driver1">
+        <operation type="head" ratio="100" config="cprefix=thisistestbucket-0;containers=c(1);oprefix=w1-testwrite-;objects=s(1,10)" />
+      </work>
+	</workstage>
+	
+	
+	<workstage name="test delete" >
+	  <work name="w_1" workers="5" totalOps="10" driver="driver1">
+        <operation type="delete" ratio="100" config="cprefix=thisistestbucket-0;containers=c(1);oprefix=w1-testwrite-;objects=s(1,10)" />
+      </work>
+	</workstage>
+	
+	
+	<workstage name="cleanup objects">
+      <work type="cleanup" workers="5" config="cprefix=thisistestbucket-0;containers=r(1,1);oprefix=w1-testmwrite-;objects=r(1,10)" />
+    </workstage>
+
+	
+	<workstage name="test dispose">
+      <work type="dispose" workers="5" config="cprefix=thisistestbucket-0;containers=r(1,10)" />
+    </workstage>
+	
+
+
+  </workflow>
+</workload>

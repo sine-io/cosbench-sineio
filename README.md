@@ -5,46 +5,51 @@ COSBench is a benchmarking tool to measure the performance of Cloud Object Stora
 emerging technology that is different from traditional file systems (e.g., NFS) or block device systems (e.g., iSCSI).
 Amazon S3 and Openstack* swift are well-known object storage solutions.
 
-COSBench now supports GDAS, SineIO*, OpenStack* Swift, Amazon* S3, OpenIO*, Amplidata v2.3, 2.5 and 3.1, Scality*, Ceph, CDMI, Google* Cloud Storage, Aliyun OSS as well as custom adaptors.
+COSBench now supports SineIO*, OpenStack* Swift, Amazon* S3, OpenIO*, Amplidata v2.3, 2.5 and 3.1, Scality*, Ceph, CDMI, Google* Cloud Storage, Aliyun OSS as well as custom adaptors.
+
+## Announcement
+
+Because of [Announcing end-of-support for AWS SDK for Java v1.x effective December 31, 2025](https://github.com/aws/aws-sdk-java?tab=readme-ov-file#end-of-support-announcement), so the next milestone version of cosbench-sineio (v0.6.0.0 will be released at 2024.8.31) will be changed as follows:
+
+1. sio renamed to siov1, and will not be maintained.
+2. siov2 renamed to sio, as a LTS Storage.
 
 
 LTS
 ----------------------------------------
-- AWS SDK version will be updated monthly for SineIO and GDAS if needed.
+- AWS SDK version will be updated monthly for SineIO if needed.
 
 COSBench Storages Comparision
 ----------------------------------------
 
 > 1. SineIO is S3 storage and hardware can be 'fullstack' (NVMe, SSD, HDD, Tape, Disc, etc.)
-> 2. GDAS is S3 storage and hardware is Blu-ray Disc.
-> 3. sio and siov2: Usage, please refer to conf/sio-config-sample.xml
-> 4. gdas: Usage, please refer to conf/gdas-config-sample.xml
+> 2. sio and siov1: Usage, please refer to conf/sio-config-sample.xml
 
-|    Work/Operations/Features/SDK version    |  Storage type: s3  | Storage type: sio  | Storage type: siov2 | Storage type: gdas |
-| :----------------------------------------: | :----------------: | :----------------: | :-----------------: | :----------------: |
-|                    init                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|                  prepare                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|         :star:[New Work]: mprepare         |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|                   write                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|       :star:[New Operation]: mwrite        |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|                    read                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|                 filewrite                  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|     :star:[New Operation]: mfilewrite      |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|       :star:[New Operation]: restore       |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|        :star:[New Operation]: head         |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|                   delete                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|                  cleanup                   |     have :bug:     | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|                  dispose                   |     have :bug:     | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|                    list                    |     have :bug:     | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|     :star:[New Feature]: no_verify_ssl     |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|      :star:[New Feature]: aws_region       |      no need       |      no need       | :heavy_check_mark:  |      no need       |
-| :star:[New Feature]: s3-range-and-prefetch |        :x:         | :heavy_check_mark: |        TODO         |      no need       |
-|     :star:[New Feature]: GiB, MiB, KiB     |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|     :star:[New Feature]: storage_class     |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |      no need       |
-|     :star:[New Feature]: restore_days      |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
-|     :star:[SDK version]: aws-sdk-java      |      1.10.76       |  :star2:1.12.528   |          -          |  :star2:1.12.528   |
-|    :star:[SDK version]: aws-sdk-java-v2    |         -          |         -          |      2.17.290       |         -          |
-|      :star2:[New Feature]: localwrite      |        :x:         | :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: |
+|    Work/Operations/Features/SDK version    |  Storage type: s3  | Storage type: siov1  | Storage type: sio |
+| :----------------------------------------: | :----------------: | :----------------: | :-----------------: |
+|                    init                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  |
+|                  prepare                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  |
+|         :star:[New Work]: mprepare         |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |
+|                   write                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  |
+|       :star:[New Operation]: mwrite        |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |
+|                    read                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  |
+|                 filewrite                  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  |
+|     :star:[New Operation]: mfilewrite      |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |
+|       :star:[New Operation]: restore       |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |
+|        :star:[New Operation]: head         |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |
+|                   delete                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:  |
+|                  cleanup                   |     have :bug:     | :heavy_check_mark: | :heavy_check_mark:  |
+|                  dispose                   |     have :bug:     | :heavy_check_mark: | :heavy_check_mark:  |
+|                    list                    |     have :bug:     | :heavy_check_mark: | :heavy_check_mark:  |
+|     :star:[New Feature]: no_verify_ssl     |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |
+|      :star:[New Feature]: aws_region       |      no need       |      no need       | :heavy_check_mark:  |
+| :star:[New Feature]: s3-range-and-prefetch |        :x:         | :heavy_check_mark: |        TODO         |
+|     :star:[New Feature]: GiB, MiB, KiB     |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |
+|     :star:[New Feature]: storage_class     |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |
+|     :star:[New Feature]: restore_days      |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |
+|     :star:[SDK version]: aws-sdk-java      |      1.10.76       |  :star2:1.12.745   |          -          |
+|    :star:[SDK version]: aws-sdk-java-v2    |         -          |         -          |    :star2:2.26.8    |
+|      :star:[New Feature]: localwrite       |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |
 
 
 Important Notice and Contact Information
@@ -56,7 +61,7 @@ the need to invest enough effort to learn how to use it effectively and to addre
 b) To help COSBench develop further, please become an active member of the community and consider giving back by making
 contributions.
 
-c) :star2:**Wiki**: https://github.com/sine-io/cosbench-sineio/wiki
+c) **Tutorial, writing in Chinese with 💖**: https://www.sineio.top/byte-of-cosbench/#/
 
 d) Email: sinecelia.wang@gmail.com
 
