@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Automatic-Module-Name: cosbench.sineio
 Bundle-Name: S3 Storage Client Bundle, SineIO and GDAS
 Bundle-SymbolicName: cosbench-sineio
-Bundle-Version: 0.5.0.1
+Bundle-Version: 0.5.0.2
 Bundle-Vendor: sine
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.intel.cosbench.api.auth,

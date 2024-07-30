@@ -90,7 +90,7 @@ do
 	
 	#add three args to conf
 	echo "log_level=${log_level}" >> driver_$i.conf
-	echo "log_file=log/system.log" >> driver_$i.conf
+	echo "log_file=log/driver_${i}.log" >> driver_$i.conf
 	echo "mission_dir=log/mission" >> driver_$i.conf
 	
 	ln -s driver_$i.conf driver.conf

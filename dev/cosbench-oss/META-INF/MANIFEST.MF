@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Automatic-Module-Name: cosbench.oss
 Bundle-Name: Cosbench-oss
 Bundle-SymbolicName: cosbench-oss
-Bundle-Version: 0.5.0.1
+Bundle-Version: 0.5.0.2
 Bundle-Vendor: intel
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .,

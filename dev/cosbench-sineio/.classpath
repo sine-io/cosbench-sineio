@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v1/aws-java-sdk-core-1.12.745.jar"/>
+	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v1/aws-java-sdk-core-1.12.745.jar" sourcepath="aws-java-sdk-v1/aws-java-sdk-core-1.12.745-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v1/aws-java-sdk-core-1.12.745-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v1/aws-java-sdk-kms-1.12.745.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v1/aws-java-sdk-kms-1.12.745-sources.jar"/>
@@ -29,7 +29,7 @@
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/arns-2.26.8-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/auth-2.26.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/auth-2.26.8-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/aws-core-2.26.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/aws-core-2.26.8.jar" sourcepath="aws-java-sdk-v2/aws-core-2.26.8-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/aws-core-2.26.8-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/aws-query-protocol-2.26.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/aws-query-protocol-2.26.8-sources.jar"/>
@@ -96,7 +96,7 @@
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/retries-spi-2.26.8-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/s3-2.26.8.jar" sourcepath="aws-java-sdk-v2/s3-2.26.8-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/s3-2.26.8-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/sdk-core-2.26.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/sdk-core-2.26.8.jar" sourcepath="aws-java-sdk-v2/sdk-core-2.26.8-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/sdk-core-2.26.8-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/third-party-jackson-core-2.26.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/third-party-jackson-core-2.26.8-sources.jar"/>

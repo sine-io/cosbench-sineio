@@ -9,11 +9,11 @@
 	</Appenders>
 
 	<Loggers>
-		<Root level="ERROR">
+		<Root level="WARN">
 			<AppenderRef ref="RollingFileAppender" />
 		</Root>
-		<Logger name="software.amazon.awssdk" level="ERROR" />
-		<Logger name="software.amazon.awssdk.request" level="ERROR" />
-		<Logger name="org.apache.http.wire" level="ERROR" />
+		<Logger name="software.amazon.awssdk" level="DEBUG" />
+		<Logger name="software.amazon.awssdk.request" level="DEBUG" />
+		<Logger name="org.apache.http.wire" level="INFO" />
 	</Loggers>
 </Configuration>

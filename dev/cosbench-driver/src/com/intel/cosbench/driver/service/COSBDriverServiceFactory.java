@@ -119,7 +119,6 @@ public class COSBDriverServiceFactory extends AbstractServiceFactory implements
         return str;
     }
 
-
     protected String loadLogLevel() {
         return config.get("driver.log_level", "INFO");
     }

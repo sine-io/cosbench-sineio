@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.awscore.AwsRequestOverrideConfiguration;
-import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.internal.util.Mimetype;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -178,6 +177,12 @@ public class SIOStorage extends NoneStorage {
 				.region(Region.of(awsRegion))
 				.serviceConfiguration(s3Config)
 				.httpClient(httpClient)
+				// 2024.7.24, sine.
+				// https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/best-practices.html#bestpractice5
+				// But we can't set this, because some APIs(like put-object) cost a long time(bigger than timeout) when object is big. 
+//				.overrideConfiguration(
+//						b -> b.apiCallTimeout(Duration.ofMillis(timeout))
+//						.apiCallAttemptTimeout(Duration.ofMillis(timeout)))
 				.build();
 
 		logger.debug("S3 client has been initialized");
@@ -222,9 +227,14 @@ public class SIOStorage extends NoneStorage {
         		getObjectRequest.range("bytes=" + String.valueOf(start) + "-" + String.valueOf(end));
 			}
 			
-			ResponseBytes<GetObjectResponse> objectBytes = client.getObjectAsBytes(getObjectRequest.build());
-
-			stream = objectBytes.asInputStream();
+			// 2024.7.30, sine.
+			// bug fix: https://github.com/sine-io/cosbench-sineio/issues/45
+			// may cause OOM when object's length bigger than 2GB, so we use #client.getObject(GetObjectRequest getObjectRequest)
+			// maybe #objectBytes.asInputStream() will read the object data to memory, so, OOM occurs.
+			// ResponseBytes<GetObjectResponse> objectBytes = client.getObjectAsBytes(getObjectRequest.build());
+			// stream = objectBytes.asInputStream();
+			
+			stream = client.getObject(getObjectRequest.build());
 			
 		} catch (S3Exception se) {
 			logger.debug("Service exception thrown.");
