@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Automatic-Module-Name: cosbench.sineio
-Bundle-Name: S3 Storage Client Bundle, SineIO and GDAS
+Bundle-Name: S3 Storage Client Bundle, SineIO
 Bundle-SymbolicName: cosbench-sineio
-Bundle-Version: 0.5.0.2
-Bundle-Vendor: sine
+Bundle-Version: 0.5.0.3
+Bundle-Vendor: sine-io
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.intel.cosbench.api.auth,
  com.intel.cosbench.api.context,
@@ -109,26 +109,15 @@ Bundle-ClassPath: .,
  aws-java-sdk-v2/third-party-jackson-core-2.26.8-sources.jar,
  aws-java-sdk-v2/utils-2.26.8.jar,
  aws-java-sdk-v2/utils-2.26.8-sources.jar,
- aws-java-sdk-v1/aws-java-sdk-core-1.12.745.jar,
- aws-java-sdk-v1/aws-java-sdk-core-1.12.745-sources.jar,
- aws-java-sdk-v1/aws-java-sdk-kms-1.12.745.jar,
- aws-java-sdk-v1/aws-java-sdk-kms-1.12.745-sources.jar,
- aws-java-sdk-v1/aws-java-sdk-s3-1.12.745.jar,
- aws-java-sdk-v1/aws-java-sdk-s3-1.12.745-sources.jar,
+ aws-java-sdk-v1/aws-java-sdk-core-1.12.767.jar,
+ aws-java-sdk-v1/aws-java-sdk-kms-1.12.767.jar,
+ aws-java-sdk-v1/aws-java-sdk-s3-1.12.767.jar,
+ aws-java-sdk-v1/aws-java-sdk-s3-1.12.767-sources.jar,
  aws-java-sdk-v1/commons-logging-1.1.3.jar,
- aws-java-sdk-v1/commons-logging-1.1.3-sources.jar,
- aws-java-sdk-v1/ion-java-1.0.2.jar,
- aws-java-sdk-v1/ion-java-1.0.2-sources.jar,
  aws-java-sdk-v1/jackson-annotations-2.12.7.jar,
- aws-java-sdk-v1/jackson-annotations-2.12.7-sources.jar,
  aws-java-sdk-v1/jackson-core-2.12.7.jar,
- aws-java-sdk-v1/jackson-core-2.12.7-sources.jar,
  aws-java-sdk-v1/jackson-databind-2.12.7.2.jar,
- aws-java-sdk-v1/jackson-databind-2.12.7.2-sources.jar,
  aws-java-sdk-v1/jackson-dataformat-cbor-2.12.6.jar,
- aws-java-sdk-v1/jackson-dataformat-cbor-2.12.6-sources.jar,
- aws-java-sdk-v1/jmespath-java-1.12.745.jar,
- aws-java-sdk-v1/jmespath-java-1.12.745-sources.jar,
- aws-java-sdk-v1/joda-time-2.12.7.jar,
- aws-java-sdk-v1/joda-time-2.12.7-sources.jar
+ aws-java-sdk-v1/jmespath-java-1.12.767.jar,
+ aws-java-sdk-v1/joda-time-2.12.7.jar
 

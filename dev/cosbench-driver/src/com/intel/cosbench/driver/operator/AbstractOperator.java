@@ -113,6 +113,11 @@ abstract class AbstractOperator implements Operator {
 	protected abstract void operate(int idx, int all, Session session);
 
 	public static void errorStatisticsHandle(Exception e, Session session, String target) {
+		
+		// 1st, we print the error to the log, so we can locate the error in the code.
+		// 2024.8.1, sine.
+		LOGGER.error("errorStatisticsHandle, error is: " + e.getStackTrace());
+		
 		/*
 		 * Do not crash when encountering empty stack traces
 		 * 
@@ -151,12 +156,17 @@ abstract class AbstractOperator implements Operator {
 	}
 
 	public static void isUnauthorizedException(Exception e, Session session) {
+		// 1st, we print the error to the log, so we can locate the error in the code.
+		// 2024.8.1, sine.
+		LOGGER.error("isUnauthorizedException, error is: " + e.getStackTrace());
+		
 		if (e != null && e.getMessage() != null)
 			try {
 				// if (401 == Integer.valueOf(e.getMessage().substring(9, 12))) {
 				if (e.getMessage().contains("401")) { // 2022.10.12, sine.
 					session.getApi().setAuthFlag(false);
 					LOGGER.debug("catch 401 error from storage backend, set auth flag to false");
+					
 				}
 			} catch (NumberFormatException ne) {
 				// ne.printStackTrace();// mask ignore

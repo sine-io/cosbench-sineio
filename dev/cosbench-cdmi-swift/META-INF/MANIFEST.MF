@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Automatic-Module-Name: cosbench.cdmi.swift
 Bundle-Name: CDMI Client for Swift Bundle
 Bundle-SymbolicName: cosbench-cdmi-swift
-Bundle-Version: 0.5.0.2
+Bundle-Version: 0.5.0.3
 Bundle-Vendor: intel
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.intel.cosbench.api.auth,

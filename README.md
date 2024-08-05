@@ -9,7 +9,7 @@ COSBench now supports SineIO*, OpenStack* Swift, Amazon* S3, OpenIO*, Amplidata 
 
 ## Announcement
 
-Because of [Announcing end-of-support for AWS SDK for Java v1.x effective December 31, 2025](https://github.com/aws/aws-sdk-java?tab=readme-ov-file#end-of-support-announcement), so the next milestone version of cosbench-sineio (v0.6.0.0 will be released at 2024.8.31) will be changed as follows:
+Because of [In Maintenance Mode as of July 31, 2024](https://github.com/aws/aws-sdk-java?tab=readme-ov-file#in-maintenance-mode-as-of-july-31-2024) and [End-of-Support on December 31, 2025](https://github.com/aws/aws-sdk-java?tab=readme-ov-file#end-of-support-on-december-31-2025), so the next milestone version of cosbench-sineio (v0.6.0.0 will be released at 2024.8.31) will be changed as follows:
 
 1. sio renamed to siov1, and will not be maintained.
 2. siov2 renamed to sio, as a LTS Storage.
@@ -47,7 +47,7 @@ COSBench Storages Comparision
 |     :star:[New Feature]: GiB, MiB, KiB     |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |
 |     :star:[New Feature]: storage_class     |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |
 |     :star:[New Feature]: restore_days      |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |
-|     :star:[SDK version]: aws-sdk-java      |      1.10.76       |  :star2:1.12.745   |          -          |
+|     :star:[SDK version]: aws-sdk-java      |      1.10.76       |  :star2:1.12.767  |          -          |
 |    :star:[SDK version]: aws-sdk-java-v2    |         -          |         -          |    :star2:2.26.8    |
 |      :star:[New Feature]: localwrite       |        :x:         | :heavy_check_mark: | :heavy_check_mark:  |
 

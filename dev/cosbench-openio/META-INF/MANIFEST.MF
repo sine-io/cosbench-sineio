@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Automatic-Module-Name: cosbench.openio
 Bundle-Name: OpenIO Storage Client Bundle
 Bundle-SymbolicName: cosbench-openio
-Bundle-Version: 0.5.0.2
+Bundle-Version: 0.5.0.3
 Bundle-Vendor: Intel
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.intel.cosbench.api.auth,
