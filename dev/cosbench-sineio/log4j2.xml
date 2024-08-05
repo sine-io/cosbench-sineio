@@ -12,8 +12,8 @@
 		<Root level="WARN">
 			<AppenderRef ref="RollingFileAppender" />
 		</Root>
-		<Logger name="software.amazon.awssdk" level="DEBUG" />
-		<Logger name="software.amazon.awssdk.request" level="DEBUG" />
-		<Logger name="org.apache.http.wire" level="INFO" />
+		<Logger name="software.amazon.awssdk" level="WARN" />
+		<Logger name="software.amazon.awssdk.request" level="WARN" />
+		<Logger name="org.apache.http.wire" level="WARN" />
 	</Loggers>
 </Configuration>
