@@ -9,7 +9,7 @@ COSBench now supports SineIO*, OpenStack* Swift, Amazon* S3, OpenIO*, Amplidata 
 
 ## Announcement
 
-Because of [In Maintenance Mode as of July 31, 2024](https://github.com/aws/aws-sdk-java?tab=readme-ov-file#in-maintenance-mode-as-of-july-31-2024) and [End-of-Support on December 31, 2025](https://github.com/aws/aws-sdk-java?tab=readme-ov-file#end-of-support-on-december-31-2025), so the next milestone version of cosbench-sineio (v0.6.0.0 will be released at 2024.8.31) will be changed as follows:
+Because of [In Maintenance Mode as of July 31, 2024](https://github.com/aws/aws-sdk-java?tab=readme-ov-file#in-maintenance-mode-as-of-july-31-2024) and [End-of-Support on December 31, 2025](https://github.com/aws/aws-sdk-java?tab=readme-ov-file#end-of-support-on-december-31-2025), so the milestone version of cosbench-sineio (v0.6.0.0 released at 2024.8.31) changed as follows:
 
 1. sio renamed to siov1, and will not be maintained.
 2. siov2 renamed to sio, as a LTS Storage.

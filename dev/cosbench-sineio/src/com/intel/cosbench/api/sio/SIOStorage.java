@@ -137,7 +137,9 @@ public class SIOStorage extends NoneStorage {
 		// ak and sk
 		AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKey, secretKey);
 		// set path style
-		S3Configuration s3Config = S3Configuration.builder().pathStyleAccessEnabled(pathStyleAccess).build();
+		S3Configuration s3Config = S3Configuration.builder()
+				.pathStyleAccessEnabled(pathStyleAccess)
+				.build();
 
 		// set http configuration.
 		ApacheHttpClient.Builder httpClientBuilder = ApacheHttpClient.builder()

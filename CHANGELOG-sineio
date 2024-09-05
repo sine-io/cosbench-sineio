@@ -1,3 +1,9 @@
+## COSBench 0.6.0.0(milestone version, sine 2024.08.31)
+------------------------------------
+- sio renamed to siov1, and will not be maintained.
+- siov2 renamed to sio, as a LTS Storage.
+
+
 ## COSBench 0.5.0.1(sine 2024.06.24)
 ------------------------------------
 - aws-sdk-java/v2 version updated. --- 1.12.745/2.26.8

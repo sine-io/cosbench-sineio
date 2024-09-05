@@ -51,8 +51,6 @@ public class Mission implements Iterable<Operation> {
     private Storage storage = DEFAULT_STORAGE;
     private List<Operation> operations;
 
-
-
     public Mission() {
         /* empty */
     }
