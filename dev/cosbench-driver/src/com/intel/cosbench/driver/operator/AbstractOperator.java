@@ -95,6 +95,16 @@ abstract class AbstractOperator implements Operator {
 		else
 			AbstractOperator.LOGGER.warn(message);
 	}
+	
+	// 2025.1.21, sine
+	// add doLogWarn method.
+	protected static void doLogWarn(Logger logger, String message, Exception e) {
+		if (logger != null) {
+			logger.warn(message, e);
+		} else {
+			AbstractOperator.LOGGER.warn(message, e);
+		}
+	}
 
 	protected static void doLogErr(Logger logger, String message) {
 		if (logger != null)
@@ -160,17 +170,17 @@ abstract class AbstractOperator implements Operator {
 		// 2024.8.1, sine.
 		LOGGER.error("isUnauthorizedException, error is: " + e.getStackTrace());
 		
-		if (e != null && e.getMessage() != null)
+		if (e != null && e.getMessage() != null) {
 			try {
 				// if (401 == Integer.valueOf(e.getMessage().substring(9, 12))) {
 				if (e.getMessage().contains("401")) { // 2022.10.12, sine.
 					session.getApi().setAuthFlag(false);
 					LOGGER.debug("catch 401 error from storage backend, set auth flag to false");
-					
 				}
 			} catch (NumberFormatException ne) {
 				// ne.printStackTrace();// mask ignore
 			}
+		}
 	}
 
 }

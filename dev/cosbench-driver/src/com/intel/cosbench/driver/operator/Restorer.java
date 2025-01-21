@@ -87,8 +87,8 @@ class Restorer extends AbstractOperator {
 			doLogErr(session.getLogger(), sie.getMessage(), sie);
 			throw new AbortedException();
 		} catch (StorageException se) {
-			String msg = "Error restore-object " + conName + "/" + objName + " " + se.getMessage();
-			doLogWarn(session.getLogger(), msg);
+			String msg = "Restore failed: " + conName + "/" + objName;
+			doLogWarn(session.getLogger(), msg, se);
 			
 			return new Sample(new Date(), op.getId(), op.getOpType(), op.getSampleType(), op.getName(), false);
 		} catch (Exception e) {

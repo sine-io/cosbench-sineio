@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Automatic-Module-Name: cosbench.driver
 Bundle-Name: COSBench Driver Bundle
 Bundle-SymbolicName: cosbench-driver
-Bundle-Version: 0.6.0.0
+Bundle-Version: 0.6.0.1
 Bundle-Vendor: intel
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.intel.cosbench.api.auth,

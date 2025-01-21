@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.awscore.AwsRequestOverrideConfiguration;
-import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.internal.util.Mimetype;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.http.ContentStreamProvider;
@@ -209,7 +208,6 @@ public class SIOStorage extends NoneStorage {
 		super.getObject(container, object, config);
 		InputStream stream = null;
 		try {
-			
 			GetObjectRequest.Builder getObjectRequest = GetObjectRequest.builder()
 					.bucket(container)
 					.key(object);
@@ -238,12 +236,8 @@ public class SIOStorage extends NoneStorage {
 			
 			stream = client.getObject(getObjectRequest.build());
 			
-		} catch (S3Exception se) {
-			logger.debug("Service exception thrown.");
-			throw new StorageException(se);
-		} catch (SdkClientException sce) {
-			logger.debug("Client exception thrown.");
-			throw new StorageTimeoutException(sce);
+		} catch (Exception e) {
+			throw new StorageException(e);
 		}
 
 		return stream;
@@ -308,12 +302,8 @@ public class SIOStorage extends NoneStorage {
 //					length, Mimetype.MIMETYPE_OCTET_STREAM);
 			
 			client.putObject(putObjectRequest, rBody);
-		} catch (S3Exception se) {
-			logger.debug("Service exception thrown.");
-			throw new StorageException(se);
-		} catch (SdkClientException sce) {
-			logger.debug("Client exception thrown.");
-			throw new StorageTimeoutException(sce);
+		} catch (Exception e) {
+			throw new StorageException(e);
 		}
 	}
 
@@ -332,7 +322,7 @@ public class SIOStorage extends NoneStorage {
 		// then, after each individual part has been uploaded, pass the list of ETags to
 		// the request to complete the upload.
 		List<CompletedPart> partETags = new ArrayList<CompletedPart>();
-
+		
 		try {
 			CreateMultipartUploadResponse mResponse = client.createMultipartUpload(mRequest);
 			String uploadId = mResponse.uploadId();
@@ -384,12 +374,8 @@ public class SIOStorage extends NoneStorage {
 			
 			client.completeMultipartUpload(compRequest);
 
-		} catch (S3Exception se) {
-			logger.debug("Service exception thrown.");
-			throw new StorageException(se);
-		} catch (SdkClientException sce) {
-			logger.debug("Client exception thrown.");
-			throw new StorageTimeoutException(sce);
+		} catch (Exception e) {
+			throw new StorageException(e);
 		}
 	}
 

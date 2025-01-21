@@ -86,8 +86,8 @@ public class Lister extends AbstractOperator {
             doLogErr(session.getLogger(), sie.getMessage(), sie);
             throw new AbortedException();
         } catch (StorageException se) {
-        	String msg = "Error list objects " + conName + "/" + objName + " " + se.getMessage();
-			doLogWarn(session.getLogger(), msg);
+        	String msg = "List failed: " + conName + "/" + objName;
+			doLogWarn(session.getLogger(), msg, se);
 			
 			return new Sample(new Date(), getId(), getOpType(), getSampleType(), getName(), false);
 		} catch (Exception e) { // TODO: catch IOException, need to improve.
@@ -106,11 +106,10 @@ public class Lister extends AbstractOperator {
     }
 
     public OutputStream copyLarge(InputStream input, OutputStream output)
-            throws IOException
-    {
-            IOUtils.copyLarge(input, output);
+            throws IOException {
+        IOUtils.copyLarge(input, output);
 
-            return output;
+        return output;
     }
 
 }

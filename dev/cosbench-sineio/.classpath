@@ -89,7 +89,7 @@
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/sdk-core-2.26.8-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/third-party-jackson-core-2.26.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/third-party-jackson-core-2.26.8-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/utils-2.26.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/utils-2.26.8.jar" sourcepath="aws-java-sdk-v2/utils-2.26.8-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="aws-java-sdk-v2/utils-2.26.8-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="commons-codec-1.15.jar"/>
 	<classpathentry exported="true" kind="lib" path="commons-codec-1.15-sources.jar"/>

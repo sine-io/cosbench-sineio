@@ -118,6 +118,7 @@ class Preparer extends AbstractOperator {
 		} catch (StorageException se) {
 			isUnauthorizedException(se, session);
 			errorStatisticsHandle(se, session, conName);
+			
 			if (session.getApi().isAuthValid()) {
 				throw new AgentException();
 			} else {

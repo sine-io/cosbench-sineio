@@ -25,7 +25,6 @@ import org.apache.commons.io.IOUtils;
 
 import com.intel.cosbench.api.storage.StorageException;
 import com.intel.cosbench.api.storage.StorageInterruptedException;
-import com.intel.cosbench.api.storage.StorageTimeoutException;
 import com.intel.cosbench.bench.Result;
 import com.intel.cosbench.bench.Sample;
 import com.intel.cosbench.config.Config;
@@ -100,18 +99,14 @@ class MWriter extends AbstractOperator {
         } catch (StorageInterruptedException sie) {
             doLogErr(session.getLogger(), sie.getMessage(), sie);
             throw new AbortedException();
-        } catch (StorageTimeoutException ste) {
-        	String msg = "Error multipart-upload-object " + conName + "/" + objName + " " + ste.getMessage();
-			doLogWarn(session.getLogger(), msg);
-        	
-			return new Sample(new Date(), op.getId(), op.getOpType(),
-                    op.getSampleType(), op.getName(), false);
-		} catch (StorageException se) {
-			String msg = "Error multipart-upload-object " + conName + "/" + objName + " " + se.getMessage();
-			doLogWarn(session.getLogger(), msg);
+            
+        } catch (StorageException se) {
+			String msg = "MWrite failed: " + conName + "/" + objName;
+			doLogWarn(session.getLogger(), msg, se);
 			
 			return new Sample(new Date(), op.getId(), op.getOpType(),
                     op.getSampleType(), op.getName(), false);
+			
 		} catch (Exception e) {
             isUnauthorizedException(e, session);
             errorStatisticsHandle(e, session, conName + "/" + objName);

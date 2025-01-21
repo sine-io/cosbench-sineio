@@ -26,7 +26,6 @@ import org.apache.commons.io.IOUtils;
 
 import com.intel.cosbench.api.storage.StorageException;
 import com.intel.cosbench.api.storage.StorageInterruptedException;
-import com.intel.cosbench.api.storage.StorageTimeoutException;
 import com.intel.cosbench.bench.Result;
 import com.intel.cosbench.bench.Sample;
 import com.intel.cosbench.config.Config;
@@ -98,21 +97,18 @@ class Writer extends AbstractOperator {
 		} catch (StorageInterruptedException sie) {
 			doLogErr(session.getLogger(), sie.getMessage(), sie);
 			throw new AbortedException();
-		} catch (StorageTimeoutException ste) {
-			String msg = "Error: put-object " + conName + "/" + objName + " " + ste.getMessage();
-			doLogWarn(session.getLogger(), msg);
-			
-			return new Sample(new Date(), op.getId(), op.getOpType(), op.getSampleType(), op.getName(), false);
 		} catch (StorageException se) {
-			String msg = "Error: put-object " + conName + "/" + objName + " " + se.getMessage();
-			doLogWarn(session.getLogger(), msg);
+			String msg = "Write failed: " + conName + "/" + objName;
+			doLogWarn(session.getLogger(), msg, se);
 			
 			return new Sample(new Date(), op.getId(), op.getOpType(), op.getSampleType(), op.getName(), false);
+			
 		} catch (Exception e) {
 			isUnauthorizedException(e, session);
 			errorStatisticsHandle(e, session, conName + "/" + objName);
 
 			return new Sample(new Date(), op.getId(), op.getOpType(), op.getSampleType(), op.getName(), false);
+			
 		} finally {
 			IOUtils.closeQuietly(cin);
 		}
@@ -121,21 +117,4 @@ class Writer extends AbstractOperator {
 		return new Sample(new Date(), op.getId(), op.getOpType(), op.getSampleType(), op.getName(), true,
 				(end - start) / 1000000, cin.getXferTime(), cin.getByteCount());
 	}
-	/*
-	 * public static Sample doWrite(byte[] data, String conName, String objName,
-	 * Config config, Session session) { if (Thread.interrupted()) throw new
-	 * AbortedException();
-	 *
-	 * long start = System.currentTimeMillis();
-	 *
-	 * try { session.getApi().createObject(conName, objName, data, config); } catch
-	 * (StorageInterruptedException sie) { throw new AbortedException(); } catch
-	 * (Exception e) { doLog(session.getLogger(), "fail to perform write operation",
-	 * e); return new Sample(new Date(), OP_TYPE, false); }
-	 *
-	 * long end = System.currentTimeMillis();
-	 *
-	 * Date now = new Date(end); return new Sample(now, OP_TYPE, true, end - start,
-	 * data.length); }
-	 */
 }

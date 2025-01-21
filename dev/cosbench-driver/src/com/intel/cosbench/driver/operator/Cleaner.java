@@ -118,8 +118,7 @@ class Cleaner extends AbstractOperator {
 						tryAgain = true;
 					} else {
 						tryAgain = false;
-						String msg = "Error deleting container " + conName + ", Error msg is: " + se.getMessage();
-						doLogErr(session.getLogger(), msg, se);
+						doLogErr(session.getLogger(), "Delete failed: " + conName, se);
 					}
 				} catch (Exception e) {
 					doLogErr(session.getLogger(), "fail to perform clean operation " + conName, e);

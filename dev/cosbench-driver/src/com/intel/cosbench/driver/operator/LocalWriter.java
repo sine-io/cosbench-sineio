@@ -128,8 +128,8 @@ class LocalWriter extends AbstractOperator {
 			
 			doLogInfo(session.getLogger(), "File" + fileName + "copied, " + "length is " + length);
 		} catch (Exception e) {
-			String msg = "Error write file to local path: " + fileName + " " + e.getMessage();
-			doLogWarn(session.getLogger(), msg);
+			String msg = "LocalWrite failed: " + fileName;
+			doLogWarn(session.getLogger(), msg, e);
 
 			return new Sample(new Date(), op.getId(), op.getOpType(), op.getSampleType(), op.getName(), false);
 		} finally {

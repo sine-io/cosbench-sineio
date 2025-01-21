@@ -76,10 +76,10 @@ class Deleter extends AbstractOperator {
 			doLogErr(session.getLogger(), sie.getMessage(), sie);
 			throw new AbortedException();
 		} catch (StorageException se) {
-			String msg = "Error delete-object " + conName + ": " + objName + ", and error: "
-					+ se.getMessage();
-			doLogWarn(session.getLogger(), msg);
+			String msg = "Delete failed: " + conName + ": " + objName;
+			doLogWarn(session.getLogger(), msg, se);
 			return new Sample(new Date(), op.getId(), op.getOpType(), op.getSampleType(), op.getName(), false);
+			
 		} catch (Exception e) {
 			isUnauthorizedException(e, session);
 			errorStatisticsHandle(e, session, conName + "/" + objName);

@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Automatic-Module-Name: cosbench.http
 Bundle-Name: COSBench Http Client Utility Bundle
 Bundle-SymbolicName: cosbench-http
-Bundle-Version: 0.6.0.0
+Bundle-Version: 0.6.0.1
 Bundle-Vendor: intel
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.intel.cosbench.client.http
