@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.intel.cosbench</groupId>
+  <artifactId>cosbench-tycho-build</artifactId>
+  <version>0.6.0.1</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <tycho-version>1.7.0</tycho-version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <!-- Manta remains a separate Maven/PDE build and is intentionally not a module here. -->
+  <modules>
+    <module>dev/cosbench-ampli</module>
+    <module>dev/cosbench-api</module>
+    <module>dev/cosbench-castor</module>
+    <module>dev/cosbench-cdmi-base</module>
+    <module>dev/cosbench-cdmi-swift</module>
+    <module>dev/cosbench-cdmi-util</module>
+    <module>dev/cosbench-config</module>
+    <module>dev/cosbench-controller</module>
+    <module>dev/cosbench-controller-web</module>
+    <module>dev/cosbench-core</module>
+    <module>dev/cosbench-core-web</module>
+    <module>dev/cosbench-driver</module>
+    <module>dev/cosbench-driver-web</module>
+    <module>dev/cosbench-ecs</module>
+    <module>dev/cosbench-gcs</module>
+    <module>dev/cosbench-http</module>
+    <module>dev/cosbench-httpauth</module>
+    <module>dev/cosbench-keystone</module>
+    <module>dev/cosbench-librados</module>
+    <module>dev/cosbench-log</module>
+    <module>dev/cosbench-log4j</module>
+    <module>dev/cosbench-mock</module>
+    <module>dev/cosbench-openio</module>
+    <module>dev/cosbench-oss</module>
+    <module>dev/cosbench-s3</module>
+    <module>dev/cosbench-scality</module>
+    <module>dev/cosbench-sineio</module>
+    <module>dev/cosbench-swauth</module>
+    <module>dev/cosbench-swift</module>
+    <module>dev/cosbench-tomcat</module>
+  </modules>
+
+  <!-- The checked-in repository is a JDK-8-compatible mirror of the original P2 inputs. -->
+  <repositories>
+    <repository>
+      <id>cosbench-p2</id>
+      <layout>p2</layout>
+      <url>file:${maven.multiModuleProjectDirectory}/build/p2/repository</url>
+    </repository>
+  </repositories>
+
+  <build>
+    <!-- Eclipse exports use artifact_version.jar; Tycho otherwise uses artifact-version.jar. -->
+    <finalName>${project.artifactId}_${project.version}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-maven-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <extensions>true</extensions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
