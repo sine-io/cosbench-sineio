@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.intel.cosbench</groupId>
     <artifactId>cosbench-tycho-build</artifactId>
-    <version>0.6.0.1</version>
+    <version>0.6.0.2</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
   <artifactId>cosbench-openio</artifactId>
