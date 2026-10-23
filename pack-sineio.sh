@@ -16,34 +16,50 @@
 #limitations under the License.
 #
 
-PREFIX="$(dirname $0)"
-VERSION=$(cat VERSION)
+set -euo pipefail
+
+PREFIX="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+VERSION="$(<"$PREFIX/VERSION")"
 DIST="$PREFIX/$VERSION"
 DIST_SINEIO="cosbench-$VERSION-sineio"
+ARCHIVE="$PREFIX/$DIST_SINEIO.tar.gz"
 
-
-if test -d $DIST; then
-  echo -n "Deleting old $DIST ... "
-  rm -rf $DIST
-  echo "[OK]"
+if [[ ! "$VERSION" =~ ^[0-9A-Za-z][0-9A-Za-z.+_-]*$ ]]; then
+  printf 'VERSION must be a single safe version value\n' >&2
+  exit 1
 fi
 
-echo -n "calling $PREFIX/pack.sh for version $VERSION ... "
-OUT="$($PREFIX/pack.sh $VERSION 2>&1)"
-echo "[OK]:"
-echo "$OUT"
+cleanup() {
+  local status=$?
+  rm -rf -- "$DIST" "$PREFIX/$DIST_SINEIO"
+  if [[ "$status" -ne 0 ]]; then
+    rm -f -- "$ARCHIVE"
+  fi
+  return "$status"
+}
+trap cleanup EXIT
 
-echo -n "Moving $DIST to $PREFIX/$DIST_SINEIO ... "
-mv $DIST $PREFIX/$DIST_SINEIO
-echo "[OK]"
+if [[ -e "$DIST" ]]; then
+  printf 'Deleting old %s ... ' "$DIST"
+  rm -rf -- "$DIST"
+  printf '[OK]\n'
+fi
 
-echo -n "Creating archive $PREFIX/$DIST_SINEIO.tar.gz ... "
-tar -C $PREFIX -czf $DIST_SINEIO.tar.gz $DIST_SINEIO
-echo "[OK]"
+rm -f -- "$ARCHIVE"
+printf 'calling %s/pack.sh for version %s ...\n' "$PREFIX" "$VERSION"
+if ! OUT="$(cd -- "$PREFIX" && bash ./pack.sh "$VERSION" 2>&1)"; then
+  printf '%s\n' "$OUT" >&2
+  printf 'pack.sh failed; archive was not created\n' >&2
+  exit 1
+fi
+printf '%s\n' "$OUT"
 
-echo -n "Removing $PREFIX/$DIST_SINEIO ... "
-rm -rf $PREFIX/$DIST_SINEIO
-echo "[OK]"
+printf 'Moving %s to %s ... ' "$DIST" "$PREFIX/$DIST_SINEIO"
+mv -- "$DIST" "$PREFIX/$DIST_SINEIO"
+printf '[OK]\n'
 
-echo "DONE -> Cosbench SineIO $VERSION generated in $PREFIX/$DIST_SINEIO.tar.gz!"
-exit 0
+printf 'Creating archive %s ... ' "$ARCHIVE"
+tar -C "$PREFIX" -czf "$ARCHIVE" "$DIST_SINEIO"
+printf '[OK]\n'
+
+printf 'DONE -> Cosbench SineIO %s generated in %s!\n' "$VERSION" "$ARCHIVE"

@@ -15,39 +15,55 @@
 #limitations under the License.
 #
 
+set -euo pipefail
+
 if [ $# -lt 1 ];
 then
         echo Usage:  $0 {version}
-        exit -1
+        exit 1
 fi
 
+if [[ ! "$1" =~ ^[0-9A-Za-z][0-9A-Za-z.+_-]*$ ]]; then
+        echo "Invalid version: $1" >&2
+        exit 1
+fi
+
+ROOT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+DEST="$ROOT_DIR/$1"
+
 echo "Build up main structure"
-mkdir $1
+mkdir "$DEST"
 
-cp -f -R release/* $1/
-cp -f -R dist/* $1/
-cp -f -R docker $1/
+shopt -s nullglob
+for RELEASE_ENTRY in "$ROOT_DIR"/release/*; do
+        # release/main is owned by the separate Spring Boot distribution.
+        [[ "$(basename "$RELEASE_ENTRY")" == main ]] && continue
+        cp -f -R "$RELEASE_ENTRY" "$DEST/"
+done
+shopt -u nullglob
+cp -f -R "$ROOT_DIR"/dist/* "$DEST/"
+cp -f -R "$ROOT_DIR"/docker "$DEST/"
 
-cp -f LICENSE $1/
-cp -f NOTICE $1/
-cp -f VERSION $1/
+cp -f "$ROOT_DIR/LICENSE" "$DEST/"
+cp -f "$ROOT_DIR/NOTICE" "$DEST/"
+cp -f "$ROOT_DIR/VERSION" "$DEST/"
 
-cp -f README.md $1/
-cp -f BUILD.md $1/
-cp -f BUILD-sineio.md $1/
+cp -f "$ROOT_DIR/README.md" "$DEST/"
+cp -f "$ROOT_DIR/BUILD.md" "$DEST/"
+cp -f "$ROOT_DIR/BUILD-sineio.md" "$DEST/"
 
-cp -f CHANGELOG $1/
-cp -f CHANGELOG-sineio $1/
-cp -f TODO.md $1/
+cp -f "$ROOT_DIR/CHANGELOG" "$DEST/"
+cp -f "$ROOT_DIR/CHANGELOG-sineio" "$DEST/"
+cp -f "$ROOT_DIR/TODO.md" "$DEST/"
 
-cp -f COSBenchUserGuide.pdf $1/
-cp -f COSBenchAdaptorDevGuide.pdf $1/
-cp -f 3rd-party-licenses.pdf $1/
-cp -f pkg.lst $1/
+cp -f "$ROOT_DIR/COSBenchUserGuide.pdf" "$DEST/"
+cp -f "$ROOT_DIR/COSBenchAdaptorDevGuide.pdf" "$DEST/"
+cp -f "$ROOT_DIR/3rd-party-licenses.pdf" "$DEST/"
+cp -f "$ROOT_DIR/pkg.lst" "$DEST/"
 
 
-echo $(date +%Y%m%d) > $1/BUILD.no
+echo "$(date +%Y%m%d)" > "$DEST/BUILD.no"
 
 echo "Build up adaptor example environment"
-mkdir $1/ext
-cp -f -R ext/* $1/ext
+mkdir "$DEST/ext"
+cp -f -R "$ROOT_DIR"/ext/* "$DEST/ext/"

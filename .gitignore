@@ -1,5 +1,13 @@
 *.class
 
+# Maven and frontend build outputs
+**/target/
+**/node_modules/
+
+# Local build context and generated release trees
+out/
+release/main/
+
 # Package Files #
 /0.3.0.10
 /0.3.0.8

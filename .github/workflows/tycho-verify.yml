@@ -1,0 +1,24 @@
+name: Tycho verification
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tycho-verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Build and inspect Tycho distribution
+        run: bash ci/build-tycho.sh "$RUNNER_TEMP/cosbench-tycho"

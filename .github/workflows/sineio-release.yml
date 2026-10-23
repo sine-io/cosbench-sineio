@@ -1,0 +1,33 @@
+name: SineIO release
+
+on:
+  push:
+    tags:
+      - '*-sineio'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sineio-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build and inspect Tycho distribution
+        run: bash ci/build-tycho.sh "$RUNNER_TEMP/cosbench-tycho"
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          archive="$(cat "$RUNNER_TEMP/cosbench-tycho/archive-path.txt")"
+          checksum="$(cat "$RUNNER_TEMP/cosbench-tycho/checksum-path.txt")"
+          bash ./publish-release.sh "$GITHUB_REF_NAME" "$archive" "$checksum"

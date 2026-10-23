@@ -16,21 +16,17 @@ Note that Eclipse **4.27.0** is a known working release. You must use **JDK 1.8*
 
 2. in `Window -> Preferences -> Java -> Compiler` ensure `Compiler compliance level` is set to **1.8**.
 
-Releasing new version
----------------------
+Releasing a new version
+-----------------------
 
-When you are ready to release a new version:
+The GitHub Actions Tycho workflow builds and checks the 30 non-Manta OSGi bundles on branch pushes and pull requests. A pushed tag named `${VERSION}-sineio` builds the same distribution, verifies its archive and SHA-256 checksum, and creates a GitHub Release with both files attached. Manta remains on its separate build path.
 
-1. Update the file `VERSION`.
+When preparing a release:
 
-2. Update the version in `dev/*/META-INF/MANIFEST.MF` by running the script `./version_unify.sh`.
+1. Choose the release version and run `./version_unify.sh <version>`. This synchronizes `VERSION`, the root and Tycho module POMs, and the 30 Tycho Bundle manifests. `./version_unify.sh --check` verifies that they still agree.
 
-3. Remove previous JAR: `rm dist/osgi/plugins/cosbench-*.jar`.
+2. Commit and push the version change. The branch push runs verification but does not publish a release.
 
-4. In eclipse, select all project, right click then `export ... -> Plug-in Development -> Deployable plugins and fragments`.
+3. After the version commit is on GitHub, create and push the matching `${VERSION}-sineio` tag. The tag workflow builds the archive and publishes it with its `.sha256` checksum. A tag whose version differs from `VERSION` fails before a release is created.
 
-5. Run `./pack-sineio.sh` to generate `cosbench-$VERSION-sineio.tar.gz`.
-
-6. Commit changes, tag to `${VERSION}-sineio` and push to git (tagging can be done when making a new release from the github page).
-
-7. Create a release from [Github page](https://github.com/sine-io/cosbench-sineio/releases).
+For a local Docker build and package check, run `bash ci/build-tycho.sh /tmp/cosbench-tycho-results`. The script uses the repository's pinned `linux/amd64` Maven image, checks the embedded P2 repository, builds with Tycho 1.7.0, and leaves the archive, checksum, and logs in the results directory. Do not copy Spring Boot artifacts from `release/main` into the OSGi distribution.
