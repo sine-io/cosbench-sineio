@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Build and inspect Tycho distribution
         run: bash ci/build-tycho.sh "$RUNNER_TEMP/cosbench-tycho"
