@@ -84,3 +84,59 @@ bash ci/build-tycho.sh /tmp/cosbench-tycho-results
 ```
 
 The archive and checksum are written under `/tmp/cosbench-tycho-results/artifact/`; diagnostics are left alongside them. This command builds and verifies artifacts only. Publishing is performed by the tag-triggered GitHub Actions workflow.
+
+## Windows development without Eclipse
+
+The repository includes `dev/cosbench-dev.ps1` for local development with any editor, including IntelliJ IDEA and VS Code. It uses JDK 8, Maven/Tycho, and the checked-in Equinox launcher. It builds the bundles into their normal `target` directories, copies them into the ignored `out/cosbench-dev` runtime directory, and starts Equinox directly. No release archive is created.
+
+Install JDK 8 and Maven 3.9.x, then run these commands from the repository root in PowerShell:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\dev\cosbench-dev.ps1 -ResetRuntime
+```
+
+The first build can take several minutes. Subsequent builds use Maven's incremental output. The services are available at:
+
+```text
+Controller: http://127.0.0.1:19088/controller/index.html
+Driver:     http://127.0.0.1:18088/driver/index.html
+```
+
+After source changes, rebuild and restart with:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\dev\cosbench-dev.ps1 -Action restart
+```
+
+Use `-NoBuild` to restart the last compiled output, `-Service controller` or `-Service driver` to run one side, and the following command to stop the selected services:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\dev\cosbench-dev.ps1 -Action stop
+```
+
+## Linux development without Eclipse
+
+The equivalent Bash script is `dev/cosbench-dev.sh`. It uses JDK 8, Maven/Tycho, and the checked-in Equinox launcher, and keeps its generated runtime under the ignored `out/cosbench-dev` directory.
+
+Install JDK 8, Maven 3.9.x, and `curl`, then run:
+
+```sh
+chmod +x dev/cosbench-dev.sh
+bash dev/cosbench-dev.sh --reset-runtime
+```
+
+The first build can take several minutes. After source changes, rebuild and restart with:
+
+```sh
+bash dev/cosbench-dev.sh restart
+```
+
+Useful variants are:
+
+```sh
+bash dev/cosbench-dev.sh start driver --no-build
+bash dev/cosbench-dev.sh start controller --no-build
+bash dev/cosbench-dev.sh stop
+```
+
+The services use the same URLs as Windows: Controller at `http://127.0.0.1:19088/controller/index.html` and Driver at `http://127.0.0.1:18088/driver/index.html`. Logs and PID files are written under `out/cosbench-dev/log` and `out/cosbench-dev/pids`.
