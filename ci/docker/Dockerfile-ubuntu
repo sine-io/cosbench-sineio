@@ -1,0 +1,21 @@
+FROM eclipse-temurin:8-jre-jammy
+
+ARG VERSION
+ENV COS_VERSION=${VERSION}
+ENV TZ=UTC
+LABEL org.opencontainers.image.source="https://github.com/sine-io/cosbench-sineio"
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        bash curl telnet tzdata \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY cosbench-sineio.tar.gz /tmp/cosbench-sineio.tar.gz
+RUN tar -xzf /tmp/cosbench-sineio.tar.gz -C / \
+    && mv "/cosbench-${VERSION}-sineio" /cosbench \
+    && rm /tmp/cosbench-sineio.tar.gz
+
+COPY start-cosbench.sh /cosbench/start-cosbench.sh
+WORKDIR /cosbench
+
+CMD ["bash", "/cosbench/start-cosbench.sh"]

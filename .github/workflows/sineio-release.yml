@@ -5,16 +5,17 @@ on:
     tags:
       - '*-sineio'
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
   group: sineio-release-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Check out tagged source
         uses: actions/checkout@v7
@@ -24,10 +25,102 @@ jobs:
       - name: Build and inspect Tycho distribution
         run: bash ci/build-tycho.sh "$RUNNER_TEMP/cosbench-tycho"
 
+      - name: Make build outputs available to later jobs
+        run: sudo chown -R "$(id -u):$(id -g)" "$RUNNER_TEMP/cosbench-tycho"
+
+      - name: Share distribution with publish jobs
+        uses: actions/upload-artifact@v4
+        with:
+          name: sineio-distribution
+          path: ${{ runner.temp }}/cosbench-tycho/artifact/
+          if-no-files-found: error
+          retention-days: 1
+
+  publish-images:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [ubuntu, alpine, centos]
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@v7
+
+      - name: Download Tycho distribution
+        uses: actions/download-artifact@v4
+        with:
+          name: sineio-distribution
+          path: ${{ runner.temp }}/sineio-distribution
+
+      - name: Prepare image build context
+        id: release
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          VERSION="$(<VERSION)"
+          TAG_VERSION="${RELEASE_TAG%-sineio}"
+          if [[ "$TAG_VERSION" != "$VERSION" ]]; then
+            printf 'Release tag %s does not match VERSION %s\n' "$RELEASE_TAG" "$VERSION" >&2
+            exit 1
+          fi
+
+          ARCHIVE="cosbench-${VERSION}-sineio.tar.gz"
+          test -s "$RUNNER_TEMP/sineio-distribution/$ARCHIVE"
+          mkdir -p "$RUNNER_TEMP/cosbench-image-context"
+          cp "$RUNNER_TEMP/sineio-distribution/$ARCHIVE" "$RUNNER_TEMP/cosbench-image-context/cosbench-sineio.tar.gz"
+          cp ci/docker/start-cosbench.sh "$RUNNER_TEMP/cosbench-image-context/"
+          cp "ci/docker/Dockerfile-${{ matrix.variant }}" "$RUNNER_TEMP/cosbench-image-context/Dockerfile"
+
+          printf 'version=%s\n' "$VERSION" >> "$GITHUB_OUTPUT"
+          printf 'image=ghcr.io/%s/cosbench-sineio\n' "${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ runner.temp }}/cosbench-image-context
+          file: ${{ runner.temp }}/cosbench-image-context/Dockerfile
+          platforms: linux/amd64
+          push: true
+          build-args: |
+            VERSION=${{ steps.release.outputs.version }}
+          tags: ${{ steps.release.outputs.image }}:${{ steps.release.outputs.version }}-${{ matrix.variant }}
+
+  publish-release:
+    needs: [build, publish-images]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Download Tycho distribution
+        uses: actions/download-artifact@v4
+        with:
+          name: sineio-distribution
+          path: ${{ runner.temp }}/sineio-distribution
+
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          archive="$(cat "$RUNNER_TEMP/cosbench-tycho/archive-path.txt")"
-          checksum="$(cat "$RUNNER_TEMP/cosbench-tycho/checksum-path.txt")"
-          bash ./publish-release.sh "$GITHUB_REF_NAME" "$archive" "$checksum"
+          VERSION="$(<VERSION)"
+          ARCHIVE="$RUNNER_TEMP/sineio-distribution/cosbench-${VERSION}-sineio.tar.gz"
+          CHECKSUM="$ARCHIVE.sha256"
+          bash ./publish-release.sh "$GITHUB_REF_NAME" "$ARCHIVE" "$CHECKSUM"

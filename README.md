@@ -81,7 +81,9 @@ c) Additional libraries used with COSBench have their own licensing; refer to 3r
 Distribution Packages
 ---------------------
 
-Please refer to "DISTRIBUTIONS.md" to get the link for distribution packages.
+SineIO binary distributions are published on the [GitHub Releases page](https://github.com/sine-io/cosbench-sineio/releases). Each `*-sineio` release contains `cosbench-<version>-sineio.tar.gz` and its `.sha256` checksum. See [DISTRIBUTIONS.md](DISTRIBUTIONS.md) for package details and [BUILD-sineio.md](BUILD-sineio.md) for the complete build and release procedure.
+
+The same tagged release workflow publishes Docker images to [GitHub Container Registry](https://github.com/orgs/sine-io/packages). See [ci/docker/README.md](ci/docker/README.md) for image tags and usage.
 
 
 Installation & Usage
@@ -101,7 +103,7 @@ If needed, adaptors can be developed for new storage services; please refer to "
 
 Build
 -----
-If a build from source code is needed, please refer to BUILD.md for details.
+If a build from source code is needed, please refer to [BUILD.md](BUILD.md) for details. For the SineIO Tycho build and GitHub Release workflow, see [BUILD-sineio.md](BUILD-sineio.md).
 
 
 Resources

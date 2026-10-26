@@ -42,7 +42,8 @@ for RELEASE_ENTRY in "$ROOT_DIR"/release/*; do
 done
 shopt -u nullglob
 cp -f -R "$ROOT_DIR"/dist/* "$DEST/"
-cp -f -R "$ROOT_DIR"/docker "$DEST/"
+mkdir -p "$DEST/ci/docker"
+cp -f -R "$ROOT_DIR"/ci/docker/. "$DEST/ci/docker/"
 
 cp -f "$ROOT_DIR/LICENSE" "$DEST/"
 cp -f "$ROOT_DIR/NOTICE" "$DEST/"

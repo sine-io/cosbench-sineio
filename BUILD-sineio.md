@@ -1,32 +1,86 @@
-Overview
---------
+# SineIO build and GitHub Release
 
-The following procedure indicates how to compile and package cosbench for SineIO. 
-First, please read [BUILD.md](BUILD.md).
+This document covers the SineIO Tycho distribution. The older Eclipse workflow in [BUILD.md](BUILD.md) remains useful for general COSBench development; Eclipse **4.27.0** with **JDK 1.8** is a known working setup. Manta remains on its separate build path and is not part of the Tycho SineIO release.
 
+## What the workflows do
 
-Development Environment
------------------------
+The `Tycho verification` workflow ([`.github/workflows/tycho-verify.yml`](.github/workflows/tycho-verify.yml)) runs on branch pushes and pull requests. It builds and checks the 30 non-Manta OSGi bundles, but does not publish a release.
 
-To get a running completion environment, please refer to the same section in [BUILD.md#development-environment](BUILD.md#development-environment).
+The `SineIO release` workflow ([`.github/workflows/sineio-release.yml`](.github/workflows/sineio-release.yml)) runs when a tag matching `<version>-sineio` is pushed. It builds the distribution once, shares the archive between jobs, publishes the Ubuntu, Alpine, and Rocky Linux 8 images to GHCR, and then creates a GitHub Release with the archive and checksum attached. The individual bundle JARs are packaged inside the distribution archive rather than uploaded as separate release assets:
 
-Note that Eclipse **4.27.0** is a known working release. You must use **JDK 1.8** and configure eclipse this way:
+- `cosbench-<version>-sineio.tar.gz`
+- `cosbench-<version>-sineio.tar.gz.sha256`
 
-1. in `Window -> Preferences -> Java -> Prefered JRE` ensure a JDK 1.8 is selected.
+The build uses the repository's pinned Maven Docker image on `linux/amd64`; Docker images are published for `linux/amd64`. The image job uses `GITHUB_TOKEN` with `packages: write`, and the release job uses `contents: write`. No Docker Hub credentials or manual release creation are needed. Make the GHCR package public once in the repository's Packages settings if anonymous pulls are required.
 
-2. in `Window -> Preferences -> Java -> Compiler` ensure `Compiler compliance level` is set to **1.8**.
+## Prepare and validate a release
 
-Releasing a new version
------------------------
+Choose a new version that has not already been released. Synchronize the version in `VERSION`, the root Maven POM, the 30 Tycho module POMs, and their bundle manifests:
 
-The GitHub Actions Tycho workflow builds and checks the 30 non-Manta OSGi bundles on branch pushes and pull requests. A pushed tag named `${VERSION}-sineio` builds the same distribution, verifies its archive and SHA-256 checksum, and creates a GitHub Release with both files attached. Manta remains on its separate build path.
+```sh
+RELEASE_VERSION=0.6.0.3
+./version_unify.sh "$RELEASE_VERSION"
+./version_unify.sh --check
+git diff --check
+```
 
-When preparing a release:
+Review the generated metadata changes and any release notes, then run the same build and package checks locally:
 
-1. Choose the release version and run `./version_unify.sh <version>`. This synchronizes `VERSION`, the root and Tycho module POMs, and the 30 Tycho Bundle manifests. `./version_unify.sh --check` verifies that they still agree.
+```sh
+bash ci/build-tycho.sh "/tmp/cosbench-tycho-${RELEASE_VERSION}"
+```
 
-2. Commit and push the version change. The branch push runs verification but does not publish a release.
+This command requires Docker access through `sudo` and network access to pull the pinned Maven image if it is not already local. It does not require Maven or Java installed on the host. The script checks the checked-in P2 repository checksum, runs `mvn clean verify` with Tycho 1.7.0, confirms all 30 expected bundle JARs, packages the runnable distribution, checks its contents, and verifies the generated SHA-256. It runs the build in a temporary container and removes that container when finished.
 
-3. After the version commit is on GitHub, create and push the matching `${VERSION}-sineio` tag. The tag workflow builds the archive and publishes it with its `.sha256` checksum. A tag whose version differs from `VERSION` fails before a release is created.
+The results directory contains the build logs and these release files:
 
-For a local Docker build and package check, run `bash ci/build-tycho.sh /tmp/cosbench-tycho-results`. The script uses the repository's pinned `linux/amd64` Maven image, checks the embedded P2 repository, builds with Tycho 1.7.0, and leaves the archive, checksum, and logs in the results directory. Do not copy Spring Boot artifacts from `release/main` into the OSGi distribution.
+```text
+/tmp/cosbench-tycho-<version>/artifact/cosbench-<version>-sineio.tar.gz
+/tmp/cosbench-tycho-<version>/artifact/cosbench-<version>-sineio.tar.gz.sha256
+```
+
+It also contains `maven-build.log`, `pack.log`, `p2-check.log`, `archive-files.txt`, and the bundle lists for diagnosing a failed check. The script works on a copy of the source tree and does not modify the working tree's generated distribution files. Spring Boot artifacts under `release/main` are intentionally excluded from this OSGi archive.
+
+## Push the version and release tag
+
+Review `git status --short` and commit the synchronized version metadata and any intended source or release-note changes to the release branch. Keep unrelated working-tree changes out of the release commit. Push that commit and wait for the branch's `Tycho verification` workflow to pass. The version commit must be present on GitHub before tagging it.
+
+From that exact commit, create and push a tag whose name is exactly the version in `VERSION` followed by `-sineio`:
+
+```sh
+VERSION="$(<VERSION)"
+TAG="${VERSION}-sineio"
+git tag -a "$TAG" -m "COSBench SineIO $VERSION"
+git push origin "$TAG"
+```
+
+Pushing the tag starts the `SineIO release` workflow. It checks the tag against `VERSION`, builds the tagged source, verifies the package and checksum, publishes three GHCR images, then runs `publish-release.sh` to create the GitHub Release and upload the two assets. A mismatched tag or inconsistent version metadata fails before publication. A branch push alone never creates a release.
+
+## Verify the published assets
+
+Open the [GitHub Releases page](https://github.com/sine-io/cosbench-sineio/releases), select the new `<version>-sineio` release, and confirm that both expected files are attached. Download both files into the same directory, set `VERSION` to the release version, and run:
+
+```sh
+VERSION=0.6.0.3 # replace with the released version
+sha256sum -c "cosbench-${VERSION}-sineio.tar.gz.sha256"
+```
+
+The check must report `OK`. Pull the published image tags to confirm GHCR access:
+
+```sh
+sudo docker pull "ghcr.io/sine-io/cosbench-sineio:${VERSION}-ubuntu"
+sudo docker pull "ghcr.io/sine-io/cosbench-sineio:${VERSION}-alpine"
+sudo docker pull "ghcr.io/sine-io/cosbench-sineio:${VERSION}-centos"
+```
+
+If the workflow fails, inspect the `SineIO release` run's build, image-publish, or release-publish job. Check that the tag points to the pushed version commit, the tag equals `VERSION-sineio`, and `./version_unify.sh --check` passes before retrying.
+
+## Local build without publishing
+
+To reproduce the build at any time, choose an output directory and run:
+
+```sh
+bash ci/build-tycho.sh /tmp/cosbench-tycho-results
+```
+
+The archive and checksum are written under `/tmp/cosbench-tycho-results/artifact/`; diagnostics are left alongside them. This command builds and verifies artifacts only. Publishing is performed by the tag-triggered GitHub Actions workflow.

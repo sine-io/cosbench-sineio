@@ -1,0 +1,20 @@
+FROM rockylinux:8
+
+ARG VERSION
+ENV COS_VERSION=${VERSION}
+ENV TZ=UTC
+LABEL org.opencontainers.image.source="https://github.com/sine-io/cosbench-sineio"
+
+RUN dnf -y install curl java-1.8.0-openjdk-headless telnet tzdata \
+    && dnf clean all \
+    && rm -rf /var/cache/dnf
+
+COPY cosbench-sineio.tar.gz /tmp/cosbench-sineio.tar.gz
+RUN tar -xzf /tmp/cosbench-sineio.tar.gz -C / \
+    && mv "/cosbench-${VERSION}-sineio" /cosbench \
+    && rm /tmp/cosbench-sineio.tar.gz
+
+COPY start-cosbench.sh /cosbench/start-cosbench.sh
+WORKDIR /cosbench
+
+CMD ["bash", "/cosbench/start-cosbench.sh"]

@@ -80,6 +80,8 @@ ROOT="cosbench-${VERSION}-sineio"
 grep -Fx "$ROOT/VERSION" /results/archive-files.txt
 grep -Fx "$ROOT/start-controller.sh" /results/archive-files.txt
 grep -Fx "$ROOT/start-driver.sh" /results/archive-files.txt
+grep -Fx "$ROOT/ci/docker/Dockerfile-ubuntu" /results/archive-files.txt
+grep -Fx "$ROOT/ci/docker/build-image.sh" /results/archive-files.txt
 grep -Fx "$ROOT/main/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar" /results/archive-files.txt
 
 mapfile -t ARCHIVE_BUNDLES < <(grep -E "^${ROOT}/osgi/plugins/cosbench-[^/]+\\.jar$" /results/archive-files.txt | sort)

@@ -1,13 +1,15 @@
 #!/bin/bash
 
-: ${DRIVERS:=http://127.0.0.1:18088/driver}
-: ${CONTROLLER:=true}
-: ${DRIVER:=true}
-: ${COSBENCH_PLUGINS:=SIO}
-: ${DRIVER_PORT:=18088}
+: "${DRIVERS:=http://127.0.0.1:18088/driver}"
+: "${CONTROLLER:=true}"
+: "${DRIVER:=true}"
+: "${COSBENCH_PLUGINS:=SIO}"
+: "${DRIVER_PORT:=18088}"
 
 
 cd /cosbench
+VERSION="${COS_VERSION:-$(<VERSION)}"
+export VERSION
 ### Driver configuration
 if [ "$DRIVER" = true ]; then
   # change nc to telnet tool. If use nc, pls uncommneted this.
@@ -74,15 +76,15 @@ fi
 ### Start services
 if [ "$CONTROLLER" = true -a "$DRIVER" = true ]; then
   echo "Starting both controller and driver"
-  sh start-all.sh
+  bash start-all.sh
 elif [ "$CONTROLLER" = true ]; then
   echo "Sarting controller"
-  sh start-controller.sh
+  bash start-controller.sh
 elif [ "$DRIVER" = true ]; then
   echo "Starting driver"
-  sh start-driver.sh 1 127.0.0.1 $DRIVER_PORT
+  bash start-driver.sh 1 127.0.0.1 "$DRIVER_PORT"
 else
   echo 'Houston, we have had a problem here.'
 fi
 
-/bin/bash
+exec /bin/bash

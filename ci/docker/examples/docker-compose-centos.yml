@@ -1,8 +1,7 @@
-version: '3.9'
 
 services:
   driver1:
-    image: "sineio/cosbench-sineio:0.4.7.9-centos"
+    image: "ghcr.io/sine-io/cosbench-sineio:${COSBENCH_VERSION:?Set COSBENCH_VERSION to the image version}-centos"
     environment:
       TZ: "Asia/Shanghai"
       CONTROLLER: false
@@ -26,7 +25,7 @@ services:
     network_mode: "host"
 
   driver2:
-    image: "sineio/cosbench-sineio:0.4.7.9-centos"
+    image: "ghcr.io/sine-io/cosbench-sineio:${COSBENCH_VERSION:?Set COSBENCH_VERSION to the image version}-centos"
     environment:
       TZ: "Asia/Shanghai"
       CONTROLLER: false
@@ -50,7 +49,7 @@ services:
     network_mode: "host"
 
   driver3:
-    image: "sineio/cosbench-sineio:0.4.7.9-centos"
+    image: "ghcr.io/sine-io/cosbench-sineio:${COSBENCH_VERSION:?Set COSBENCH_VERSION to the image version}-centos"
     environment:
       TZ: "Asia/Shanghai"
       CONTROLLER: false
@@ -74,7 +73,7 @@ services:
     network_mode: "host"
 
   controller:
-    image: "sineio/cosbench-sineio:0.4.7.9-centos"
+    image: "ghcr.io/sine-io/cosbench-sineio:${COSBENCH_VERSION:?Set COSBENCH_VERSION to the image version}-centos"
     environment:
       TZ: "Asia/Shanghai"
       CONTROLLER: true
