@@ -46,7 +46,7 @@ for port in "$minio_port" "$minio_console_port" "$toxiproxy_admin_port" "$toxipr
     fi
 done
 
-sudo -v
+sudo docker version > "$report_dir/docker-version.txt"
 secret_dir=$(mktemp -d "${TMPDIR:-/tmp}/cosbench-scheme3-02.XXXXXX")
 chmod 700 "$secret_dir"
 compose_env="$secret_dir/compose.env"
