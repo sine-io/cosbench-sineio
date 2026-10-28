@@ -1,0 +1,93 @@
+services:
+  minio:
+    image: ${MINIO_IMAGE:?Set MINIO_IMAGE in versions.env}
+    platform: linux/amd64
+    env_file:
+      - ${COSBENCH_MINIO_ENV_FILE:?Set COSBENCH_MINIO_ENV_FILE}
+    ports:
+      - "127.0.0.1:${COSBENCH_MINIO_PORT:-19000}:9000"
+      - "127.0.0.1:${COSBENCH_MINIO_CONSOLE_PORT:-19001}:9001"
+    volumes:
+      - minio-data:/bitnami/minio/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:9000/minio/health/ready >/dev/null"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+      start_period: 5s
+
+  toxiproxy:
+    image: ${TOXIPROXY_IMAGE:?Set TOXIPROXY_IMAGE in versions.env}
+    platform: linux/amd64
+    ports:
+      - "127.0.0.1:${COSBENCH_TOXIPROXY_ADMIN_PORT:-18474}:8474"
+      - "127.0.0.1:${COSBENCH_TOXIPROXY_PROXY_PORT:-18666}:18666"
+    healthcheck:
+      test: ["CMD", "/toxiproxy-cli", "list"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+      start_period: 2s
+
+  minio-smoke:
+    image: ${MINIO_IMAGE:?Set MINIO_IMAGE in versions.env}
+    platform: linux/amd64
+    entrypoint: ["/bin/bash", "/workspace/shadow/harness/minio-smoke.sh"]
+    environment:
+      COSBENCH_MINIO_ENDPOINT: http://minio:9000
+      COSBENCH_MINIO_BUCKET: cosbench-smoke
+      COSBENCH_TOXIPROXY_ADMIN_URL: http://toxiproxy:8474
+    volumes:
+      - ${COSBENCH_REPO_ROOT:?Set COSBENCH_REPO_ROOT}:/workspace:ro
+    secrets:
+      - minio_root_user
+      - minio_root_password
+    depends_on:
+      minio:
+        condition: service_healthy
+      toxiproxy:
+        condition: service_healthy
+
+  maven:
+    image: ${MAVEN_IMAGE:?Set MAVEN_IMAGE in versions.env}
+    platform: linux/amd64
+    entrypoint: []
+    working_dir: /workspace
+    tmpfs:
+      - /tmp:mode=1777,size=1536m
+    volumes:
+      - ${COSBENCH_REPO_ROOT:?Set COSBENCH_REPO_ROOT}:/workspace
+      - ${COSBENCH_REPORT_DIR:?Set COSBENCH_REPORT_DIR}:/reports
+    environment:
+      COSBENCH_MINIO_ENDPOINT: http://minio:9000
+      COSBENCH_MINIO_BUCKET: cosbench-smoke
+      COSBENCH_TOXIPROXY_ADMIN_URL: http://toxiproxy:8474
+      COSBENCH_MINIO_ACCESS_KEY_FILE: /run/secrets/minio_root_user
+      COSBENCH_MINIO_SECRET_KEY_FILE: /run/secrets/minio_root_password
+      COSBENCH_HTTP_TEST_CERT_FILE: /run/secrets/http_test_certificate
+      COSBENCH_HTTP_TEST_KEYSTORE_FILE: /run/secrets/http_test_keystore
+      COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE: /run/secrets/http_test_keystore_password
+    secrets:
+      - minio_root_user
+      - minio_root_password
+      - source: http_test_certificate
+        target: http_test_certificate
+      - source: http_test_keystore
+        target: http_test_keystore
+      - source: http_test_keystore_password
+        target: http_test_keystore_password
+
+volumes:
+  minio-data:
+
+secrets:
+  minio_root_user:
+    file: ${COSBENCH_SECRET_DIR:?Set COSBENCH_SECRET_DIR}/minio-root-user
+  minio_root_password:
+    file: ${COSBENCH_SECRET_DIR:?Set COSBENCH_SECRET_DIR}/minio-root-password
+  http_test_certificate:
+    file: ${COSBENCH_SECRET_DIR:?Set COSBENCH_SECRET_DIR}/http-test.crt
+  http_test_keystore:
+    file: ${COSBENCH_SECRET_DIR:?Set COSBENCH_SECRET_DIR}/http-test.p12
+  http_test_keystore_password:
+    file: ${COSBENCH_SECRET_DIR:?Set COSBENCH_SECRET_DIR}/http-test-password
