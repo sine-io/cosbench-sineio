@@ -6,7 +6,9 @@
 shadow/harness/run.sh /tmp/cosbench-scheme3-02-run
 ```
 
-The output directory must be empty. It retains the JAR, dependency tree, resource listing, duplicate-class result, toolchain information, MinIO operation log, certificate fingerprint, container logs, and cleanup status. The test credentials, PKCS12 private key, certificate-generation password, and Compose secret files live in a mode-0700 temporary directory and are deleted on every exit path. The public test certificate fingerprint is retained; it is self-signed, has localhost/MinIO/Controller/Driver SANs, and is regenerated per run.
+The output directory must be empty. It retains the JAR, dependency tree, resource listing, duplicate-class result, toolchain information, MinIO operation log, certificate fingerprint, configuration migration/lifecycle report, container logs, and cleanup status. The test credentials, PKCS12 private key, certificate-generation password, and Compose secret files live in a mode-0700 temporary directory and are deleted on every exit path. The public test certificate fingerprint is retained; it is self-signed, has localhost/MinIO/Controller/Driver SANs, and is regenerated per run.
+
+The default replay invokes `config-lifecycle.sh` after the shadow build. It converts both baseline INI fixtures, starts the Java 21 Controller and Driver shadow processes, reads a representative old archive before and after a restart, submits one lifecycle task, sends TERM through `bin/cosbench-stop`, and verifies port/PID release and unchanged source/archive checksums. The frozen schema and field mapping are documented in [`shadow/config-contract.md`](../config-contract.md); the evidence summary is in [`shadow/evidence/2026-10-28/config-lifecycle/README.md`](../evidence/2026-10-28/config-lifecycle/README.md).
 
 To run a later test in the same network:
 

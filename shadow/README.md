@@ -1,6 +1,6 @@
 # Java 21 Shadow Reactor
 
-This reactor is isolated from the root Tycho/P2 build. It contains one representative slice from the existing `cosbench-config` module: the configuration interfaces, XML input wrapper, Castor mapping registry, and its eight XML resources. Later migration work expands the module after the prerequisite spikes.
+This reactor is isolated from the root Tycho/P2 build. It contains the representative `cosbench-config` slice, the versioned YAML/legacy migration boundary, and a thin Java 21 Spring Boot runtime used by the #03 configuration/lifecycle spike. The runtime deliberately exposes only health, read-only archive inspection, and a task-admission seam; workload and Provider migration remain later tickets.
 
 The parent POM fixes Java 21, `maven.compiler.release=21`, Spring Boot's 3.5.16 dependency BOM, Maven 3.10.0, and the lifecycle plugin versions. Every module added under this parent inherits the Java/Maven Enforcer policy.
 
@@ -9,6 +9,8 @@ Run a clean build, empty-cache dependency audit, MinIO smoke, and cleanup with:
 ```sh
 shadow/harness/run.sh /tmp/cosbench-scheme3-02-run
 ```
+
+The default replay now also runs the #03 configuration/lifecycle check. See [`config-contract.md`](config-contract.md) for schema 1, field ranges, precedence, secret references, legacy mappings, and command behavior.
 
 The harness reports are written to the supplied empty directory. It uses test-only credentials and a self-signed test certificate, starts MinIO and Toxiproxy without a production application, then removes this run's containers, network, and MinIO volume on success, failure, or interruption. Pinned Docker images remain cached for later runs.
 

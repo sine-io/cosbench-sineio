@@ -11,6 +11,7 @@
 
   <modules>
     <module>cosbench-config</module>
+    <module>cosbench-runtime</module>
   </modules>
 
   <properties>
@@ -64,6 +65,11 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

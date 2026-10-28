@@ -186,6 +186,11 @@ run_compose run --rm --no-deps maven /bin/bash /workspace/shadow/harness/contain
         cat "$report_dir/container-build.log"
         exit 1
     }
+run_compose run --rm --no-deps maven /bin/bash /workspace/shadow/harness/config-lifecycle.sh \
+    > "$report_dir/config-lifecycle.log" 2>&1 || {
+        cat "$report_dir/config-lifecycle.log"
+        exit 1
+    }
 
 if ((${#custom_command[@]} > 0)); then
     run_compose run --rm --no-deps maven "${custom_command[@]}" > "$report_dir/custom-test.log" 2>&1 || {

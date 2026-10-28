@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+repo_root=$(cd -- "$script_dir/.." && pwd)
+pid_dir=${COSBENCH_PID_DIR:-$repo_root/run}
+grace=${COSBENCH_STOP_TIMEOUT_SECONDS:-30}
+[[ "$grace" =~ ^[0-9]+$ ]] || { printf 'COSBENCH_STOP_TIMEOUT_SECONDS must be a non-negative integer\n' >&2; exit 2; }
+usage() { printf 'usage: %s [controller|driver|all]\n' "$(basename "$0")" >&2; }
+service=${1:-all}
+case "$service" in controller|driver) services=("$service");; all) services=(controller driver);; *) usage; exit 2;; esac
+status=0
+for name in "${services[@]}"; do
+    pid_file="$pid_dir/$name.pid"
+    if [[ ! -f "$pid_file" ]]; then
+        continue
+    fi
+    pid=$(tr -d '[:space:]' < "$pid_file")
+    if [[ ! "$pid" =~ ^[0-9]+$ ]] || ! kill -0 "$pid" 2>/dev/null; then
+        rm -f "$pid_file"
+        continue
+    fi
+    kill -TERM "$pid" || status=1
+    deadline=$((SECONDS + grace))
+    while kill -0 "$pid" 2>/dev/null; do
+        if ((SECONDS >= deadline)); then
+            printf '%s did not stop within %ss (pid %s)\n' "$name" "$grace" "$pid" >&2
+            status=124
+            break
+        fi
+        sleep 0.2
+    done
+    if ! kill -0 "$pid" 2>/dev/null; then
+        rm -f "$pid_file"
+    fi
+done
+exit "$status"

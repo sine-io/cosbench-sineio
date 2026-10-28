@@ -1,0 +1,42 @@
+schemaVersion: 1
+role: controller
+name: Controller
+listen:
+  host: 127.0.0.1
+  port: 19088
+  contextPath: /controller
+paths:
+  workspace: workspace
+  archive: archive
+  logs: log/system.log
+drivers:
+  - name: driver1
+    url: http://127.0.0.1:18088/driver
+auth:
+  tls:
+    enabled: false
+http:
+  pool:
+    maxConnections: 24
+    maxPerRoute: 8
+    idleTimeout: 45s
+  timeouts:
+    connect: 2s
+    read: 30s
+    command: 60s
+    workload: 1h
+  retries:
+    maxAttempts: 3
+    backoff: 250ms
+concurrency: 2
+provider:
+  name: mock
+  concurrency: 2
+logging:
+  level: INFO
+  file: log/system.log
+web:
+  enabled: true
+  maxUploadBytes: 10485760
+shutdown:
+  gracePeriod: 15s

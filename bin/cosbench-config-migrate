@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+repo_root=$(cd -- "$script_dir/.." && pwd)
+jar=${COSBENCH_RUNTIME_JAR:-$repo_root/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar}
+[[ $# -eq 3 ]] || { printf 'usage: %s SOURCE_INI DESTINATION_YAML REPORT_JSON\n' "$(basename "$0")" >&2; exit 2; }
+[[ -f "$jar" ]] || { printf 'runtime jar is missing: %s\nRun the Java 21 shadow build first.\n' "$jar" >&2; exit 2; }
+exec java ${JAVA_OPTS:-} -jar "$jar" --migrate "$@"
