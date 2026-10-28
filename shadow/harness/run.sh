@@ -46,18 +46,41 @@ for port in "$minio_port" "$minio_console_port" "$toxiproxy_admin_port" "$toxipr
     fi
 done
 
+sudo -v
 secret_dir=$(mktemp -d "${TMPDIR:-/tmp}/cosbench-scheme3-02.XXXXXX")
 chmod 700 "$secret_dir"
 compose_env="$secret_dir/compose.env"
 minio_env="$secret_dir/minio.env"
 project_name="cosbench-scheme3-02-$(date +%s)-$$"
 project_started=0
+active_docker_pid=
+certificate_containers=("$project_name-keygen" "$project_name-cert-export" "$project_name-cert-inspect")
+compose_arguments=(--ansi never --progress plain --project-name "$project_name"
+    --env-file "$versions_file" --env-file "$compose_env" -f "$compose_file")
 
 compose() {
-    sudo docker compose --ansi never --progress plain --project-name "$project_name" \
-        --env-file "$versions_file" \
-        --env-file "$compose_env" \
-        -f "$compose_file" "$@"
+    sudo docker compose "${compose_arguments[@]}" "$@"
+}
+
+run_docker() {
+    sudo docker "$@" &
+    active_docker_pid=$!
+    docker_status=0
+    wait "$active_docker_pid" || docker_status=$?
+    active_docker_pid=
+    return "$docker_status"
+}
+
+run_compose() {
+    run_docker compose "${compose_arguments[@]}" "$@"
+}
+
+interrupt() {
+    trap '' INT TERM
+    if [[ -n $active_docker_pid ]]; then
+        kill -TERM "$active_docker_pid" 2>/dev/null || true
+    fi
+    exit "$1"
 }
 
 cleanup() {
@@ -80,13 +103,22 @@ cleanup() {
         fi
     fi
 
+    for certificate_container in "${certificate_containers[@]}"; do
+        if sudo docker container inspect "$certificate_container" >/dev/null 2>&1; then
+            sudo docker logs "$certificate_container" >> "$report_dir/certificate-generation.log" 2>&1
+            sudo docker container rm --force "$certificate_container" >> "$report_dir/docker-cleanup.log" 2>&1 || cleanup_status=1
+        fi
+    done
+    certificate_containers_left=$(sudo docker ps --all --quiet --filter "label=cosbench.scheme3.run=$project_name" 2>/dev/null) || cleanup_status=1
+    [[ -z $certificate_containers_left ]] || cleanup_status=1
+
     if [[ -n ${secret_dir:-} && -d $secret_dir ]]; then
         find "$secret_dir" -mindepth 1 -delete || cleanup_status=1
         rmdir "$secret_dir" || cleanup_status=1
     fi
 
-    printf 'run_status=%s\ncleanup_status=%s\ncontainers_remaining=%s\nnetworks_remaining=%s\nvolumes_remaining=%s\n' \
-        "$run_status" "$cleanup_status" "${containers_left:-none}" "${networks_left:-none}" "${volumes_left:-none}" \
+    printf 'run_status=%s\ncleanup_status=%s\ncontainers_remaining=%s\nnetworks_remaining=%s\nvolumes_remaining=%s\ncertificate_containers_remaining=%s\n' \
+        "$run_status" "$cleanup_status" "${containers_left:-none}" "${networks_left:-none}" "${volumes_left:-none}" "${certificate_containers_left:-none}" \
         > "$report_dir/cleanup-status.txt"
     if ((run_status == 0 && cleanup_status != 0)); then
         run_status=1
@@ -95,8 +127,8 @@ cleanup() {
 }
 
 trap cleanup EXIT
-trap 'exit 130' INT
-trap 'exit 143' TERM
+trap 'interrupt 130' INT
+trap 'interrupt 143' TERM
 
 umask 077
 printf '%s\n' 'MINIO_ROOT_USER=cosbench-test-user' 'MINIO_ROOT_PASSWORD=cosbench-test-password' > "$minio_env"
@@ -117,7 +149,7 @@ COSBENCH_TOXIPROXY_ADMIN_PORT="$toxiproxy_admin_port"
 COSBENCH_TOXIPROXY_PROXY_PORT="$toxiproxy_proxy_port"
 EOF
 
-sudo docker run --rm --user "$(id -u):$(id -g)" \
+run_docker run --rm --name "${certificate_containers[0]}" --label "cosbench.scheme3.run=$project_name" --user "$(id -u):$(id -g)" \
     -v "$secret_dir:/tmp/secrets" --entrypoint /opt/java/openjdk/bin/keytool "$MAVEN_IMAGE" \
     -genkeypair -alias cosbench-test -keyalg RSA -keysize 2048 -validity 365 \
     -dname 'CN=cosbench-scheme3-test,OU=Tests,O=COSBench' \
@@ -125,38 +157,38 @@ sudo docker run --rm --user "$(id -u):$(id -g)" \
     -storetype PKCS12 -keystore /tmp/secrets/http-test.p12 \
     -storepass cosbench-test-keystore-password -keypass cosbench-test-keystore-password \
     > "$report_dir/certificate-generation.log" 2>&1
-sudo docker run --rm --user "$(id -u):$(id -g)" \
+run_docker run --rm --name "${certificate_containers[1]}" --label "cosbench.scheme3.run=$project_name" --user "$(id -u):$(id -g)" \
     -v "$secret_dir:/tmp/secrets" --entrypoint /opt/java/openjdk/bin/keytool "$MAVEN_IMAGE" \
     -exportcert -rfc -alias cosbench-test -keystore /tmp/secrets/http-test.p12 \
     -storetype PKCS12 -storepass cosbench-test-keystore-password \
     -file /tmp/secrets/http-test.crt >> "$report_dir/certificate-generation.log" 2>&1
-sudo docker run --rm --user "$(id -u):$(id -g)" \
+run_docker run --rm --name "${certificate_containers[2]}" --label "cosbench.scheme3.run=$project_name" --user "$(id -u):$(id -g)" \
     -v "$secret_dir:/tmp/secrets:ro" --entrypoint /opt/java/openjdk/bin/keytool "$MAVEN_IMAGE" \
     -printcert -file /tmp/secrets/http-test.crt > "$report_dir/test-certificate.txt"
 
 project_started=1
-compose up --detach --wait --wait-timeout 90 minio toxiproxy > "$report_dir/docker-startup.log" 2>&1 || {
+run_compose up --detach --wait --wait-timeout 90 minio toxiproxy > "$report_dir/docker-startup.log" 2>&1 || {
     cat "$report_dir/docker-startup.log"
     exit 1
 }
 compose ps > "$report_dir/container-status.txt"
-compose run --rm --no-deps minio-smoke > "$report_dir/minio-smoke.log" 2>&1 || {
+run_compose run --rm --no-deps minio-smoke > "$report_dir/minio-smoke.log" 2>&1 || {
     cat "$report_dir/minio-smoke.log"
     exit 1
 }
-compose run --rm --no-deps maven /bin/bash /workspace/shadow/harness/verify-toxiproxy.sh \
+run_compose run --rm --no-deps maven /bin/bash /workspace/shadow/harness/verify-toxiproxy.sh \
     > "$report_dir/toxiproxy-controls.log" 2>&1 || {
         cat "$report_dir/toxiproxy-controls.log"
         exit 1
     }
-compose run --rm --no-deps maven /bin/bash /workspace/shadow/harness/container-build.sh \
+run_compose run --rm --no-deps maven /bin/bash /workspace/shadow/harness/container-build.sh \
     > "$report_dir/container-build.log" 2>&1 || {
         cat "$report_dir/container-build.log"
         exit 1
     }
 
 if ((${#custom_command[@]} > 0)); then
-    compose run --rm --no-deps maven "${custom_command[@]}" > "$report_dir/custom-test.log" 2>&1 || {
+    run_compose run --rm --no-deps maven "${custom_command[@]}" > "$report_dir/custom-test.log" 2>&1 || {
         cat "$report_dir/custom-test.log"
         exit 1
     }

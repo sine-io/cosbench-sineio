@@ -39,4 +39,4 @@ printf '%s\n' \
     'OpenTest4J 1.3.0 and API Guardian 1.1.2: Apache License 2.0; coordinates and checksums are in the dependency reports.' \
     'Source repository for these test JARs: https://repo.maven.apache.org/maven2/.' \
     > /reports/local-jars-and-licenses.txt
-chmod 644 /reports/*
+find /reports -type f -exec chmod 644 '{}' +
