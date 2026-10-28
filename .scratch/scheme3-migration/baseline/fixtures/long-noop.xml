@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workload name="baseline-cancel" description="Long-running Mock workload for cancel behavior">
+  <auth type="mock" config="delay=50;errors=0" />
+  <storage type="mock" config="size=64;delay=50;errors=0" />
+  <workflow>
+    <workstage name="main">
+      <work name="read" workers="1" runtime="120">
+        <operation type="read" ratio="100" config="containers=c(1);objects=c(1)" />
+      </work>
+    </workstage>
+  </workflow>
+</workload>

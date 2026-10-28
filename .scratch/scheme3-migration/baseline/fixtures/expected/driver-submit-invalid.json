@@ -1,0 +1,5 @@
+{
+  "code": 400,
+  "succ": false,
+  "error": "must specify 'workers' for a mission"
+}
