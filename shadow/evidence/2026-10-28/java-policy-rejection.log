@@ -1,0 +1,37 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] cosbench-scheme3-shadow                                            [pom]
+[INFO] COSBench Config Shadow                                             [jar]
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-scheme3-shadow >----------
+[INFO] Building cosbench-scheme3-shadow 0.1.0-SNAPSHOT                    [1/2]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-scheme3-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for cosbench-scheme3-shadow 0.1.0-SNAPSHOT:
+[INFO] 
+[INFO] cosbench-scheme3-shadow ............................ FAILURE [  1.841 s]
+[INFO] COSBench Config Shadow ............................. SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.370 s
+[INFO] Finished at: 2026-10-28T05:43:51Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-enforcer-plugin:3.6.3:enforce (enforce-java-21-toolchain) on project cosbench-scheme3-shadow: 
+[ERROR] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion failed with message:
+[ERROR] Detected JDK /opt/java/openjdk/jre is version 1.8.0-452 which is not in the allowed range [21,22).
+[ERROR] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion failed with message:
+[ERROR] Detected Maven Version: 3.9.9 is not in the allowed range [3.10.0,3.10.1).
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

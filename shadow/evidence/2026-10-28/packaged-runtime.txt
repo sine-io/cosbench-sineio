@@ -1,0 +1,1 @@
+runtime_java=21; artifact_class_major=65; packaged_mapping_resources=8; status=passed

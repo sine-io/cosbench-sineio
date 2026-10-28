@@ -1,0 +1,1 @@
+{"name":"cosbench-fault-probe","listen":"[::]:18666","upstream":"minio:9000","enabled":true,"Logger":{},"toxics":[]}

@@ -1,0 +1,6 @@
+No local JAR or system-scoped dependencies are used.
+The representative XML-resource slice has no runtime dependencies.
+JUnit Jupiter is test-scoped and resolved from Maven Central using the pinned Spring Boot BOM.
+JUnit Jupiter and JUnit Platform: Eclipse Public License 2.0 (https://junit.org/junit5/docs/5.12.2/api/overview-summary.html).
+OpenTest4J 1.3.0 and API Guardian 1.1.2: Apache License 2.0; coordinates and checksums are in the dependency reports.
+Source repository for these test JARs: https://repo.maven.apache.org/maven2/.

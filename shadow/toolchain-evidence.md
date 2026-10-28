@@ -47,10 +47,20 @@ The harness replay is:
 shadow/harness/run.sh /tmp/cosbench-scheme3-02-clean
 ```
 
-The pre-review replay `/tmp/cosbench-scheme3-02-pre-review-20261028` passed one Maven test, the packaged runtime Java 21/class-major-65 probe, all eight mapping resources, duplicate-class inspection, real MinIO put/get/delete, and observable HTTP interruption for each Toxiproxy fault. The clean-checkout verification is recorded after the implementation commit.
+The pre-review replay `/tmp/cosbench-scheme3-02-pre-review-20261028` passed one Maven test, the packaged runtime Java 21/class-major-65 probe, all eight mapping resources, duplicate-class inspection, real MinIO put/get/delete, and observable HTTP interruption for each Toxiproxy fault.
 
 The Enforcer negative checks rejected JDK 8 and Maven 3.9.9 (`/tmp/cosbench-scheme3-02-java-policy.log`) and a Java 21 build with `-Dmaven.compiler.release=17` (`/tmp/cosbench-scheme3-02-release-policy.log`).
 
 Earlier end-to-end evidence in `/tmp/cosbench-scheme3-02-run-20261028-0528` had one passing test, eight packaged XML resources, no duplicate classes, and successful PUT/GET/DELETE using the 31-byte payload `cosbench scheme3 minio smoke v1` with no newline; upload and download SHA-256 were both `5821e4ae4827e2a59ee2c7355cc72afe63e83e70cd5b0afb8b7aefc4fec00f9e`. The MinIO and Toxiproxy health checks passed. Its cleanup report was `run_status=0`, `cleanup_status=0`, with no project containers, networks, or volumes remaining.
 
 The early MinIO smoke permission failure in `/tmp/cosbench-scheme3-02-run-20261028-0525` reported `run_status=1`, `cleanup_status=0` and no remaining project resources. An interactive Ctrl-C during the custom command in `/tmp/cosbench-scheme3-02-interrupt-20261028` also removed the running one-off Maven container, MinIO, Toxiproxy, their network/volume, and temporary credentials; logs remain in that directory. Existing host containers and volumes were preserved in all cases.
+
+## Final clean-checkout verification
+
+The final executable revision is `9f4ec4ac366fb0e468fc8557040260892449cb6f`, verified from an otherwise clean detached worktree in `/tmp/cosbench-scheme3-02-clean-checkout-20261028`. It used an empty tmpfs Maven repository and reports in `/tmp/cosbench-scheme3-02-final-clean2-20261028`. The complete shadow suite passed: four main classes and one test compiled with release 21; one JUnit test passed; packaged Java 21 execution confirmed class major 65 and all eight resources; the dependency tree had no runtime dependencies or duplicate classes; MinIO put/get/delete and all three observable HTTP fault cases passed. The copied JAR is 8,078 bytes and its SHA-256 is `8cb799ae381bdf6d15b9a40732f8ad358970549ba038d45f1e96502c6cbba7c2`.
+
+Disconnect produced curl error 56 (connection reset); response loss produced 52 (empty reply); timeout produced 28 after approximately one second. Raw API replies and HTTP errors are retained under the reports' `toxiproxy/` directory. The fault suite targets the temporary MinIO health endpoint; the later HTTP ticket owns authenticated application-write and idempotency semantics.
+
+Success cleanup reported `run_status=0 / cleanup_status=0` and no remaining Compose or certificate containers, networks, or volumes. The standalone keytool containers are named and labelled for cleanup even when interruption occurs during certificate setup. A direct `TERM` sent to the runner PID during an active long custom test returned `143`, promptly removed all run resources, and reported cleanup `0` in `/tmp/cosbench-scheme3-02-direct-term-20261028`.
+
+[Versioned report copies](evidence/2026-10-28/README.md) retain the build/resource/dependency/license/checksum/runtime/MinIO/fault/policy/cleanup evidence; the JAR remains in the complete replay output. [Both review axes](review.md) pass after the signal-handling and fault-diagnostic fixes. Original legacy XML resources retain their pre-existing CRLF and whitespace byte-for-byte. Whitespace validation excludes copied XML and raw report output; newly authored files pass the check.

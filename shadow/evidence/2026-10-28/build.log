@@ -1,0 +1,73 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24270 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] cosbench-scheme3-shadow                                            [pom]
+[INFO] COSBench Config Shadow                                             [jar]
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-scheme3-shadow >----------
+[INFO] Building cosbench-scheme3-shadow 0.1.0-SNAPSHOT                    [1/2]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-scheme3-shadow ---
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-scheme3-shadow ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-config-shadow >----------
+[INFO] Building COSBench Config Shadow 0.1.0-SNAPSHOT                     [2/2]
+[INFO]   from cosbench-config/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-config-shadow ---
+[INFO] Deleting /workspace/shadow/cosbench-config/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-config-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-config-shadow ---
+[INFO] Copying 8 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-config-shadow ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 4 source files with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-config-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-config/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-config-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-config-shadow ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.intel.cosbench.config.castor.CastorMappingsPackagingTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.073 s -- in com.intel.cosbench.config.castor.CastorMappingsPackagingTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-config-shadow ---
+[INFO] Building jar: /workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for cosbench-scheme3-shadow 0.1.0-SNAPSHOT:
+[INFO] 
+[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  1.381 s]
+[INFO] COSBench Config Shadow ............................. SUCCESS [  7.077 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  11.912 s
+[INFO] Finished at: 2026-10-28T05:50:42Z
+[INFO] ------------------------------------------------------------------------

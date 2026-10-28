@@ -1,0 +1,37 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24270 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] cosbench-scheme3-shadow                                            [pom]
+[INFO] COSBench Config Shadow                                             [jar]
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-scheme3-shadow >----------
+[INFO] Building cosbench-scheme3-shadow 0.1.0-SNAPSHOT                    [1/2]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-scheme3-shadow ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for cosbench-scheme3-shadow 0.1.0-SNAPSHOT:
+[INFO] 
+[INFO] COSBench Config Shadow ............................. SKIPPED
+[ERROR] cosbench-scheme3-shadow ............................ FAILURE [  1.611 s]
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.101 s
+[INFO] Finished at: 2026-10-28T05:43:51Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-enforcer-plugin:3.6.3:enforce (enforce-java-21-toolchain) on project cosbench-scheme3-shadow: 
+[ERROR] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty failed with message:
+[ERROR] Every shadow module must use maven.compiler.release=21.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

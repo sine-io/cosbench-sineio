@@ -1,0 +1,8 @@
+com/intel/cosbench/config/castor/auth-mapping.xml
+com/intel/cosbench/config/castor/mission-mapping.xml
+com/intel/cosbench/config/castor/operation-mapping.xml
+com/intel/cosbench/config/castor/stage-mapping.xml
+com/intel/cosbench/config/castor/storage-mapping.xml
+com/intel/cosbench/config/castor/work-mapping.xml
+com/intel/cosbench/config/castor/workflow-mapping.xml
+com/intel/cosbench/config/castor/workload-mapping.xml
