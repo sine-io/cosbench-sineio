@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.Test;
@@ -31,11 +32,11 @@ class IdempotencyStoreTest {
                 }
                 return new IdempotentResult(200, "accepted", "same");
             }));
+            assertThat(started.await(2, TimeUnit.SECONDS)).isTrue();
             var second = executor.submit(() -> store.execute(key, "same", () -> {
                 executions.incrementAndGet();
                 return new IdempotentResult(200, "wrong", "same");
             }));
-            started.await();
             release.countDown();
             assertThat(first.get().body()).isEqualTo("accepted");
             assertThat(second.get().body()).isEqualTo("accepted");

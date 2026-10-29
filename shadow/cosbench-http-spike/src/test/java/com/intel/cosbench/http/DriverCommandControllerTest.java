@@ -103,6 +103,33 @@ class DriverCommandControllerTest {
     }
 
     @Test
+    void sameKeyOnDifferentCommandsUsesSeparateIdentityScopes() {
+        AtomicInteger executions = new AtomicInteger();
+        DriverCommandController.DriverCommandPort port = new DriverCommandController.DriverCommandPort() {
+            @Override public DriverCommandResult submit(byte[] body) {
+                executions.incrementAndGet();
+                return ok();
+            }
+            @Override public DriverCommandResult ping(byte[] body) { return ok(); }
+            @Override public DriverCommandResult login(byte[] body) { return ok(); }
+            @Override public DriverCommandResult launch(byte[] body) { return ok(); }
+            @Override public DriverCommandResult query(byte[] body) { return ok(); }
+            @Override public DriverCommandResult close(byte[] body) {
+                executions.incrementAndGet();
+                return ok();
+            }
+            @Override public DriverCommandResult abort(byte[] body) { return ok(); }
+            @Override public DriverCommandResult trigger(byte[] body) { return ok(); }
+        };
+        DriverCommandController controller = controller(port);
+        Map<String, String> headers = identity();
+
+        assertThat(controller.submit(headers, "mission".getBytes()).getStatusCode().value()).isEqualTo(200);
+        assertThat(controller.close(headers, "mission".getBytes()).getStatusCode().value()).isEqualTo(200);
+        assertThat(executions).hasValue(2);
+    }
+
+    @Test
     void staleDriverInstanceCannotReplayAnAmbiguousWrite() {
         AtomicInteger executions = new AtomicInteger();
         DriverCommandController firstProcess = controller(port(executions, 200, "accepted"));

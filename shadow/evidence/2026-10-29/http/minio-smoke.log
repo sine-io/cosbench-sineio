@@ -1,14 +1,14 @@
- Container cosbench-scheme3-02-1793258545-1059590-minio-smoke-run-3c5912353e36 Creating
- Container cosbench-scheme3-02-1793258545-1059590-minio-smoke-run-3c5912353e36 Created
+ Container cosbench-scheme3-02-1793260416-1116183-minio-smoke-run-5f86b1c2b38f Creating
+ Container cosbench-scheme3-02-1793260416-1116183-minio-smoke-run-5f86b1c2b38f Created
 Added `local` successfully.
 The cluster is ready
 Bucket created successfully `local/cosbench-smoke`.
-`/tmp/tmp.lclHMRRA62/payload.txt` -> `local/cosbench-smoke/payload.txt`
-Total: 31 B, Transferred: 31 B, Speed: 3.63 KiB/s
-`local/cosbench-smoke/payload.txt` -> `/tmp/tmp.lclHMRRA62/download.txt`
-Total: 31 B, Transferred: 31 B, Speed: 3.88 KiB/s
-5821e4ae4827e2a59ee2c7355cc72afe63e83e70cd5b0afb8b7aefc4fec00f9e  /tmp/tmp.lclHMRRA62/payload.txt
-5821e4ae4827e2a59ee2c7355cc72afe63e83e70cd5b0afb8b7aefc4fec00f9e  /tmp/tmp.lclHMRRA62/download.txt
+`/tmp/tmp.8HDBHvhx4v/payload.txt` -> `local/cosbench-smoke/payload.txt`
+Total: 31 B, Transferred: 31 B, Speed: 3.36 KiB/s
+`local/cosbench-smoke/payload.txt` -> `/tmp/tmp.8HDBHvhx4v/download.txt`
+Total: 31 B, Transferred: 31 B, Speed: 4.25 KiB/s
+5821e4ae4827e2a59ee2c7355cc72afe63e83e70cd5b0afb8b7aefc4fec00f9e  /tmp/tmp.8HDBHvhx4v/payload.txt
+5821e4ae4827e2a59ee2c7355cc72afe63e83e70cd5b0afb8b7aefc4fec00f9e  /tmp/tmp.8HDBHvhx4v/download.txt
 Removed `local/cosbench-smoke/payload.txt`.
 minio_endpoint=http://minio:9000
 bucket=cosbench-smoke

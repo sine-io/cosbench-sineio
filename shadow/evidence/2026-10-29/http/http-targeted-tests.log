@@ -106,6 +106,8 @@
 [INFO] Compiling 15 source files with javac [debug release 21] to target/test-classes
 [INFO] /workspace/dev/cosbench-mock/src/com/intel/cosbench/api/mock/MockUtils.java: /workspace/shadow/cosbench-http-spike/../../dev/cosbench-mock/src/com/intel/cosbench/api/mock/MockUtils.java uses or overrides a deprecated API.
 [INFO] /workspace/dev/cosbench-mock/src/com/intel/cosbench/api/mock/MockUtils.java: Recompile with -Xlint:deprecation for details.
+[INFO] /workspace/shadow/cosbench-http-spike/src/test/java/com/intel/cosbench/http/AuthenticatedDriverClientTest.java: /workspace/shadow/cosbench-http-spike/src/test/java/com/intel/cosbench/http/AuthenticatedDriverClientTest.java uses unchecked or unsafe operations.
+[INFO] /workspace/shadow/cosbench-http-spike/src/test/java/com/intel/cosbench/http/AuthenticatedDriverClientTest.java: Recompile with -Xlint:unchecked for details.
 [INFO]
 [INFO] --- surefire:3.6.1:test (default-test) @ cosbench-http-spike ---
 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
@@ -114,11 +116,11 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.intel.cosbench.http.IdempotencyStoreTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.154 s -- in com.intel.cosbench.http.IdempotencyStoreTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.189 s -- in com.intel.cosbench.http.IdempotencyStoreTest
 [INFO] Running com.intel.cosbench.http.DriverCommandControllerTest
-[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.158 s -- in com.intel.cosbench.http.DriverCommandControllerTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.158 s -- in com.intel.cosbench.http.DriverCommandControllerTest
 [INFO] Running com.intel.cosbench.http.RequestFingerprintTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s -- in com.intel.cosbench.http.RequestFingerprintTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.033 s -- in com.intel.cosbench.http.RequestFingerprintTest
 [INFO] Running com.intel.cosbench.http.real.RealDriverHttpContractTest
 
   .   ____          _            __ _ _
@@ -130,37 +132,38 @@
 
  :: Spring Boot ::               (v3.5.16)
 
-2026-10-29T07:25:16.840Z  INFO 108 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : Starting RealDriverHttpContractTest using Java 21.0.12.1 with PID 108 (started by root in /workspace/shadow/cosbench-http-spike)
-2026-10-29T07:25:16.848Z  INFO 108 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : No active profile set, falling back to 1 default profile: "default"
-2026-10-29T07:25:17.959Z  INFO 108 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
-2026-10-29T07:25:17.974Z  INFO 108 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-10-29T07:25:17.975Z  INFO 108 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
-2026-10-29T07:25:18.025Z  INFO 108 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2026-10-29T07:25:18.028Z  INFO 108 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1145 ms
-2026-10-29T07:25:18.155Z  INFO 108 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/auth-mapping.xml
-2026-10-29T07:25:18.158Z  INFO 108 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/storage-mapping.xml
-2026-10-29T07:25:18.159Z  INFO 108 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/operation-mapping.xml
-2026-10-29T07:25:18.160Z  INFO 108 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/mission-mapping.xml
-2026-10-29T07:25:18.161Z  INFO 108 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/work-mapping.xml
-2026-10-29T07:25:18.161Z  INFO 108 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/stage-mapping.xml
-2026-10-29T07:25:18.161Z  INFO 108 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/workflow-mapping.xml
-2026-10-29T07:25:18.162Z  INFO 108 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/workload-mapping.xml
+2026-10-29T07:56:30.870Z  INFO 109 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : Starting RealDriverHttpContractTest using Java 21.0.12.1 with PID 109 (started by root in /workspace/shadow/cosbench-http-spike)
+2026-10-29T07:56:30.872Z  INFO 109 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : No active profile set, falling back to 1 default profile: "default"
+2026-10-29T07:56:32.221Z  INFO 109 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (https)
+2026-10-29T07:56:32.246Z  INFO 109 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-29T07:56:32.247Z  INFO 109 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-10-29T07:56:32.312Z  INFO 109 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-29T07:56:32.314Z  INFO 109 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1419 ms
+2026-10-29T07:56:32.431Z  INFO 109 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-10-29T07:56:32.437Z  INFO 109 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-10-29T07:56:32.437Z  INFO 109 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-10-29T07:56:32.440Z  INFO 109 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-10-29T07:56:32.440Z  INFO 109 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/work-mapping.xml
+2026-10-29T07:56:32.441Z  INFO 109 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-10-29T07:56:32.441Z  INFO 109 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-10-29T07:56:32.441Z  INFO 109 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-http-spike/target/classes/com/intel/cosbench/config/castor/workload-mapping.xml
 Can't Find VERSION
 Can't Find BUILD.no
-2026-10-29T07:25:18.995Z  INFO 108 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 46715 (http) with context path '/'
-2026-10-29T07:25:19.009Z  INFO 108 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : Started RealDriverHttpContractTest in 2.586 seconds (process running for 3.964)
+2026-10-29T07:56:33.326Z  INFO 109 --- [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-0.0.0.0-auto-1], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [Set directly - location unknown] using alias [tomcat] with trust store [null]
+2026-10-29T07:56:33.339Z  INFO 109 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 44879 (https) with context path '/'
+2026-10-29T07:56:33.351Z  INFO 109 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : Started RealDriverHttpContractTest in 2.851 seconds (process running for 4.322)
 Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 WARNING: A Java agent has been loaded dynamically (/tmp/maven-repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
 WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
 WARNING: Dynamic loading of agents will be disallowed by default in a future release
-OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-2026-10-29T07:25:19.805Z  INFO 108 --- [0-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-10-29T07:25:19.808Z  INFO 108 --- [0-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-10-29T07:25:19.809Z  INFO 108 --- [0-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.017 s -- in com.intel.cosbench.http.real.RealDriverHttpContractTest
+2026-10-29T07:56:34.376Z  INFO 109 --- [0-auto-1-exec-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-29T07:56:34.379Z  INFO 109 --- [0-auto-1-exec-5] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-29T07:56:34.380Z  INFO 109 --- [0-auto-1-exec-5] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.761 s -- in com.intel.cosbench.http.real.RealDriverHttpContractTest
 [INFO] Running com.intel.cosbench.http.DriverHttpContractTest
-2026-10-29T07:25:21.096Z  INFO 108 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.intel.cosbench.http.DriverHttpContractTest$Config for test class com.intel.cosbench.http.DriverHttpContractTest
+2026-10-29T07:56:35.991Z  INFO 109 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.intel.cosbench.http.DriverHttpContractTest$Config for test class com.intel.cosbench.http.DriverHttpContractTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -171,36 +174,36 @@ OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader clas
 
  :: Spring Boot ::               (v3.5.16)
 
-2026-10-29T07:25:21.135Z  INFO 108 --- [           main] c.i.c.http.DriverHttpContractTest        : Starting DriverHttpContractTest using Java 21.0.12.1 with PID 108 (started by root in /workspace/shadow/cosbench-http-spike)
-2026-10-29T07:25:21.136Z  INFO 108 --- [           main] c.i.c.http.DriverHttpContractTest        : No active profile set, falling back to 1 default profile: "default"
-2026-10-29T07:25:21.452Z  INFO 108 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
-2026-10-29T07:25:21.455Z  INFO 108 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-10-29T07:25:21.456Z  INFO 108 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
-2026-10-29T07:25:21.482Z  INFO 108 --- [           main] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
-2026-10-29T07:25:21.482Z  INFO 108 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 344 ms
-2026-10-29T07:25:21.627Z  INFO 108 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 46501 (http) with context path '/'
-2026-10-29T07:25:21.632Z  INFO 108 --- [           main] c.i.c.http.DriverHttpContractTest        : Started DriverHttpContractTest in 0.531 seconds (process running for 6.587)
-2026-10-29T07:25:21.670Z  INFO 108 --- [o-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-10-29T07:25:21.671Z  INFO 108 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-10-29T07:25:21.674Z  INFO 108 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.678 s -- in com.intel.cosbench.http.DriverHttpContractTest
+2026-10-29T07:56:36.043Z  INFO 109 --- [           main] c.i.c.http.DriverHttpContractTest        : Starting DriverHttpContractTest using Java 21.0.12.1 with PID 109 (started by root in /workspace/shadow/cosbench-http-spike)
+2026-10-29T07:56:36.044Z  INFO 109 --- [           main] c.i.c.http.DriverHttpContractTest        : No active profile set, falling back to 1 default profile: "default"
+2026-10-29T07:56:36.277Z  INFO 109 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-10-29T07:56:36.279Z  INFO 109 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-29T07:56:36.280Z  INFO 109 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-10-29T07:56:36.302Z  INFO 109 --- [           main] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2026-10-29T07:56:36.302Z  INFO 109 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 255 ms
+2026-10-29T07:56:36.488Z  INFO 109 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 40881 (http) with context path '/'
+2026-10-29T07:56:36.494Z  INFO 109 --- [           main] c.i.c.http.DriverHttpContractTest        : Started DriverHttpContractTest in 0.492 seconds (process running for 7.465)
+2026-10-29T07:56:36.505Z  INFO 109 --- [o-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-29T07:56:36.505Z  INFO 109 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-29T07:56:36.506Z  INFO 109 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.578 s -- in com.intel.cosbench.http.DriverHttpContractTest
 [INFO] Running com.intel.cosbench.http.AuthenticatedDriverClientTest
-[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.337 s -- in com.intel.cosbench.http.AuthenticatedDriverClientTest
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.581 s -- in com.intel.cosbench.http.AuthenticatedDriverClientTest
 [INFO]
 [INFO] Results:
 [INFO]
-[INFO] Tests run: 29, Failures: 0, Errors: 0, Skipped: 0
+[INFO] Tests run: 32, Failures: 0, Errors: 0, Skipped: 0
 [INFO]
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Summary for cosbench-scheme3-shadow 0.1.0-SNAPSHOT:
 [INFO]
-[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  1.064 s]
-[INFO] COSBench Config Shadow ............................. SUCCESS [  2.897 s]
-[INFO] COSBench Provider SPI Coexistence Spike ............ SUCCESS [  2.107 s]
-[INFO] COSBench authenticated Driver HTTP spike ........... SUCCESS [ 14.542 s]
+[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  0.988 s]
+[INFO] COSBench Config Shadow ............................. SUCCESS [  3.081 s]
+[INFO] COSBench Provider SPI Coexistence Spike ............ SUCCESS [  2.064 s]
+[INFO] COSBench authenticated Driver HTTP spike ........... SUCCESS [ 16.700 s]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  23.893 s
-[INFO] Finished at: 2026-10-29T07:25:23Z
+[INFO] Total time:  25.698 s
+[INFO] Finished at: 2026-10-29T07:56:39Z
 [INFO] ------------------------------------------------------------------------

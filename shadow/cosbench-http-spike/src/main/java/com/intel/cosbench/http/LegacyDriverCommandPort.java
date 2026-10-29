@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.function.Function;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -78,27 +79,35 @@ public final class LegacyDriverCommandPort implements DriverCommandController.Dr
         if (info == null) {
             return new DriverCommandResult(404, "{\"code\":404,\"succ\":false,\"error\":\"mission not found\"}");
         }
-        switch (command) {
-            case "login" -> driver.login(id);
-            case "launch" -> driver.launch(id);
-            case "close" -> driver.close(id);
-            case "abort" -> driver.abort(id);
-            case "query" -> { }
+        return switch (command) {
+            case "login" -> {
+                driver.login(id);
+                yield missionResponse(id, ignored -> new com.intel.cosbench.protocol.LoginResponse());
+            }
+            case "launch" -> {
+                driver.launch(id);
+                yield missionResponse(id, LegacyDriverCommandPort::launchResponse);
+            }
+            case "close" -> {
+                driver.close(id);
+                yield missionResponse(id, LegacyDriverCommandPort::closeResponse);
+            }
+            case "abort" -> {
+                driver.abort(id);
+                yield missionResponse(id, LegacyDriverCommandPort::abortResponse);
+            }
+            case "query" -> missionResponse(id, LegacyDriverCommandPort::queryResponse);
             default -> throw new IllegalArgumentException("unsupported Driver command: " + command);
-        }
+        };
+    }
+
+    private DriverCommandResult missionResponse(String id, Function<MissionInfo, Object> responseFactory) {
         MissionInfo current = driver.getMissionInfo(id);
         if (current == null) {
             return new DriverCommandResult(404,
                     "{\"code\":404,\"succ\":false,\"error\":\"mission not found\"}");
         }
-        return json(switch (command) {
-            case "login" -> new com.intel.cosbench.protocol.LoginResponse();
-            case "launch" -> launchResponse(current);
-            case "close" -> closeResponse(current);
-            case "abort" -> abortResponse(current);
-            case "query" -> queryResponse(current);
-            default -> throw new IllegalArgumentException("unsupported Driver command: " + command);
-        });
+        return json(responseFactory.apply(current));
     }
 
     private static LaunchResponse launchResponse(MissionInfo info) {

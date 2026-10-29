@@ -6,6 +6,11 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpHeaders;
+import java.net.http.HttpTimeoutException;
 import java.nio.file.Path;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
@@ -161,6 +166,46 @@ class AuthenticatedDriverClientTest {
                     .isInstanceOf(DriverCommandException.class)
                     .extracting(error -> ((DriverCommandException) error).status()).isEqualTo(501);
             assertThat(calls).hasValue(1);
+        } finally {
+            client.close();
+        }
+    }
+
+    @Test
+    void commandDeadlineBoundsAllRetryAttempts() throws Exception {
+        HttpClient transport = retryThenTimeoutTransport();
+        HttpClientSettings settings = new HttpClientSettings(2, 2, Duration.ofSeconds(5),
+                Duration.ofSeconds(1), Duration.ofSeconds(2), Duration.ofMillis(400),
+                Duration.ofSeconds(2), 4, Duration.ZERO, java.util.Set.of(503));
+        AuthenticatedDriverClient client = new AuthenticatedDriverClient(
+                URI.create("http://127.0.0.1:1/driver"), "token", settings, null, transport);
+
+        try {
+            assertThatThrownBy(() -> client.query(new byte[0]))
+                    .isInstanceOf(DriverTransportException.class)
+                    .hasMessageContaining("command deadline expired");
+            assertThat(transportRequests(transport)).isEqualTo(2);
+        } finally {
+            client.close();
+        }
+    }
+
+    @Test
+    void workloadDeadlineBoundsAllRetryAttempts() throws Exception {
+        HttpClient transport = retryThenTimeoutTransport();
+        HttpClientSettings settings = new HttpClientSettings(2, 2, Duration.ofSeconds(5),
+                Duration.ofSeconds(1), Duration.ofSeconds(2), Duration.ofSeconds(2),
+                Duration.ofSeconds(5), 4, Duration.ZERO, java.util.Set.of(503));
+        AuthenticatedDriverClient client = new AuthenticatedDriverClient(
+                URI.create("http://127.0.0.1:1/driver"), "token", settings, null, transport);
+
+        try {
+            long workloadDeadline = System.nanoTime() + Duration.ofMillis(400).toNanos();
+            assertThatThrownBy(() -> client.executeWorkloadCommand(
+                    "query", new byte[0], false, workloadDeadline))
+                    .isInstanceOf(DriverTransportException.class)
+                    .hasMessageContaining("command deadline expired");
+            assertThat(transportRequests(transport)).isEqualTo(2);
         } finally {
             client.close();
         }
@@ -344,6 +389,30 @@ class AuthenticatedDriverClientTest {
     private AuthenticatedDriverClient client(int attempts) {
         URI base = URI.create("http://127.0.0.1:" + server.getAddress().getPort() + "/driver");
         return new AuthenticatedDriverClient(base, "token", settings(attempts));
+    }
+
+    private static HttpClient retryThenTimeoutTransport() throws Exception {
+        HttpClient transport = org.mockito.Mockito.mock(HttpClient.class);
+        HttpResponse<String> response = org.mockito.Mockito.mock(HttpResponse.class);
+        org.mockito.Mockito.when(response.statusCode()).thenReturn(503);
+        org.mockito.Mockito.when(response.body()).thenReturn("busy");
+        org.mockito.Mockito.when(response.headers()).thenReturn(HttpHeaders.of(Map.of(), (name, value) -> true));
+        org.mockito.Mockito.doAnswer(invocation -> {
+            HttpRequest request = invocation.getArgument(0);
+            Duration timeout = request.timeout().orElseThrow();
+            if (timeout.compareTo(Duration.ofMillis(250)) <= 0) {
+                TimeUnit.NANOSECONDS.sleep(timeout.toNanos());
+                throw new HttpTimeoutException("simulated request timeout");
+            }
+            TimeUnit.MILLISECONDS.sleep(250);
+            return response;
+        }).when(transport).send(org.mockito.ArgumentMatchers.any(HttpRequest.class),
+                org.mockito.ArgumentMatchers.any(HttpResponse.BodyHandler.class));
+        return transport;
+    }
+
+    private static int transportRequests(HttpClient transport) {
+        return org.mockito.Mockito.mockingDetails(transport).getInvocations().size();
     }
 
     private static HttpClientSettings settings(int attempts) {

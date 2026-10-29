@@ -1,5 +1,5 @@
- Container cosbench-scheme3-02-1793258545-1059590-maven-run-60d4446e28fc Creating
- Container cosbench-scheme3-02-1793258545-1059590-maven-run-60d4446e28fc Created
+ Container cosbench-scheme3-02-1793260416-1116183-maven-run-918dafe9258c Creating
+ Container cosbench-scheme3-02-1793260416-1116183-maven-run-918dafe9258c Created
 [INFO] Scanning for projects...
 [INFO] Loaded 24282 auto-discovered prefixes for remote repository central (prefixes-central.txt)
 [INFO]
@@ -7,8 +7,8 @@
 [INFO] Building COSBench authenticated Driver HTTP spike 0.1.0-SNAPSHOT
 [INFO]   from pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
-[WARNING] The POM for com.intel.cosbench.shadow:cosbench-provider-spike:jar:0.1.0-SNAPSHOT is missing, no dependency information available
 [WARNING] The POM for com.intel.cosbench.shadow:cosbench-config-shadow:jar:0.1.0-SNAPSHOT is missing, no dependency information available
+[WARNING] The POM for com.intel.cosbench.shadow:cosbench-provider-spike:jar:0.1.0-SNAPSHOT is missing, no dependency information available
 [INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
 [INFO]
 [INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-http-spike ---
@@ -16,6 +16,6 @@
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  4.869 s
-[INFO] Finished at: 2026-10-29T07:25:30Z
+[INFO] Total time:  4.712 s
+[INFO] Finished at: 2026-10-29T07:56:46Z
 [INFO] ------------------------------------------------------------------------

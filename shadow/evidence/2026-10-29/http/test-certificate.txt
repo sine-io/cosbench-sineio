@@ -1,10 +1,10 @@
 Owner: CN=cosbench-scheme3-test, OU=Tests, O=COSBench
 Issuer: CN=cosbench-scheme3-test, OU=Tests, O=COSBench
-Serial number: d6d236711f02bd9
-Valid from: Thu Oct 29 07:22:26 UTC 2026 until: Fri Oct 29 07:22:26 UTC 2027
+Serial number: 5224d647aca6f224
+Valid from: Thu Oct 29 07:53:37 UTC 2026 until: Fri Oct 29 07:53:37 UTC 2027
 Certificate fingerprints:
-	 SHA1: E9:34:34:B0:74:0F:DB:28:C8:AD:87:5D:1E:98:A5:CC:0C:EA:F3:D7
-	 SHA256: CF:0A:35:87:55:FE:91:C0:E9:85:87:D4:03:7F:40:B0:3F:E3:A3:CA:BF:78:61:26:CA:7C:96:7B:CA:56:D3:A6
+	 SHA1: 41:4F:F9:E8:BC:55:1C:76:D8:58:A9:42:C8:D9:78:50:C4:CF:54:BB
+	 SHA256: 9C:2A:F5:52:C6:5B:58:A5:D7:E5:1E:22:42:0C:E4:67:65:35:C8:E1:05:9B:FF:80:D9:9D:20:A5:6A:61:E9:B3
 Signature algorithm name: SHA384withRSA
 Subject Public Key Algorithm: 2048-bit RSA key
 Version: 3
@@ -17,13 +17,14 @@ SubjectAlternativeName [
   DNSName: minio
   DNSName: driver
   DNSName: controller
+  DNSName: toxiproxy
   IPAddress: 127.0.0.1
 ]
 
 #2: ObjectId: 2.5.29.14 Criticality=false
 SubjectKeyIdentifier [
 KeyIdentifier [
-0000: C8 CB EA E5 E5 92 C4 EA   29 4B E6 3B 54 41 FC 5B  ........)K.;TA.[
-0010: 23 49 0B 88                                        #I..
+0000: A3 B7 D6 B0 0E 7E 8C 3F   5A 64 15 7D 26 A6 F4 C7  .......?Zd..&...
+0010: D7 B7 62 BD                                        ..b.
 ]
 ]

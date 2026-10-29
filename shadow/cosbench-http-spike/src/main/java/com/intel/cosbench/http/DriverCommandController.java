@@ -45,16 +45,10 @@ public final class DriverCommandController {
         return new DriverCommandController(new ServiceAuth(config.auth().token().value()), driver, idempotency);
     }
 
-    @PostMapping(value = "/ping.command", consumes = MediaType.TEXT_PLAIN_VALUE,
+    @PostMapping(value = "/ping.command", consumes = { MediaType.TEXT_PLAIN_VALUE,
+            MediaType.APPLICATION_OCTET_STREAM_VALUE },
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> ping(@RequestHeader Map<String, String> headers,
-            @RequestBody(required = false) byte[] body) {
-        return command("ping", headers, body, false, () -> driver.ping(bodyOrEmpty(body)));
-    }
-
-    @PostMapping(value = "/ping.command", consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> pingBinary(@RequestHeader Map<String, String> headers,
             @RequestBody(required = false) byte[] body) {
         return command("ping", headers, body, false, () -> driver.ping(bodyOrEmpty(body)));
     }

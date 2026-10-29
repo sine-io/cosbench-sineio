@@ -38,6 +38,8 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
@@ -56,12 +58,20 @@ class RealDriverHttpContractTest {
     @Autowired
     private DriverService driver;
 
+    @DynamicPropertySource
+    static void driverTlsProperties(DynamicPropertyRegistry properties) {
+        properties.add("server.ssl.enabled", () -> true);
+        properties.add("server.ssl.key-store", () -> requiredEnv("COSBENCH_HTTP_TEST_KEYSTORE_FILE"));
+        properties.add("server.ssl.key-store-type", () -> "PKCS12");
+        properties.add("server.ssl.key-store-password", RealDriverHttpContractTest::testKeyStorePassword);
+    }
+
     @Test
     void realMockDriverSubmitAndQueryAreAuthenticatedAndIdempotent() throws Exception {
-        HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(3)).build();
+        HttpClient client = tlsHttpClient();
         byte[] workload = Files.readAllBytes(Path.of(
                 "/workspace/.scratch/scheme3-migration/baseline/fixtures/mock-noop-mission.xml"));
-        URI submitUri = URI.create("http://127.0.0.1:" + port + "/i/submit.command");
+        URI submitUri = URI.create("https://127.0.0.1:" + port + "/i/submit.command");
         HttpResponse<String> unauthenticated = send(client, submitUri, workload, null);
         assertThat(unauthenticated.statusCode()).isEqualTo(401);
 
@@ -126,8 +136,8 @@ class RealDriverHttpContractTest {
                     Duration.ofSeconds(3), Duration.ofSeconds(5), Duration.ofSeconds(5),
                     Duration.ofSeconds(30), 2, Duration.ofMillis(500), Set.of(502, 503, 504));
             try (AuthenticatedDriverClient client = new AuthenticatedDriverClient(
-                    URI.create("http://toxiproxy:18666"),
-                    "real-driver-service-token", settings)) {
+                    URI.create("https://toxiproxy:18666"),
+                    "real-driver-service-token", settings, testTrustContext())) {
                 assertThat(client.ping("instance-discovery".getBytes(java.nio.charset.StandardCharsets.UTF_8))
                         .status()).isEqualTo(200);
                 toxiproxy(http, admin, "POST", "/proxies/" + proxyName + "/toxics",
@@ -175,12 +185,12 @@ class RealDriverHttpContractTest {
         assertThat(response.statusCode()).isBetween(200, 299);
     }
 
-    private AuthenticatedDriverClient driverClient() {
+    private AuthenticatedDriverClient driverClient() throws Exception {
         HttpClientSettings settings = new HttpClientSettings(4, 2, Duration.ofSeconds(20),
                 Duration.ofSeconds(3), Duration.ofSeconds(5), Duration.ofSeconds(5),
                 Duration.ofSeconds(30), 2, Duration.ofMillis(5), Set.of(502, 503, 504));
-        return new AuthenticatedDriverClient(URI.create("http://127.0.0.1:" + port),
-                "real-driver-service-token", settings);
+        return new AuthenticatedDriverClient(URI.create("https://127.0.0.1:" + port),
+                "real-driver-service-token", settings, testTrustContext());
     }
 
     private static HttpResponse<String> send(HttpClient client, URI uri, byte[] body, String key) throws Exception {
@@ -193,6 +203,39 @@ class RealDriverHttpContractTest {
                     .header(DriverCommandController.IDEMPOTENCY_KEY_HEADER, key);
         }
         return client.send(request.build(), HttpResponse.BodyHandlers.ofString());
+    }
+
+    private static HttpClient tlsHttpClient() throws Exception {
+        return HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(3))
+                .sslContext(testTrustContext()).build();
+    }
+
+    private static javax.net.ssl.SSLContext testTrustContext() throws Exception {
+        Path trustStore = Path.of(requiredEnv("COSBENCH_HTTP_TEST_TRUSTSTORE_FILE"));
+        char[] password = Files.readString(Path.of(
+                requiredEnv("COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE"))).trim().toCharArray();
+        try {
+            return com.intel.cosbench.http.HttpTlsContext.create(null, trustStore, password);
+        } finally {
+            java.util.Arrays.fill(password, '\0');
+        }
+    }
+
+    private static String testKeyStorePassword() {
+        try {
+            return Files.readString(Path.of(
+                    requiredEnv("COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE"))).trim();
+        } catch (Exception failure) {
+            throw new IllegalStateException("cannot read test keystore password", failure);
+        }
+    }
+
+    private static String requiredEnv(String name) {
+        String value = System.getenv(name);
+        if (value == null || value.isBlank()) {
+            throw new IllegalStateException(name + " must be supplied by the Docker harness");
+        }
+        return value;
     }
 
     @TestConfiguration(proxyBeanMethods = false)

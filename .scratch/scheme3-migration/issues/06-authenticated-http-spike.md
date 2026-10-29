@@ -19,4 +19,4 @@
 - [x] 页面 Session 与服务凭据分离，真实 Mock mission 经服务认证 login/launch/close 并在无页面 cookie 的后续 query 中仍可查询。MVP 使用无自然过期的长生命周期 Token，通过 secret/config rotation 轮换；压测期间不刷新或过期。
 - [x] 提交可重放 HTTP 约定、认证/身份/conflict fixture、幂等容量取舍、依赖树及 Java 21 Docker 报告；最终报告在 `shadow/evidence/2026-10-29/http/`。
 
-**Implementation note:** 真实 HTTP 验收使用 `LegacyDriverCommandPort` 适配 `COSBDriverService`，并由 Mock auth/storage 执行 mission 生命周期。Toxiproxy 截断真实 submit 响应后，`AuthenticatedDriverClient` 用相同 key/body 重试并重放单次 mission。Driver 返回进程实例 ID；客户端对每个写请求带上已确认的实例 ID，进程重启后的旧实例重试返回 409 并报告结果未知，不会在新进程重复执行。幂等结果仍只保存在 Driver 进程内存，不承诺跨重启恢复原响应。MVP Token 无自然过期，通过配置 secret 轮换。测试证据位于 `shadow/evidence/2026-10-29/http/`。
+**Implementation note:** 真实 HTTPS 验收使用 `LegacyDriverCommandPort` 适配 `COSBDriverService`，并由 Mock auth/storage 执行 mission 生命周期。Toxiproxy 截断真实 submit TLS 响应后，`AuthenticatedDriverClient` 用相同 key/body 重试并重放单次 mission。Driver 返回进程实例 ID；客户端对每个写请求带上已确认的实例 ID，进程重启后的旧实例重试返回 409 并报告结果未知，不会在新进程重复执行。命令和 workload timeout 共用绝对截止时间，所有重试与退避都受该截止时间限制。幂等结果仍只保存在 Driver 进程内存，不承诺跨重启恢复原响应。MVP Token 无自然过期，通过配置 secret 轮换。测试证据位于 `shadow/evidence/2026-10-29/http/`。

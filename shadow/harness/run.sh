@@ -155,7 +155,7 @@ run_docker run --rm --name "${certificate_containers[0]}" --label "cosbench.sche
     -v "$secret_dir:/tmp/secrets" --entrypoint /opt/java/openjdk/bin/keytool "$MAVEN_IMAGE" \
     -genkeypair -alias cosbench-test -keyalg RSA -keysize 2048 -validity 365 \
     -dname 'CN=cosbench-scheme3-test,OU=Tests,O=COSBench' \
-    -ext 'SAN=dns:localhost,dns:minio,dns:driver,dns:controller,ip:127.0.0.1' \
+    -ext 'SAN=dns:localhost,dns:minio,dns:driver,dns:controller,dns:toxiproxy,ip:127.0.0.1' \
     -storetype PKCS12 -keystore /tmp/secrets/http-test.p12 \
     -storepass cosbench-test-keystore-password -keypass cosbench-test-keystore-password \
     > "$report_dir/certificate-generation.log" 2>&1

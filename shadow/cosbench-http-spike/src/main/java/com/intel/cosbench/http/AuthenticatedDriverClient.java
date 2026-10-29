@@ -1,7 +1,6 @@
 package com.intel.cosbench.http;
 
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -71,6 +70,11 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
 
     public DriverCommandResult execute(String command, byte[] payload, boolean write,
             Duration commandTimeout) {
+        return execute(command, payload, write, commandTimeout, Long.MAX_VALUE);
+    }
+
+    private DriverCommandResult execute(String command, byte[] payload, boolean write,
+            Duration commandTimeout, long externalDeadlineNanos) {
         beginCall();
         if (command == null || !command.matches("[a-z]+") || payload == null || commandTimeout == null
                 || commandTimeout.isNegative() || commandTimeout.isZero() || commandTimeout.compareTo(config.workloadTimeout()) > 0) {
@@ -81,16 +85,25 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
             String requestId = UUID.randomUUID().toString();
             String idempotencyKey = write ? requestId : null;
             Duration effectiveTimeout = min(commandTimeout, config.commandTimeout());
-            String expectedInstance = write ? currentDriverInstance(command, effectiveTimeout) : null;
+            long commandDeadlineNanos = earlierDeadline(deadlineAfter(effectiveTimeout), externalDeadlineNanos);
+            String expectedInstance = write ? currentDriverInstance(command, commandDeadlineNanos) : null;
             int attempts = 0;
             while (true) {
+                Duration remainingTimeout = remaining(commandDeadlineNanos);
+                if (remainingTimeout.isZero()) {
+                    throw deadlineExceeded(command, write, requestId);
+                }
                 attempts++;
                 boolean slotsAcquired = false;
                 try {
-                    acquireSlots(effectiveTimeout);
+                    acquireSlots(remainingTimeout);
                     slotsAcquired = true;
+                    remainingTimeout = remaining(commandDeadlineNanos);
+                    if (remainingTimeout.isZero()) {
+                        throw deadlineExceeded(command, write, requestId);
+                    }
                     HttpRequest request = request(command, payload, write, requestId, idempotencyKey,
-                            effectiveTimeout, expectedInstance);
+                            remainingTimeout, expectedInstance);
                     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                     lastUsedNanos.set(System.nanoTime());
                     response.headers().firstValue(DriverCommandController.DRIVER_INSTANCE_HEADER)
@@ -98,7 +111,7 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
                     DriverCommandResult result = new DriverCommandResult(response.statusCode(), response.body());
                     if (retryPolicy.retryStatus(response.statusCode()) && attempts < retryPolicy.maxAttempts()) {
                         lastUsedNanos.set(System.nanoTime());
-                        backoff(attempts);
+                        backoff(attempts, commandDeadlineNanos, command, write, requestId);
                         continue;
                     }
                     if (response.statusCode() >= 400) {
@@ -115,7 +128,7 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
                         throw new DriverTransportException("Driver " + command + " failed after " + attempts
                                 + " attempt(s); requestId=" + requestId + "; result may be unknown", failure);
                     }
-                    backoff(attempts);
+                    backoff(attempts, commandDeadlineNanos, command, write, requestId);
                 } catch (InterruptedException interrupted) {
                     Thread.currentThread().interrupt();
                     throw new DriverTransportException("Driver " + command + " was interrupted; requestId="
@@ -170,7 +183,7 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
             throw new DriverTransportException("workload deadline expired before Driver " + command, null);
         }
         return execute(command, payload, write,
-                min(config.commandTimeout(), Duration.ofNanos(remainingNanos)));
+                min(config.commandTimeout(), Duration.ofNanos(remainingNanos)), workloadDeadlineNanos);
     }
 
     public synchronized boolean idleExpired() {
@@ -216,19 +229,35 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
         return builder.build();
     }
 
-    private String currentDriverInstance(String command, Duration timeout) {
+    private String currentDriverInstance(String command, long deadlineNanos) {
         String current = driverInstanceId;
         if (current != null) {
             return current;
         }
-        HttpRequest ping = request("ping", "instance-discovery".getBytes(java.nio.charset.StandardCharsets.UTF_8),
-                false, UUID.randomUUID().toString(), null, timeout, null);
+        Duration timeout = remaining(deadlineNanos);
+        if (timeout.isZero()) {
+            throw new DriverTransportException("command deadline expired before Driver " + command
+                    + "; write was not sent", null);
+        }
         for (int attempt = 1; ; attempt++) {
+            Duration remainingTimeout = remaining(deadlineNanos);
+            if (remainingTimeout.isZero()) {
+                throw new DriverTransportException("command deadline expired identifying Driver instance before "
+                        + command + "; write was not sent", null);
+            }
             boolean slotsAcquired = false;
             try {
-                acquireSlots(timeout);
+                acquireSlots(remainingTimeout);
                 slotsAcquired = true;
-                HttpResponse<String> response = client.send(ping, HttpResponse.BodyHandlers.ofString());
+                remainingTimeout = remaining(deadlineNanos);
+                if (remainingTimeout.isZero()) {
+                    throw new DriverTransportException("command deadline expired identifying Driver instance before "
+                            + command + "; write was not sent", null);
+                }
+                HttpRequest boundedPing = request("ping",
+                        "instance-discovery".getBytes(java.nio.charset.StandardCharsets.UTF_8), false,
+                        UUID.randomUUID().toString(), null, remainingTimeout, null);
+                HttpResponse<String> response = client.send(boundedPing, HttpResponse.BodyHandlers.ofString());
                 lastUsedNanos.set(System.nanoTime());
                 if (response.statusCode() >= 200 && response.statusCode() < 300) {
                     String discovered = response.headers()
@@ -242,13 +271,13 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
                 if (attempt >= retryPolicy.maxAttempts() || !retryPolicy.retryStatus(response.statusCode())) {
                     throw new DriverCommandException(response.statusCode(), response.body());
                 }
-                backoff(attempt);
+                backoff(attempt, deadlineNanos, command, false, "");
             } catch (IOException failure) {
                 if (attempt >= retryPolicy.maxAttempts() || !retryableTransport(failure)) {
                     throw new DriverTransportException("could not identify Driver instance before " + command
                             + "; write was not sent", failure);
                 }
-                backoff(attempt);
+                backoff(attempt, deadlineNanos, command, false, "");
             } catch (InterruptedException interrupted) {
                 Thread.currentThread().interrupt();
                 throw new DriverTransportException("interrupted identifying Driver instance before " + command
@@ -297,30 +326,58 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
         globalPoolSlots.release();
     }
 
-    private void backoff(int attempt) {
+    private void backoff(int attempt, long deadlineNanos, String command, boolean write, String requestId) {
         Duration delay = config.retryBackoff().multipliedBy(attempt);
-        if (delay.isZero()) {
-            return;
+        long remainingNanos = deadlineNanos - System.nanoTime();
+        if (remainingNanos <= 0) {
+            throw deadlineExceeded(command, write, requestId);
         }
-        try {
-            Thread.sleep(delay.toMillis());
-        } catch (InterruptedException interrupted) {
-            Thread.currentThread().interrupt();
-            throw new DriverTransportException("Driver retry backoff was interrupted", interrupted);
+        if (!delay.isZero()) {
+            long sleepNanos = Math.min(delay.toNanos(), remainingNanos);
+            try {
+                TimeUnit.NANOSECONDS.sleep(sleepNanos);
+            } catch (InterruptedException interrupted) {
+                Thread.currentThread().interrupt();
+                throw new DriverTransportException("Driver retry backoff was interrupted", interrupted);
+            }
         }
+        if (deadlineNanos - System.nanoTime() <= 0) {
+            throw deadlineExceeded(command, write, requestId);
+        }
+    }
+
+    private static long deadlineAfter(Duration timeout) {
+        return System.nanoTime() + timeout.toNanos();
+    }
+
+    private static long earlierDeadline(long left, long right) {
+        if (right == Long.MAX_VALUE) {
+            return left;
+        }
+        long now = System.nanoTime();
+        return left - now <= right - now ? left : right;
+    }
+
+    private static Duration remaining(long deadlineNanos) {
+        long remainingNanos = deadlineNanos - System.nanoTime();
+        return remainingNanos <= 0 ? Duration.ZERO : Duration.ofNanos(remainingNanos);
+    }
+
+    private static DriverTransportException deadlineExceeded(String command, boolean write, String requestId) {
+        String outcome = write ? "; result may be unknown; requestId=" + requestId : "";
+        return new DriverTransportException("Driver " + command + " command deadline expired" + outcome, null);
     }
 
     private static boolean retryableTransport(IOException failure) {
         Throwable current = failure;
         while (current != null) {
-            if (current instanceof ConnectException || current instanceof java.net.SocketException
-                    || current instanceof java.net.http.HttpTimeoutException
-                    || current instanceof java.io.EOFException) {
-                return true;
+            if (current instanceof javax.net.ssl.SSLHandshakeException
+                    || current instanceof javax.net.ssl.SSLPeerUnverifiedException) {
+                return false;
             }
             current = current.getCause();
         }
-        return false;
+        return true;
     }
 
     private static Duration min(Duration left, Duration right) {

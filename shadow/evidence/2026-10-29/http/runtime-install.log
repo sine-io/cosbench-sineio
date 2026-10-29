@@ -87,12 +87,12 @@
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Summary for cosbench-scheme3-shadow 0.1.0-SNAPSHOT:
 [INFO]
-[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  1.112 s]
-[INFO] COSBench Config Shadow ............................. SUCCESS [  1.900 s]
-[INFO] COSBench Runtime Lifecycle Shadow .................. SUCCESS [  0.739 s]
+[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  1.171 s]
+[INFO] COSBench Config Shadow ............................. SUCCESS [  1.905 s]
+[INFO] COSBench Runtime Lifecycle Shadow .................. SUCCESS [  0.768 s]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  4.449 s
-[INFO] Finished at: 2026-10-29T07:23:55Z
+[INFO] Total time:  4.466 s
+[INFO] Finished at: 2026-10-29T07:55:10Z
 [INFO] ------------------------------------------------------------------------

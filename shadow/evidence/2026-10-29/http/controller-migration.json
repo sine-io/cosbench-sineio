@@ -1,6 +1,6 @@
 {
-  "source": "/tmp/cosbench-config-lifecycle.cwMSoG/controller/legacy-controller.conf",
-  "destination": "/tmp/cosbench-config-lifecycle.cwMSoG/controller/conf/controller.yml",
+  "source": "/tmp/cosbench-config-lifecycle.MA4eHt/controller/legacy-controller.conf",
+  "destination": "/tmp/cosbench-config-lifecycle.MA4eHt/controller/conf/controller.yml",
   "role": "controller",
   "source_sha256": "0bbb2d229bd848b7408b9ba5f718f421b6aa1a7dff8cd6764bdca2cb3258a62d",
   "destination_sha256": "1efffd5690b4324241382641c88f35c00449edc6644a389976925b723bc3b33e",
