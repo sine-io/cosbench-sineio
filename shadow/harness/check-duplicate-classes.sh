@@ -8,6 +8,7 @@ work_dir=$(mktemp -d)
 entries="$work_dir/entries"
 duplicates="$work_dir/duplicates"
 trap 'find "$work_dir" -mindepth 1 -delete; rmdir "$work_dir"' EXIT
+: > "$entries"
 
 shopt -s nullglob
 for jar in "$artifact" "$dependency_dir"/*.jar; do

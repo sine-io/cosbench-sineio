@@ -35,6 +35,7 @@ import org.junit.jupiter.api.Test;
 
 import com.intel.cosbench.api.auth.AuthAPI;
 import com.intel.cosbench.api.auth.AuthAPIFactory;
+import com.intel.cosbench.api.provider.StaticProviderRegistry;
 import com.intel.cosbench.api.context.AuthContext;
 import com.intel.cosbench.api.storage.StorageAPI;
 import com.intel.cosbench.api.storage.StorageAPIFactory;

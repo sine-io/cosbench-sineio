@@ -14,13 +14,47 @@
   <dependencies>
     <dependency>
       <groupId>com.intel.cosbench.shadow</groupId>
-      <artifactId>cosbench-provider-spike</artifactId>
+      <artifactId>cosbench-api-shadow</artifactId>
       <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.intel.cosbench.shadow</groupId>
+      <artifactId>cosbench-core-shadow</artifactId>
+      <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.intel.cosbench.shadow</groupId>
+      <artifactId>cosbench-http-shadow</artifactId>
+      <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.intel.cosbench.shadow</groupId>
       <artifactId>cosbench-config-shadow</artifactId>
       <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -46,19 +80,15 @@
       <version>2.6</version>
     </dependency>
     <dependency>
-      <groupId>commons-configuration</groupId>
-      <artifactId>commons-configuration</artifactId>
-      <version>1.10</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.castor</groupId>
-      <artifactId>castor-xml</artifactId>
-      <version>1.3.3</version>
-    </dependency>
-    <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
       <version>1.9.4</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -66,27 +96,9 @@
       <version>4.0.1</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.6</version>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
-    </dependency>
   </dependencies>
 
   <build>
-    <resources>
-      <resource>
-        <directory>${project.basedir}/../../dev/cosbench-config/src</directory>
-        <includes>
-          <include>com/intel/cosbench/config/castor/*.xml</include>
-        </includes>
-      </resource>
-    </resources>
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -99,8 +111,6 @@
             <goals><goal>add-source</goal></goals>
             <configuration>
               <sources>
-                <source>${project.basedir}/../../dev/cosbench-config/src</source>
-                <source>${project.basedir}/../../dev/cosbench-core/src</source>
                 <source>${project.basedir}/../../dev/cosbench-driver/src</source>
               </sources>
             </configuration>
@@ -135,36 +145,11 @@
             <include>com/intel/cosbench/driver/service/COSBStorageAPIService.java</include>
             <include>com/intel/cosbench/driver/service/MissionHandler.java</include>
             <include>com/intel/cosbench/driver/util/**/*.java</include>
-            <include>com/intel/cosbench/api/auth/**/*.java</include>
-            <include>com/intel/cosbench/api/context/**/*.java</include>
-            <include>com/intel/cosbench/api/storage/**/*.java</include>
-            <include>com/intel/cosbench/config/XmlConfig.java</include>
-            <include>com/intel/cosbench/core/**/*.java</include>
-            <include>com/intel/cosbench/bench/**/*.java</include>
-            <include>com/intel/cosbench/model/**/*.java</include>
-            <include>com/intel/cosbench/protocol/**/*.java</include>
-            <include>com/intel/cosbench/service/DriverService.java</include>
-            <include>com/intel/cosbench/service/AbortedException.java</include>
-            <include>com/intel/cosbench/service/IllegalStateException.java</include>
-            <include>com/intel/cosbench/service/TimeoutException.java</include>
-            <include>com/intel/cosbench/service/UnexpectedException.java</include>
-            <include>com/intel/cosbench/service/AbstractServiceFactory.java</include>
-            <include>com/intel/cosbench/service/DriverServiceFactory.java</include>
-            <include>com/intel/cosbench/utils/**/*.java</include>
-            <include>com/intel/cosbench/log/Logger.java</include>
-            <include>com/intel/cosbench/log/LogFactory.java</include>
-            <include>com/intel/cosbench/log/LogManager.java</include>
-            <include>com/intel/cosbench/log/LogLevel.java</include>
           </includes>
           <testIncludes>
             <testInclude>com/intel/cosbench/http/**/*.java</testInclude>
             <testInclude>com/intel/cosbench/api/mock/**/*.java</testInclude>
           </testIncludes>
-          <excludes>
-            <exclude>**/log4j/**</exclude>
-            <exclude>**/osgi/**</exclude>
-            <exclude>**/config/common/**</exclude>
-          </excludes>
         </configuration>
       </plugin>
       <plugin>
@@ -173,6 +158,7 @@
         <configuration>
           <failIfNoTests>false</failIfNoTests>
           <failIfNoSpecifiedTests>false</failIfNoSpecifiedTests>
+          <workingDirectory>${project.build.directory}</workingDirectory>
         </configuration>
       </plugin>
     </plugins>

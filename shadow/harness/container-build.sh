@@ -5,6 +5,7 @@ maven_repo=/tmp/maven-repository
 audit_jars=/tmp/audit-jars
 runtime_audit_jars=/tmp/runtime-audit-jars
 provider_audit_jars=/tmp/provider-audit-jars
+shared_module_audit_root=/tmp/shared-module-audits
 module_jar=/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar
 runtime_jar=/workspace/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar
 runtime_thin_jar=/workspace/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar.original
@@ -19,6 +20,11 @@ mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml clean 
     }
 cat /reports/build.log
 mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
+    -DskipTests install > /reports/shared-module-install.log 2>&1 || {
+        cat /reports/shared-module-install.log
+        exit 1
+    }
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
     -pl cosbench-provider-spike -Dtest=ProviderMinioSmokeTest test \
     > /reports/provider-minio-test.log 2>&1 || {
         cat /reports/provider-minio-test.log
@@ -27,6 +33,34 @@ mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
 cat /reports/provider-minio-test.log
 java --class-path "$module_jar" /workspace/shadow/harness/PackagingProbe.java \
     > /reports/packaged-runtime.txt
+
+while IFS=: read -r module artifact; do
+    module_jar_path="/workspace/shadow/$module/target/$artifact-0.1.0-SNAPSHOT.jar"
+    dependency_dir="$shared_module_audit_root/$module"
+    mkdir -p "$dependency_dir"
+    test -s "$module_jar_path"
+    mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
+        -pl "$module" -Dscope=test -DoutputFile="/reports/$module-dependency-tree.txt" \
+        org.apache.maven.plugins:maven-dependency-plugin:3.11.0:tree
+    mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
+        -pl "$module" -DincludeScope=test -DoutputDirectory="$dependency_dir" \
+        org.apache.maven.plugins:maven-dependency-plugin:3.11.0:copy-dependencies
+    jar tf "$module_jar_path" > "/reports/$module-jar-contents.txt"
+    sha256sum "$module_jar_path" > "/reports/$module-artifact.sha256"
+    /workspace/shadow/harness/check-duplicate-classes.sh "$module_jar_path" "$dependency_dir" \
+        > "/reports/$module-duplicate-class-audit.txt"
+    printf '%s:%s:%s\n' "$module" "$artifact" "$(cut -d ' ' -f 1 "/reports/$module-artifact.sha256")" \
+        >> /reports/shared-module-artifacts.txt
+done <<'MODULES'
+cosbench-log4j:cosbench-log4j-shadow
+cosbench-castor:cosbench-castor-shadow
+cosbench-log:cosbench-log-shadow
+cosbench-config:cosbench-config-shadow
+cosbench-api:cosbench-api-shadow
+cosbench-core:cosbench-core-shadow
+cosbench-http:cosbench-http-shadow
+MODULES
+
 test -s "$runtime_jar"
 test -s "$runtime_thin_jar"
 jar tf "$runtime_jar" > /reports/runtime-jar-contents.txt
@@ -93,7 +127,7 @@ sha256sum "$audit_jars"/*.jar "$runtime_audit_jars"/*.jar > /reports/test-depend
 find "$maven_repo" -name '*.jar' -exec sha256sum '{}' + | sort > /reports/resolved-jar-checksums.txt
 printf '%s\n' \
     'No local JAR or system-scoped dependencies are used.' \
-    'The representative XML-resource slice has no runtime dependencies.' \
+    'Shared module dependency trees, JAR listings, SHA-256 checksums, and duplicate-class audits are recorded per artifact.' \
     'The runtime dependency tree and duplicate-class audit cover the executable Spring Boot shadow module.' \
     'JUnit Jupiter is test-scoped and resolved from Maven Central using the pinned Spring Boot BOM.' \
     'JUnit Jupiter and JUnit Platform: Eclipse Public License 2.0 (https://junit.org/junit5/docs/5.12.2/api/overview-summary.html).' \

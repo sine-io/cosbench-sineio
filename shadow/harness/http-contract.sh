@@ -14,7 +14,7 @@ keytool -list -keystore "$COSBENCH_HTTP_TEST_KEYSTORE_FILE" -storepass \
     "$(cat "$COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE")" > "$report/http-keystore.txt"
 
 mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/shadow/pom.xml" \
-    -pl cosbench-http-spike -am -Dtest=IdempotencyStoreTest,RequestFingerprintTest,DriverCommandControllerTest,DriverHttpContractTest,RealDriverHttpContractTest,AuthenticatedDriverClientTest -DfailIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false test \
+    -pl cosbench-http-spike -am -Dtest=IdempotencyStoreTest,RequestFingerprintTest,DriverCommandControllerTest,DriverHttpContractTest,RealDriverHttpContractTest,AuthenticatedDriverClientTest -DfailIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false install \
     > "$report/http-targeted-tests.log" 2>&1 || {
         cat "$report/http-targeted-tests.log"
         exit 1

@@ -2,6 +2,7 @@
 set -Eeuo pipefail
 
 report_dir=/reports
+maven_repo=/tmp/maven-repository
 http_dir=$report_dir/web-http
 fixture_dir=$report_dir/web-fixtures
 artifact=/workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar
@@ -9,7 +10,13 @@ controller_fixture=/workspace/shadow/cosbench-web-spike/src/test/resources/web-s
 workload_fixture=/workspace/.scratch/scheme3-migration/baseline/fixtures/mock-noop.xml
 mkdir -p "$http_dir" "$fixture_dir"
 
-mvn -B -ntp -f /workspace/shadow/pom.xml -pl cosbench-web-spike -am \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
+    -pl cosbench-web-spike -am -DskipTests install \
+    > "$report_dir/web-install.log" 2>&1 || {
+        cat "$report_dir/web-install.log"
+        exit 1
+    }
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml -pl cosbench-web-spike \
     -Dscope=test -DoutputFile=$report_dir/web-dependency-tree.txt \
     org.apache.maven.plugins:maven-dependency-plugin:3.11.0:tree \
     > $report_dir/web-dependency-tree-command.log 2>&1 || {

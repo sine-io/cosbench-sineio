@@ -18,6 +18,12 @@
       <groupId>com.intel.cosbench.shadow</groupId>
       <artifactId>cosbench-config-shadow</artifactId>
       <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>

@@ -27,6 +27,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.intel.cosbench.shadow</groupId>
+      <artifactId>cosbench-api-shadow</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk-s3</artifactId>
       <version>1.12.767</version>
@@ -42,12 +47,6 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.6</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -67,9 +66,6 @@
             </goals>
             <configuration>
               <sources>
-                <source>${project.basedir}/../../dev/cosbench-api/src</source>
-                <source>${project.basedir}/../../dev/cosbench-config/src</source>
-                <source>${project.basedir}/../../dev/cosbench-log/src</source>
                 <source>${project.basedir}/../../dev/cosbench-sineio/src</source>
                 <source>${project.basedir}/../../dev/cosbench-s3/src</source>
               </sources>
@@ -94,18 +90,12 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <includes>
-            <include>com/intel/cosbench/api/auth/**/*.java</include>
-            <include>com/intel/cosbench/api/context/**/*.java</include>
-            <include>com/intel/cosbench/api/storage/**/*.java</include>
             <include>com/intel/cosbench/api/sio/**/*.java</include>
             <include>com/intel/cosbench/api/gdas/**/*.java</include>
             <include>com/intel/cosbench/api/S3Stor/**/*.java</include>
-            <include>com/intel/cosbench/config/Config.java</include>
-            <include>com/intel/cosbench/log/Logger.java</include>
             <include>com/intel/cosbench/client/sio/SIOConstants.java</include>
             <include>com/intel/cosbench/client/gdas/GdasConstants.java</include>
             <include>com/intel/cosbench/client/S3Stor/S3Constants.java</include>
-            <include>com/intel/cosbench/shadow/provider/**/*.java</include>
           </includes>
           <testIncludes>
             <testInclude>com/intel/cosbench/api/mock/**/*.java</testInclude>

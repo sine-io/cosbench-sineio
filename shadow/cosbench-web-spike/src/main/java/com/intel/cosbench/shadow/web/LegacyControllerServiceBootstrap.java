@@ -19,13 +19,15 @@ import com.intel.cosbench.controller.model.DriverRegistry;
 import com.intel.cosbench.controller.service.COSBControllerService;
 import com.intel.cosbench.log.LogFactory;
 import com.intel.cosbench.log.LogLevel;
+import com.intel.cosbench.log.LogManager;
 import com.intel.cosbench.service.ControllerService;
 
 @Configuration
 public class LegacyControllerServiceBootstrap {
 
     @Bean(destroyMethod = "close")
-    ControllerService controllerService(ServiceConfig config, @Value("${cosbench.config}") String configPath)
+    ControllerService controllerService(ServiceConfig config, LogManager systemLogManager,
+            @Value("${cosbench.config}") String configPath)
             throws IOException {
         if (config.role() != ServiceRole.CONTROLLER) {
             throw new IllegalArgumentException("cosbench.config must have role: controller");
@@ -33,7 +35,6 @@ public class LegacyControllerServiceBootstrap {
         CastorConfigTools.getWorkloadResolver();
 
         Path baseDirectory = baseDirectory(Path.of(configPath));
-        configureLegacyLogging(config, baseDirectory);
         DriverRegistry drivers = new DriverRegistry();
         for (DriverEndpoint endpoint : config.drivers()) {
             DriverContext driver = new DriverContext();
@@ -57,7 +58,10 @@ public class LegacyControllerServiceBootstrap {
         return service;
     }
 
-    private static void configureLegacyLogging(ServiceConfig config, Path baseDirectory) throws IOException {
+    @Bean(destroyMethod = "dispose")
+    LogManager systemLogManager(ServiceConfig config, @Value("${cosbench.config}") String configPath)
+            throws IOException {
+        Path baseDirectory = baseDirectory(Path.of(configPath));
         var logManager = LogFactory.getSystemLogManager();
         Path logFile = config.paths().resolve(baseDirectory, config.logging().file());
         Files.createDirectories(logFile.getParent());
@@ -66,6 +70,7 @@ public class LegacyControllerServiceBootstrap {
             logManager.setLogLevel(LogLevel.parseLevel(config.logging().level()));
         }
         logManager.enableConsole();
+        return logManager;
     }
 
     private static String controllerUrl(ServiceConfig config) {
