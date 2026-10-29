@@ -1,0 +1,16 @@
+ Container cosbench-scheme3-02-1793244130-639272-minio-smoke-run-84f2351793e8 Creating 
+ Container cosbench-scheme3-02-1793244130-639272-minio-smoke-run-84f2351793e8 Created 
+Added `local` successfully.
+The cluster is ready
+Bucket created successfully `local/cosbench-smoke`.
+`/tmp/tmp.FZajIab2Wx/payload.txt` -> `local/cosbench-smoke/payload.txt`
+Total: 31 B, Transferred: 31 B, Speed: 3.33 KiB/s
+`local/cosbench-smoke/payload.txt` -> `/tmp/tmp.FZajIab2Wx/download.txt`
+Total: 31 B, Transferred: 31 B, Speed: 5.88 KiB/s
+5821e4ae4827e2a59ee2c7355cc72afe63e83e70cd5b0afb8b7aefc4fec00f9e  /tmp/tmp.FZajIab2Wx/payload.txt
+5821e4ae4827e2a59ee2c7355cc72afe63e83e70cd5b0afb8b7aefc4fec00f9e  /tmp/tmp.FZajIab2Wx/download.txt
+Removed `local/cosbench-smoke/payload.txt`.
+minio_endpoint=http://minio:9000
+bucket=cosbench-smoke
+put=get=delete=passed
+toxiproxy_admin=available

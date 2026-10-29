@@ -1,0 +1,3 @@
+Generating 2,048 bit RSA key pair and self-signed certificate (SHA384withRSA) with a validity of 365 days
+	for: CN=cosbench-scheme3-test, OU=Tests, O=COSBench
+Certificate stored in file </tmp/secrets/http-test.crt>

@@ -42,7 +42,7 @@ import com.intel.cosbench.service.WorkloadLoader;
  * @author ywang19, qzheng7
  *
  */
-class COSBControllerService implements ControllerService, WorkloadListener {
+public class COSBControllerService implements ControllerService, WorkloadListener, AutoCloseable {
 
     private static final Logger LOGGER = LogFactory.getSystemLogger();
 
@@ -53,6 +53,8 @@ class COSBControllerService implements ControllerService, WorkloadListener {
     private ControllerContext context;
     private Map<String, WorkloadProcessor> processors;
     private OrderThreadPoolExecutor executor;
+    private PingDriverRunner pingDriverRunner;
+    private Thread pingDriverThread;
     private WorkloadArchiver archiver = new SimpleWorkloadArchiver();
     private WorkloadLoader loader = new SimpleWorkloadLoader();
     private WorkloadRepository memRepo = new RAMWorkloadRepository(); // in-memory repository to store all workloads information.
@@ -67,8 +69,8 @@ class COSBControllerService implements ControllerService, WorkloadListener {
         this.context = context;
 
         // ping drivers and set alive state
-        Thread pingDriverThread = new Thread(
-                new PingDriverRunner(context.getDriverInfos()));
+        pingDriverRunner = new PingDriverRunner(context.getDriverInfos());
+        pingDriverThread = new Thread(pingDriverRunner, "cosbench-controller-driver-pinger");
         pingDriverThread.start();
     }
 
@@ -388,6 +390,32 @@ class COSBControllerService implements ControllerService, WorkloadListener {
     @Override
     public File getWorkloadConfig(WorkloadInfo info) {
         return archiver.getWorkloadConfig(info);
+    }
+
+    @Override
+    public void close() {
+        if (pingDriverRunner != null) {
+            pingDriverRunner.requestStop();
+        }
+        if (pingDriverThread != null) {
+            pingDriverThread.interrupt();
+            try {
+                pingDriverThread.join(3000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        if (executor != null) {
+            executor.shutdown();
+            try {
+                if (!executor.awaitTermination(15, TimeUnit.SECONDS)) {
+                    executor.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                executor.shutdownNow();
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
 }

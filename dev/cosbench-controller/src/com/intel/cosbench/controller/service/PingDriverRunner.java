@@ -37,6 +37,7 @@ public class PingDriverRunner implements Runnable{
     private int driver_count = 0;
     private int[] failures;
     private boolean[] all_alive;
+    private volatile boolean running = true;
 
     PingDriverRunner(DriverInfo[] driverInfos){
         this.driverInfos = driverInfos;
@@ -62,9 +63,13 @@ public class PingDriverRunner implements Runnable{
         }
     }
 
+    void requestStop() {
+        running = false;
+    }
+
     @Override
     public void run() {
-        while (true) {
+        while (running) {
             pingDrivers(driverInfos);
             int interval = base_interval;
             if(!isAlive()) {
@@ -78,7 +83,8 @@ public class PingDriverRunner implements Runnable{
                 Thread.sleep(interval*1000);
                 LOGGER.info("wake up from sleep.");
             } catch (InterruptedException ie) {
-                LOGGER.warn("thread sleep is interrupted.");
+                running = false;
+                Thread.currentThread().interrupt();
             }
         }
     }

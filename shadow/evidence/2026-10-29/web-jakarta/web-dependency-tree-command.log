@@ -1,0 +1,45 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24281 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] cosbench-scheme3-shadow                                            [pom]
+[INFO] COSBench Config Shadow                                             [jar]
+[INFO] COSBench Controller Web Jakarta Spike                              [jar]
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-scheme3-shadow >----------
+[INFO] Building cosbench-scheme3-shadow 0.1.0-SNAPSHOT                    [1/3]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-scheme3-shadow ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Wrote dependency tree to: /reports/web-dependency-tree.txt
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-config-shadow >----------
+[INFO] Building COSBench Config Shadow 0.1.0-SNAPSHOT                     [2/3]
+[INFO]   from cosbench-config/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-config-shadow ---
+[INFO] Wrote dependency tree to: /reports/web-dependency-tree.txt
+[INFO] 
+[INFO] ------------< com.intel.cosbench.shadow:cosbench-web-spike >------------
+[INFO] Building COSBench Controller Web Jakarta Spike 0.1.0-SNAPSHOT      [3/3]
+[INFO]   from cosbench-web-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-web-spike ---
+[INFO] Wrote dependency tree to: /reports/web-dependency-tree.txt
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for cosbench-scheme3-shadow 0.1.0-SNAPSHOT:
+[INFO] 
+[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  3.248 s]
+[INFO] COSBench Config Shadow ............................. SUCCESS [  0.105 s]
+[INFO] COSBench Controller Web Jakarta Spike .............. SUCCESS [  1.424 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.844 s
+[INFO] Finished at: 2026-10-29T03:24:41Z
+[INFO] ------------------------------------------------------------------------

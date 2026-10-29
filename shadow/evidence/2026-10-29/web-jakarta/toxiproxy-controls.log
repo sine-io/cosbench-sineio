@@ -1,0 +1,7 @@
+ Container cosbench-scheme3-02-1793244130-639272-maven-run-9a7f6dbfdd2e Creating 
+ Container cosbench-scheme3-02-1793244130-639272-maven-run-9a7f6dbfdd2e Created 
+proxy_create=passed
+disconnect_reset_peer=passed
+response_loss_limit_data=passed
+timeout=passed
+proxy_remove=passed

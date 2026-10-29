@@ -13,6 +13,7 @@
     <module>cosbench-config</module>
     <module>cosbench-runtime</module>
     <module>cosbench-provider-spike</module>
+    <module>cosbench-web-spike</module>
   </modules>
 
   <properties>

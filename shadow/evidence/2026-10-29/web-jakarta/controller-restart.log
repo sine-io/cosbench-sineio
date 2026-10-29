@@ -1,0 +1,24 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-29T03:24:29.446Z  INFO 237 --- [           main] c.i.c.runtime.CosbenchRuntimeLauncher    : Starting CosbenchRuntimeLauncher using Java 21.0.12.1 with PID 237 (/workspace/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar started by root in /workspace)
+2026-10-29T03:24:29.453Z  INFO 237 --- [           main] c.i.c.runtime.CosbenchRuntimeLauncher    : No active profile set, falling back to 1 default profile: "default"
+2026-10-29T03:24:30.812Z  INFO 237 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19088 (http)
+2026-10-29T03:24:30.834Z  INFO 237 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-29T03:24:30.834Z  INFO 237 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-10-29T03:24:30.859Z  INFO 237 --- [           main] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring embedded WebApplicationContext
+2026-10-29T03:24:30.859Z  INFO 237 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1325 ms
+2026-10-29T03:24:31.319Z  INFO 237 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 19088 (http) with context path '/controller'
+2026-10-29T03:24:31.335Z  INFO 237 --- [           main] c.i.c.runtime.CosbenchRuntimeLauncher    : Started CosbenchRuntimeLauncher in 2.6 seconds (process running for 3.31)
+2026-10-29T03:24:31.408Z  INFO 237 --- [.1-19088-exec-2] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-29T03:24:31.409Z  INFO 237 --- [.1-19088-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-29T03:24:31.409Z  INFO 237 --- [.1-19088-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2026-10-29T03:24:31.584Z  INFO 237 --- [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-10-29T03:24:31.587Z  INFO 237 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete

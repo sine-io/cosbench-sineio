@@ -1,0 +1,10 @@
+status=passed
+schema=1
+controller_migration=passed
+driver_migration=passed
+archive_read_before_stop=passed
+archive_read_after_restart=passed
+controller_driver_health=passed
+term_port_release=passed
+term_pid_cleanup=passed
+source_and_archive_checksums=unchanged
