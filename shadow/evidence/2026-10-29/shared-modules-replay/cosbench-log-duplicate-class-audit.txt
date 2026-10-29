@@ -1,0 +1,1 @@
+No duplicate classes found across the module JAR and test dependency JARs.

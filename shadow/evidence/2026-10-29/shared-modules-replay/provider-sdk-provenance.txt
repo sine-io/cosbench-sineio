@@ -1,0 +1,4 @@
+AWS SDK for Java v1 resolved to com.amazonaws:aws-java-sdk-s3:1.12.767 from Maven Central; the older S3 bundle contained 1.10.76 while the SineIO bundle contained 1.12.767.
+AWS SDK for Java v2 resolved to software.amazon.awssdk:s3:2.26.8 from Maven Central, matching the SineIO bundle.
+Both SDK major versions match the legacy modules. Maven selected one v1 version on the shared classpath; no child classloader was used.
+AWS SDK and Commons IO test dependencies use Apache License 2.0; exact resolved coordinates and checksums are in provider-dependency-tree.txt and provider-dependency-checksums.txt.

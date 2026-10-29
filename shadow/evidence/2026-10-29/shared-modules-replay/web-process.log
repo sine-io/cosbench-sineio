@@ -1,0 +1,78 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-29T09:06:50.292Z  INFO 199 --- [           main] c.i.c.shadow.web.WebSpikeApplication     : Starting WebSpikeApplication using Java 21.0.12.1 with PID 199 (/workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar started by root in /tmp/cosbench-web-process.4rv6Ay)
+2026-10-29T09:06:50.298Z  INFO 199 --- [           main] c.i.c.shadow.web.WebSpikeApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-10-29T09:06:51.904Z  INFO 199 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19088 (http)
+2026-10-29T09:06:51.920Z  INFO 199 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-29T09:06:51.921Z  INFO 199 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-10-29T09:06:51.951Z  INFO 199 --- [           main] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring embedded WebApplicationContext
+2026-10-29T09:06:51.952Z  INFO 199 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1538 ms
+(Log4jLogManager.java:119)
+2026-10-29 09:06:52,046 [main           ] [INFO ] - will append log to console
+2026-10-29T09:06:52.079Z  INFO 199 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-10-29T09:06:52.079Z  INFO 199 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-10-29T09:06:52.079Z  INFO 199 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-10-29T09:06:52.079Z  INFO 199 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-10-29T09:06:52.079Z  INFO 199 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-10-29T09:06:52.079Z  INFO 199 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-10-29T09:06:52.079Z  INFO 199 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-10-29T09:06:52.079Z  INFO 199 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+(SimpleWorkloadArchiver.java:61)
+2026-10-29 09:06:52,312 [main           ] [INFO ] - using /tmp/cosbench-web-process.4rv6Ay/archive for storing workload archives
+(SimpleWorkloadLoader.java:63)
+2026-10-29 09:06:52,313 [main           ] [INFO ] - loading workload archives from /tmp/cosbench-web-process.4rv6Ay/archive
+(SimpleWorkloadArchiver.java:61)
+2026-10-29 09:06:52,316 [main           ] [INFO ] - using /tmp/cosbench-web-process.4rv6Ay/archive for storing workload archives
+(PingDriverRunner.java:82)
+2026-10-29 09:06:52,316 [r-driver-pinger] [INFO ] - begin to sleep for 20 seconds.
+(SimpleWorkloadLoader.java:63)
+2026-10-29 09:06:52,316 [main           ] [INFO ] - loading workload archives from /tmp/cosbench-web-process.4rv6Ay/archive
+2026-10-29T09:06:52.573Z  INFO 199 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name controllerWebUsers
+2026-10-29T09:06:52.722Z  INFO 199 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-29T09:06:53.166Z  INFO 199 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 19088 (http) with context path '/controller'
+2026-10-29T09:06:53.201Z  INFO 199 --- [           main] c.i.c.shadow.web.WebSpikeApplication     : Started WebSpikeApplication in 3.667 seconds (process running for 4.445)
+2026-10-29T09:06:53.522Z  INFO 199 --- [.1-19088-exec-1] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-29T09:06:53.522Z  INFO 199 --- [.1-19088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-29T09:06:53.523Z  INFO 199 --- [.1-19088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+(WorkloadProcessor.java:128)
+2026-10-29 09:06:54,215 [pool-2-thread-1] [INFO ] - begin to process workload w1
+(WorkloadProcessor.java:195)
+2026-10-29 09:06:54,215 [pool-2-thread-1] [INFO ] - begin to run stage s1-main
+(WorkloadProcessor.java:197)
+2026-10-29 09:06:54,215 [pool-2-thread-1] [INFO ] - ============================================
+(WorkloadProcessor.java:198)
+2026-10-29 09:06:54,216 [pool-2-thread-1] [INFO ] - START WORK: main
+(WorkloadProcessor.java:141)
+2026-10-29 09:06:54,218 [pool-2-thread-1] [ERROR] - unexpected exception
+com.intel.cosbench.controller.schedule.ScheduleException: no free driver available
+	at com.intel.cosbench.controller.schedule.BalancedScheduler.scheduleRestWorks(BalancedScheduler.java:73)
+	at com.intel.cosbench.controller.schedule.BalancedScheduler.schedule(BalancedScheduler.java:48)
+	at com.intel.cosbench.controller.service.StageRunner.scheduleWorks(StageRunner.java:83)
+	at com.intel.cosbench.controller.service.StageRunner.init(StageRunner.java:73)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.createStageRunner(WorkloadProcessor.java:254)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.executeStage(WorkloadProcessor.java:229)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.runStage(WorkloadProcessor.java:206)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.processWorkload(WorkloadProcessor.java:163)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.process(WorkloadProcessor.java:130)
+	at com.intel.cosbench.controller.service.ControllerThread.run(ControllerThread.java:32)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+(WorkloadProcessor.java:266)
+2026-10-29 09:06:54,221 [pool-2-thread-1] [INFO ] - begin to terminate workload w1
+(SimpleWorkloadArchiver.java:79)
+2026-10-29 09:06:54,292 [pool-2-thread-1] [INFO ] - workload w1 has been successfully archived
+(WorkloadProcessor.java:272)
+2026-10-29 09:06:54,292 [pool-2-thread-1] [INFO ] - successfully terminated workload w1
+2026-10-29T09:06:54.469Z  INFO 199 --- [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-10-29T09:06:54.475Z  INFO 199 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete

@@ -1,0 +1,31 @@
+Owner: CN=cosbench-scheme3-test, OU=Tests, O=COSBench
+Issuer: CN=cosbench-scheme3-test, OU=Tests, O=COSBench
+Serial number: 76d92be09f46fb36
+Valid from: Thu Oct 29 09:02:05 UTC 2026 until: Fri Oct 29 09:02:05 UTC 2027
+Certificate fingerprints:
+	 SHA1: 8D:E3:19:24:81:58:4A:8F:B0:B1:8B:A7:60:3E:4A:ED:CF:E6:BA:4A
+	 SHA256: B1:12:21:24:CE:C3:6D:D7:91:0C:E9:12:29:5C:F4:54:42:58:C7:53:DA:C5:0C:42:F1:1D:59:29:B9:B5:AE:00
+Signature algorithm name: SHA384withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 3
+
+Extensions: 
+
+#1: ObjectId: 2.5.29.17 Criticality=false
+SubjectAlternativeName [
+  DNSName: localhost
+  DNSName: minio
+  DNSName: driver
+  DNSName: controller
+  DNSName: toxiproxy
+  IPAddress: 127.0.0.1
+]
+
+#2: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: DF 93 1C 6A 4D 29 72 F1   56 BE 58 92 AD 30 E5 77  ...jM)r.V.X..0.w
+0010: 44 33 CC 85                                        D3..
+]
+]
+

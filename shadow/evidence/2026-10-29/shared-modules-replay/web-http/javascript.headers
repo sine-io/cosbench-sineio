@@ -1,0 +1,16 @@
+HTTP/1.1 200 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Last-Modified: Wed, 28 Oct 2026 00:00:00 GMT
+Accept-Ranges: bytes
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Type: text/javascript
+Content-Length: 344381
+Date: Thu, 29 Oct 2026 09:06:53 GMT
+

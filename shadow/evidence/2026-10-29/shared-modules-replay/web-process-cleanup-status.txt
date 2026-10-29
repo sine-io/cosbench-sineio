@@ -1,0 +1,3 @@
+script_status=0
+process_cleanup_status=0
+temporary_runtime_removed=yes

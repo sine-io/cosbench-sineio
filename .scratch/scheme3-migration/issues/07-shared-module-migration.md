@@ -15,7 +15,7 @@
 - [x] 原 StorageAPI/AuthAPI/factory、model/protocol、workload XML/Castor 语义保持；公共模块只依赖接口，不泄漏具体 SDK 类型。
 - [x] 将最小验证中的配置和公共适配整合为唯一可复用实现，保留可运行验证，消除重复临时实现；记录各 spike 后续仍需整合的内容及首责票。
 - [x] 普通 Spring Bean 可以消费公共模块，日志由应用生命周期管理；验证 init/使用/dispose、错误诊断和资源关闭，移除对 OSGi 服务装配的活跃依赖。
-- [ ] 在 Docker 中对本批次空缓存 clean verify，验证配置转换、协议序列化、资源读取及 public SPI 行为，四项验证仍可重放；每个迁入模块的产物/版本可追踪。
+- [x] 在 Docker 中对本批次空缓存 clean verify，验证配置转换、协议序列化、资源读取及 public SPI 行为，四项验证仍可重放；每个迁入模块的产物/版本可追踪。
 
 ## Comments
 
@@ -23,3 +23,4 @@
 - 2026-10-29: `shadow/` 现在提供 API、config、Castor 资源、core、HTTP、log、Log4j 资源七个普通 Maven JAR。公共源码仅保留原接口与模型，不含具体 SDK 或 OSGi 装配；三个 spike 消费公共 JAR。静态 Provider registry 从 #04 提取到 API 模块；删除 Web 的重复 Log4j 适配和 HTTP 的临时空日志实现。XML mapping 仅来自标准 resources 目录，YAML/INI 转换仍复用 #03 实现。
 - 2026-10-29: 旧 Log4j 接口保留，只适配 SLF4J formatter 的返回类型；Spring 管理 Controller service 与系统日志的关闭顺序。Castor 排除旧 StAX API 与未使用的 Spring 集成，Java 21 提供 StAX；Boot 消费方排除 Commons Logging 旧实现并使用已存在的 Spring JCL。Castor XML 写入仍需 #05 冻结的 Java 21 `--add-exports`，未升级 serializer。
 - 后续责任：#09/#10 整合完整应用装配和日志生命周期；#10 使用公共 registry 整合 Driver factory service；#11/#12 迁入 Provider 源码并扩展专用 operation；#13 迁入 HTTP handler/认证/幂等；#14 将已验证客户端接入 Controller；#15–#17 扩展 Web；#18 扩展配置与运维命令；#08 建立持续依赖/许可证/jdeps 闸门。当前 spike 内的这些专用适配不作为公共模块再次复制。
+- 2026-10-29: 最终 [Docker 重放证据](../../../shadow/evidence/2026-10-29/shared-modules-replay/README.md)通过：空缓存 `clean verify` 57 项测试、独立 HTTP 重放 32 项、打包 Web 的登录/页面/multipart/下载/静态文件/TERM、四个生产 storage 与 Mock auth/storage、配置转换/重启读取/关闭。七模块及 runtime/provider 的依赖树和重复类审计通过，JAR/版本/SHA-256 可追踪。`run_status=0`、`cleanup_status=0`，无剩余容器、网络、卷或证书容器。独立 Web/HTTP 脚本已能自行安装 sibling/parent POM 后重放。

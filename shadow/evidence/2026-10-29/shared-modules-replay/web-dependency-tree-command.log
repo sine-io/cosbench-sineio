@@ -1,0 +1,17 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24285 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] ------------< com.intel.cosbench.shadow:cosbench-web-spike >------------
+[INFO] Building COSBench Controller Web Jakarta Spike 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-web-spike ---
+[INFO] Wrote dependency tree to: /reports/web-dependency-tree.txt
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.909 s
+[INFO] Finished at: 2026-10-29T09:06:48Z
+[INFO] ------------------------------------------------------------------------
