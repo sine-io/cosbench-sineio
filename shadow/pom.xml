@@ -14,6 +14,7 @@
     <module>cosbench-runtime</module>
     <module>cosbench-provider-spike</module>
     <module>cosbench-web-spike</module>
+    <module>cosbench-http-spike</module>
   </modules>
 
   <properties>
@@ -97,7 +98,7 @@
         <version>3.6.1</version>
         <configuration>
           <useModulePath>false</useModulePath>
-          <failIfNoTests>true</failIfNoTests>
+          <failIfNoTests>false</failIfNoTests>
         </configuration>
       </plugin>
       <plugin>

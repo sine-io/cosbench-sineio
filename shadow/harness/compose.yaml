@@ -55,6 +55,8 @@ services:
     working_dir: /workspace
     tmpfs:
       - /tmp:mode=1777,size=1536m
+    env_file:
+      - ${COSBENCH_SECRET_DIR:?Set COSBENCH_SECRET_DIR}/http-service-token.env
     volumes:
       - ${COSBENCH_REPO_ROOT:?Set COSBENCH_REPO_ROOT}:/workspace
       - ${COSBENCH_REPORT_DIR:?Set COSBENCH_REPORT_DIR}:/reports
@@ -67,6 +69,7 @@ services:
       COSBENCH_MINIO_SECRET_KEY_FILE: /run/secrets/minio_root_password
       COSBENCH_HTTP_TEST_CERT_FILE: /run/secrets/http_test_certificate
       COSBENCH_HTTP_TEST_KEYSTORE_FILE: /run/secrets/http_test_keystore
+      COSBENCH_HTTP_TEST_TRUSTSTORE_FILE: /run/secrets/http_test_truststore
       COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE: /run/secrets/http_test_keystore_password
     secrets:
       - minio_root_user
@@ -75,6 +78,8 @@ services:
         target: http_test_certificate
       - source: http_test_keystore
         target: http_test_keystore
+      - source: http_test_truststore
+        target: http_test_truststore
       - source: http_test_keystore_password
         target: http_test_keystore_password
 
@@ -90,5 +95,7 @@ secrets:
     file: ${COSBENCH_SECRET_DIR:?Set COSBENCH_SECRET_DIR}/http-test.crt
   http_test_keystore:
     file: ${COSBENCH_SECRET_DIR:?Set COSBENCH_SECRET_DIR}/http-test.p12
+  http_test_truststore:
+    file: ${COSBENCH_SECRET_DIR:?Set COSBENCH_SECRET_DIR}/http-test-trust.p12
   http_test_keystore_password:
     file: ${COSBENCH_SECRET_DIR:?Set COSBENCH_SECRET_DIR}/http-test-password

@@ -1,0 +1,29 @@
+Owner: CN=cosbench-scheme3-test, OU=Tests, O=COSBench
+Issuer: CN=cosbench-scheme3-test, OU=Tests, O=COSBench
+Serial number: d6d236711f02bd9
+Valid from: Thu Oct 29 07:22:26 UTC 2026 until: Fri Oct 29 07:22:26 UTC 2027
+Certificate fingerprints:
+	 SHA1: E9:34:34:B0:74:0F:DB:28:C8:AD:87:5D:1E:98:A5:CC:0C:EA:F3:D7
+	 SHA256: CF:0A:35:87:55:FE:91:C0:E9:85:87:D4:03:7F:40:B0:3F:E3:A3:CA:BF:78:61:26:CA:7C:96:7B:CA:56:D3:A6
+Signature algorithm name: SHA384withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 3
+
+Extensions:
+
+#1: ObjectId: 2.5.29.17 Criticality=false
+SubjectAlternativeName [
+  DNSName: localhost
+  DNSName: minio
+  DNSName: driver
+  DNSName: controller
+  IPAddress: 127.0.0.1
+]
+
+#2: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: C8 CB EA E5 E5 92 C4 EA   29 4B E6 3B 54 41 FC 5B  ........)K.;TA.[
+0010: 23 49 0B 88                                        #I..
+]
+]

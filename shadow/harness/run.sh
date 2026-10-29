@@ -54,7 +54,7 @@ minio_env="$secret_dir/minio.env"
 project_name="cosbench-scheme3-02-$(date +%s)-$$"
 project_started=0
 active_docker_pid=
-certificate_containers=("$project_name-keygen" "$project_name-cert-export" "$project_name-cert-inspect")
+certificate_containers=("$project_name-keygen" "$project_name-cert-export" "$project_name-trust-import" "$project_name-cert-inspect")
 compose_arguments=(--ansi never --progress plain --project-name "$project_name"
     --env-file "$versions_file" --env-file "$compose_env" -f "$compose_file")
 
@@ -132,11 +132,13 @@ trap 'interrupt 143' TERM
 
 umask 077
 printf '%s\n' 'MINIO_ROOT_USER=cosbench-test-user' 'MINIO_ROOT_PASSWORD=cosbench-test-password' > "$minio_env"
+printf '%s\n' 'COSBENCH_HTTP_SERVICE_TOKEN=cosbench-test-service-token' > "$secret_dir/http-service-token.env"
 printf '%s' 'cosbench-test-user' > "$secret_dir/minio-root-user"
 printf '%s' 'cosbench-test-password' > "$secret_dir/minio-root-password"
 printf '%s' 'cosbench-test-keystore-password' > "$secret_dir/http-test-password"
 chmod 600 "$minio_env"
 chmod 644 "$secret_dir/minio-root-user" "$secret_dir/minio-root-password" "$secret_dir/http-test-password"
+chmod 600 "$secret_dir/http-service-token.env"
 
 cat > "$compose_env" <<EOF
 COSBENCH_REPO_ROOT="$repo_root"
@@ -163,6 +165,16 @@ run_docker run --rm --name "${certificate_containers[1]}" --label "cosbench.sche
     -storetype PKCS12 -storepass cosbench-test-keystore-password \
     -file /tmp/secrets/http-test.crt >> "$report_dir/certificate-generation.log" 2>&1
 run_docker run --rm --name "${certificate_containers[2]}" --label "cosbench.scheme3.run=$project_name" --user "$(id -u):$(id -g)" \
+    -v "$secret_dir:/tmp/secrets" --entrypoint /opt/java/openjdk/bin/keytool "$MAVEN_IMAGE" \
+    -importcert -noprompt -alias cosbench-trust -file /tmp/secrets/http-test.crt \
+    -keystore /tmp/secrets/http-test-trust.p12 -storetype PKCS12 \
+    -storepass cosbench-test-keystore-password >> "$report_dir/certificate-generation.log" 2>&1
+run_docker run --rm --name "${certificate_containers[3]}" --label "cosbench.scheme3.run=$project_name" --user "$(id -u):$(id -g)" \
+    -v "$secret_dir:/tmp/secrets" --entrypoint /opt/java/openjdk/bin/keytool "$MAVEN_IMAGE" \
+    -importcert -noprompt -alias cosbench-test -file /tmp/secrets/http-test.crt \
+    -keystore /tmp/secrets/http-test-trust.p12 -storetype PKCS12 \
+    -storepass cosbench-test-keystore-password >> "$report_dir/certificate-generation.log" 2>&1
+run_docker run --rm --name "${certificate_containers[3]}" --label "cosbench.scheme3.run=$project_name" --user "$(id -u):$(id -g)" \
     -v "$secret_dir:/tmp/secrets:ro" --entrypoint /opt/java/openjdk/bin/keytool "$MAVEN_IMAGE" \
     -printcert -file /tmp/secrets/http-test.crt > "$report_dir/test-certificate.txt"
 

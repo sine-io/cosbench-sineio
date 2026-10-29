@@ -1,0 +1,3 @@
+runtime_jar=/workspace/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar
+runtime_jar_status=present
+executable_launcher=present

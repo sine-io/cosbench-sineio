@@ -1,0 +1,11 @@
+{
+  "source": "/tmp/cosbench-config-lifecycle.cwMSoG/driver/legacy-driver.conf",
+  "destination": "/tmp/cosbench-config-lifecycle.cwMSoG/driver/conf/driver.yml",
+  "role": "driver",
+  "source_sha256": "b7b92f086e4f767219c85a4c43b6a76b3ed55ce4ad6b30bb2ac6ff4290968d88",
+  "destination_sha256": "0779edbc75f0910322e368f8b6b85a7901206c8da9de82c9965de9dacd53555e",
+  "mapped": ["driver.name", "driver.url -> listen", "mission_dir -> paths.mission", "log_file -> paths.logs", "log_level -> logging.level", "log_file -> logging.file"],
+  "unmapped": [],
+  "diagnostics": [],
+  "success": true
+}
