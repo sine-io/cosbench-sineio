@@ -84,6 +84,9 @@ public class S3Storage extends NoneStorage {
     @Override
     public void dispose() {
         super.dispose();
+        if (client != null) {
+            client.shutdown();
+        }
         client = null;
     }
 
@@ -106,10 +109,16 @@ public class S3Storage extends NoneStorage {
     public void createContainer(String container, Config config) {
         super.createContainer(container, config);
         try {
-        	if(!client.doesBucketExist(container)) {
-	        	
-	            client.createBucket(container);
-        	}
+            // doesBucketExist treats 403 as "exists", which hides authentication failures here.
+            try {
+                client.headBucket(new HeadBucketRequest(container));
+            } catch (AmazonS3Exception e) {
+                if (e.getStatusCode() == HttpStatus.SC_NOT_FOUND) {
+                    client.createBucket(container);
+                } else if (e.getStatusCode() != HttpStatus.SC_MOVED_PERMANENTLY) {
+                    throw e;
+                }
+            }
         } catch (Exception e) {
             throw new StorageException(e);
         }

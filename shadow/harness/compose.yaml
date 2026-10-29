@@ -62,6 +62,7 @@ services:
       COSBENCH_MINIO_ENDPOINT: http://minio:9000
       COSBENCH_MINIO_BUCKET: cosbench-smoke
       COSBENCH_TOXIPROXY_ADMIN_URL: http://toxiproxy:8474
+      COSBENCH_PROVIDER_REPORT: /reports/provider-smoke.txt
       COSBENCH_MINIO_ACCESS_KEY_FILE: /run/secrets/minio_root_user
       COSBENCH_MINIO_SECRET_KEY_FILE: /run/secrets/minio_root_password
       COSBENCH_HTTP_TEST_CERT_FILE: /run/secrets/http_test_certificate

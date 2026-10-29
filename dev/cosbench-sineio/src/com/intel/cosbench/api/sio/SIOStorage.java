@@ -199,7 +199,9 @@ public class SIOStorage extends NoneStorage {
 	@Override
 	public void dispose() {
 		super.dispose();
-		client.close(); // https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/using.html#work-witih-clients
+		if (client != null) {
+			client.close(); // https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/using.html#work-witih-clients
+		}
 		client = null;
 	}
 

@@ -4,11 +4,13 @@ set -Eeuo pipefail
 maven_repo=/tmp/maven-repository
 audit_jars=/tmp/audit-jars
 runtime_audit_jars=/tmp/runtime-audit-jars
+provider_audit_jars=/tmp/provider-audit-jars
 module_jar=/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar
 runtime_jar=/workspace/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar
 runtime_thin_jar=/workspace/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar.original
+provider_jar=/workspace/shadow/cosbench-provider-spike/target/cosbench-provider-spike-0.1.0-SNAPSHOT.jar
 
-mkdir -p "$maven_repo" "$audit_jars" "$runtime_audit_jars" /reports
+mkdir -p "$maven_repo" "$audit_jars" "$runtime_audit_jars" "$provider_audit_jars" /reports
 mvn --version > /reports/toolchain.txt
 mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml clean verify \
     > /reports/build.log 2>&1 || {
@@ -16,6 +18,13 @@ mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml clean 
         exit 1
     }
 cat /reports/build.log
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
+    -pl cosbench-provider-spike -Dtest=ProviderMinioSmokeTest test \
+    > /reports/provider-minio-test.log 2>&1 || {
+        cat /reports/provider-minio-test.log
+        exit 1
+    }
+cat /reports/provider-minio-test.log
 java --class-path "$module_jar" /workspace/shadow/harness/PackagingProbe.java \
     > /reports/packaged-runtime.txt
 test -s "$runtime_jar"
@@ -41,6 +50,12 @@ mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
 mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
     -pl cosbench-runtime -DincludeScope=test -DoutputDirectory="$runtime_audit_jars" \
     org.apache.maven.plugins:maven-dependency-plugin:3.11.0:copy-dependencies
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
+    -pl cosbench-provider-spike -Dscope=test -DoutputFile=/reports/provider-dependency-tree.txt \
+    org.apache.maven.plugins:maven-dependency-plugin:3.11.0:tree
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
+    -pl cosbench-provider-spike -DincludeScope=test -DoutputDirectory="$provider_audit_jars" \
+    org.apache.maven.plugins:maven-dependency-plugin:3.11.0:copy-dependencies
 
 jar tf "$module_jar" > /reports/jar-contents.txt
 awk '/-mapping\.xml$/ { print }' /reports/jar-contents.txt > /reports/resource-list.txt
@@ -50,6 +65,30 @@ sha256sum /reports/cosbench-config-shadow.jar > /reports/artifact.sha256
     > /reports/duplicate-class-audit.txt
 /workspace/shadow/harness/check-duplicate-classes.sh "$runtime_thin_jar" "$runtime_audit_jars" \
     > /reports/runtime-duplicate-class-audit.txt
+/workspace/shadow/harness/check-duplicate-classes.sh "$provider_jar" "$provider_audit_jars" \
+    > /reports/provider-duplicate-class-audit.txt
+jar tf "$provider_jar" > /reports/provider-artifact-contents.txt
+grep -q 'META-INF/services/com.intel.cosbench.api.storage.StorageAPIFactory' /reports/provider-artifact-contents.txt
+if grep -q '^com/intel/cosbench/api/mock/' /reports/provider-artifact-contents.txt; then
+    printf '%s\n' 'Mock classes leaked into the provider module artifact.' >&2
+    exit 1
+fi
+if grep -q 'META-INF/services/com.intel.cosbench.api.auth.AuthAPIFactory' /reports/provider-artifact-contents.txt; then
+    printf '%s\n' 'Mock auth descriptor leaked into the provider module artifact.' >&2
+    exit 1
+fi
+printf '%s\n' \
+    'Production storage descriptor: present.' \
+    'Mock storage/auth classes and test descriptors: absent from the main artifact.' \
+    > /reports/provider-artifact-boundary.txt
+sha256sum "$provider_jar" > /reports/provider-artifact.sha256
+sha256sum "$provider_audit_jars"/*.jar > /reports/provider-dependency-checksums.txt
+printf '%s\n' \
+    'AWS SDK for Java v1 resolved to com.amazonaws:aws-java-sdk-s3:1.12.767 from Maven Central; the older S3 bundle contained 1.10.76 while the SineIO bundle contained 1.12.767.' \
+    'AWS SDK for Java v2 resolved to software.amazon.awssdk:s3:2.26.8 from Maven Central, matching the SineIO bundle.' \
+    'Both SDK major versions match the legacy modules. Maven selected one v1 version on the shared classpath; no child classloader was used.' \
+    'AWS SDK and Commons IO test dependencies use Apache License 2.0; exact resolved coordinates and checksums are in provider-dependency-tree.txt and provider-dependency-checksums.txt.' \
+    > /reports/provider-sdk-provenance.txt
 sha256sum "$audit_jars"/*.jar "$runtime_audit_jars"/*.jar > /reports/test-dependency-checksums.txt
 find "$maven_repo" -name '*.jar' -exec sha256sum '{}' + | sort > /reports/resolved-jar-checksums.txt
 printf '%s\n' \

@@ -187,6 +187,12 @@ public class SIOStorageV1 extends NoneStorage {
 	@Override
 	public void dispose() {
 		super.dispose();
+		if (client != null) {
+			client.shutdown();
+		}
+		if (restoreClient != null && restoreClient != client) {
+			restoreClient.shutdown();
+		}
 		client = null;
 		restoreClient = null; // 2024.6.24, sine.
 	}

@@ -1,0 +1,152 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24281 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO]
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-provider-spike >----------
+[INFO] Building COSBench Provider SPI Coexistence Spike 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO]
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-provider-spike ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO]
+[INFO] --- build-helper:3.6.1:add-source (legacy-provider-sources) @ cosbench-provider-spike ---
+[INFO] Source directory: /workspace/shadow/cosbench-provider-spike/../../dev/cosbench-api/src added.
+[INFO] Source directory: /workspace/shadow/cosbench-provider-spike/../../dev/cosbench-config/src added.
+[INFO] Source directory: /workspace/shadow/cosbench-provider-spike/../../dev/cosbench-log/src added.
+[INFO] Source directory: /workspace/shadow/cosbench-provider-spike/../../dev/cosbench-sineio/src added.
+[INFO] Source directory: /workspace/shadow/cosbench-provider-spike/../../dev/cosbench-s3/src added.
+[INFO]
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-provider-spike ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO]
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-provider-spike ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO]
+[INFO] --- build-helper:3.6.1:add-test-source (test-only-mock-provider-sources) @ cosbench-provider-spike ---
+[INFO] Test Source directory: /workspace/shadow/cosbench-provider-spike/../../dev/cosbench-mock/src added.
+[INFO]
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-provider-spike ---
+[INFO] Copying 3 resources from src/test/resources to target/test-classes
+[INFO]
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-provider-spike ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO]
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-provider-spike ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+Oct 29, 2026 1:44:14 AM com.amazonaws.util.VersionInfoUtils printDeprecationAnnouncement
+WARNING: The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support on December 31, 2025. For more information, see https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/
+You can print where on the file system the AWS SDK for Java 1.x core runtime is located by setting the AWS_JAVA_V1_PRINT_LOCATION environment variable or aws.java.v1.printLocation system property to 'true'.
+This message can be disabled by setting the AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT environment variable or aws.java.v1.disableDeprecationAnnouncement system property to 'true'.
+The AWS SDK for Java 1.x is being used here:
+at java.base/java.lang.Thread.getStackTrace(Thread.java:2451)
+at com.amazonaws.util.VersionInfoUtils.printDeprecationAnnouncement(VersionInfoUtils.java:81)
+at com.amazonaws.util.VersionInfoUtils.<clinit>(VersionInfoUtils.java:59)
+at com.amazonaws.ClientConfiguration.<clinit>(ClientConfiguration.java:94)
+at com.intel.cosbench.api.sio.SIOStorageV1.getDefaultClientConfiguration(SIOStorageV1.java:123)
+at com.intel.cosbench.api.sio.SIOStorageV1.initClient(SIOStorageV1.java:145)
+at com.intel.cosbench.api.sio.SIOStorageV1.init(SIOStorageV1.java:112)
+at com.intel.cosbench.shadow.provider.StaticProviderRegistry.lambda$createStorage$0(StaticProviderRegistry.java:74)
+at com.intel.cosbench.shadow.provider.StaticProviderRegistry.initialize(StaticProviderRegistry.java:155)
+at com.intel.cosbench.shadow.provider.StaticProviderRegistry.createStorage(StaticProviderRegistry.java:69)
+at com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest.exerciseConfiguration(ProviderMinioSmokeTest.java:137)
+at com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest.exercisesAllFactoriesAndProductionStorageProvidersOnOneClasspath(ProviderMinioSmokeTest.java:80)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:775)
+at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:479)
+at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161)
+at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152)
+at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91)
+at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112)
+at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94)
+at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93)
+at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87)
+at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:216)
+at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:212)
+at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)
+at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:156)
+at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:201)
+at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:170)
+at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:94)
+at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:59)
+at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:142)
+at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:58)
+at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39)
+at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38)
+at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60)
+at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52)
+at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:334)
+at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:304)
+at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:251)
+at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:409)
+at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:190)
+at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:547)
+at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:535)
+Oct 29, 2026 1:44:15 AM com.amazonaws.util.Base64 warn
+WARNING: JAXB is unavailable. Will fallback to SDK implementation which may be less performant.If you are using Java 9+, you will need to include javax.xml.bind:jaxb-api as a dependency.
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.37 s -- in com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  15.876 s
+[INFO] Finished at: 2026-10-29T01:44:24Z
+[INFO] ------------------------------------------------------------------------

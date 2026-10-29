@@ -165,6 +165,12 @@ public class GdasStorage extends NoneStorage {
 	@Override
 	public void dispose() {
 		super.dispose();
+		if (client != null) {
+			client.shutdown();
+		}
+		if (restoreClient != null && restoreClient != client) {
+			restoreClient.shutdown();
+		}
 		client = null;
 		restoreClient = null;
 	}

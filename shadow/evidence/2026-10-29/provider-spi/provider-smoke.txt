@@ -1,0 +1,52 @@
+shared_classpath=true
+endpoint=http://minio:9000
+storage_factories=[gdas, mock, s3, sio, siov1]
+auth_factories=[mock]
+storage_factory_classes={gdas=com.intel.cosbench.api.gdas.GdasStorageFactory, mock=com.intel.cosbench.api.mock.MockStorageFactory, s3=com.intel.cosbench.api.S3Stor.S3StorageFactory, sio=com.intel.cosbench.api.sio.SIOStorageFactory, siov1=com.intel.cosbench.api.sio.SIOStorageFactoryV1}
+auth_factory_classes={mock=com.intel.cosbench.api.mock.MockAuthFactory}
+unknown_config_key=accepted by all six discovered factory registrations
+sio-config-empty=ProviderRegistryException(NullPointerException: blank access key)
+sio-config-invalid-timeout=ProviderRegistryException(NumberFormatException)
+sio-invalid-auth-get=StorageException<-S3Exception
+sio-invalid-auth-create-container=StorageException<-S3Exception
+sio-connection-refused=StorageException<-SdkClientException
+siov1-config-empty=default init/dispose passed
+siov1-config-invalid-timeout=ProviderRegistryException(NumberFormatException)
+siov1-invalid-auth-get=StorageException<-AmazonS3Exception
+siov1-invalid-auth-create-container=StorageException<-AmazonS3Exception
+siov1-connection-refused=StorageException<-SdkClientException
+gdas-config-empty=default init/dispose passed
+gdas-config-invalid-timeout=ProviderRegistryException(NumberFormatException)
+gdas-invalid-auth-get=StorageException<-AmazonS3Exception
+gdas-invalid-auth-create-container=StorageException<-AmazonS3Exception
+gdas-connection-refused=StorageTimeoutException<-SdkClientException
+s3-config-empty=default init/dispose passed
+s3-config-invalid-timeout=ProviderRegistryException(NumberFormatException)
+s3-invalid-auth-get=StorageException<-AmazonS3Exception
+s3-invalid-auth-create-container=StorageException<-AmazonS3Exception
+s3-connection-refused=StorageException<-SdkClientException
+sio-http-500=StorageException<-S3Exception
+siov1-http-500=StorageException<-AmazonS3Exception
+gdas-http-500=StorageException<-AmazonS3Exception
+s3-http-500=StorageException<-AmazonS3Exception
+s3-http-301=createContainer treated bucket as existing
+sio-slow-response-timeout=StorageException<-SdkClientException
+siov1-slow-response-timeout=StorageException<-SdkClientException
+gdas-slow-response-timeout=StorageTimeoutException<-SdkClientException
+s3-slow-response-timeout=StorageException<-SdkClientException
+mock-auth-config-empty=default login/dispose passed
+mock-auth-config-invalid-delay=ProviderRegistryException(NumberFormatException)
+mock-storage-config-empty=default init/dispose passed
+mock-storage-config-invalid-size=ProviderRegistryException(NumberFormatException)
+mock-auth=init,login(token verified),dispose,post-dispose=login still works
+mock-storage=init,create-container,put,get(16 bytes),dispose,post-dispose=get(16 bytes) still works
+sio-restore/prefetch/range=not exercised by MinIO fixture
+sio=init,create-container,get-missing=StorageException,put,get,list,head,multipart-put/get/delete,delete,delete-container,dispose,post-dispose=StorageException
+siov1-restore/prefetch/range=not exercised by MinIO fixture
+siov1=init,create-container,get-missing=StorageException,put,get,list,head,multipart-put/get/delete,delete,delete-container,dispose,post-dispose=NullPointerException
+gdas-restore=not exercised by MinIO fixture
+gdas=init,create-container,get-missing=StorageException,put,get,list,head,multipart-put/get/delete,delete,delete-container,dispose,post-dispose=NullPointerException
+s3-list=legacy default returned empty for a bucket containing an object
+s3-multipart=legacy default created no object; MinIO GET returned not found
+s3-head/restore=not implemented by legacy S3Storage source; not claimed
+s3=init,create-container,get-missing=StorageException,put,get,list=legacy-default-empty,multipart=inherited-no-op,delete,delete-container,dispose,post-dispose=StorageException

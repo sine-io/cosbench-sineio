@@ -1,0 +1,48 @@
+toxiproxy-1  | {"level":"info","version":"2.13.0","caller":"server.go:79","time":"2026-10-29T01:43:24Z","message":"Starting Toxiproxy"}
+toxiproxy-1  | {"level":"info","address":"0.0.0.0:8474","caller":"api.go:73","time":"2026-10-29T01:43:24Z","message":"Starting Toxiproxy HTTP server"}
+toxiproxy-1  | {"level":"warn","address":"0.0.0.0:8474","caller":"api.go:103","time":"2026-10-29T01:43:24Z","message":"HTTP API is unauthenticated and not bound to loopback; set TOXIPROXY_AUTH_TOKEN to require a token"}
+toxiproxy-1  | {"level":"info","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","caller":"proxy.go:123","time":"2026-10-29T01:43:31Z","message":"Started proxy"}
+toxiproxy-1  | {"level":"info","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","client":"172.18.0.4:33858","caller":"proxy.go:204","time":"2026-10-29T01:43:31Z","message":"Accepted client"}
+toxiproxy-1  | {"level":"warn","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","bytes":370,"error":"writeto tcp 172.18.0.3:34898->172.18.0.2:9000: read tcp 172.18.0.3:34898->172.18.0.2:9000: use of closed network connection","caller":"link.go:135","time":"2026-10-29T01:43:31Z","message":"Source terminated"}
+toxiproxy-1  | {"level":"info","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","client":"172.18.0.4:33862","caller":"proxy.go:204","time":"2026-10-29T01:43:31Z","message":"Accepted client"}
+toxiproxy-1  | {"level":"warn","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","bytes":97,"error":"writeto tcp 172.18.0.3:18666->172.18.0.4:33862: read tcp 172.18.0.3:18666->172.18.0.4:33862: use of closed network connection","caller":"link.go:135","time":"2026-10-29T01:43:31Z","message":"Source terminated"}
+toxiproxy-1  | {"level":"warn","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","bytes":370,"error":"writeto tcp 172.18.0.3:34908->172.18.0.2:9000: read tcp 172.18.0.3:34908->172.18.0.2:9000: use of closed network connection","caller":"link.go:135","time":"2026-10-29T01:43:31Z","message":"Source terminated"}
+toxiproxy-1  | {"level":"info","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","caller":"proxy.go:265","time":"2026-10-29T01:43:31Z","message":"Terminated proxy"}
+toxiproxy-1  | {"level":"info","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","caller":"proxy.go:123","time":"2026-10-29T01:43:31Z","message":"Started proxy"}
+toxiproxy-1  | {"level":"info","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","client":"172.18.0.4:33868","caller":"proxy.go:204","time":"2026-10-29T01:43:31Z","message":"Accepted client"}
+toxiproxy-1  | {"level":"warn","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","bytes":370,"error":"writeto tcp 172.18.0.3:34912->172.18.0.2:9000: read tcp 172.18.0.3:34912->172.18.0.2:9000: use of closed network connection","caller":"link.go:135","time":"2026-10-29T01:43:31Z","message":"Source terminated"}
+toxiproxy-1  | {"level":"info","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","client":"172.18.0.4:33878","caller":"proxy.go:204","time":"2026-10-29T01:43:31Z","message":"Accepted client"}
+toxiproxy-1  | {"level":"warn","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","bytes":97,"error":"writeto tcp 172.18.0.3:18666->172.18.0.4:33878: read tcp 172.18.0.3:18666->172.18.0.4:33878: use of closed network connection","caller":"link.go:135","time":"2026-10-29T01:43:31Z","message":"Source terminated"}
+toxiproxy-1  | {"level":"warn","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","bytes":370,"error":"writeto tcp 172.18.0.3:34924->172.18.0.2:9000: read tcp 172.18.0.3:34924->172.18.0.2:9000: use of closed network connection","caller":"link.go:135","time":"2026-10-29T01:43:31Z","message":"Source terminated"}
+toxiproxy-1  | {"level":"info","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","caller":"proxy.go:265","time":"2026-10-29T01:43:31Z","message":"Terminated proxy"}
+toxiproxy-1  | {"level":"info","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","caller":"proxy.go:123","time":"2026-10-29T01:43:31Z","message":"Started proxy"}
+toxiproxy-1  | {"level":"info","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","client":"172.18.0.4:33894","caller":"proxy.go:204","time":"2026-10-29T01:43:31Z","message":"Accepted client"}
+toxiproxy-1  | {"level":"warn","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","bytes":370,"error":"writeto tcp 172.18.0.3:34930->172.18.0.2:9000: read tcp 172.18.0.3:34930->172.18.0.2:9000: use of closed network connection","caller":"link.go:135","time":"2026-10-29T01:43:31Z","message":"Source terminated"}
+toxiproxy-1  | {"level":"info","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","client":"172.18.0.4:33902","caller":"proxy.go:204","time":"2026-10-29T01:43:31Z","message":"Accepted client"}
+toxiproxy-1  | {"level":"warn","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","bytes":370,"error":"writeto tcp 172.18.0.3:34938->172.18.0.2:9000: read tcp 172.18.0.3:34938->172.18.0.2:9000: use of closed network connection","caller":"link.go:135","time":"2026-10-29T01:43:32Z","message":"Source terminated"}
+toxiproxy-1  | {"level":"info","name":"cosbench-fault-probe","listen":"0.0.0.0:18666","upstream":"minio:9000","caller":"proxy.go:265","time":"2026-10-29T01:43:32Z","message":"Terminated proxy"}
+minio-1      | [38;5;6m [38;5;5m01:43:24.54 [0m[38;5;2mINFO [0m ==>
+minio-1      | [38;5;6m [38;5;5m01:43:24.54 [0m[38;5;2mINFO [0m ==> [1mWelcome to the Bitnami minio container[0m
+minio-1      | [38;5;6m [38;5;5m01:43:24.54 [0m[38;5;2mINFO [0m ==> Subscribe to project updates by watching [1mhttps://github.com/bitnami/containers[0m
+minio-1      | [38;5;6m [38;5;5m01:43:24.54 [0m[38;5;2mINFO [0m ==> Submit issues and feature requests at [1mhttps://github.com/bitnami/containers/issues[0m
+minio-1      | [38;5;6m [38;5;5m01:43:24.55 [0m[38;5;2mINFO [0m ==> Upgrade to Tanzu Application Catalog for production environments to access custom-configured and pre-packaged software components. Gain enhanced features, including Software Bill of Materials (SBOM), CVE scan result reports, and VEX documents. To learn more, visit [1mhttps://bitnami.com/enterprise[0m
+minio-1      | [38;5;6m [38;5;5m01:43:24.55 [0m[38;5;2mINFO [0m ==>
+minio-1      | [38;5;6m [38;5;5m01:43:24.55 [0m[38;5;2mINFO [0m ==> ** Starting MinIO setup **
+minio-1      | [38;5;6mminio [38;5;5m01:43:24.60 [0m[38;5;2mINFO [0m ==> Starting MinIO in background...
+minio-1      | [38;5;6mminio [38;5;5m01:43:29.64 [0m[38;5;2mINFO [0m ==> Adding local Minio host to 'mc' configuration...
+minio-1      | [38;5;6mminio [38;5;5m01:43:29.85 [0m[38;5;2mINFO [0m ==> Stopping MinIO...
+minio-1      |
+minio-1      | [38;5;6m [38;5;5m01:43:29.97 [0m[38;5;2mINFO [0m ==> ** MinIO setup finished! **
+minio-1      | [38;5;6mminio [38;5;5m01:43:29.98 [0m[38;5;2mINFO [0m ==> ** Starting MinIO **
+minio-1      | MinIO Object Storage Server
+minio-1      | Copyright: 2015-2026 MinIO, Inc.
+minio-1      | License: GNU AGPLv3 - https://www.gnu.org/licenses/agpl-3.0.html
+minio-1      | Version: DEVELOPMENT.2024-06-13T22-53-53Z (go1.21.11 linux/amd64)
+minio-1      |
+minio-1      | API: http://localhost:9000
+minio-1      | WebUI: http://172.18.0.2:9001 http://127.0.0.1:9001
+minio-1      |
+minio-1      | Docs: https://min.io/docs/minio/linux/index.html
+minio-1      | Status:         1 Online, 0 Offline.
+minio-1      | STARTUP WARNINGS:
+minio-1      | - The standard parity is set to 0. This can lead to data loss.
