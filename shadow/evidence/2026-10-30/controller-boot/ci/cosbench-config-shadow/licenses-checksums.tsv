@@ -1,0 +1,22 @@
+com.intel.cosbench.shadow:cosbench-castor-shadow:jar:0.1.0-SNAPSHOT	compile	a566c95084c5e4eccd09de1851744ea5bff97ebc7b789545cfdccdf85f14f69f	Apache-2.0 (reactor)
+com.intel.cosbench.shadow:cosbench-log-shadow:jar:0.1.0-SNAPSHOT	compile	e0b305265ba80624fc2f460080e643c321a17cb0af40ccfd8abfd43b3d554cf2	Apache-2.0 (reactor)
+com.intel.cosbench.shadow:cosbench-log4j-shadow:jar:0.1.0-SNAPSHOT	compile	410895c08b0526ff7d272fcdfd7e3341909f09a612173e1291dfe0f3060fe139	Apache-2.0 (reactor)
+commons-io:commons-io:jar:2.15.1	compile	a58af12ee1b68cfd2ebb0c27caef164f084381a00ec81a48cc275fd7ea54e154	Apache-2.0
+log4j:log4j:jar:1.2.17	compile	1d31696445697720527091754369082a6651bd49781b6005deb94e56753406f9	Apache-2.0
+org.slf4j:slf4j-api:jar:2.0.18	compile	44508fd1576500688c790b190acdd16fec4f8c79a3e0b900afd70503cf055f55	MIT
+commons-configuration:commons-configuration:jar:1.10	compile	95d4e6711e88ce78992c82c25bc03c8df9ecf5a357f0de0bec72a26db3399374	Apache-2.0
+commons-logging:commons-logging:jar:1.1.1	compile	ce6f913cad1f0db3aad70186d65c5bc7ffcc9a99e3fe8e0b137312819f7c362f	Apache-2.0
+commons-lang:commons-lang:jar:2.6	compile	50f11b09f877c294d56f24463f47d28f929cf5044f648661c0f0cfbae9a2f49c	Apache-2.0
+org.codehaus.castor:castor-xml:jar:1.3.3	compile	db40227f0bdc2ed4658d80b4138c0bba239c50d763c53a8487b1648f028fcfd1	LicenseRef-Castor-1.3.3 AND Apache-2.0
+org.codehaus.castor:castor-core:jar:1.3.3	compile	4b69771c9932f559a7e6f2b6218f442dd7ae086f68575b45f403c5e2c18ce8ce	LicenseRef-Castor-1.3.3 AND Apache-2.0
+commons-collections:commons-collections:jar:3.2.1	compile	87363a4c94eaabeefd8b930cb059f66b64c9f7d632862f23de3012da7660047b	Apache-2.0
+javax.inject:javax.inject:jar:1	compile	91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff	Apache-2.0
+org.yaml:snakeyaml:jar:2.4	compile	ef779af5d29a9dde8cc70ce0341f5c6f7735e23edff9685ceaa9d35359b7bb7f	Apache-2.0
+org.junit.jupiter:junit-jupiter:jar:5.12.2	test	3854b3ad434906b827fec474aa0d8da8b56e9e56d5fc7f2e20fc3f12ec4be894	EPL-2.0
+org.junit.jupiter:junit-jupiter-api:jar:5.12.2	test	0b9ca728e4bcd9adc57f29deb9556ff9ed5e08b4e8843b875aba4e4e3e04f092	EPL-2.0
+org.opentest4j:opentest4j:jar:1.3.0	test	48e2df636cab6563ced64dcdff8abb2355627cb236ef0bf37598682ddf742f1b	Apache-2.0
+org.junit.platform:junit-platform-commons:jar:1.12.2	test	e683a01e85dfabea520c056ac6015a6162756e602ec653c0da85e233f0afbc18	EPL-2.0
+org.apiguardian:apiguardian-api:jar:1.1.2	test	b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38	Apache-2.0
+org.junit.jupiter:junit-jupiter-params:jar:5.12.2	test	b219ffa949b90a71aa3b6c2b606456b82bca0b2089b7459c8ff461156ff59b0f	EPL-2.0
+org.junit.jupiter:junit-jupiter-engine:jar:5.12.2	test	f576c06b8accde9985063b8bc80526cb980eec24dee0b7221fc8ddd7ace65800	EPL-2.0
+org.junit.platform:junit-platform-engine:jar:1.12.2	test	cef0efcb5bd2e05e2b808d38bab5c655089c0c3001527376e74cb606a7911ec8	EPL-2.0

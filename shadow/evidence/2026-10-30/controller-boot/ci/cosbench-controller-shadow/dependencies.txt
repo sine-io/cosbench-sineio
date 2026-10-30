@@ -1,0 +1,25 @@
+The following files have been resolved:
+   com.intel.cosbench.shadow:cosbench-core-shadow:jar:0.1.0-SNAPSHOT:compile:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-core-shadow/0.1.0-SNAPSHOT/cosbench-core-shadow-0.1.0-SNAPSHOT.jar -- module cosbench.core.shadow (auto)
+   com.intel.cosbench.shadow:cosbench-config-shadow:jar:0.1.0-SNAPSHOT:compile:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar -- module cosbench.config.shadow (auto)
+   com.intel.cosbench.shadow:cosbench-castor-shadow:jar:0.1.0-SNAPSHOT:compile:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-castor-shadow/0.1.0-SNAPSHOT/cosbench-castor-shadow-0.1.0-SNAPSHOT.jar -- module cosbench.castor.shadow (auto)
+   commons-configuration:commons-configuration:jar:1.10:compile:/tmp/maven-repository/commons-configuration/commons-configuration/1.10/commons-configuration-1.10.jar -- module commons.configuration (auto)
+   org.codehaus.castor:castor-xml:jar:1.3.3:compile:/tmp/maven-repository/org/codehaus/castor/castor-xml/1.3.3/castor-xml-1.3.3.jar -- module castor.xml (auto)
+   org.codehaus.castor:castor-core:jar:1.3.3:compile:/tmp/maven-repository/org/codehaus/castor/castor-core/1.3.3/castor-core-1.3.3.jar -- module castor.core (auto)
+   commons-collections:commons-collections:jar:3.2.1:compile:/tmp/maven-repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar -- module commons.collections (auto)
+   javax.inject:javax.inject:jar:1:compile:/tmp/maven-repository/javax/inject/javax.inject/1/javax.inject-1.jar -- module javax.inject (auto)
+   org.yaml:snakeyaml:jar:2.4:compile:/tmp/maven-repository/org/yaml/snakeyaml/2.4/snakeyaml-2.4.jar -- module org.yaml.snakeyaml
+   com.intel.cosbench.shadow:cosbench-log-shadow:jar:0.1.0-SNAPSHOT:compile:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-log-shadow/0.1.0-SNAPSHOT/cosbench-log-shadow-0.1.0-SNAPSHOT.jar -- module cosbench.log.shadow (auto)
+   com.intel.cosbench.shadow:cosbench-log4j-shadow:jar:0.1.0-SNAPSHOT:compile:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-log4j-shadow/0.1.0-SNAPSHOT/cosbench-log4j-shadow-0.1.0-SNAPSHOT.jar -- module cosbench.log4j.shadow (auto)
+   log4j:log4j:jar:1.2.17:compile:/tmp/maven-repository/log4j/log4j/1.2.17/log4j-1.2.17.jar -- module log4j (auto)
+   org.slf4j:slf4j-api:jar:2.0.18:compile:/tmp/maven-repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar -- module org.slf4j
+   org.apache.commons:commons-csv:jar:1.10.0:compile:/tmp/maven-repository/org/apache/commons/commons-csv/1.10.0/commons-csv-1.10.0.jar -- module org.apache.commons.csv [auto]
+   commons-io:commons-io:jar:2.15.1:compile:/tmp/maven-repository/commons-io/commons-io/2.15.1/commons-io-2.15.1.jar -- module org.apache.commons.io
+   commons-lang:commons-lang:jar:2.6:compile:/tmp/maven-repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar -- module commons.lang (auto)
+   com.intel.cosbench.shadow:cosbench-http-shadow:jar:0.1.0-SNAPSHOT:compile:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-http-shadow/0.1.0-SNAPSHOT/cosbench-http-shadow-0.1.0-SNAPSHOT.jar -- module cosbench.http.shadow (auto)
+   org.apache.httpcomponents:httpclient:jar:4.5.14:compile:/tmp/maven-repository/org/apache/httpcomponents/httpclient/4.5.14/httpclient-4.5.14.jar -- module org.apache.httpcomponents.httpclient [auto]
+   org.apache.httpcomponents:httpcore:jar:4.4.16:compile:/tmp/maven-repository/org/apache/httpcomponents/httpcore/4.4.16/httpcore-4.4.16.jar -- module org.apache.httpcomponents.httpcore [auto]
+   commons-logging:commons-logging:jar:1.1.1:compile:/tmp/maven-repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar -- module commons.logging (auto)
+   commons-codec:commons-codec:jar:1.15:compile:/tmp/maven-repository/commons-codec/commons-codec/1.15/commons-codec-1.15.jar -- module org.apache.commons.codec [auto]
+   org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13:compile:/tmp/maven-repository/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar -- module jackson.mapper.asl (auto)
+   org.codehaus.jackson:jackson-core-asl:jar:1.9.13:compile:/tmp/maven-repository/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar -- module jackson.core.asl (auto)
+

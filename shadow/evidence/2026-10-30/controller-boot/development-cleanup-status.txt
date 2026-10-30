@@ -1,0 +1,2 @@
+task_containers_remaining=none
+container_auto_removed=true

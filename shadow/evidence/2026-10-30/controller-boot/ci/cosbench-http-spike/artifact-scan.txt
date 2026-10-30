@@ -1,0 +1,1 @@
+PASS artifact /workspace/shadow/cosbench-http-spike/target/cosbench-http-spike-0.1.0-SNAPSHOT.jar

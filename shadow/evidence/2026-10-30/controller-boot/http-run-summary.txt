@@ -1,0 +1,3 @@
+status=passed
+tls_keystore=generated-test-keystore
+test_commands=passed

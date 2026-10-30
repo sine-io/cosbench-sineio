@@ -1,0 +1,1 @@
+com.intel.cosbench.shadow:cosbench-log4j-shadow:jar:0.1.0-SNAPSHOT

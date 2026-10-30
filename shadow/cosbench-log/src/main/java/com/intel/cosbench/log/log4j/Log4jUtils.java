@@ -41,6 +41,8 @@ public class Log4jUtils {
             return Level.WARN;
         if (LogLevel.ERROR.equals(level))
             return Level.ERROR;
+        if (LogLevel.OFF.equals(level))
+            return Level.OFF;
         String msg = "unknown log level: " + level;
         throw new IllegalStateException(msg);
     }
@@ -63,6 +65,8 @@ public class Log4jUtils {
             return LogLevel.WARN;
         if (Level.ERROR.equals(level))
             return LogLevel.ERROR;
+        if (Level.OFF.equals(level))
+            return LogLevel.OFF;
         String msg = "unknown log level: " + level;
         throw new IllegalStateException(msg);
     }

@@ -16,6 +16,14 @@
   <dependencies>
     <dependency>
       <groupId>com.intel.cosbench.shadow</groupId>
+      <artifactId>cosbench-controller-shadow</artifactId>
+      <version>${project.version}</version>
+      <exclusions>
+        <exclusion><groupId>commons-logging</groupId><artifactId>commons-logging</artifactId></exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.intel.cosbench.shadow</groupId>
       <artifactId>cosbench-api-shadow</artifactId>
       <version>${project.version}</version>
       <exclusions>
@@ -114,25 +122,6 @@
       </resource>
     </resources>
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>3.6.1</version>
-        <executions>
-          <execution>
-            <id>add-controller-service-sources</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>add-source</goal>
-            </goals>
-            <configuration>
-              <sources>
-                <source>${project.basedir}/../../dev/cosbench-controller/src</source>
-              </sources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>

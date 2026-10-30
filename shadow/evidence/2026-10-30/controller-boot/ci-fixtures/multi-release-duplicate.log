@@ -1,0 +1,5 @@
+Exception in thread "main" java.lang.IllegalStateException: Duplicate classes:
+Consumer.class
+  /tmp/tmp.IplzFzL6Hb/osgi-reference.jar
+  /tmp/tmp.IplzFzL6Hb/multi-release-deps/duplicate.jar
+	at DuplicateClasses.main(DuplicateClasses.java:33)

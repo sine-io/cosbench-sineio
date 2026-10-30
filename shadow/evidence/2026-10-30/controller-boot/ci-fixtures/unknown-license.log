@@ -1,0 +1,3 @@
+Exception in thread "main" java.lang.IllegalStateException: Unapproved license: example:fixture:jar:1	2d5259def9ea41f1034910251bad5b2eaa9295aff5ed8a3fb4e5f3de35e92ba7	UNKNOWN
+	at BuildAudit.checkDependencies(BuildAudit.java:225)
+	at BuildAudit.main(BuildAudit.java:26)

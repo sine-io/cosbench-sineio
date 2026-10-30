@@ -1,0 +1,4 @@
+Exception in thread "main" java.lang.IllegalStateException: Nonblocking Enforcer execution in fixture
+	at BuildAudit.verificationEnabled(BuildAudit.java:133)
+	at BuildAudit.modules(BuildAudit.java:91)
+	at BuildAudit.main(BuildAudit.java:28)

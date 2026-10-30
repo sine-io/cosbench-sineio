@@ -1,0 +1,432 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24296 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] cosbench-scheme3-shadow                                            [pom]
+[INFO] COSBench Log4j Runtime Resources                                   [jar]
+[INFO] COSBench Castor Runtime Resources                                  [jar]
+[INFO] COSBench Logging API and Log4j Adapter                             [jar]
+[INFO] COSBench Config Shadow                                             [jar]
+[INFO] COSBench Storage and Auth SPI                                      [jar]
+[INFO] COSBench Core Model Protocol and Services                          [jar]
+[INFO] COSBench HTTP Client Utility                                       [jar]
+[INFO] COSBench Controller Business Services                              [jar]
+[INFO] COSBench Controller Boot Application                               [jar]
+[INFO] COSBench Runtime Lifecycle Shadow                                  [jar]
+[INFO] COSBench Provider SPI Coexistence Spike                            [jar]
+[INFO] COSBench Controller Web Jakarta Spike                              [jar]
+[INFO] COSBench authenticated Driver HTTP spike                           [jar]
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-scheme3-shadow >----------
+[INFO] Building cosbench-scheme3-shadow 0.1.0-SNAPSHOT                   [1/14]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-scheme3-shadow ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-log4j-shadow >-----------
+[INFO] Building COSBench Log4j Runtime Resources 0.1.0-SNAPSHOT          [2/14]
+[INFO]   from cosbench-log4j/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-log4j-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-castor-shadow >----------
+[INFO] Building COSBench Castor Runtime Resources 0.1.0-SNAPSHOT         [3/14]
+[INFO]   from cosbench-castor/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-castor-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-log-shadow >------------
+[INFO] Building COSBench Logging API and Log4j Adapter 0.1.0-SNAPSHOT    [4/14]
+[INFO]   from cosbench-log/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-log-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-config-shadow >----------
+[INFO] Building COSBench Config Shadow 0.1.0-SNAPSHOT                    [5/14]
+[INFO]   from cosbench-config/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-config-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-api-shadow >------------
+[INFO] Building COSBench Storage and Auth SPI 0.1.0-SNAPSHOT             [6/14]
+[INFO]   from cosbench-api/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-api-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-core-shadow >-----------
+[INFO] Building COSBench Core Model Protocol and Services 0.1.0-SNAPSHOT [7/14]
+[INFO]   from cosbench-core/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-core-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-http-shadow >-----------
+[INFO] Building COSBench HTTP Client Utility 0.1.0-SNAPSHOT              [8/14]
+[INFO]   from cosbench-http/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-http-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --------< com.intel.cosbench.shadow:cosbench-controller-shadow >--------
+[INFO] Building COSBench Controller Business Services 0.1.0-SNAPSHOT     [9/14]
+[INFO]   from cosbench-controller/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-controller-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-controller-app >----------
+[INFO] Building COSBench Controller Boot Application 0.1.0-SNAPSHOT     [10/14]
+[INFO]   from cosbench-controller-app/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-controller-app ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-runtime-shadow >----------
+[INFO] Building COSBench Runtime Lifecycle Shadow 0.1.0-SNAPSHOT        [11/14]
+[INFO]   from cosbench-runtime/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-runtime-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-provider-spike >----------
+[INFO] Building COSBench Provider SPI Coexistence Spike 0.1.0-SNAPSHOT  [12/14]
+[INFO]   from cosbench-provider-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-provider-spike ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] ------------< com.intel.cosbench.shadow:cosbench-web-spike >------------
+[INFO] Building COSBench Controller Web Jakarta Spike 0.1.0-SNAPSHOT    [13/14]
+[INFO]   from cosbench-web-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-web-spike ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-http-spike >------------
+[INFO] Building COSBench authenticated Driver HTTP spike 0.1.0-SNAPSHOT [14/14]
+[INFO]   from cosbench-http-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-http-spike ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-scheme3-shadow >----------
+[INFO] Building cosbench-scheme3-shadow 0.1.0-SNAPSHOT                  [15/14]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- help:3.5.1:effective-pom (default-cli) @ cosbench-scheme3-shadow ---
+[INFO] Effective-POM written to: /reports/ci/effective-pom.xml
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-scheme3-shadow >----------
+[INFO] Building cosbench-scheme3-shadow 0.1.0-SNAPSHOT                  [16/14]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-scheme3-shadow ---
+[INFO] Wrote dependency tree to: /workspace/shadow/target/ci-tree.txt
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-log4j-shadow >-----------
+[INFO] Building COSBench Log4j Runtime Resources 0.1.0-SNAPSHOT         [17/14]
+[INFO]   from cosbench-log4j/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-log4j-shadow ---
+[INFO] Wrote dependency tree to: /workspace/shadow/cosbench-log4j/target/ci-tree.txt
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-castor-shadow >----------
+[INFO] Building COSBench Castor Runtime Resources 0.1.0-SNAPSHOT        [18/14]
+[INFO]   from cosbench-castor/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-castor-shadow ---
+[INFO] Wrote dependency tree to: /workspace/shadow/cosbench-castor/target/ci-tree.txt
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-log-shadow >------------
+[INFO] Building COSBench Logging API and Log4j Adapter 0.1.0-SNAPSHOT   [19/14]
+[INFO]   from cosbench-log/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-log-shadow ---
+[INFO] Wrote dependency tree to: /workspace/shadow/cosbench-log/target/ci-tree.txt
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-config-shadow >----------
+[INFO] Building COSBench Config Shadow 0.1.0-SNAPSHOT                   [20/14]
+[INFO]   from cosbench-config/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-config-shadow ---
+[INFO] Wrote dependency tree to: /workspace/shadow/cosbench-config/target/ci-tree.txt
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-api-shadow >------------
+[INFO] Building COSBench Storage and Auth SPI 0.1.0-SNAPSHOT            [21/14]
+[INFO]   from cosbench-api/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-api-shadow ---
+[INFO] Wrote dependency tree to: /workspace/shadow/cosbench-api/target/ci-tree.txt
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-core-shadow >-----------
+[INFO] Building COSBench Core Model Protocol and Services 0.1.0-SNAPSHOT [22/14]
+[INFO]   from cosbench-core/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-core-shadow ---
+[INFO] Wrote dependency tree to: /workspace/shadow/cosbench-core/target/ci-tree.txt
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-http-shadow >-----------
+[INFO] Building COSBench HTTP Client Utility 0.1.0-SNAPSHOT             [23/14]
+[INFO]   from cosbench-http/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-http-shadow ---
+[INFO] Wrote dependency tree to: /workspace/shadow/cosbench-http/target/ci-tree.txt
+[INFO] 
+[INFO] --------< com.intel.cosbench.shadow:cosbench-controller-shadow >--------
+[INFO] Building COSBench Controller Business Services 0.1.0-SNAPSHOT    [24/14]
+[INFO]   from cosbench-controller/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-controller-shadow ---
+[INFO] Wrote dependency tree to: /workspace/shadow/cosbench-controller/target/ci-tree.txt
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-controller-app >----------
+[INFO] Building COSBench Controller Boot Application 0.1.0-SNAPSHOT     [25/14]
+[INFO]   from cosbench-controller-app/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-controller-app ---
+[INFO] Wrote dependency tree to: /workspace/shadow/cosbench-controller-app/target/ci-tree.txt
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-runtime-shadow >----------
+[INFO] Building COSBench Runtime Lifecycle Shadow 0.1.0-SNAPSHOT        [26/14]
+[INFO]   from cosbench-runtime/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-runtime-shadow ---
+[INFO] Wrote dependency tree to: /workspace/shadow/cosbench-runtime/target/ci-tree.txt
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-provider-spike >----------
+[INFO] Building COSBench Provider SPI Coexistence Spike 0.1.0-SNAPSHOT  [27/14]
+[INFO]   from cosbench-provider-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-provider-spike ---
+[INFO] Wrote dependency tree to: /workspace/shadow/cosbench-provider-spike/target/ci-tree.txt
+[INFO] 
+[INFO] ------------< com.intel.cosbench.shadow:cosbench-web-spike >------------
+[INFO] Building COSBench Controller Web Jakarta Spike 0.1.0-SNAPSHOT    [28/14]
+[INFO]   from cosbench-web-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-web-spike ---
+[INFO] Wrote dependency tree to: /workspace/shadow/cosbench-web-spike/target/ci-tree.txt
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-http-spike >------------
+[INFO] Building COSBench authenticated Driver HTTP spike 0.1.0-SNAPSHOT [29/14]
+[INFO]   from cosbench-http-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:tree (default-cli) @ cosbench-http-spike ---
+[INFO] Wrote dependency tree to: /workspace/shadow/cosbench-http-spike/target/ci-tree.txt
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for cosbench-scheme3-shadow 0.1.0-SNAPSHOT:
+[INFO] 
+[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  1.428 s]
+[INFO] COSBench Log4j Runtime Resources ................... SUCCESS [  0.005 s]
+[INFO] COSBench Castor Runtime Resources .................. SUCCESS [  0.004 s]
+[INFO] COSBench Logging API and Log4j Adapter ............. SUCCESS [  0.011 s]
+[INFO] COSBench Config Shadow ............................. SUCCESS [  0.008 s]
+[INFO] COSBench Storage and Auth SPI ...................... SUCCESS [  0.009 s]
+[INFO] COSBench Core Model Protocol and Services .......... SUCCESS [  0.013 s]
+[INFO] COSBench HTTP Client Utility ....................... SUCCESS [  0.006 s]
+[INFO] COSBench Controller Business Services .............. SUCCESS [  0.010 s]
+[INFO] COSBench Controller Boot Application ............... SUCCESS [  0.014 s]
+[INFO] COSBench Runtime Lifecycle Shadow .................. SUCCESS [  0.013 s]
+[INFO] COSBench Provider SPI Coexistence Spike ............ SUCCESS [  0.023 s]
+[INFO] COSBench Controller Web Jakarta Spike .............. SUCCESS [  0.022 s]
+[INFO] COSBench authenticated Driver HTTP spike ........... SUCCESS [  0.023 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.030 s
+[INFO] Finished at: 2026-10-30T03:01:06Z
+[INFO] ------------------------------------------------------------------------
+[INFO] Scanning for projects...
+[INFO] Loaded 24296 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] cosbench-scheme3-shadow                                            [pom]
+[INFO] COSBench Log4j Runtime Resources                                   [jar]
+[INFO] COSBench Castor Runtime Resources                                  [jar]
+[INFO] COSBench Logging API and Log4j Adapter                             [jar]
+[INFO] COSBench Config Shadow                                             [jar]
+[INFO] COSBench Storage and Auth SPI                                      [jar]
+[INFO] COSBench Core Model Protocol and Services                          [jar]
+[INFO] COSBench HTTP Client Utility                                       [jar]
+[INFO] COSBench Controller Business Services                              [jar]
+[INFO] COSBench Controller Boot Application                               [jar]
+[INFO] COSBench Runtime Lifecycle Shadow                                  [jar]
+[INFO] COSBench Provider SPI Coexistence Spike                            [jar]
+[INFO] COSBench Controller Web Jakarta Spike                              [jar]
+[INFO] COSBench authenticated Driver HTTP spike                           [jar]
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-scheme3-shadow >----------
+[INFO] Building cosbench-scheme3-shadow 0.1.0-SNAPSHOT                   [1/14]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-scheme3-shadow ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-log4j-shadow >-----------
+[INFO] Building COSBench Log4j Runtime Resources 0.1.0-SNAPSHOT          [2/14]
+[INFO]   from cosbench-log4j/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-log4j-shadow ---
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-castor-shadow >----------
+[INFO] Building COSBench Castor Runtime Resources 0.1.0-SNAPSHOT         [3/14]
+[INFO]   from cosbench-castor/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-castor-shadow ---
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-log-shadow >------------
+[INFO] Building COSBench Logging API and Log4j Adapter 0.1.0-SNAPSHOT    [4/14]
+[INFO]   from cosbench-log/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-log-shadow ---
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-config-shadow >----------
+[INFO] Building COSBench Config Shadow 0.1.0-SNAPSHOT                    [5/14]
+[INFO]   from cosbench-config/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-config-shadow ---
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-api-shadow >------------
+[INFO] Building COSBench Storage and Auth SPI 0.1.0-SNAPSHOT             [6/14]
+[INFO]   from cosbench-api/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-api-shadow ---
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-core-shadow >-----------
+[INFO] Building COSBench Core Model Protocol and Services 0.1.0-SNAPSHOT [7/14]
+[INFO]   from cosbench-core/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-core-shadow ---
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-http-shadow >-----------
+[INFO] Building COSBench HTTP Client Utility 0.1.0-SNAPSHOT              [8/14]
+[INFO]   from cosbench-http/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-http-shadow ---
+[INFO] 
+[INFO] --------< com.intel.cosbench.shadow:cosbench-controller-shadow >--------
+[INFO] Building COSBench Controller Business Services 0.1.0-SNAPSHOT     [9/14]
+[INFO]   from cosbench-controller/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-controller-shadow ---
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-controller-app >----------
+[INFO] Building COSBench Controller Boot Application 0.1.0-SNAPSHOT     [10/14]
+[INFO]   from cosbench-controller-app/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-controller-app ---
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-runtime-shadow >----------
+[INFO] Building COSBench Runtime Lifecycle Shadow 0.1.0-SNAPSHOT        [11/14]
+[INFO]   from cosbench-runtime/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-runtime-shadow ---
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-provider-spike >----------
+[INFO] Building COSBench Provider SPI Coexistence Spike 0.1.0-SNAPSHOT  [12/14]
+[INFO]   from cosbench-provider-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-provider-spike ---
+[INFO] 
+[INFO] ------------< com.intel.cosbench.shadow:cosbench-web-spike >------------
+[INFO] Building COSBench Controller Web Jakarta Spike 0.1.0-SNAPSHOT    [13/14]
+[INFO]   from cosbench-web-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-web-spike ---
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-http-spike >------------
+[INFO] Building COSBench authenticated Driver HTTP spike 0.1.0-SNAPSHOT [14/14]
+[INFO]   from cosbench-http-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-http-spike ---
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for cosbench-scheme3-shadow 0.1.0-SNAPSHOT:
+[INFO] 
+[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  2.294 s]
+[INFO] COSBench Log4j Runtime Resources ................... SUCCESS [  0.015 s]
+[INFO] COSBench Castor Runtime Resources .................. SUCCESS [  0.010 s]
+[INFO] COSBench Logging API and Log4j Adapter ............. SUCCESS [  0.124 s]
+[INFO] COSBench Config Shadow ............................. SUCCESS [  0.149 s]
+[INFO] COSBench Storage and Auth SPI ...................... SUCCESS [  0.045 s]
+[INFO] COSBench Core Model Protocol and Services .......... SUCCESS [  0.101 s]
+[INFO] COSBench HTTP Client Utility ....................... SUCCESS [  0.087 s]
+[INFO] COSBench Controller Business Services .............. SUCCESS [  0.053 s]
+[INFO] COSBench Controller Boot Application ............... SUCCESS [  0.343 s]
+[INFO] COSBench Runtime Lifecycle Shadow .................. SUCCESS [  0.141 s]
+[INFO] COSBench Provider SPI Coexistence Spike ............ SUCCESS [  0.293 s]
+[INFO] COSBench Controller Web Jakarta Spike .............. SUCCESS [  0.155 s]
+[INFO] COSBench authenticated Driver HTTP spike ........... SUCCESS [  0.119 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.624 s
+[INFO] Finished at: 2026-10-30T03:01:13Z
+[INFO] ------------------------------------------------------------------------

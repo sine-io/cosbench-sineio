@@ -1,0 +1,1 @@
+PASS jdeps /workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar

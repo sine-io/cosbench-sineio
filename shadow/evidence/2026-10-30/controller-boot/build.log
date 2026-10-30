@@ -1,0 +1,817 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24296 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] cosbench-scheme3-shadow                                            [pom]
+[INFO] COSBench Log4j Runtime Resources                                   [jar]
+[INFO] COSBench Castor Runtime Resources                                  [jar]
+[INFO] COSBench Logging API and Log4j Adapter                             [jar]
+[INFO] COSBench Config Shadow                                             [jar]
+[INFO] COSBench Storage and Auth SPI                                      [jar]
+[INFO] COSBench Core Model Protocol and Services                          [jar]
+[INFO] COSBench HTTP Client Utility                                       [jar]
+[INFO] COSBench Controller Business Services                              [jar]
+[INFO] COSBench Controller Boot Application                               [jar]
+[INFO] COSBench Runtime Lifecycle Shadow                                  [jar]
+[INFO] COSBench Provider SPI Coexistence Spike                            [jar]
+[INFO] COSBench Controller Web Jakarta Spike                              [jar]
+[INFO] COSBench authenticated Driver HTTP spike                           [jar]
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-scheme3-shadow >----------
+[INFO] Building cosbench-scheme3-shadow 0.1.0-SNAPSHOT                   [1/14]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-scheme3-shadow ---
+[INFO] Deleting /workspace/shadow/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-scheme3-shadow ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-log4j-shadow >-----------
+[INFO] Building COSBench Log4j Runtime Resources 0.1.0-SNAPSHOT          [2/14]
+[INFO]   from cosbench-log4j/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-log4j-shadow ---
+[INFO] Deleting /workspace/shadow/cosbench-log4j/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-log4j-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-log4j-shadow ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-log4j-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-log4j-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-log4j/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-log4j-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-log4j-shadow ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-log4j-shadow ---
+[INFO] Building jar: /workspace/shadow/cosbench-log4j/target/cosbench-log4j-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-castor-shadow >----------
+[INFO] Building COSBench Castor Runtime Resources 0.1.0-SNAPSHOT         [3/14]
+[INFO]   from cosbench-castor/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-castor-shadow ---
+[INFO] Deleting /workspace/shadow/cosbench-castor/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-castor-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-castor-shadow ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-castor-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-castor-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-castor/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-castor-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-castor-shadow ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-castor-shadow ---
+[INFO] Building jar: /workspace/shadow/cosbench-castor/target/cosbench-castor-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-log-shadow >------------
+[INFO] Building COSBench Logging API and Log4j Adapter 0.1.0-SNAPSHOT    [4/14]
+[INFO]   from cosbench-log/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-log-shadow ---
+[INFO] Deleting /workspace/shadow/cosbench-log/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-log-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-log-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-log/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-log-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 7 source files with javac [debug release 21] to target/classes
+[INFO] /workspace/shadow/cosbench-log/src/main/java/com/intel/cosbench/log/LogFactory.java: Some input files use or override a deprecated API.
+[INFO] /workspace/shadow/cosbench-log/src/main/java/com/intel/cosbench/log/LogFactory.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-log-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-log/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-log-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-log-shadow ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.intel.cosbench.log.LoggingContractTest
+log4j:WARN No appenders could be found for logger (root).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.219 s -- in com.intel.cosbench.log.LoggingContractTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-log-shadow ---
+[INFO] Building jar: /workspace/shadow/cosbench-log/target/cosbench-log-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-config-shadow >----------
+[INFO] Building COSBench Config Shadow 0.1.0-SNAPSHOT                    [5/14]
+[INFO]   from cosbench-config/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-config-shadow ---
+[INFO] Deleting /workspace/shadow/cosbench-config/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-config-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-config-shadow ---
+[INFO] Copying 8 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-config-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 52 source files with javac [debug release 21] to target/classes
+[INFO] /workspace/shadow/cosbench-config/src/main/java/com/intel/cosbench/config/common/INIConfigParser.java: /workspace/shadow/cosbench-config/src/main/java/com/intel/cosbench/config/common/INIConfigParser.java uses or overrides a deprecated API.
+[INFO] /workspace/shadow/cosbench-config/src/main/java/com/intel/cosbench/config/common/INIConfigParser.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-config-shadow ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-config-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 4 source files with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-config-shadow ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.intel.cosbench.config.castor.CastorMappingsPackagingTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.075 s -- in com.intel.cosbench.config.castor.CastorMappingsPackagingTest
+[INFO] Running com.intel.cosbench.config.castor.LegacyXmlContractTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.398 s -- in com.intel.cosbench.config.castor.LegacyXmlContractTest
+[INFO] Running com.intel.cosbench.config.runtime.LegacyConfigMigratorTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.177 s -- in com.intel.cosbench.config.runtime.LegacyConfigMigratorTest
+[INFO] Running com.intel.cosbench.config.runtime.VersionedConfigTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.053 s -- in com.intel.cosbench.config.runtime.VersionedConfigTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-config-shadow ---
+[INFO] Building jar: /workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-api-shadow >------------
+[INFO] Building COSBench Storage and Auth SPI 0.1.0-SNAPSHOT             [6/14]
+[INFO]   from cosbench-api/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-api-shadow ---
+[INFO] Deleting /workspace/shadow/cosbench-api/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-api-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-api-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-api/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-api-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 21 source files with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-api-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-api/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-api-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-api-shadow ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-api-shadow ---
+[INFO] Building jar: /workspace/shadow/cosbench-api/target/cosbench-api-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-core-shadow >-----------
+[INFO] Building COSBench Core Model Protocol and Services 0.1.0-SNAPSHOT [7/14]
+[INFO]   from cosbench-core/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-core-shadow ---
+[INFO] Deleting /workspace/shadow/cosbench-core/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-core-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-core-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-core/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-core-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 53 source files with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-core-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-core/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-core-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-core-shadow ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.intel.cosbench.protocol.DriverResponseSerializationTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.194 s -- in com.intel.cosbench.protocol.DriverResponseSerializationTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-core-shadow ---
+[INFO] Building jar: /workspace/shadow/cosbench-core/target/cosbench-core-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-http-shadow >-----------
+[INFO] Building COSBench HTTP Client Utility 0.1.0-SNAPSHOT              [8/14]
+[INFO]   from cosbench-http/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-http-shadow ---
+[INFO] Deleting /workspace/shadow/cosbench-http/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-http-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-http-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-http/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-http-shadow ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 2 source files with javac [debug release 21] to target/classes
+[INFO] /workspace/shadow/cosbench-http/src/main/java/com/intel/cosbench/client/http/HttpClientUtil.java: /workspace/shadow/cosbench-http/src/main/java/com/intel/cosbench/client/http/HttpClientUtil.java uses or overrides a deprecated API.
+[INFO] /workspace/shadow/cosbench-http/src/main/java/com/intel/cosbench/client/http/HttpClientUtil.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-http-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-http/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-http-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-http-shadow ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.intel.cosbench.client.http.HttpClientUtilContractTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.072 s -- in com.intel.cosbench.client.http.HttpClientUtilContractTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-http-shadow ---
+[INFO] Building jar: /workspace/shadow/cosbench-http/target/cosbench-http-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --------< com.intel.cosbench.shadow:cosbench-controller-shadow >--------
+[INFO] Building COSBench Controller Business Services 0.1.0-SNAPSHOT     [9/14]
+[INFO]   from cosbench-controller/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-controller-shadow ---
+[INFO] Deleting /workspace/shadow/cosbench-controller/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-controller-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-controller-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-controller/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-controller-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 105 source files with javac [debug release 21] to target/classes
+[INFO] /workspace/shadow/cosbench-controller/src/main/java/com/intel/cosbench/controller/tasklet/AbstractCommandTasklet.java: Some input files use or override a deprecated API.
+[INFO] /workspace/shadow/cosbench-controller/src/main/java/com/intel/cosbench/controller/tasklet/AbstractCommandTasklet.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-controller-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-controller/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-controller-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-controller-shadow ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-controller-shadow ---
+[INFO] Building jar: /workspace/shadow/cosbench-controller/target/cosbench-controller-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-controller-app >----------
+[INFO] Building COSBench Controller Boot Application 0.1.0-SNAPSHOT     [10/14]
+[INFO]   from cosbench-controller-app/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-controller-app ---
+[INFO] Deleting /workspace/shadow/cosbench-controller-app/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-controller-app ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-controller-app ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-controller-app/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-controller-app ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 4 source files with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-controller-app ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-controller-app/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-controller-app ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 2 source files with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-controller-app ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.intel.cosbench.testing.controller.ControllerProcessTest
+[INFO] Tests run: 22, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 59.54 s -- in com.intel.cosbench.testing.controller.ControllerProcessTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 22, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-controller-app ---
+[INFO] Building jar: /workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.16:repackage (default) @ cosbench-controller-app ---
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] Replacing main artifact /workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar.original
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-runtime-shadow >----------
+[INFO] Building COSBench Runtime Lifecycle Shadow 0.1.0-SNAPSHOT        [11/14]
+[INFO]   from cosbench-runtime/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-runtime-shadow ---
+[INFO] Deleting /workspace/shadow/cosbench-runtime/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-runtime-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-runtime-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-runtime/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-runtime-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 7 source files with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-runtime-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-runtime/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-runtime-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 2 source files with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-runtime-shadow ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.intel.cosbench.runtime.RuntimeHealthControllerTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.095 s -- in com.intel.cosbench.runtime.RuntimeHealthControllerTest
+[INFO] Running com.intel.cosbench.runtime.ServiceRuntimeTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.071 s -- in com.intel.cosbench.runtime.ServiceRuntimeTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-runtime-shadow ---
+[INFO] Building jar: /workspace/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.16:repackage (default) @ cosbench-runtime-shadow ---
+[INFO] Replacing main artifact /workspace/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /workspace/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar.original
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-provider-spike >----------
+[INFO] Building COSBench Provider SPI Coexistence Spike 0.1.0-SNAPSHOT  [12/14]
+[INFO]   from cosbench-provider-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-provider-spike ---
+[INFO] Deleting /workspace/shadow/cosbench-provider-spike/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-provider-spike ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- build-helper:3.6.1:add-source (legacy-provider-sources) @ cosbench-provider-spike ---
+[INFO] Source directory: /workspace/shadow/cosbench-provider-spike/../../dev/cosbench-sineio/src added.
+[INFO] Source directory: /workspace/shadow/cosbench-provider-spike/../../dev/cosbench-s3/src added.
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-provider-spike ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-provider-spike ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 11 source files with javac [debug release 21] to target/classes
+[INFO] /workspace/dev/cosbench-s3/src/com/intel/cosbench/api/S3Stor/S3Storage.java: /workspace/shadow/cosbench-provider-spike/../../dev/cosbench-s3/src/com/intel/cosbench/api/S3Stor/S3Storage.java uses or overrides a deprecated API.
+[INFO] /workspace/dev/cosbench-s3/src/com/intel/cosbench/api/S3Stor/S3Storage.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- build-helper:3.6.1:add-test-source (test-only-mock-provider-sources) @ cosbench-provider-spike ---
+[INFO] Test Source directory: /workspace/shadow/cosbench-provider-spike/../../dev/cosbench-mock/src added.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-provider-spike ---
+[INFO] Copying 3 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-provider-spike ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 11 source files with javac [debug release 21] to target/test-classes
+[INFO] /workspace/dev/cosbench-mock/src/com/intel/cosbench/api/mock/MockUtils.java: /workspace/shadow/cosbench-provider-spike/../../dev/cosbench-mock/src/com/intel/cosbench/api/mock/MockUtils.java uses or overrides a deprecated API.
+[INFO] /workspace/dev/cosbench-mock/src/com/intel/cosbench/api/mock/MockUtils.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-provider-spike ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.intel.cosbench.shadow.provider.StaticProviderRegistryTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.134 s -- in com.intel.cosbench.shadow.provider.StaticProviderRegistryTest
+[INFO] Running com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest
+SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.62 s -- in com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest
+[INFO] Running com.intel.cosbench.shadow.provider.ServiceLoaderDiscoveryTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in com.intel.cosbench.shadow.provider.ServiceLoaderDiscoveryTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-provider-spike ---
+[INFO] Building jar: /workspace/shadow/cosbench-provider-spike/target/cosbench-provider-spike-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ------------< com.intel.cosbench.shadow:cosbench-web-spike >------------
+[INFO] Building COSBench Controller Web Jakarta Spike 0.1.0-SNAPSHOT    [13/14]
+[INFO]   from cosbench-web-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-web-spike ---
+[INFO] Deleting /workspace/shadow/cosbench-web-spike/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-web-spike ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-web-spike ---
+[INFO] Copying 21 resources from ../../dev/cosbench-controller-web/WEB-INF/freemarker to target/classes/templates
+[INFO] Copying 8 resources from ../../dev/cosbench-controller-web/resources to target/classes/static/resources
+[INFO] Copying 2 resources from ../../dev/cosbench-controller-web to target/classes/static
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-web-spike ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 6 source files with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-web-spike ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] Copying 1 resource from ../../.scratch/scheme3-migration/baseline/fixtures to target/test-classes/baseline
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-web-spike ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-web-spike ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.intel.cosbench.shadow.web.ControllerWebSpikeTest
+03:00:28.702 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.intel.cosbench.shadow.web.ControllerWebSpikeTest]: ControllerWebSpikeTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+03:00:28.832 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.intel.cosbench.shadow.web.WebSpikeApplication for test class com.intel.cosbench.shadow.web.ControllerWebSpikeTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-30T03:00:29.365Z  INFO 1280 --- [           main] c.i.c.shadow.web.ControllerWebSpikeTest  : Starting ControllerWebSpikeTest using Java 21.0.12.1 with PID 1280 (started by root in /workspace/shadow/cosbench-web-spike/target)
+2026-10-30T03:00:29.368Z  INFO 1280 --- [           main] c.i.c.shadow.web.ControllerWebSpikeTest  : No active profile set, falling back to 1 default profile: "default"
+2026-10-30T03:00:30.592Z  INFO 1280 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19088 (http)
+2026-10-30T03:00:30.606Z  INFO 1280 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-30T03:00:30.607Z  INFO 1280 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-10-30T03:00:30.645Z  INFO 1280 --- [           main] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring embedded WebApplicationContext
+2026-10-30T03:00:30.647Z  INFO 1280 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1249 ms
+(Log4jLogManager.java:119)
+2026-10-30 03:00:30,742 [main           ] [INFO ] - will append log to console
+2026-10-30T03:00:30.772Z  INFO 1280 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-10-30T03:00:30.774Z  INFO 1280 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-10-30T03:00:30.774Z  INFO 1280 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-10-30T03:00:30.775Z  INFO 1280 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-10-30T03:00:30.775Z  INFO 1280 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-10-30T03:00:30.776Z  INFO 1280 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-10-30T03:00:30.776Z  INFO 1280 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-10-30T03:00:30.777Z  INFO 1280 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+(SimpleWorkloadArchiver.java:61)
+2026-10-30 03:00:30,974 [main           ] [INFO ] - using /tmp/cosbench-web-spike-1535433283754023590/archive for storing workload archives
+(SimpleWorkloadLoader.java:63)
+2026-10-30 03:00:30,976 [main           ] [INFO ] - loading workload archives from /tmp/cosbench-web-spike-1535433283754023590/archive
+(PingDriverRunner.java:90)
+2026-10-30 03:00:30,979 [r-driver-pinger] [INFO ] - begin to sleep for 20 seconds.
+2026-10-30T03:00:31.141Z  INFO 1280 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name controllerWebUsers
+2026-10-30T03:00:31.283Z  INFO 1280 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-30T03:00:31.793Z  INFO 1280 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 19088 (http) with context path '/controller'
+2026-10-30T03:00:31.811Z  INFO 1280 --- [           main] c.i.c.shadow.web.ControllerWebSpikeTest  : Started ControllerWebSpikeTest in 2.835 seconds (process running for 3.941)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/tmp/maven-repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-10-30T03:00:32.626Z  INFO 1280 --- [.1-19088-exec-1] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-30T03:00:32.628Z  INFO 1280 --- [.1-19088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-30T03:00:32.630Z  INFO 1280 --- [.1-19088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+(WorkloadProcessor.java:137)
+2026-10-30 03:00:33,657 [pool-3-thread-1] [INFO ] - begin to process workload w1
+(WorkloadProcessor.java:204)
+2026-10-30 03:00:33,658 [pool-3-thread-1] [INFO ] - begin to run stage s1-main
+(WorkloadProcessor.java:206)
+2026-10-30 03:00:33,660 [pool-3-thread-1] [INFO ] - ============================================
+(WorkloadProcessor.java:207)
+2026-10-30 03:00:33,661 [pool-3-thread-1] [INFO ] - START WORK: main
+(WorkloadProcessor.java:150)
+2026-10-30 03:00:33,665 [pool-3-thread-1] [ERROR] - unexpected exception
+com.intel.cosbench.controller.schedule.ScheduleException: no free driver available
+	at com.intel.cosbench.controller.schedule.BalancedScheduler.scheduleRestWorks(BalancedScheduler.java:73)
+	at com.intel.cosbench.controller.schedule.BalancedScheduler.schedule(BalancedScheduler.java:48)
+	at com.intel.cosbench.controller.service.StageRunner.scheduleWorks(StageRunner.java:83)
+	at com.intel.cosbench.controller.service.StageRunner.init(StageRunner.java:73)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.createStageRunner(WorkloadProcessor.java:263)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.executeStage(WorkloadProcessor.java:238)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.runStage(WorkloadProcessor.java:215)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.processWorkload(WorkloadProcessor.java:172)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.process(WorkloadProcessor.java:139)
+	at com.intel.cosbench.controller.service.ControllerThread.run(ControllerThread.java:32)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+(WorkloadProcessor.java:275)
+2026-10-30 03:00:33,671 [pool-3-thread-1] [INFO ] - begin to terminate workload w1
+(SimpleWorkloadArchiver.java:79)
+2026-10-30 03:00:33,752 [pool-3-thread-1] [INFO ] - workload w1 has been successfully archived
+(WorkloadProcessor.java:281)
+2026-10-30 03:00:33,753 [pool-3-thread-1] [INFO ] - successfully terminated workload w1
+2026-10-30T03:00:33.993Z  WARN 1280 --- [1-19088-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded]
+2026-10-30T03:00:34.001Z  WARN 1280 --- [1-19088-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded]
+(WorkloadProcessor.java:137)
+2026-10-30 03:00:34,155 [pool-3-thread-2] [INFO ] - begin to process workload w2
+(WorkloadProcessor.java:204)
+2026-10-30 03:00:34,158 [pool-3-thread-2] [INFO ] - begin to run stage s1-main
+(WorkloadProcessor.java:206)
+2026-10-30 03:00:34,161 [pool-3-thread-2] [INFO ] - ============================================
+(WorkloadProcessor.java:207)
+2026-10-30 03:00:34,162 [pool-3-thread-2] [INFO ] - START WORK: main
+(WorkloadProcessor.java:150)
+2026-10-30 03:00:34,163 [pool-3-thread-2] [ERROR] - unexpected exception
+com.intel.cosbench.controller.schedule.ScheduleException: no free driver available
+	at com.intel.cosbench.controller.schedule.BalancedScheduler.scheduleRestWorks(BalancedScheduler.java:73)
+	at com.intel.cosbench.controller.schedule.BalancedScheduler.schedule(BalancedScheduler.java:48)
+	at com.intel.cosbench.controller.service.StageRunner.scheduleWorks(StageRunner.java:83)
+	at com.intel.cosbench.controller.service.StageRunner.init(StageRunner.java:73)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.createStageRunner(WorkloadProcessor.java:263)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.executeStage(WorkloadProcessor.java:238)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.runStage(WorkloadProcessor.java:215)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.processWorkload(WorkloadProcessor.java:172)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.process(WorkloadProcessor.java:139)
+	at com.intel.cosbench.controller.service.ControllerThread.run(ControllerThread.java:32)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+(WorkloadProcessor.java:275)
+2026-10-30 03:00:34,168 [pool-3-thread-2] [INFO ] - begin to terminate workload w2
+(SimpleWorkloadArchiver.java:79)
+2026-10-30 03:00:34,234 [pool-3-thread-2] [INFO ] - workload w2 has been successfully archived
+(WorkloadProcessor.java:281)
+2026-10-30 03:00:34,235 [pool-3-thread-2] [INFO ] - successfully terminated workload w2
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.922 s -- in com.intel.cosbench.shadow.web.ControllerWebSpikeTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-web-spike ---
+[INFO] Building jar: /workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.16:repackage (default) @ cosbench-web-spike ---
+[INFO] Replacing main artifact /workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar.original
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-http-spike >------------
+[INFO] Building COSBench authenticated Driver HTTP spike 0.1.0-SNAPSHOT [14/14]
+[INFO]   from cosbench-http-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ cosbench-http-spike ---
+[INFO] Deleting /workspace/shadow/cosbench-http-spike/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-http-spike ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- build-helper:3.6.1:add-source (legacy-driver-api-sources) @ cosbench-http-spike ---
+[INFO] Source directory: /workspace/shadow/cosbench-http-spike/../../dev/cosbench-driver/src added.
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-http-spike ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-http-spike/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-http-spike ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 91 source files with javac [debug release 21] to target/classes
+[INFO] /workspace/dev/cosbench-driver/src/com/intel/cosbench/driver/operator/Cleaner.java: Some input files use or override a deprecated API.
+[INFO] /workspace/dev/cosbench-driver/src/com/intel/cosbench/driver/operator/Cleaner.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- build-helper:3.6.1:add-test-source (legacy-driver-test-sources) @ cosbench-http-spike ---
+[INFO] Test Source directory: /workspace/shadow/cosbench-http-spike/../../dev/cosbench-mock/src added.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-http-spike ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-http-spike/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-http-spike ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 15 source files with javac [debug release 21] to target/test-classes
+[INFO] /workspace/dev/cosbench-mock/src/com/intel/cosbench/api/mock/MockUtils.java: /workspace/shadow/cosbench-http-spike/../../dev/cosbench-mock/src/com/intel/cosbench/api/mock/MockUtils.java uses or overrides a deprecated API.
+[INFO] /workspace/dev/cosbench-mock/src/com/intel/cosbench/api/mock/MockUtils.java: Recompile with -Xlint:deprecation for details.
+[INFO] /workspace/shadow/cosbench-http-spike/src/test/java/com/intel/cosbench/http/AuthenticatedDriverClientTest.java: /workspace/shadow/cosbench-http-spike/src/test/java/com/intel/cosbench/http/AuthenticatedDriverClientTest.java uses unchecked or unsafe operations.
+[INFO] /workspace/shadow/cosbench-http-spike/src/test/java/com/intel/cosbench/http/AuthenticatedDriverClientTest.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-http-spike ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.intel.cosbench.http.IdempotencyStoreTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.124 s -- in com.intel.cosbench.http.IdempotencyStoreTest
+[INFO] Running com.intel.cosbench.http.DriverCommandControllerTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.100 s -- in com.intel.cosbench.http.DriverCommandControllerTest
+[INFO] Running com.intel.cosbench.http.RequestFingerprintTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s -- in com.intel.cosbench.http.RequestFingerprintTest
+[INFO] Running com.intel.cosbench.http.real.RealDriverHttpContractTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-30T03:00:38.657Z  INFO 1391 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : Starting RealDriverHttpContractTest using Java 21.0.12.1 with PID 1391 (started by root in /workspace/shadow/cosbench-http-spike/target)
+2026-10-30T03:00:38.668Z  INFO 1391 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : No active profile set, falling back to 1 default profile: "default"
+2026-10-30T03:00:40.019Z  INFO 1391 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (https)
+2026-10-30T03:00:40.039Z  INFO 1391 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-30T03:00:40.041Z  INFO 1391 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-10-30T03:00:40.085Z  INFO 1391 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-30T03:00:40.087Z  INFO 1391 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1382 ms
+2026-10-30T03:00:40.186Z  INFO 1391 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-10-30T03:00:40.187Z  INFO 1391 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-10-30T03:00:40.189Z  INFO 1391 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-10-30T03:00:40.190Z  INFO 1391 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-10-30T03:00:40.190Z  INFO 1391 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-10-30T03:00:40.191Z  INFO 1391 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-10-30T03:00:40.193Z  INFO 1391 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-10-30T03:00:40.194Z  INFO 1391 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+Can't Find VERSION
+Can't Find BUILD.no
+2026-10-30T03:00:40.989Z  INFO 1391 --- [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-0.0.0.0-auto-1], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [Set directly - location unknown] using alias [tomcat] with trust store [null]
+2026-10-30T03:00:40.998Z  INFO 1391 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 42411 (https) with context path '/'
+2026-10-30T03:00:41.009Z  INFO 1391 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : Started RealDriverHttpContractTest in 2.706 seconds (process running for 4.14)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/tmp/maven-repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-10-30T03:00:42.058Z  INFO 1391 --- [0-auto-1-exec-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-30T03:00:42.058Z  INFO 1391 --- [0-auto-1-exec-5] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-30T03:00:42.059Z  INFO 1391 --- [0-auto-1-exec-5] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.756 s -- in com.intel.cosbench.http.real.RealDriverHttpContractTest
+[INFO] Running com.intel.cosbench.http.DriverHttpContractTest
+2026-10-30T03:00:43.726Z  INFO 1391 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.intel.cosbench.http.DriverHttpContractTest$Config for test class com.intel.cosbench.http.DriverHttpContractTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-30T03:00:43.769Z  INFO 1391 --- [           main] c.i.c.http.DriverHttpContractTest        : Starting DriverHttpContractTest using Java 21.0.12.1 with PID 1391 (started by root in /workspace/shadow/cosbench-http-spike/target)
+2026-10-30T03:00:43.770Z  INFO 1391 --- [           main] c.i.c.http.DriverHttpContractTest        : No active profile set, falling back to 1 default profile: "default"
+2026-10-30T03:00:44.032Z  INFO 1391 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-10-30T03:00:44.034Z  INFO 1391 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-30T03:00:44.035Z  INFO 1391 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-10-30T03:00:44.054Z  INFO 1391 --- [           main] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2026-10-30T03:00:44.056Z  INFO 1391 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 283 ms
+2026-10-30T03:00:44.226Z  INFO 1391 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 41969 (http) with context path '/'
+2026-10-30T03:00:44.233Z  INFO 1391 --- [           main] c.i.c.http.DriverHttpContractTest        : Started DriverHttpContractTest in 0.5 seconds (process running for 7.364)
+2026-10-30T03:00:44.247Z  INFO 1391 --- [o-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-30T03:00:44.248Z  INFO 1391 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-30T03:00:44.249Z  INFO 1391 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.608 s -- in com.intel.cosbench.http.DriverHttpContractTest
+[INFO] Running com.intel.cosbench.http.AuthenticatedDriverClientTest
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.709 s -- in com.intel.cosbench.http.AuthenticatedDriverClientTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 32, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-http-spike ---
+[INFO] Building jar: /workspace/shadow/cosbench-http-spike/target/cosbench-http-spike-0.1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for cosbench-scheme3-shadow 0.1.0-SNAPSHOT:
+[INFO] 
+[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  1.291 s]
+[INFO] COSBench Log4j Runtime Resources ................... SUCCESS [  3.818 s]
+[INFO] COSBench Castor Runtime Resources .................. SUCCESS [  0.082 s]
+[INFO] COSBench Logging API and Log4j Adapter ............. SUCCESS [  6.667 s]
+[INFO] COSBench Config Shadow ............................. SUCCESS [  4.807 s]
+[INFO] COSBench Storage and Auth SPI ...................... SUCCESS [  0.482 s]
+[INFO] COSBench Core Model Protocol and Services .......... SUCCESS [  1.472 s]
+[INFO] COSBench HTTP Client Utility ....................... SUCCESS [  1.079 s]
+[INFO] COSBench Controller Business Services .............. SUCCESS [  0.940 s]
+[INFO] COSBench Controller Boot Application ............... SUCCESS [01:04 min]
+[INFO] COSBench Runtime Lifecycle Shadow .................. SUCCESS [  1.627 s]
+[INFO] COSBench Provider SPI Coexistence Spike ............ SUCCESS [ 14.240 s]
+[INFO] COSBench Controller Web Jakarta Spike .............. SUCCESS [  7.946 s]
+[INFO] COSBench authenticated Driver HTTP spike ........... SUCCESS [ 12.446 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:04 min
+[INFO] Finished at: 2026-10-30T03:00:47Z
+[INFO] ------------------------------------------------------------------------

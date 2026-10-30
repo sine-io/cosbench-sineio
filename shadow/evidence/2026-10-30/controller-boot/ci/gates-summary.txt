@@ -1,0 +1,15 @@
+PASS com.intel.cosbench.shadow:cosbench-log4j-shadow:jar:0.1.0-SNAPSHOT
+PASS com.intel.cosbench.shadow:cosbench-castor-shadow:jar:0.1.0-SNAPSHOT
+PASS com.intel.cosbench.shadow:cosbench-log-shadow:jar:0.1.0-SNAPSHOT
+PASS com.intel.cosbench.shadow:cosbench-config-shadow:jar:0.1.0-SNAPSHOT
+PASS com.intel.cosbench.shadow:cosbench-api-shadow:jar:0.1.0-SNAPSHOT
+PASS com.intel.cosbench.shadow:cosbench-core-shadow:jar:0.1.0-SNAPSHOT
+PASS com.intel.cosbench.shadow:cosbench-http-shadow:jar:0.1.0-SNAPSHOT
+PASS com.intel.cosbench.shadow:cosbench-controller-shadow:jar:0.1.0-SNAPSHOT
+PASS com.intel.cosbench.shadow:cosbench-controller-app:jar:0.1.0-SNAPSHOT
+PASS com.intel.cosbench.shadow:cosbench-runtime-shadow:jar:0.1.0-SNAPSHOT
+PASS com.intel.cosbench.shadow:cosbench-provider-spike:jar:0.1.0-SNAPSHOT
+PASS com.intel.cosbench.shadow:cosbench-web-spike:jar:0.1.0-SNAPSHOT
+PASS com.intel.cosbench.shadow:cosbench-http-spike:jar:0.1.0-SNAPSHOT
+status=passed
+modules=13

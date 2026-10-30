@@ -1,0 +1,6 @@
+status=passed
+health=real-controller
+config-precedence=passed
+port-conflict=diagnosed
+restart-and-port-release=passed
+existing-data=unchanged

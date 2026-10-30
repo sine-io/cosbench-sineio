@@ -1,0 +1,4 @@
+Exception in thread "main" java.lang.IllegalStateException: Disabled verification execution in fixture: maven-enforcer-plugin
+	at BuildAudit.verificationEnabled(BuildAudit.java:129)
+	at BuildAudit.modules(BuildAudit.java:91)
+	at BuildAudit.main(BuildAudit.java:28)

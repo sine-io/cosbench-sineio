@@ -1,0 +1,1 @@
+PASS artifact /tmp/tmp.EuCipRI4K3/cosbench-http-spike-tests.jar

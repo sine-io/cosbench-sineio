@@ -18,14 +18,14 @@ limitations under the License.
 package com.intel.cosbench.log;
 
 /**
- * The enumeration of different log levels, five levels are defined: TRACE, DEBUG, INFO, WARN, ERROR.
+ * Business log levels, including OFF from the shared YAML contract.
  *
  * @author ywang19, qzheng7
  *
  */
 public enum LogLevel {
 
-    TRACE, DEBUG, INFO, WARN, ERROR;
+    TRACE, DEBUG, INFO, WARN, ERROR, OFF;
 
     public static LogLevel parseLevel(String level) {
         if ("TRACE".equalsIgnoreCase(level))
@@ -38,6 +38,8 @@ public enum LogLevel {
             return WARN;
         if ("ERROR".equalsIgnoreCase(level))
             return ERROR;
+        if ("OFF".equalsIgnoreCase(level))
+            return OFF;
         String msg = "unrecognized log level: " + level;
         throw new IllegalArgumentException(msg);
     }

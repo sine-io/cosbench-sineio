@@ -1,0 +1,3 @@
+Exception in thread "main" java.lang.IllegalStateException: Checksum mismatch: example:fixture:jar:1
+	at BuildAudit.checkDependencies(BuildAudit.java:262)
+	at BuildAudit.main(BuildAudit.java:26)

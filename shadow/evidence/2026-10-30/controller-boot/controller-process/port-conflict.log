@@ -1,0 +1,54 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-30T03:05:35.291Z  INFO 1115 --- [           main] c.i.c.a.c.ControllerApplication          : Starting ControllerApplication using Java 21.0.12.1 with PID 1115 (/workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar started by root in /tmp/cosbench-controller-process.xhP5Qb/launch)
+2026-10-30T03:05:35.300Z  INFO 1115 --- [           main] c.i.c.a.c.ControllerApplication          : No active profile set, falling back to 1 default profile: "default"
+2026-10-30T03:05:36.762Z  INFO 1115 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19488 (http)
+2026-10-30T03:05:36.783Z  INFO 1115 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-30T03:05:36.783Z  INFO 1115 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-10-30T03:05:36.814Z  INFO 1115 --- [           main] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring embedded WebApplicationContext
+2026-10-30T03:05:36.815Z  INFO 1115 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1388 ms
+(Log4jLogManager.java:119)
+2026-10-30 03:05:36,930 [main           ] [INFO ] - will append log to console
+2026-10-30T03:05:36.955Z  INFO 1115 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-10-30T03:05:36.955Z  INFO 1115 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-10-30T03:05:36.955Z  INFO 1115 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-10-30T03:05:36.955Z  INFO 1115 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-10-30T03:05:36.955Z  INFO 1115 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-10-30T03:05:36.955Z  INFO 1115 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-10-30T03:05:36.955Z  INFO 1115 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-10-30T03:05:36.955Z  INFO 1115 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+(SimpleWorkloadArchiver.java:61)
+2026-10-30 03:05:37,166 [main           ] [INFO ] - using /tmp/cosbench-controller-process.xhP5Qb/archive for storing workload archives
+(SimpleWorkloadLoader.java:63)
+2026-10-30 03:05:37,168 [main           ] [INFO ] - loading workload archives from /tmp/cosbench-controller-process.xhP5Qb/archive
+(PingDriverRunner.java:90)
+2026-10-30 03:05:37,171 [r-driver-pinger] [INFO ] - begin to sleep for 20 seconds.
+2026-10-30T03:05:37.555Z  WARN 1115 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+(COSBControllerService.java:473)
+2026-10-30 03:05:37,556 [main           ] [INFO ] - Controller stopped: executor terminated, heartbeat terminated
+2026-10-30T03:05:37.571Z  INFO 1115 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-30T03:05:37.588Z ERROR 1115 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 19488 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 19488 or configure this application to listen on another port.
+
+Controller startup failed: Failed to start bean 'webServerStartStop'

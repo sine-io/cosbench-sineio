@@ -42,7 +42,7 @@ Unknown keys and unknown schema versions fail before service startup. The loader
 | `provider.name` | string, default `mock` | Provider name is resolved by the later startup registry. |
 | `provider.concurrency` | integer, default `concurrency` | Provider worker bound, `1..10000`. |
 | `logging.level` | enum, default `INFO` | `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`, or `OFF`. |
-| `logging.file` | path, default `log/system.log` | Relative to installation root when relative. |
+| `logging.file` | path, defaults to `paths.logs` (`log/system.log` when omitted) | Explicit `logging.file` wins over `paths.logs`; relative to installation root when relative. |
 | `web.enabled` | boolean, default `true` | Enables the process web boundary. |
 | `web.maxUploadBytes` | integer, default `10485760` | `0..10GiB`. |
 | `shutdown.gracePeriod` | duration, default `30s` | `1ms..1h`; stop closes admission first, then waits for workers and clients. |

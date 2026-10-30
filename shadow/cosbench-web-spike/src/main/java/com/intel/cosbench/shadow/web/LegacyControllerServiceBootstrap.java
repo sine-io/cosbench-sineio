@@ -53,6 +53,7 @@ public class LegacyControllerServiceBootstrap {
         context.setVersion("Boot 3 Jakarta spike");
 
         COSBControllerService service = new COSBControllerService();
+        service.setShutdownGracePeriod(config.shutdown().gracePeriod());
         service.setContext(context);
         service.init();
         return service;

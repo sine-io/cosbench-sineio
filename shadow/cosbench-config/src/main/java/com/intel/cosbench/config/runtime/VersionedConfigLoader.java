@@ -118,7 +118,7 @@ public final class VersionedConfigLoader {
         HttpConfig http = http(root.get("http"));
         int concurrency = optionalInteger(root, "concurrency", 1, "concurrency");
         ProviderConfig provider = provider(root.get("provider"), concurrency);
-        LoggingConfig logging = logging(root.get("logging"));
+        LoggingConfig logging = logging(root.get("logging"), paths.logs());
         WebConfig web = web(root.get("web"));
         ShutdownConfig shutdown = shutdown(root.get("shutdown"));
 
@@ -247,12 +247,12 @@ public final class VersionedConfigLoader {
         }
     }
 
-    private static LoggingConfig logging(Object value) {
+    private static LoggingConfig logging(Object value, Path defaultLogFile) {
         Map<String, Object> values = optionalMapValue(value, "logging");
         checkUnknown(values, LOGGING_KEYS, "logging");
         try {
             return new LoggingConfig(optionalText(values, "level", "INFO", "logging.level"),
-                    Path.of(optionalText(values, "file", "log/system.log", "logging.file")));
+                    Path.of(optionalText(values, "file", defaultLogFile.toString(), "logging.file")));
         } catch (IllegalArgumentException e) {
             throw validation(ConfigProblemCode.VALUE_OUT_OF_RANGE, e.getMessage(), e);
         }

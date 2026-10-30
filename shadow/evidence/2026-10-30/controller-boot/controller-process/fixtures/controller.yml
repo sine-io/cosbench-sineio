@@ -1,0 +1,14 @@
+schemaVersion: 1
+role: controller
+name: Controller executable replay
+listen:
+  host: 127.0.0.1
+  port: 19488
+  contextPath: /controller
+paths:
+  workspace: workspace
+  archive: archive
+logging:
+  file: log/system.log
+shutdown:
+  gracePeriod: 5s

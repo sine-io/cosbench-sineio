@@ -14,7 +14,7 @@ BUILD-01 establishes this policy for every module subsequently admitted to the s
 
 Run `bash ci/verify-shadow.sh EMPTY_REPORT_DIR` from any working directory. [The workflow](../.github/workflows/shadow-verify.yml) runs this exact entry on pushes, pull requests and manual dispatches, without restoring Maven or build-output caches. The digest-pinned Java 21 container starts with an empty tmpfs Maven repository and runs the whole migrated reactor's `clean verify`; subsequent installs reuse those verified outputs for auditing. The image/BOM/lifecycle versions remain in `harness/versions.env`, `pom.xml`, and the retained `toolchain.txt`.
 
-The same run exercises MinIO, Toxiproxy, configuration/lifecycle, all four production Provider factories and test Mock, packaged Web, and the authenticated HTTP/Mock mission replay. `harness/run.sh` remains the lower-level build/configuration/Provider harness; it also invokes the same dependency gates, and accepts custom replays. These entries do not run the root Tycho reactor.
+The same run exercises MinIO, Toxiproxy, configuration/lifecycle, all four production Provider factories and test Mock, packaged Controller and Web, and the authenticated HTTP/Mock mission replay. Controller/app modules inherit all gates; `ControllerProcessTest` verifies real service behavior in separate JVMs and `harness/controller-process.sh` replays the executable with no test classes. `harness/run.sh` remains the lower-level build/configuration/Provider harness; it also invokes the same dependency gates, and accepts custom replays. These entries do not run the root Tycho reactor.
 
 ## Blocking checks
 

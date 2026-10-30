@@ -1,0 +1,3 @@
+Exception in thread "main" java.lang.IllegalStateException: Dependency is not admitted: example:fixture:jar:2
+	at BuildAudit.checkDependencies(BuildAudit.java:261)
+	at BuildAudit.main(BuildAudit.java:26)

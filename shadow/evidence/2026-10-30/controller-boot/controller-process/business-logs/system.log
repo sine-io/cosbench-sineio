@@ -1,0 +1,18 @@
+2026-10-30 03:05:32,824 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-controller-process.xhP5Qb/log/system.log
+2026-10-30 03:05:32,827 [INFO] [Log4jLogManager] - will append log to console
+2026-10-30 03:05:33,112 [INFO] [SimpleWorkloadArchiver] - using /tmp/cosbench-controller-process.xhP5Qb/archive for storing workload archives
+2026-10-30 03:05:33,114 [INFO] [SimpleWorkloadLoader] - loading workload archives from /tmp/cosbench-controller-process.xhP5Qb/archive
+2026-10-30 03:05:33,122 [INFO] [PingDriverRunner] - begin to sleep for 20 seconds.
+2026-10-30 03:05:36,928 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-controller-process.xhP5Qb/log/system.log
+2026-10-30 03:05:36,930 [INFO] [Log4jLogManager] - will append log to console
+2026-10-30 03:05:37,166 [INFO] [SimpleWorkloadArchiver] - using /tmp/cosbench-controller-process.xhP5Qb/archive for storing workload archives
+2026-10-30 03:05:37,168 [INFO] [SimpleWorkloadLoader] - loading workload archives from /tmp/cosbench-controller-process.xhP5Qb/archive
+2026-10-30 03:05:37,171 [INFO] [PingDriverRunner] - begin to sleep for 20 seconds.
+2026-10-30 03:05:37,556 [INFO] [COSBControllerService] - Controller stopped: executor terminated, heartbeat terminated
+2026-10-30 03:05:37,631 [INFO] [COSBControllerService] - Controller stopped: executor terminated, heartbeat terminated
+2026-10-30 03:05:40,656 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-controller-process.xhP5Qb/log/system.log
+2026-10-30 03:05:40,660 [INFO] [Log4jLogManager] - will append log to console
+2026-10-30 03:05:40,891 [INFO] [SimpleWorkloadArchiver] - using /tmp/cosbench-controller-process.xhP5Qb/archive for storing workload archives
+2026-10-30 03:05:40,893 [INFO] [SimpleWorkloadLoader] - loading workload archives from /tmp/cosbench-controller-process.xhP5Qb/archive
+2026-10-30 03:05:40,895 [INFO] [PingDriverRunner] - begin to sleep for 20 seconds.
+2026-10-30 03:05:41,461 [INFO] [COSBControllerService] - Controller stopped: executor terminated, heartbeat terminated
