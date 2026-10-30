@@ -1,0 +1,94 @@
+The following files have been resolved:
+   com.intel.cosbench.shadow:cosbench-api-shadow:jar:0.1.0-SNAPSHOT:compile:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-api-shadow/0.1.0-SNAPSHOT/cosbench-api-shadow-0.1.0-SNAPSHOT.jar -- module cosbench.api.shadow (auto)
+   com.intel.cosbench.shadow:cosbench-log-shadow:jar:0.1.0-SNAPSHOT:compile:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-log-shadow/0.1.0-SNAPSHOT/cosbench-log-shadow-0.1.0-SNAPSHOT.jar -- module cosbench.log.shadow (auto)
+   com.intel.cosbench.shadow:cosbench-log4j-shadow:jar:0.1.0-SNAPSHOT:compile:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-log4j-shadow/0.1.0-SNAPSHOT/cosbench-log4j-shadow-0.1.0-SNAPSHOT.jar -- module cosbench.log4j.shadow (auto)
+   log4j:log4j:jar:1.2.17:compile:/tmp/maven-repository/log4j/log4j/1.2.17/log4j-1.2.17.jar -- module log4j (auto)
+   org.slf4j:slf4j-api:jar:2.0.18:compile:/tmp/maven-repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar -- module org.slf4j
+   com.intel.cosbench.shadow:cosbench-core-shadow:jar:0.1.0-SNAPSHOT:compile:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-core-shadow/0.1.0-SNAPSHOT/cosbench-core-shadow-0.1.0-SNAPSHOT.jar -- module cosbench.core.shadow (auto)
+   org.apache.commons:commons-csv:jar:1.10.0:compile:/tmp/maven-repository/org/apache/commons/commons-csv/1.10.0/commons-csv-1.10.0.jar -- module org.apache.commons.csv [auto]
+   commons-io:commons-io:jar:2.15.1:compile:/tmp/maven-repository/commons-io/commons-io/2.15.1/commons-io-2.15.1.jar -- module org.apache.commons.io
+   commons-lang:commons-lang:jar:2.6:compile:/tmp/maven-repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar -- module commons.lang (auto)
+   com.intel.cosbench.shadow:cosbench-http-shadow:jar:0.1.0-SNAPSHOT:compile:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-http-shadow/0.1.0-SNAPSHOT/cosbench-http-shadow-0.1.0-SNAPSHOT.jar -- module cosbench.http.shadow (auto)
+   org.apache.httpcomponents:httpclient:jar:4.5.14:compile:/tmp/maven-repository/org/apache/httpcomponents/httpclient/4.5.14/httpclient-4.5.14.jar -- module org.apache.httpcomponents.httpclient [auto]
+   org.apache.httpcomponents:httpcore:jar:4.4.16:compile:/tmp/maven-repository/org/apache/httpcomponents/httpcore/4.4.16/httpcore-4.4.16.jar -- module org.apache.httpcomponents.httpcore [auto]
+   commons-codec:commons-codec:jar:1.15:compile:/tmp/maven-repository/commons-codec/commons-codec/1.15/commons-codec-1.15.jar -- module org.apache.commons.codec [auto]
+   com.intel.cosbench.shadow:cosbench-config-shadow:jar:0.1.0-SNAPSHOT:compile:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar -- module cosbench.config.shadow (auto)
+   com.intel.cosbench.shadow:cosbench-castor-shadow:jar:0.1.0-SNAPSHOT:compile:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-castor-shadow/0.1.0-SNAPSHOT/cosbench-castor-shadow-0.1.0-SNAPSHOT.jar -- module cosbench.castor.shadow (auto)
+   commons-configuration:commons-configuration:jar:1.10:compile:/tmp/maven-repository/commons-configuration/commons-configuration/1.10/commons-configuration-1.10.jar -- module commons.configuration (auto)
+   org.codehaus.castor:castor-xml:jar:1.3.3:compile:/tmp/maven-repository/org/codehaus/castor/castor-xml/1.3.3/castor-xml-1.3.3.jar -- module castor.xml (auto)
+   org.codehaus.castor:castor-core:jar:1.3.3:compile:/tmp/maven-repository/org/codehaus/castor/castor-core/1.3.3/castor-core-1.3.3.jar -- module castor.core (auto)
+   commons-collections:commons-collections:jar:3.2.1:compile:/tmp/maven-repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar -- module commons.collections (auto)
+   javax.inject:javax.inject:jar:1:compile:/tmp/maven-repository/javax/inject/javax.inject/1/javax.inject-1.jar -- module javax.inject (auto)
+   org.yaml:snakeyaml:jar:2.4:compile:/tmp/maven-repository/org/yaml/snakeyaml/2.4/snakeyaml-2.4.jar -- module org.yaml.snakeyaml
+   org.springframework.boot:spring-boot-starter-web:jar:3.5.16:compile:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-web/3.5.16/spring-boot-starter-web-3.5.16.jar -- module spring.boot.starter.web [auto]
+   org.springframework.boot:spring-boot-starter:jar:3.5.16:compile:/tmp/maven-repository/org/springframework/boot/spring-boot-starter/3.5.16/spring-boot-starter-3.5.16.jar -- module spring.boot.starter [auto]
+   org.springframework.boot:spring-boot:jar:3.5.16:compile:/tmp/maven-repository/org/springframework/boot/spring-boot/3.5.16/spring-boot-3.5.16.jar -- module spring.boot [auto]
+   org.springframework.boot:spring-boot-autoconfigure:jar:3.5.16:compile:/tmp/maven-repository/org/springframework/boot/spring-boot-autoconfigure/3.5.16/spring-boot-autoconfigure-3.5.16.jar -- module spring.boot.autoconfigure [auto]
+   org.springframework.boot:spring-boot-starter-logging:jar:3.5.16:compile:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-logging/3.5.16/spring-boot-starter-logging-3.5.16.jar -- module spring.boot.starter.logging [auto]
+   ch.qos.logback:logback-classic:jar:1.5.34:compile:/tmp/maven-repository/ch/qos/logback/logback-classic/1.5.34/logback-classic-1.5.34.jar -- module ch.qos.logback.classic
+   ch.qos.logback:logback-core:jar:1.5.34:compile:/tmp/maven-repository/ch/qos/logback/logback-core/1.5.34/logback-core-1.5.34.jar -- module ch.qos.logback.core
+   org.apache.logging.log4j:log4j-to-slf4j:jar:2.24.3:compile:/tmp/maven-repository/org/apache/logging/log4j/log4j-to-slf4j/2.24.3/log4j-to-slf4j-2.24.3.jar -- module org.apache.logging.log4j.to.slf4j
+   org.apache.logging.log4j:log4j-api:jar:2.24.3:compile:/tmp/maven-repository/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar -- module org.apache.logging.log4j
+   org.slf4j:jul-to-slf4j:jar:2.0.18:compile:/tmp/maven-repository/org/slf4j/jul-to-slf4j/2.0.18/jul-to-slf4j-2.0.18.jar -- module jul.to.slf4j
+   jakarta.annotation:jakarta.annotation-api:jar:2.1.1:compile:/tmp/maven-repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar -- module jakarta.annotation
+   org.springframework.boot:spring-boot-starter-json:jar:3.5.16:compile:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-json/3.5.16/spring-boot-starter-json-3.5.16.jar -- module spring.boot.starter.json [auto]
+   com.fasterxml.jackson.core:jackson-databind:jar:2.21.4:compile:/tmp/maven-repository/com/fasterxml/jackson/core/jackson-databind/2.21.4/jackson-databind-2.21.4.jar -- module com.fasterxml.jackson.databind
+   com.fasterxml.jackson.core:jackson-annotations:jar:2.21:compile:/tmp/maven-repository/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar -- module com.fasterxml.jackson.annotation
+   com.fasterxml.jackson.core:jackson-core:jar:2.21.4:compile:/tmp/maven-repository/com/fasterxml/jackson/core/jackson-core/2.21.4/jackson-core-2.21.4.jar -- module com.fasterxml.jackson.core
+   com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.21.4:compile:/tmp/maven-repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.21.4/jackson-datatype-jdk8-2.21.4.jar -- module com.fasterxml.jackson.datatype.jdk8
+   com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.21.4:compile:/tmp/maven-repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.21.4/jackson-datatype-jsr310-2.21.4.jar -- module com.fasterxml.jackson.datatype.jsr310
+   com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.21.4:compile:/tmp/maven-repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.21.4/jackson-module-parameter-names-2.21.4.jar -- module com.fasterxml.jackson.module.paramnames
+   org.springframework.boot:spring-boot-starter-tomcat:jar:3.5.16:compile:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-tomcat/3.5.16/spring-boot-starter-tomcat-3.5.16.jar -- module spring.boot.starter.tomcat [auto]
+   org.apache.tomcat.embed:tomcat-embed-core:jar:10.1.55:compile:/tmp/maven-repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.55/tomcat-embed-core-10.1.55.jar -- module org.apache.tomcat.embed.core
+   org.apache.tomcat.embed:tomcat-embed-el:jar:10.1.55:compile:/tmp/maven-repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.55/tomcat-embed-el-10.1.55.jar -- module org.apache.tomcat.embed.el
+   org.apache.tomcat.embed:tomcat-embed-websocket:jar:10.1.55:compile:/tmp/maven-repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.55/tomcat-embed-websocket-10.1.55.jar -- module org.apache.tomcat.embed.websocket
+   org.springframework:spring-web:jar:6.2.19:compile:/tmp/maven-repository/org/springframework/spring-web/6.2.19/spring-web-6.2.19.jar -- module spring.web [auto]
+   org.springframework:spring-beans:jar:6.2.19:compile:/tmp/maven-repository/org/springframework/spring-beans/6.2.19/spring-beans-6.2.19.jar -- module spring.beans [auto]
+   io.micrometer:micrometer-observation:jar:1.15.12:compile:/tmp/maven-repository/io/micrometer/micrometer-observation/1.15.12/micrometer-observation-1.15.12.jar -- module micrometer.observation [auto]
+   io.micrometer:micrometer-commons:jar:1.15.12:compile:/tmp/maven-repository/io/micrometer/micrometer-commons/1.15.12/micrometer-commons-1.15.12.jar -- module micrometer.commons [auto]
+   org.springframework:spring-webmvc:jar:6.2.19:compile:/tmp/maven-repository/org/springframework/spring-webmvc/6.2.19/spring-webmvc-6.2.19.jar -- module spring.webmvc [auto]
+   org.springframework:spring-context:jar:6.2.19:compile:/tmp/maven-repository/org/springframework/spring-context/6.2.19/spring-context-6.2.19.jar -- module spring.context [auto]
+   org.springframework:spring-expression:jar:6.2.19:compile:/tmp/maven-repository/org/springframework/spring-expression/6.2.19/spring-expression-6.2.19.jar -- module spring.expression [auto]
+   org.springframework.boot:spring-boot-starter-freemarker:jar:3.5.16:compile:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-freemarker/3.5.16/spring-boot-starter-freemarker-3.5.16.jar -- module spring.boot.starter.freemarker [auto]
+   org.freemarker:freemarker:jar:2.3.34:compile:/tmp/maven-repository/org/freemarker/freemarker/2.3.34/freemarker-2.3.34.jar -- module freemarker [auto]
+   org.springframework:spring-context-support:jar:6.2.19:compile:/tmp/maven-repository/org/springframework/spring-context-support/6.2.19/spring-context-support-6.2.19.jar -- module spring.context.support [auto]
+   org.springframework.boot:spring-boot-starter-security:jar:3.5.16:compile:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-security/3.5.16/spring-boot-starter-security-3.5.16.jar -- module spring.boot.starter.security [auto]
+   org.springframework:spring-aop:jar:6.2.19:compile:/tmp/maven-repository/org/springframework/spring-aop/6.2.19/spring-aop-6.2.19.jar -- module spring.aop [auto]
+   org.springframework.security:spring-security-config:jar:6.5.11:compile:/tmp/maven-repository/org/springframework/security/spring-security-config/6.5.11/spring-security-config-6.5.11.jar -- module spring.security.config [auto]
+   org.springframework.security:spring-security-core:jar:6.5.11:compile:/tmp/maven-repository/org/springframework/security/spring-security-core/6.5.11/spring-security-core-6.5.11.jar -- module spring.security.core [auto]
+   org.springframework.security:spring-security-crypto:jar:6.5.11:compile:/tmp/maven-repository/org/springframework/security/spring-security-crypto/6.5.11/spring-security-crypto-6.5.11.jar -- module spring.security.crypto [auto]
+   org.springframework.security:spring-security-web:jar:6.5.11:compile:/tmp/maven-repository/org/springframework/security/spring-security-web/6.5.11/spring-security-web-6.5.11.jar -- module spring.security.web [auto]
+   org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13:compile:/tmp/maven-repository/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar -- module jackson.mapper.asl (auto)
+   org.codehaus.jackson:jackson-core-asl:jar:1.9.13:compile:/tmp/maven-repository/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar -- module jackson.core.asl (auto)
+   org.springframework.boot:spring-boot-starter-test:jar:3.5.16:test:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-test/3.5.16/spring-boot-starter-test-3.5.16.jar -- module spring.boot.starter.test [auto]
+   org.springframework.boot:spring-boot-test:jar:3.5.16:test:/tmp/maven-repository/org/springframework/boot/spring-boot-test/3.5.16/spring-boot-test-3.5.16.jar -- module spring.boot.test [auto]
+   org.springframework.boot:spring-boot-test-autoconfigure:jar:3.5.16:test:/tmp/maven-repository/org/springframework/boot/spring-boot-test-autoconfigure/3.5.16/spring-boot-test-autoconfigure-3.5.16.jar -- module spring.boot.test.autoconfigure [auto]
+   com.jayway.jsonpath:json-path:jar:2.9.0:test:/tmp/maven-repository/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar -- module json.path [auto]
+   jakarta.xml.bind:jakarta.xml.bind-api:jar:4.0.5:test:/tmp/maven-repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.5/jakarta.xml.bind-api-4.0.5.jar -- module jakarta.xml.bind
+   jakarta.activation:jakarta.activation-api:jar:2.1.4:test:/tmp/maven-repository/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar -- module jakarta.activation
+   net.minidev:json-smart:jar:2.5.2:test:/tmp/maven-repository/net/minidev/json-smart/2.5.2/json-smart-2.5.2.jar -- module json.smart (auto)
+   net.minidev:accessors-smart:jar:2.5.2:test:/tmp/maven-repository/net/minidev/accessors-smart/2.5.2/accessors-smart-2.5.2.jar -- module accessors.smart (auto)
+   org.ow2.asm:asm:jar:9.7.1:test:/tmp/maven-repository/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar -- module org.objectweb.asm
+   org.assertj:assertj-core:jar:3.27.7:test:/tmp/maven-repository/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar -- module org.assertj.core
+   net.bytebuddy:byte-buddy:jar:1.17.8:test:/tmp/maven-repository/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar -- module net.bytebuddy
+   org.awaitility:awaitility:jar:4.2.2:test:/tmp/maven-repository/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar -- module awaitility (auto)
+   org.hamcrest:hamcrest:jar:3.0:test:/tmp/maven-repository/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar -- module org.hamcrest [auto]
+   org.junit.jupiter:junit-jupiter:jar:5.12.2:test:/tmp/maven-repository/org/junit/jupiter/junit-jupiter/5.12.2/junit-jupiter-5.12.2.jar -- module org.junit.jupiter
+   org.junit.jupiter:junit-jupiter-api:jar:5.12.2:test:/tmp/maven-repository/org/junit/jupiter/junit-jupiter-api/5.12.2/junit-jupiter-api-5.12.2.jar -- module org.junit.jupiter.api
+   org.opentest4j:opentest4j:jar:1.3.0:test:/tmp/maven-repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar -- module org.opentest4j
+   org.junit.platform:junit-platform-commons:jar:1.12.2:test:/tmp/maven-repository/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar -- module org.junit.platform.commons
+   org.apiguardian:apiguardian-api:jar:1.1.2:test:/tmp/maven-repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar -- module org.apiguardian.api
+   org.junit.jupiter:junit-jupiter-params:jar:5.12.2:test:/tmp/maven-repository/org/junit/jupiter/junit-jupiter-params/5.12.2/junit-jupiter-params-5.12.2.jar -- module org.junit.jupiter.params
+   org.junit.jupiter:junit-jupiter-engine:jar:5.12.2:test:/tmp/maven-repository/org/junit/jupiter/junit-jupiter-engine/5.12.2/junit-jupiter-engine-5.12.2.jar -- module org.junit.jupiter.engine
+   org.junit.platform:junit-platform-engine:jar:1.12.2:test:/tmp/maven-repository/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar -- module org.junit.platform.engine
+   org.mockito:mockito-core:jar:5.17.0:test:/tmp/maven-repository/org/mockito/mockito-core/5.17.0/mockito-core-5.17.0.jar -- module org.mockito
+   net.bytebuddy:byte-buddy-agent:jar:1.17.8:test:/tmp/maven-repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar -- module net.bytebuddy.agent
+   org.objenesis:objenesis:jar:3.3:test:/tmp/maven-repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar -- module org.objenesis [auto]
+   org.mockito:mockito-junit-jupiter:jar:5.17.0:test:/tmp/maven-repository/org/mockito/mockito-junit-jupiter/5.17.0/mockito-junit-jupiter-5.17.0.jar -- module org.mockito.junit.jupiter
+   org.skyscreamer:jsonassert:jar:1.5.3:test:/tmp/maven-repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar -- module jsonassert (auto)
+   com.vaadin.external.google:android-json:jar:0.0.20131108.vaadin1:test:/tmp/maven-repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar -- module android.json (auto)
+   org.springframework:spring-core:jar:6.2.19:compile:/tmp/maven-repository/org/springframework/spring-core/6.2.19/spring-core-6.2.19.jar -- module spring.core [auto]
+   org.springframework:spring-jcl:jar:6.2.19:compile:/tmp/maven-repository/org/springframework/spring-jcl/6.2.19/spring-jcl-6.2.19.jar -- module spring.jcl [auto]
+   org.springframework:spring-test:jar:6.2.19:test:/tmp/maven-repository/org/springframework/spring-test/6.2.19/spring-test-6.2.19.jar -- module spring.test [auto]
+   org.xmlunit:xmlunit-core:jar:2.10.4:test:/tmp/maven-repository/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar -- module org.xmlunit [auto]
+

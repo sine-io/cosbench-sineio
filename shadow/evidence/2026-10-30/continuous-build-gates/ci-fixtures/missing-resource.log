@@ -1,0 +1,2 @@
+Exception in thread "main" java.lang.IllegalStateException: Missing packaged resource: required-mapping.xml in /tmp/tmp.s9ZHNuVlE8/missing-resource.jar
+	at ArtifactAudit.main(ArtifactAudit.java:66)

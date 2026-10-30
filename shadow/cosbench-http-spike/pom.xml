@@ -11,6 +11,17 @@
   <artifactId>cosbench-http-spike</artifactId>
   <name>COSBench authenticated Driver HTTP spike</name>
 
+  <dependencyManagement>
+    <dependencies>
+      <!-- Preserve this spike's existing selected version on every dependency path. -->
+      <dependency>
+        <groupId>commons-collections</groupId>
+        <artifactId>commons-collections</artifactId>
+        <version>3.2.2</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>com.intel.cosbench.shadow</groupId>

@@ -1,0 +1,35 @@
+name: Java 21 migration gates
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: shadow-verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out clean source
+        uses: actions/checkout@v7
+
+      - name: Verify migrated reactor and prerequisite replays in Java 21 Docker
+        run: bash ci/verify-shadow.sh "$RUNNER_TEMP/cosbench-shadow"
+
+      - name: Retain build, test, audit and Docker cleanup reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shadow-gates-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/cosbench-shadow
+          if-no-files-found: error
+          retention-days: 14

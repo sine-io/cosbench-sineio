@@ -1,0 +1,3 @@
+Exception in thread "main" java.lang.IllegalStateException: Mock leaked into production: /tmp/tmp.s9ZHNuVlE8/mock.jar!/com/intel/cosbench/api/mock/
+	at ArtifactAudit.scan(ArtifactAudit.java:115)
+	at ArtifactAudit.main(ArtifactAudit.java:53)

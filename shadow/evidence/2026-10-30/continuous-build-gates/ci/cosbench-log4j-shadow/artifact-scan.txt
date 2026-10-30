@@ -1,0 +1,1 @@
+PASS artifact /workspace/shadow/cosbench-log4j/target/cosbench-log4j-shadow-0.1.0-SNAPSHOT.jar

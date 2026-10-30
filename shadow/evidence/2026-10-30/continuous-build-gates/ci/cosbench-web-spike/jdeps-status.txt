@@ -1,0 +1,1 @@
+PASS jdeps /tmp/tmp.amN3z4JkTL/cosbench-web-spike-thin.jar

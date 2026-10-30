@@ -1,0 +1,1 @@
+PASS artifact /tmp/tmp.amN3z4JkTL/cosbench-web-spike-tests.jar

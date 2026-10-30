@@ -1,0 +1,3 @@
+Exception in thread "main" java.lang.IllegalStateException: Forbidden artifact reference: springframework/org/schema/osgi in /tmp/tmp.s9ZHNuVlE8/spring-dm.jar!/META-INF/spring/osgi-context.xml
+	at ArtifactAudit.scan(ArtifactAudit.java:109)
+	at ArtifactAudit.main(ArtifactAudit.java:53)

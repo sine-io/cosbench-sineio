@@ -1,0 +1,76 @@
+com.intel.cosbench.shadow:cosbench-api-shadow:jar:0.1.0-SNAPSHOT	compile	a31d45edc5cb5c211d7304f24e3eaf88d194bf089b337b682ec2c49de45eb83f	Apache-2.0 (reactor)
+com.intel.cosbench.shadow:cosbench-config-shadow:jar:0.1.0-SNAPSHOT	compile	5a8792d8f37beefe81f08a59d1da317a276f82dd768b354b410a6655604a30e1	Apache-2.0 (reactor)
+com.intel.cosbench.shadow:cosbench-castor-shadow:jar:0.1.0-SNAPSHOT	compile	a566c95084c5e4eccd09de1851744ea5bff97ebc7b789545cfdccdf85f14f69f	Apache-2.0 (reactor)
+commons-configuration:commons-configuration:jar:1.10	compile	95d4e6711e88ce78992c82c25bc03c8df9ecf5a357f0de0bec72a26db3399374	Apache-2.0
+commons-lang:commons-lang:jar:2.6	compile	50f11b09f877c294d56f24463f47d28f929cf5044f648661c0f0cfbae9a2f49c	Apache-2.0
+org.codehaus.castor:castor-xml:jar:1.3.3	compile	db40227f0bdc2ed4658d80b4138c0bba239c50d763c53a8487b1648f028fcfd1	LicenseRef-Castor-1.3.3 AND Apache-2.0
+org.codehaus.castor:castor-core:jar:1.3.3	compile	4b69771c9932f559a7e6f2b6218f442dd7ae086f68575b45f403c5e2c18ce8ce	LicenseRef-Castor-1.3.3 AND Apache-2.0
+commons-collections:commons-collections:jar:3.2.1	compile	87363a4c94eaabeefd8b930cb059f66b64c9f7d632862f23de3012da7660047b	Apache-2.0
+javax.inject:javax.inject:jar:1	compile	91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff	Apache-2.0
+org.yaml:snakeyaml:jar:2.4	compile	ef779af5d29a9dde8cc70ce0341f5c6f7735e23edff9685ceaa9d35359b7bb7f	Apache-2.0
+com.intel.cosbench.shadow:cosbench-log-shadow:jar:0.1.0-SNAPSHOT	compile	f85a03f818df4a51e9302c750b262f3c7bde26c066457d41c4472f44ccb30975	Apache-2.0 (reactor)
+com.intel.cosbench.shadow:cosbench-log4j-shadow:jar:0.1.0-SNAPSHOT	compile	410895c08b0526ff7d272fcdfd7e3341909f09a612173e1291dfe0f3060fe139	Apache-2.0 (reactor)
+commons-io:commons-io:jar:2.15.1	compile	a58af12ee1b68cfd2ebb0c27caef164f084381a00ec81a48cc275fd7ea54e154	Apache-2.0
+log4j:log4j:jar:1.2.17	compile	1d31696445697720527091754369082a6651bd49781b6005deb94e56753406f9	Apache-2.0
+org.slf4j:slf4j-api:jar:2.0.18	compile	44508fd1576500688c790b190acdd16fec4f8c79a3e0b900afd70503cf055f55	MIT
+com.amazonaws:aws-java-sdk-s3:jar:1.12.767	compile	5315381e2f13961b63e7e9a30a76505ece97538c8c88947be43dc33c1351c8d1	Apache-2.0
+com.amazonaws:aws-java-sdk-kms:jar:1.12.767	compile	2425101769b6faaac54bdc1a91d2cb2f77156c6c258d42ad5e7ac8f2356667ae	Apache-2.0
+com.amazonaws:aws-java-sdk-core:jar:1.12.767	compile	fdae86836d581dee1ab2bd248333d96fd488457e41777553ae54d78d01888b8f	Apache-2.0
+commons-logging:commons-logging:jar:1.1.1	compile	ce6f913cad1f0db3aad70186d65c5bc7ffcc9a99e3fe8e0b137312819f7c362f	Apache-2.0
+com.fasterxml.jackson.core:jackson-databind:jar:2.21.4	compile	3888e9e69ab66fbacaacc9aea0e9ffbf15368288e4aca468b024dba11c09fbf9	Apache-2.0
+com.fasterxml.jackson.core:jackson-annotations:jar:2.21	compile	53ca085f4a150f703f49e1aabd935bd03b43e1ea3d55d135438292af22cef56b	Apache-2.0
+com.fasterxml.jackson.core:jackson-core:jar:2.21.4	compile	4b40a06396f239f8de2da57419adde6e94e5edc18a2171d471ea05eeed4e5c2d	Apache-2.0
+com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:jar:2.21.4	compile	fbde9e27625b5b8af54fbd2e184112b5471cf43216c38c2b9e039205a50bd6a9	Apache-2.0
+joda-time:joda-time:jar:2.12.7	compile	385282b005818cfaccdbe8bd2429811e7e641782f2b88932a6b8ff51d668f616	Apache-2.0
+com.amazonaws:jmespath-java:jar:1.12.767	compile	1dde608659391cd49bfce9ac380cf21dace56a6a37fab4d81296bf571671383e	Apache-2.0
+software.amazon.awssdk:s3:jar:2.26.8	compile	b0d18e582ca99b733a7fe4d863abf07f3f0fe9906165d0b99d6f05d1895d2f4e	Apache-2.0
+software.amazon.awssdk:aws-xml-protocol:jar:2.26.8	compile	765fafaeac5c53a71bb66e22e8ced3c2bc3fa09df279798560312018e512c745	Apache-2.0
+software.amazon.awssdk:aws-query-protocol:jar:2.26.8	compile	68f2ec66294444e53435c97910f523f16e415ef43ca22af4df5e9e419adff663	Apache-2.0
+software.amazon.awssdk:protocol-core:jar:2.26.8	compile	96aa090b10697ee26f59de980ff10a67b6e8ff0720999711bfd4c1812488efb4	Apache-2.0
+software.amazon.awssdk:arns:jar:2.26.8	compile	32f73fbaff1c90b8afd9a645643483cff72ac7ee8bb961a4043d58254e1140ef	Apache-2.0
+software.amazon.awssdk:profiles:jar:2.26.8	compile	772ae58d894b64183a6e4bc3f70c589e57483ffcf0ff3a55923ccbd83b1f7949	Apache-2.0
+software.amazon.awssdk:crt-core:jar:2.26.8	compile	e64d039afa245d5ea25210f08f500f23795553322b239e4a273cb1715a10a84e	Apache-2.0
+software.amazon.awssdk:http-auth:jar:2.26.8	compile	740006e3d7168af39bd8a22573a38afa85bc14b0e17b1b4199bfb86327ae5501	Apache-2.0
+software.amazon.awssdk:identity-spi:jar:2.26.8	compile	4af1ba8bbae2fcc28647a27677026684cccb6e9f3ecbd24c935086ed6be748ca	Apache-2.0
+software.amazon.awssdk:http-auth-spi:jar:2.26.8	compile	a245ba5dc3718d558befcb57e7d90d637df30746d9ee27af6d3ad9edf77ce1a1	Apache-2.0
+org.reactivestreams:reactive-streams:jar:1.0.4	compile	f75ca597789b3dac58f61857b9ac2e1034a68fa672db35055a8fb4509e325f28	MIT-0
+software.amazon.awssdk:http-auth-aws:jar:2.26.8	compile	f90a08f7dbec9eb9ccd076b332bec86e958716777acbbbe99d29446c41b86039	Apache-2.0
+software.amazon.awssdk:checksums:jar:2.26.8	compile	25315d8220259c4b25062a4bb6829037139da5d51f1838c4dd6f2bc83cf79a2c	Apache-2.0
+software.amazon.awssdk:checksums-spi:jar:2.26.8	compile	595633a1b3dde8304db43a22c58ac83b4e071baad1ca4e62f0e92bb1c796b6fb	Apache-2.0
+software.amazon.awssdk:retries-spi:jar:2.26.8	compile	fbd0cf9dcba0b4b3a2ae4f191d9385b68d127d7d42beb54c58ae3a827e2ef7a8	Apache-2.0
+software.amazon.awssdk:sdk-core:jar:2.26.8	compile	44463bef6a3f9d56aad2b0e4ce8b042931b6005c24b94445aa628bf9018a0ffa	Apache-2.0
+software.amazon.awssdk:retries:jar:2.26.8	compile	7a644f092369f09e13e47f112817594f984760a5d1222e1a4933293cd5cea884	Apache-2.0
+software.amazon.awssdk:auth:jar:2.26.8	compile	67bae743875f114fb40a8bec023a82ab4cd39113602dfb6a4095ac4755f62af9	Apache-2.0
+software.amazon.eventstream:eventstream:jar:1.0.1	compile	0c37d8e696117f02c302191b8110b0d0eb20fa412fce34c3a269ec73c16ce822	Apache-2.0
+software.amazon.awssdk:http-client-spi:jar:2.26.8	compile	7b45520baac6c1ac6c04cb343e8f8c39e8f0d5ccc1f4700644674ae605f43c9f	Apache-2.0
+software.amazon.awssdk:regions:jar:2.26.8	compile	0e5b9cd76aff555c7e39d60b0dd093e252196d536ecf5af3e67ea5a4659a1a99	Apache-2.0
+software.amazon.awssdk:annotations:jar:2.26.8	compile	77061861708478e7e578d6e05ffbcc4abcf0e1decedbb93289911a765c2ba251	Apache-2.0
+software.amazon.awssdk:utils:jar:2.26.8	compile	6c9b59ff602109c23dacb09bf227c56f58e1ac80a0f66eb7fca21c87a409e8bf	Apache-2.0
+software.amazon.awssdk:aws-core:jar:2.26.8	compile	ec53a60dabf55532b08d50808fea7a4c020c29ecc13f4b4f7d870367aa73e2f2	Apache-2.0
+software.amazon.awssdk:metrics-spi:jar:2.26.8	compile	168c510cfc0c86232a8fd8f90c3fe55b7c22e7e73d7ceee23abc3d837d200506	Apache-2.0
+software.amazon.awssdk:json-utils:jar:2.26.8	compile	ee9397a9a3560d36a2a59cd2d38d4f1ed4c63cc28661e0fa6db2d29f97845eab	Apache-2.0
+software.amazon.awssdk:third-party-jackson-core:jar:2.26.8	compile	2b943fe84964bfd78d4830ecc6d6497b036d6886906e756652c455243557bb48	Apache-2.0
+software.amazon.awssdk:endpoints-spi:jar:2.26.8	compile	0bf0d5ac16402356c4928520e1e8855b68a0ad5beef0afb8fcc0ce73b6519647	Apache-2.0
+software.amazon.awssdk:netty-nio-client:jar:2.26.8	runtime	73aecd98307d1f542b3b6c23b186cdd120f09e84b87cfdd0c723c5e847ed96b6	Apache-2.0
+io.netty:netty-codec-http:jar:4.1.135.Final	runtime	4018529d3d6aecf4044b98c75d9a90c91839ddf49c7aa484c5ac81c90a15da02	Apache-2.0
+io.netty:netty-codec-http2:jar:4.1.135.Final	runtime	aa4e81ab5fa3b7b243eb3e814aa582ab26c073d31b0abffdbb58ee150fa49c16	Apache-2.0
+io.netty:netty-codec:jar:4.1.135.Final	runtime	7252171264dbb5bb8ed38e77f89643b31e3cabc96144ec27b6882435d718a61e	Apache-2.0
+io.netty:netty-transport:jar:4.1.135.Final	runtime	6bde734d1ec073142eed31b1e68cd5d68fbf241e060b37f07a164e5ecb15631c	Apache-2.0
+io.netty:netty-common:jar:4.1.135.Final	runtime	26775ca95820711403cf065fa2ec0134a0a04ff5417c688c0237aee68b55838d	Apache-2.0
+io.netty:netty-buffer:jar:4.1.135.Final	runtime	2a194f99fc93d07c4d442d04ac71bd2dc56d3188cd0e4270cdc2a953d1956bf9	Apache-2.0
+io.netty:netty-handler:jar:4.1.135.Final	runtime	245e74e04b6f4e8ef98853152412e3bf1499ce6fcf15329b798c8ce36c3537e2	Apache-2.0
+io.netty:netty-transport-native-unix-common:jar:4.1.135.Final	runtime	a7895075f112611d1640a596c2678a28aab92d5681c1c14755b109b8998f995e	Apache-2.0
+io.netty:netty-transport-classes-epoll:jar:4.1.135.Final	runtime	9d9537ab9e15164c9f0dc0748884c148814a18d78ac6dfa65cf4b3d06068ce01	Apache-2.0
+io.netty:netty-resolver:jar:4.1.135.Final	runtime	77dd03865965b6c12b9e521bddec82f035caeb33156e09c158289c5094318481	Apache-2.0
+software.amazon.awssdk:apache-client:jar:2.26.8	compile	7a3a6d6945526c4fad1a1a9d74aea63b9b50ca9b8269b9eda51aa5c50569858e	Apache-2.0
+org.apache.httpcomponents:httpclient:jar:4.5.14	compile	c8bc7e1c51a6d4ce72f40d2ebbabf1c4b68bfe76e732104b04381b493478e9d6	Apache-2.0
+org.apache.httpcomponents:httpcore:jar:4.4.16	compile	6c9b3dd142a09dc468e23ad39aad6f75a0f2b85125104469f026e52a474e464f	Apache-2.0
+commons-codec:commons-codec:jar:1.15	compile	b3e9f6d63a790109bf0d056611fbed1cf69055826defeb9894a71369d246ed63	Apache-2.0
+org.junit.jupiter:junit-jupiter:jar:5.12.2	test	3854b3ad434906b827fec474aa0d8da8b56e9e56d5fc7f2e20fc3f12ec4be894	EPL-2.0
+org.junit.jupiter:junit-jupiter-api:jar:5.12.2	test	0b9ca728e4bcd9adc57f29deb9556ff9ed5e08b4e8843b875aba4e4e3e04f092	EPL-2.0
+org.opentest4j:opentest4j:jar:1.3.0	test	48e2df636cab6563ced64dcdff8abb2355627cb236ef0bf37598682ddf742f1b	Apache-2.0
+org.junit.platform:junit-platform-commons:jar:1.12.2	test	e683a01e85dfabea520c056ac6015a6162756e602ec653c0da85e233f0afbc18	EPL-2.0
+org.apiguardian:apiguardian-api:jar:1.1.2	test	b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38	Apache-2.0
+org.junit.jupiter:junit-jupiter-params:jar:5.12.2	test	b219ffa949b90a71aa3b6c2b606456b82bca0b2089b7459c8ff461156ff59b0f	EPL-2.0
+org.junit.jupiter:junit-jupiter-engine:jar:5.12.2	test	f576c06b8accde9985063b8bc80526cb980eec24dee0b7221fc8ddd7ace65800	EPL-2.0
+org.junit.platform:junit-platform-engine:jar:1.12.2	test	cef0efcb5bd2e05e2b808d38bab5c655089c0c3001527376e74cb606a7911ec8	EPL-2.0

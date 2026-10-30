@@ -1,0 +1,3 @@
+osgi-reference.jar -> not found
+   Consumer                                           -> org.osgi.framework.Bundle                          not found
+Unresolved production dependency in /tmp/tmp.s9ZHNuVlE8/osgi-reference.jar

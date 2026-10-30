@@ -1,0 +1,37 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24294 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] --------< com.intel.cosbench.shadow:audit-convergence-fixture >---------
+[INFO] Building audit-convergence-fixture 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ audit-convergence-fixture ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.334 s
+[INFO] Finished at: 2026-10-30T01:55:54Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-enforcer-plugin:3.6.3:enforce (enforce-java-21-toolchain) on project audit-convergence-fixture: 
+[ERROR] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence failed with message:
+[ERROR] Failed while enforcing releasability.
+[ERROR] 
+[ERROR] Dependency convergence error for commons-collections:commons-collections:jar:3.2.2. Paths to dependency are:
+[ERROR] +-com.intel.cosbench.shadow:audit-convergence-fixture:jar:0.1.0-SNAPSHOT
+[ERROR]   +-commons-beanutils:commons-beanutils:jar:1.9.4:compile
+[ERROR]     +-commons-collections:commons-collections:jar:3.2.2:compile
+[ERROR] and
+[ERROR] +-com.intel.cosbench.shadow:audit-convergence-fixture:jar:0.1.0-SNAPSHOT
+[ERROR]   +-commons-collections:commons-collections:jar:3.2.1:compile
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

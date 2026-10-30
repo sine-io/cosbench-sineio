@@ -12,8 +12,19 @@ runtime_thin_jar=/workspace/shadow/cosbench-runtime/target/cosbench-runtime-shad
 provider_jar=/workspace/shadow/cosbench-provider-spike/target/cosbench-provider-spike-0.1.0-SNAPSHOT.jar
 
 mkdir -p "$maven_repo" "$audit_jars" "$runtime_audit_jars" "$provider_audit_jars" /reports
+retain_test_reports() {
+    local build_status=$?
+    mkdir -p /reports/tests
+    while IFS= read -r test_report_dir; do
+        local module
+        module=$(basename "$(dirname "$(dirname "$test_report_dir")")")
+        cp -R "$test_report_dir" "/reports/tests/$module"
+    done < <(find /workspace/shadow -type d -name surefire-reports)
+    return "$build_status"
+}
+trap retain_test_reports EXIT
 mvn --version > /reports/toolchain.txt
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml clean verify \
+mvn -B -ntp -C -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml clean verify \
     > /reports/build.log 2>&1 || {
         cat /reports/build.log
         exit 1
@@ -24,6 +35,8 @@ mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
         cat /reports/shared-module-install.log
         exit 1
     }
+/bin/bash /workspace/shadow/harness/audit/gates.sh /reports/ci "$maven_repo" \
+    > /reports/ci-gates.log 2>&1 || { cat /reports/ci-gates.log; exit 1; }
 mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
     -pl cosbench-provider-spike -Dtest=ProviderMinioSmokeTest test \
     > /reports/provider-minio-test.log 2>&1 || {

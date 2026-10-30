@@ -1,0 +1,4 @@
+tool=rhysd/actionlint:1.7.7
+image_digest=sha256:887a259a5a534f3c4f36cb02dca341673c6089431057242cdc931e9f133147e9
+command=sudo docker run --rm -v REPO:/repo -w /repo rhysd/actionlint:1.7.7 -color .github/workflows/shadow-verify.yml
+status=passed

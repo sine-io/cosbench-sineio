@@ -8,13 +8,13 @@ The shadow runtime remains a thin Java 21 Spring Boot process used by the #03 co
 
 The parent POM fixes Java 21, `maven.compiler.release=21`, Spring Boot's 3.5.16 dependency BOM, Maven 3.10.0, and the lifecycle plugin versions. Every module added under this parent inherits the Java/Maven Enforcer policy.
 
-Run a clean build, empty-cache dependency audit, MinIO smoke, and cleanup with:
+Run the continuous empty-cache build, blocking dependency/license/artifact gates, four prerequisite replays and cleanup with:
 
 ```sh
-shadow/harness/run.sh /tmp/cosbench-scheme3-02-run
+bash ci/verify-shadow.sh /tmp/cosbench-scheme3-ci
 ```
 
-The default replay now also runs the #03 configuration/lifecycle check. See [`config-contract.md`](config-contract.md) for schema 1, field ranges, precedence, secret references, legacy mappings, and command behavior.
+The lower-level `shadow/harness/run.sh EMPTY_REPORT_DIR` retains the build, audit, SPI and #03 configuration/lifecycle checks. See [`ci-policy.md`](ci-policy.md) for admission rules, report contents, negative fixtures and how to extend CI when adding a module; see [`config-contract.md`](config-contract.md) for schema 1, field ranges, precedence, secret references, legacy mappings, and command behavior.
 
 The harness reports are written to the supplied empty directory. It uses test-only credentials and a self-signed test certificate, starts MinIO and Toxiproxy without a production application, then removes this run's containers, network, and MinIO volume on success, failure, or interruption. Pinned Docker images remain cached for later runs.
 

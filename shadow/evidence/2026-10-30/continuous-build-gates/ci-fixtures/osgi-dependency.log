@@ -1,0 +1,3 @@
+Exception in thread "main" java.lang.IllegalStateException: Forbidden dependency: org.osgi:org.osgi.core:jar:6.0.0
+	at BuildAudit.checkDependencies(BuildAudit.java:244)
+	at BuildAudit.main(BuildAudit.java:26)
