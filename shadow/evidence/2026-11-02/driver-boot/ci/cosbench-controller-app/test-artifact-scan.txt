@@ -1,1 +1,1 @@
-PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-controller-app-tests.jar
+PASS artifact /tmp/tmp.SXkHJpNwhS/cosbench-controller-app-tests.jar

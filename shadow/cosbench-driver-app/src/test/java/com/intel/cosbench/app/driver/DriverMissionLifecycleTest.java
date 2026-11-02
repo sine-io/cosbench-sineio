@@ -14,6 +14,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -94,6 +95,22 @@ class DriverMissionLifecycleTest {
     }
 
     @Test
+    void explicitAbortStopsAnInFlightMockMission() throws Exception {
+        COSBDriverService service = newService(Duration.ofSeconds(3));
+        String id = service.submit(config(LONG_MISSION));
+        service.login(id);
+        service.launch(id);
+        awaitState(service, id, MissionState.LAUNCHED, Duration.ofSeconds(3));
+
+        service.abort(id);
+
+        assertEquals(MissionState.ABORTED, awaitState(service, id, MissionState.ABORTED, Duration.ofSeconds(3))
+                .getState());
+        service.close();
+        assertThrows(RejectedExecutionException.class, () -> service.submit(config(MISSION)));
+    }
+
+    @Test
     void shutdownDisposesASubmittedMissionThatNeverStarted() throws Exception {
         COSBDriverService service = newService(Duration.ofSeconds(2));
         String id = service.submit(config(MISSION));
@@ -105,12 +122,44 @@ class DriverMissionLifecycleTest {
     }
 
     @Test
+    void successfulMissionDisposesProvidersAfterOperationsAndRejectsUseAfterClose() throws Exception {
+        List<String> events = new CopyOnWriteArrayList<>();
+        AuthAPIService authService = (type, config, logger) -> {
+            TrackingAuth auth = new TrackingAuth(events);
+            auth.init(config, logger);
+            return auth;
+        };
+        StorageAPIService storageService = (type, config, logger) -> {
+            TrackingStorage storage = new TrackingStorage(events);
+            storage.init(config, logger);
+            return storage;
+        };
+        COSBDriverService service = newService(Duration.ofSeconds(5), authService, storageService);
+        try {
+            String id = service.submit(config(MISSION));
+            service.login(id);
+            service.launch(id);
+            awaitState(service, id, MissionState.FINISHED, Duration.ofSeconds(10));
+
+            service.close(id);
+
+            assertInOrder(events, "auth.init", "auth.operation", "auth.dispose");
+            assertInOrder(events, "storage.init", "storage.operation", "storage.dispose");
+            assertThrows(com.intel.cosbench.service.IllegalStateException.class, () -> service.close(id));
+        } finally {
+            service.close();
+        }
+        assertThrows(RejectedExecutionException.class, () -> service.submit(config(MISSION)));
+    }
+
+    @Test
     void partialWorkerInitializationDisposesPreviouslyCreatedProviders() throws Exception {
+        List<String> events = new CopyOnWriteArrayList<>();
         List<TrackingAuth> auths = new ArrayList<>();
-        TrackingStorage storage = new TrackingStorage();
+        TrackingStorage storage = new TrackingStorage(events);
         AtomicInteger storageCreations = new AtomicInteger();
         AuthAPIService authService = (type, config, logger) -> {
-            TrackingAuth auth = new TrackingAuth();
+            TrackingAuth auth = new TrackingAuth(events);
             auths.add(auth);
             auth.init(config, logger);
             return auth;
@@ -140,8 +189,8 @@ class DriverMissionLifecycleTest {
     void localTriggerRunsScriptAndReturnsCapturedOutputAndPid() throws Exception {
         Path scripts = Files.createDirectories(temp.resolve("scripts"));
         Files.writeString(scripts.resolve("trigger-noop.sh"), "#!/bin/sh\nprintf 'baseline-trigger-ok:%s\\n' \"$1\"\n");
-            Path outsideScript = Files.writeString(temp.resolve("outside-trigger.sh"), "#!/bin/sh\\nexit 0\\n");
-            Files.createSymbolicLink(scripts.resolve("trigger-link.sh"), outsideScript);
+        Path outsideScript = Files.writeString(temp.resolve("outside-trigger.sh"), "#!/bin/sh\\nexit 0\\n");
+        Files.createSymbolicLink(scripts.resolve("trigger-link.sh"), outsideScript);
         COSBDriverService service = newService(Duration.ofSeconds(2));
         try {
             TriggerResponse enabled = service.trigger("enableTrigger,trigger-noop.sh,argument");
@@ -190,22 +239,68 @@ class DriverMissionLifecycleTest {
     }
 
     private static final class TrackingAuth extends NoneAuth {
+        private final List<String> events;
         private boolean disposed;
+
+        private TrackingAuth(List<String> events) {
+            this.events = events;
+        }
+
+        @Override
+        public void init(com.intel.cosbench.config.Config config, com.intel.cosbench.log.Logger logger) {
+            super.init(config, logger);
+            events.add("auth.init");
+        }
+
+        @Override
+        public com.intel.cosbench.api.context.AuthContext login() {
+            events.add("auth.operation");
+            return super.login();
+        }
 
         @Override
         public void dispose() {
             disposed = true;
+            events.add("auth.dispose");
             super.dispose();
         }
     }
 
     private static final class TrackingStorage extends NoneStorage {
+        private final List<String> events;
         private boolean disposed;
+
+        private TrackingStorage(List<String> events) {
+            this.events = events;
+        }
+
+        @Override
+        public void init(com.intel.cosbench.config.Config config, com.intel.cosbench.log.Logger logger) {
+            super.init(config, logger);
+            events.add("storage.init");
+        }
+
+        @Override
+        public java.io.InputStream getObject(
+                String container, String object, com.intel.cosbench.config.Config config) {
+            events.add("storage.operation");
+            return super.getObject(container, object, config);
+        }
 
         @Override
         public void dispose() {
             disposed = true;
+            events.add("storage.dispose");
             super.dispose();
+        }
+    }
+
+    private static void assertInOrder(List<String> events, String... expected) {
+        int previous = -1;
+        for (String event : expected) {
+            int current = events.indexOf(event);
+            assertTrue(current > previous, "expected " + event + " after index " + previous + " in " + events);
+            previous = current;
         }
     }
 

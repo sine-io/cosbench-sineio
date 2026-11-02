@@ -19,7 +19,7 @@
 [INFO] COSBench Provider SPI Coexistence Spike                            [jar]
 [INFO] COSBench Controller Web Jakarta Spike                              [jar]
 [INFO] COSBench authenticated Driver HTTP spike                           [jar]
-[INFO] Loaded 71 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 70 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
 [INFO]
 [INFO] ---------< com.intel.cosbench.shadow:cosbench-scheme3-shadow >----------
 [INFO] Building cosbench-scheme3-shadow 0.1.0-SNAPSHOT                   [1/16]
@@ -305,27 +305,27 @@
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Summary for cosbench-scheme3-shadow 0.1.0-SNAPSHOT:
 [INFO]
-[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  1.521 s]
-[INFO] COSBench Log4j Runtime Resources ................... SUCCESS [  0.004 s]
-[INFO] COSBench Castor Runtime Resources .................. SUCCESS [  0.004 s]
-[INFO] COSBench Logging API and Log4j Adapter ............. SUCCESS [  0.011 s]
-[INFO] COSBench Config Shadow ............................. SUCCESS [  0.011 s]
+[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  1.496 s]
+[INFO] COSBench Log4j Runtime Resources ................... SUCCESS [  0.005 s]
+[INFO] COSBench Castor Runtime Resources .................. SUCCESS [  0.003 s]
+[INFO] COSBench Logging API and Log4j Adapter ............. SUCCESS [  0.015 s]
+[INFO] COSBench Config Shadow ............................. SUCCESS [  0.010 s]
 [INFO] COSBench Storage and Auth SPI ...................... SUCCESS [  0.007 s]
-[INFO] COSBench Core Model Protocol and Services .......... SUCCESS [  0.008 s]
+[INFO] COSBench Core Model Protocol and Services .......... SUCCESS [  0.010 s]
 [INFO] COSBench Driver Mission Service .................... SUCCESS [  0.010 s]
-[INFO] COSBench Driver Boot Application ................... SUCCESS [  0.030 s]
-[INFO] COSBench HTTP Client Utility ....................... SUCCESS [  0.011 s]
-[INFO] COSBench Controller Business Services .............. SUCCESS [  0.006 s]
-[INFO] COSBench Controller Boot Application ............... SUCCESS [  0.010 s]
-[INFO] COSBench Runtime Lifecycle Shadow .................. SUCCESS [  0.010 s]
-[INFO] COSBench Provider SPI Coexistence Spike ............ SUCCESS [  0.015 s]
-[INFO] COSBench Controller Web Jakarta Spike .............. SUCCESS [  0.026 s]
-[INFO] COSBench authenticated Driver HTTP spike ........... SUCCESS [  0.017 s]
+[INFO] COSBench Driver Boot Application ................... SUCCESS [  0.020 s]
+[INFO] COSBench HTTP Client Utility ....................... SUCCESS [  0.010 s]
+[INFO] COSBench Controller Business Services .............. SUCCESS [  0.008 s]
+[INFO] COSBench Controller Boot Application ............... SUCCESS [  0.016 s]
+[INFO] COSBench Runtime Lifecycle Shadow .................. SUCCESS [  0.016 s]
+[INFO] COSBench Provider SPI Coexistence Spike ............ SUCCESS [  0.036 s]
+[INFO] COSBench Controller Web Jakarta Spike .............. SUCCESS [  0.020 s]
+[INFO] COSBench authenticated Driver HTTP spike ........... SUCCESS [  0.012 s]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  9.013 s
-[INFO] Finished at: 2026-11-02T02:22:06Z
+[INFO] Total time:  8.891 s
+[INFO] Finished at: 2026-11-02T02:38:32Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24324 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -355,7 +355,7 @@
 [INFO] --------------------------------[ pom ]---------------------------------
 [INFO]
 [INFO] --- dependency:3.11.0:list (default-cli) @ cosbench-scheme3-shadow ---
-[INFO] Loaded 71 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 70 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
 [INFO]
 [INFO] ----------< com.intel.cosbench.shadow:cosbench-log4j-shadow >-----------
 [INFO] Building COSBench Log4j Runtime Resources 0.1.0-SNAPSHOT          [2/16]
@@ -464,25 +464,25 @@
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Summary for cosbench-scheme3-shadow 0.1.0-SNAPSHOT:
 [INFO]
-[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  2.593 s]
-[INFO] COSBench Log4j Runtime Resources ................... SUCCESS [  0.011 s]
-[INFO] COSBench Castor Runtime Resources .................. SUCCESS [  0.009 s]
-[INFO] COSBench Logging API and Log4j Adapter ............. SUCCESS [  0.110 s]
-[INFO] COSBench Config Shadow ............................. SUCCESS [  0.108 s]
-[INFO] COSBench Storage and Auth SPI ...................... SUCCESS [  0.050 s]
-[INFO] COSBench Core Model Protocol and Services .......... SUCCESS [  0.076 s]
-[INFO] COSBench Driver Mission Service .................... SUCCESS [  0.036 s]
-[INFO] COSBench Driver Boot Application ................... SUCCESS [  0.315 s]
-[INFO] COSBench HTTP Client Utility ....................... SUCCESS [  0.092 s]
-[INFO] COSBench Controller Business Services .............. SUCCESS [  0.051 s]
-[INFO] COSBench Controller Boot Application ............... SUCCESS [  0.114 s]
-[INFO] COSBench Runtime Lifecycle Shadow .................. SUCCESS [  0.093 s]
-[INFO] COSBench Provider SPI Coexistence Spike ............ SUCCESS [  0.277 s]
-[INFO] COSBench Controller Web Jakarta Spike .............. SUCCESS [  0.127 s]
-[INFO] COSBench authenticated Driver HTTP spike ........... SUCCESS [  0.140 s]
+[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  2.547 s]
+[INFO] COSBench Log4j Runtime Resources ................... SUCCESS [  0.005 s]
+[INFO] COSBench Castor Runtime Resources .................. SUCCESS [  0.025 s]
+[INFO] COSBench Logging API and Log4j Adapter ............. SUCCESS [  0.098 s]
+[INFO] COSBench Config Shadow ............................. SUCCESS [  0.139 s]
+[INFO] COSBench Storage and Auth SPI ...................... SUCCESS [  0.063 s]
+[INFO] COSBench Core Model Protocol and Services .......... SUCCESS [  0.095 s]
+[INFO] COSBench Driver Mission Service .................... SUCCESS [  0.058 s]
+[INFO] COSBench Driver Boot Application ................... SUCCESS [  0.324 s]
+[INFO] COSBench HTTP Client Utility ....................... SUCCESS [  0.057 s]
+[INFO] COSBench Controller Business Services .............. SUCCESS [  0.064 s]
+[INFO] COSBench Controller Boot Application ............... SUCCESS [  0.122 s]
+[INFO] COSBench Runtime Lifecycle Shadow .................. SUCCESS [  0.116 s]
+[INFO] COSBench Provider SPI Coexistence Spike ............ SUCCESS [  0.228 s]
+[INFO] COSBench Controller Web Jakarta Spike .............. SUCCESS [  0.139 s]
+[INFO] COSBench authenticated Driver HTTP spike ........... SUCCESS [  0.155 s]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  4.910 s
-[INFO] Finished at: 2026-11-02T02:22:12Z
+[INFO] Total time:  5.034 s
+[INFO] Finished at: 2026-11-02T02:38:39Z
 [INFO] ------------------------------------------------------------------------

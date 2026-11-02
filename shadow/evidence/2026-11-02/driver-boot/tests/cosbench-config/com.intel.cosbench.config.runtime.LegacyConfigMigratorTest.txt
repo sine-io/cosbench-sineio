@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.intel.cosbench.config.runtime.LegacyConfigMigratorTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.173 s -- in com.intel.cosbench.config.runtime.LegacyConfigMigratorTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.177 s -- in com.intel.cosbench.config.runtime.LegacyConfigMigratorTest

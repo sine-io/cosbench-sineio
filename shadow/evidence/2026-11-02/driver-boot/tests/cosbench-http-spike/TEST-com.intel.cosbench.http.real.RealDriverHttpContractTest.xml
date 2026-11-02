@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.intel.cosbench.http.real.RealDriverHttpContractTest" time="5.748" tests="2" errors="0" skipped="0" failures="0" flakes="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.intel.cosbench.http.real.RealDriverHttpContractTest" time="5.898" tests="2" errors="0" skipped="0" failures="0" flakes="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,9 +13,9 @@
     <property name="java.vm.specification.version" value="21"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
-    <property name="cosbench.driver.config" value="/tmp/cosbench-http-real-driver-10344297363534528930/driver.conf"/>
+    <property name="cosbench.driver.config" value="/tmp/cosbench-http-real-driver-12505813615931789761/driver.conf"/>
     <property name="sun.boot.library.path" value="/opt/java/openjdk/lib"/>
-    <property name="sun.java.command" value="/workspace/shadow/cosbench-http-spike/target/surefire/surefirebooter-20261102022134424_37.jar /workspace/shadow/cosbench-http-spike/target/surefire 2026-11-02T02-19-47_567-jvmRun1 surefire-20261102022134424_35tmp surefire_9-20261102022134424_36tmp"/>
+    <property name="sun.java.command" value="/workspace/shadow/cosbench-http-spike/target/surefire/surefirebooter-20261102023800139_38.jar /workspace/shadow/cosbench-http-spike/target/surefire 2026-11-02T02-36-06_793-jvmRun1 surefire-20261102023800139_36tmp surefire_9-20261102023800139_37tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/workspace/shadow/cosbench-http-spike/target/test-classes:/workspace/shadow/cosbench-http-spike/target/classes:/workspace/shadow/cosbench-api/target/cosbench-api-shadow-0.1.0-SNAPSHOT.jar:/workspace/shadow/cosbench-log/target/cosbench-log-shadow-0.1.0-SNAPSHOT.jar:/workspace/shadow/cosbench-log4j/target/cosbench-log4j-shadow-0.1.0-SNAPSHOT.jar:/tmp/maven-repository/log4j/log4j/1.2.17/log4j-1.2.17.jar:/tmp/maven-repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar:/workspace/shadow/cosbench-core/target/cosbench-core-shadow-0.1.0-SNAPSHOT.jar:/tmp/maven-repository/org/apache/commons/commons-csv/1.10.0/commons-csv-1.10.0.jar:/tmp/maven-repository/commons-io/commons-io/2.15.1/commons-io-2.15.1.jar:/workspace/shadow/cosbench-http/target/cosbench-http-shadow-0.1.0-SNAPSHOT.jar:/tmp/maven-repository/org/apache/httpcomponents/httpclient/4.5.14/httpclient-4.5.14.jar:/tmp/maven-repository/org/apache/httpcomponents/httpcore/4.4.16/httpcore-4.4.16.jar:/tmp/maven-repository/commons-codec/commons-codec/1.15/commons-codec-1.15.jar:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar:/workspace/shadow/cosbench-castor/target/cosbench-castor-shadow-0.1.0-SNAPSHOT.jar:/tmp/maven-repository/commons-configuration/commons-configuration/1.10/commons-configuration-1.10.jar:/tmp/maven-repository/org/codehaus/castor/castor-xml/1.3.3/castor-xml-1.3.3.jar:/tmp/maven-repository/org/codehaus/castor/castor-core/1.3.3/castor-core-1.3.3.jar:/tmp/maven-repository/javax/inject/javax.inject/1/javax.inject-1.jar:/tmp/maven-repository/org/yaml/snakeyaml/2.4/snakeyaml-2.4.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-web/3.5.16/spring-boot-starter-web-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter/3.5.16/spring-boot-starter-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot/3.5.16/spring-boot-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-autoconfigure/3.5.16/spring-boot-autoconfigure-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-logging/3.5.16/spring-boot-starter-logging-3.5.16.jar:/tmp/maven-repository/ch/qos/logback/logback-classic/1.5.34/logback-classic-1.5.34.jar:/tmp/maven-repository/ch/qos/logback/logback-core/1.5.34/logback-core-1.5.34.jar:/tmp/maven-repository/org/apache/logging/log4j/log4j-to-slf4j/2.24.3/log4j-to-slf4j-2.24.3.jar:/tmp/maven-repository/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar:/tmp/maven-repository/org/slf4j/jul-to-slf4j/2.0.18/jul-to-slf4j-2.0.18.jar:/tmp/maven-repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-json/3.5.16/spring-boot-starter-json-3.5.16.jar:/tmp/maven-repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.21.4/jackson-datatype-jdk8-2.21.4.jar:/tmp/maven-repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.21.4/jackson-datatype-jsr310-2.21.4.jar:/tmp/maven-repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.21.4/jackson-module-parameter-names-2.21.4.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-tomcat/3.5.16/spring-boot-starter-tomcat-3.5.16.jar:/tmp/maven-repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.55/tomcat-embed-core-10.1.55.jar:/tmp/maven-repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.55/tomcat-embed-el-10.1.55.jar:/tmp/maven-repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.55/tomcat-embed-websocket-10.1.55.jar:/tmp/maven-repository/org/springframework/spring-web/6.2.19/spring-web-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-beans/6.2.19/spring-beans-6.2.19.jar:/tmp/maven-repository/io/micrometer/micrometer-observation/1.15.12/micrometer-observation-1.15.12.jar:/tmp/maven-repository/io/micrometer/micrometer-commons/1.15.12/micrometer-commons-1.15.12.jar:/tmp/maven-repository/org/springframework/spring-webmvc/6.2.19/spring-webmvc-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-aop/6.2.19/spring-aop-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-context/6.2.19/spring-context-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-expression/6.2.19/spring-expression-6.2.19.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-test/3.5.16/spring-boot-starter-test-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-test/3.5.16/spring-boot-test-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-test-autoconfigure/3.5.16/spring-boot-test-autoconfigure-3.5.16.jar:/tmp/maven-repository/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/tmp/maven-repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.5/jakarta.xml.bind-api-4.0.5.jar:/tmp/maven-repository/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/tmp/maven-repository/net/minidev/json-smart/2.5.2/json-smart-2.5.2.jar:/tmp/maven-repository/net/minidev/accessors-smart/2.5.2/accessors-smart-2.5.2.jar:/tmp/maven-repository/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/tmp/maven-repository/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/tmp/maven-repository/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/tmp/maven-repository/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar:/tmp/maven-repository/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/tmp/maven-repository/org/junit/jupiter/junit-jupiter/5.12.2/junit-jupiter-5.12.2.jar:/tmp/maven-repository/org/junit/jupiter/junit-jupiter-api/5.12.2/junit-jupiter-api-5.12.2.jar:/tmp/maven-repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/tmp/maven-repository/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar:/tmp/maven-repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/tmp/maven-repository/org/junit/jupiter/junit-jupiter-params/5.12.2/junit-jupiter-params-5.12.2.jar:/tmp/maven-repository/org/junit/jupiter/junit-jupiter-engine/5.12.2/junit-jupiter-engine-5.12.2.jar:/tmp/maven-repository/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar:/tmp/maven-repository/org/mockito/mockito-core/5.17.0/mockito-core-5.17.0.jar:/tmp/maven-repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/tmp/maven-repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/tmp/maven-repository/org/mockito/mockito-junit-jupiter/5.17.0/mockito-junit-jupiter-5.17.0.jar:/tmp/maven-repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/tmp/maven-repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/tmp/maven-repository/org/springframework/spring-core/6.2.19/spring-core-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-jcl/6.2.19/spring-jcl-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-test/6.2.19/spring-test-6.2.19.jar:/tmp/maven-repository/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar:/tmp/maven-repository/com/fasterxml/jackson/core/jackson-databind/2.21.4/jackson-databind-2.21.4.jar:/tmp/maven-repository/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/tmp/maven-repository/com/fasterxml/jackson/core/jackson-core/2.21.4/jackson-core-2.21.4.jar:/tmp/maven-repository/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar:/tmp/maven-repository/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar:/tmp/maven-repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar:/tmp/maven-repository/commons-beanutils/commons-beanutils/1.9.4/commons-beanutils-1.9.4.jar:/tmp/maven-repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar:/tmp/maven-repository/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -32,7 +32,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="FILE_LOG_CHARSET" value="UTF-8"/>
     <property name="java.awt.headless" value="true"/>
-    <property name="surefire.real.class.path" value="/workspace/shadow/cosbench-http-spike/target/surefire/surefirebooter-20261102022134424_37.jar"/>
+    <property name="surefire.real.class.path" value="/workspace/shadow/cosbench-http-spike/target/surefire/surefirebooter-20261102023800139_38.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.12.1+1-LTS"/>
     <property name="user.name" value="root"/>
@@ -46,14 +46,14 @@
     <property name="localRepository" value="/tmp/maven-repository"/>
     <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
     <property name="java.io.tmpdir" value="/tmp"/>
-    <property name="catalina.home" value="/tmp/tomcat.0.15436398698606171630"/>
+    <property name="catalina.home" value="/tmp/tomcat.0.2618580944744330757"/>
     <property name="java.version" value="21.0.12.1"/>
     <property name="user.dir" value="/workspace/shadow/cosbench-http-spike/target"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="PID" value="1437"/>
+    <property name="PID" value="1444"/>
     <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
-    <property name="catalina.base" value="/tmp/tomcat.0.15436398698606171630"/>
+    <property name="catalina.base" value="/tmp/tomcat.0.2618580944744330757"/>
     <property name="native.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
@@ -64,7 +64,7 @@
     <property name="maven.repo.local" value="/tmp/maven-repository"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="realMockDriverSubmitAndQueryAreAuthenticatedAndIdempotent" classname="com.intel.cosbench.http.real.RealDriverHttpContractTest" time="1.886">
+  <testcase name="realMockDriverSubmitAndQueryAreAuthenticatedAndIdempotent" classname="com.intel.cosbench.http.real.RealDriverHttpContractTest" time="1.798">
     <system-out><![CDATA[
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -75,27 +75,27 @@
 
  :: Spring Boot ::               (v3.5.16)
 
-2026-11-02T02:21:36.121Z  INFO 1437 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : Starting RealDriverHttpContractTest using Java 21.0.12.1 with PID 1437 (started by root in /workspace/shadow/cosbench-http-spike/target)
-2026-11-02T02:21:36.131Z  INFO 1437 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : No active profile set, falling back to 1 default profile: "default"
-2026-11-02T02:21:37.423Z  INFO 1437 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (https)
-2026-11-02T02:21:37.445Z  INFO 1437 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-11-02T02:21:37.447Z  INFO 1437 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
-2026-11-02T02:21:37.493Z  INFO 1437 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2026-11-02T02:21:37.494Z  INFO 1437 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1330 ms
-2026-11-02T02:21:37.610Z  INFO 1437 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
-2026-11-02T02:21:37.611Z  INFO 1437 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
-2026-11-02T02:21:37.614Z  INFO 1437 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
-2026-11-02T02:21:37.615Z  INFO 1437 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
-2026-11-02T02:21:37.615Z  INFO 1437 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
-2026-11-02T02:21:37.615Z  INFO 1437 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
-2026-11-02T02:21:37.618Z  INFO 1437 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
-2026-11-02T02:21:37.619Z  INFO 1437 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
-2026-11-02T02:21:38.502Z  INFO 1437 --- [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-0.0.0.0-auto-1], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [Set directly - location unknown] using alias [tomcat] with trust store [null]
-2026-11-02T02:21:38.514Z  INFO 1437 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 45837 (https) with context path '/'
-2026-11-02T02:21:38.523Z  INFO 1437 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : Started RealDriverHttpContractTest in 2.806 seconds (process running for 4.086)
-2026-11-02T02:21:39.569Z  INFO 1437 --- [0-auto-1-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-11-02T02:21:39.579Z  INFO 1437 --- [0-auto-1-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-11-02T02:21:39.581Z  INFO 1437 --- [0-auto-1-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2026-11-02T02:38:01.951Z  INFO 1444 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : Starting RealDriverHttpContractTest using Java 21.0.12.1 with PID 1444 (started by root in /workspace/shadow/cosbench-http-spike/target)
+2026-11-02T02:38:01.961Z  INFO 1444 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : No active profile set, falling back to 1 default profile: "default"
+2026-11-02T02:38:03.269Z  INFO 1444 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (https)
+2026-11-02T02:38:03.297Z  INFO 1444 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-02T02:38:03.298Z  INFO 1444 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-02T02:38:03.353Z  INFO 1444 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-11-02T02:38:03.355Z  INFO 1444 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1321 ms
+2026-11-02T02:38:03.479Z  INFO 1444 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-11-02T02:38:03.481Z  INFO 1444 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-11-02T02:38:03.482Z  INFO 1444 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-11-02T02:38:03.482Z  INFO 1444 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-11-02T02:38:03.483Z  INFO 1444 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-11-02T02:38:03.484Z  INFO 1444 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-11-02T02:38:03.484Z  INFO 1444 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-11-02T02:38:03.484Z  INFO 1444 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+2026-11-02T02:38:04.597Z  INFO 1444 --- [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-0.0.0.0-auto-1], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [Set directly - location unknown] using alias [tomcat] with trust store [null]
+2026-11-02T02:38:04.611Z  INFO 1444 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 46663 (https) with context path '/'
+2026-11-02T02:38:04.624Z  INFO 1444 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : Started RealDriverHttpContractTest in 3.1 seconds (process running for 4.475)
+2026-11-02T02:38:05.663Z  INFO 1444 --- [0-auto-1-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-02T02:38:05.664Z  INFO 1444 --- [0-auto-1-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-02T02:38:05.665Z  INFO 1444 --- [0-auto-1-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 ]]></system-out>
     <system-err><![CDATA[Can't Find VERSION
 Can't Find BUILD.no
@@ -106,5 +106,5 @@ WARNING: If a serviceability tool is not in use, please run with -Djdk.instrumen
 WARNING: Dynamic loading of agents will be disallowed by default in a future release
 ]]></system-err>
   </testcase>
-  <testcase name="droppedDriverResponseReplaysOneRealMockMissionSubmit" classname="com.intel.cosbench.http.real.RealDriverHttpContractTest" time="0.737"/>
+  <testcase name="droppedDriverResponseReplaysOneRealMockMissionSubmit" classname="com.intel.cosbench.http.real.RealDriverHttpContractTest" time="0.66"/>
 </testsuite>

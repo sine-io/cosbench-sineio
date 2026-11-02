@@ -14,7 +14,7 @@ fc7386610075399aaee3aa3f05230053745739870a34ff5dbfe0ad45f79b053a  shadow/cosbenc
 3be5a32290789554052b146e087bc02b804543fcfafaf734dbe3bfa398a5fee5  shadow/cosbench-driver-app/src/test/java/com/intel/cosbench/api/mock/MockUtils.java
 c3355a8ffd1974e098989ccca75234718cb4ac95d8cc880d8dee7012ae65760f  shadow/cosbench-driver-app/src/test/java/com/intel/cosbench/api/mock/Profile.java
 cbe29123caadd7d89e3a0ef52fd1071064ca8952119b7fa187604dc4e0217459  shadow/cosbench-driver-app/src/test/java/com/intel/cosbench/api/mock/Statistics.java
-87e7f9fca794cfaff90d996f5006af437f56d3288b0eaf0926cfc862f4e10cad  shadow/cosbench-driver-app/src/test/java/com/intel/cosbench/app/driver/DriverMissionLifecycleTest.java
+71b73043d5e8b2f0fc92c20866297f85ff44ea0482220f4ef928fee068df014a  shadow/cosbench-driver-app/src/test/java/com/intel/cosbench/app/driver/DriverMissionLifecycleTest.java
 42364808f99e055f0c79ad58688fb715948f28280e316aeae2a87ebaf9cc26f5  shadow/cosbench-driver-app/src/test/resources/META-INF/services/com.intel.cosbench.api.auth.AuthAPIFactory
 ee1ec74421eead56482ba0f67197b06e76bbd50e48924f53f11ba37886249eaf  shadow/cosbench-driver-app/src/test/resources/META-INF/services/com.intel.cosbench.api.storage.StorageAPIFactory
 5f34c97b32eee7968c3c2c09f8f36cb6bc440a3acf2a8140f1a7ff6f818b4f71  shadow/cosbench-driver/pom.xml

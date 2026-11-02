@@ -1,4 +1,4 @@
-PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-http-shadow/commons-codec_commons-codec_jar_1.15.jar
-PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-http-shadow/commons-logging_commons-logging_jar_1.1.1.jar
-PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-http-shadow/org.apache.httpcomponents_httpclient_jar_4.5.14.jar
-PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-http-shadow/org.apache.httpcomponents_httpcore_jar_4.4.16.jar
+PASS artifact /tmp/tmp.SXkHJpNwhS/cosbench-http-shadow/commons-codec_commons-codec_jar_1.15.jar
+PASS artifact /tmp/tmp.SXkHJpNwhS/cosbench-http-shadow/commons-logging_commons-logging_jar_1.1.1.jar
+PASS artifact /tmp/tmp.SXkHJpNwhS/cosbench-http-shadow/org.apache.httpcomponents_httpclient_jar_4.5.14.jar
+PASS artifact /tmp/tmp.SXkHJpNwhS/cosbench-http-shadow/org.apache.httpcomponents_httpcore_jar_4.4.16.jar
