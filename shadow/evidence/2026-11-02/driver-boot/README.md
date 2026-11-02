@@ -29,4 +29,4 @@ Driver Boot 使用共同 `ServiceConfig` 与 `/driver/health`，从启动时 `St
 
 ## 双轴代码审查
 
-Standards 与 Spec 审查记录见 [review.md](review.md)。
+Standards 与 Spec 审查以 #09 提交 `6125cb9fbb7baaef5938370f954f47d1e06aa294` 为基线，记录见 [review.md](review.md)：Standards 无文档规则违规、1 项启发式重复代码观察；Spec 无剩余发现。
