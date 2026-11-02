@@ -1,0 +1,93 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-02T04:47:20.062Z  INFO 1969 --- [           main] c.i.c.app.driver.DriverApplication       : Starting DriverApplication using Java 21.0.12.1 with PID 1969 (/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar started by root in /tmp/cosbench-sineio-process.8w9ihe)
+2026-11-02T04:47:20.069Z  INFO 1969 --- [           main] c.i.c.app.driver.DriverApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-11-02T04:47:21.635Z  INFO 1969 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19490 (http)
+2026-11-02T04:47:21.653Z  INFO 1969 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-02T04:47:21.653Z  INFO 1969 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-02T04:47:21.690Z  INFO 1969 --- [           main] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring embedded WebApplicationContext
+2026-11-02T04:47:21.692Z  INFO 1969 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1477 ms
+(Log4jLogManager.java:121)
+2026-11-02 04:47:21,816 [main           ] [INFO ] - will append log to console
+2026-11-02T04:47:21.846Z  INFO 1969 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-11-02T04:47:21.846Z  INFO 1969 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-11-02T04:47:21.847Z  INFO 1969 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-11-02T04:47:21.847Z  INFO 1969 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-11-02T04:47:21.847Z  INFO 1969 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-11-02T04:47:21.847Z  INFO 1969 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-11-02T04:47:21.847Z  INFO 1969 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-11-02T04:47:21.847Z  INFO 1969 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+(COSBAuthAPIService.java:56)
+2026-11-02 04:47:22,074 [main           ] [INFO ] - detected supported auth types: none
+(COSBStorageAPIService.java:56)
+2026-11-02 04:47:22,075 [main           ] [INFO ] - detected supported storage types: gdas, sio, siov1
+2026-11-02T04:47:22.496Z  INFO 1969 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 19490 (http) with context path '/driver'
+2026-11-02T04:47:22.510Z  INFO 1969 --- [           main] c.i.c.app.driver.DriverApplication       : Started DriverApplication in 3.26 seconds (process running for 4.173)
+2026-11-02T04:47:22.545Z  WARN 1969 --- [           main] com.amazonaws.util.VersionInfoUtils      : The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support on December 31, 2025. For more information, see https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/
+You can print where on the file system the AWS SDK for Java 1.x core runtime is located by setting the AWS_JAVA_V1_PRINT_LOCATION environment variable or aws.java.v1.printLocation system property to 'true'.
+This message can be disabled by setting the AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT environment variable or aws.java.v1.disableDeprecationAnnouncement system property to 'true'.
+The AWS SDK for Java 1.x is being used here:
+at java.base/java.lang.Thread.getStackTrace(Thread.java:2451)
+at com.amazonaws.util.VersionInfoUtils.printDeprecationAnnouncement(VersionInfoUtils.java:81)
+at com.amazonaws.util.VersionInfoUtils.<clinit>(VersionInfoUtils.java:59)
+at com.amazonaws.ClientConfiguration.<clinit>(ClientConfiguration.java:94)
+at com.intel.cosbench.api.gdas.GdasStorage.getDefaultClientConfiguration(GdasStorage.java:102)
+at com.intel.cosbench.api.gdas.GdasStorage.initClient(GdasStorage.java:126)
+at com.intel.cosbench.api.gdas.GdasStorage.init(GdasStorage.java:94)
+at com.intel.cosbench.api.provider.StaticProviderRegistry.lambda$createStorage$0(StaticProviderRegistry.java:91)
+at com.intel.cosbench.api.provider.StaticProviderRegistry.initialize(StaticProviderRegistry.java:172)
+at com.intel.cosbench.api.provider.StaticProviderRegistry.createStorage(StaticProviderRegistry.java:86)
+at com.intel.cosbench.app.driver.SineioMissionFixture.prepare(SineioMissionFixture.java:45)
+at com.intel.cosbench.app.driver.SineioDriverProcessProbe.launchMission(SineioDriverProcessProbe.java:34)
+at com.intel.cosbench.app.driver.SineioDriverProcessProbe.onApplicationEvent(SineioDriverProcessProbe.java:20)
+at com.intel.cosbench.app.driver.SineioDriverProcessProbe.onApplicationEvent(SineioDriverProcessProbe.java:12)
+at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:455)
+at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:388)
+at org.springframework.boot.context.event.EventPublishingRunListener.ready(EventPublishingRunListener.java:109)
+at org.springframework.boot.SpringApplicationRunListeners.lambda$ready$6(SpringApplicationRunListeners.java:80)
+at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+at org.springframework.boot.SpringApplicationRunListeners.ready(SpringApplicationRunListeners.java:80)
+at org.springframework.boot.SpringApplication.run(SpringApplication.java:332)
+at com.intel.cosbench.app.driver.DriverApplication.main(DriverApplication.java:49)
+at com.intel.cosbench.app.driver.SineioDriverProcessProbe.main(SineioDriverProcessProbe.java:15)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:106)
+at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64)
+at org.springframework.boot.loader.launch.PropertiesLauncher.main(PropertiesLauncher.java:580)
+(NoneStorage.java:116)
+2026-11-02 04:47:23,306 [main           ] [INFO ] - performing PUT(create-bucket) at /sineio-mission-b87b7da1-1
+2026-11-02T04:47:23.355Z  WARN 1969 --- [           main] com.amazonaws.util.Base64                : JAXB is unavailable. Will fallback to SDK implementation which may be less performant.If you are using Java 9+, you will need to include javax.xml.bind:jaxb-api as a dependency.
+(NoneStorage.java:130)
+2026-11-02 04:47:23,435 [main           ] [INFO ] - performing PUT(put-object) at /sineio-mission-b87b7da1-1/obj1
+(COSBDriverService.java:198)
+2026-11-02 04:47:23,483 [main           ] [INFO ] - handler=M29A95609A1
+(MissionHandler.java:284)
+2026-11-02 04:47:23,493 [-driver-mission] [INFO ] - mission M29A95609A1 has been authed successfully
+SINEIO_MISSION_READY mode=gdas mission=M29A95609A1
+2026-11-02T04:47:24.120Z  INFO 1969 --- [.1-19490-exec-1] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-02T04:47:24.120Z  INFO 1969 --- [.1-19490-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-02T04:47:24.126Z  INFO 1969 --- [.1-19490-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2026-11-02T04:47:24.314Z  INFO 1969 --- [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-11-02T04:47:24.322Z  INFO 1969 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+(COSBDriverService.java:318)
+2026-11-02 04:47:25,813 [driver-shutdown] [INFO ] - aborting mission M29A95609A1 during Driver shutdown
+(AbstractOperator.java:171)
+2026-11-02 04:47:25,816 [pool-2-thread-1] [ERROR] - isUnauthorizedException, error is: [Ljava.lang.StackTraceElement;@1a554003
+(AbstractOperator.java:129)
+2026-11-02 04:47:25,817 [pool-2-thread-1] [ERROR] - errorStatisticsHandle, error is: [Ljava.lang.StackTraceElement;@6e977636
+(COSBDriverService.java:305)
+2026-11-02 04:47:25,822 [driver-shutdown] [INFO ] - Driver stopped: mission executor terminated

@@ -1,0 +1,286 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24324 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] cosbench-scheme3-shadow                                            [pom]
+[INFO] COSBench Log4j Runtime Resources                                   [jar]
+[INFO] COSBench Castor Runtime Resources                                  [jar]
+[INFO] COSBench Logging API and Log4j Adapter                             [jar]
+[INFO] COSBench Config Shadow                                             [jar]
+[INFO] COSBench Storage and Auth SPI                                      [jar]
+[INFO] COSBench Core Model Protocol and Services                          [jar]
+[INFO] COSBench Driver Mission Service                                    [jar]
+[INFO] COSBench Driver Boot Application                                   [jar]
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-scheme3-shadow >----------
+[INFO] Building cosbench-scheme3-shadow 0.1.0-SNAPSHOT                    [1/9]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-scheme3-shadow ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-log4j-shadow >-----------
+[INFO] Building COSBench Log4j Runtime Resources 0.1.0-SNAPSHOT           [2/9]
+[INFO]   from cosbench-log4j/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-log4j-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-log4j-shadow ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-log4j-shadow ---
+[INFO] Loaded 64 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-log4j-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-log4j/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-log4j-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-log4j-shadow ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-castor-shadow >----------
+[INFO] Building COSBench Castor Runtime Resources 0.1.0-SNAPSHOT          [3/9]
+[INFO]   from cosbench-castor/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-castor-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-castor-shadow ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-castor-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-castor-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-castor/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-castor-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-castor-shadow ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-log-shadow >------------
+[INFO] Building COSBench Logging API and Log4j Adapter 0.1.0-SNAPSHOT     [4/9]
+[INFO]   from cosbench-log/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-log-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-log-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-log/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-log-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 7 source files with javac [debug release 21] to target/classes
+[INFO] /workspace/shadow/cosbench-log/src/main/java/com/intel/cosbench/log/LogFactory.java: Some input files use or override a deprecated API.
+[INFO] /workspace/shadow/cosbench-log/src/main/java/com/intel/cosbench/log/LogFactory.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-log-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-log/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-log-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-log-shadow ---
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-config-shadow >----------
+[INFO] Building COSBench Config Shadow 0.1.0-SNAPSHOT                     [5/9]
+[INFO]   from cosbench-config/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-config-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-config-shadow ---
+[INFO] Copying 8 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-config-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 52 source files with javac [debug release 21] to target/classes
+[INFO] /workspace/shadow/cosbench-config/src/main/java/com/intel/cosbench/config/common/INIConfigParser.java: /workspace/shadow/cosbench-config/src/main/java/com/intel/cosbench/config/common/INIConfigParser.java uses or overrides a deprecated API.
+[INFO] /workspace/shadow/cosbench-config/src/main/java/com/intel/cosbench/config/common/INIConfigParser.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-config-shadow ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-config-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 4 source files with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-config-shadow ---
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-api-shadow >------------
+[INFO] Building COSBench Storage and Auth SPI 0.1.0-SNAPSHOT              [6/9]
+[INFO]   from cosbench-api/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-api-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-api-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-api/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-api-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 21 source files with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-api-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-api/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-api-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-api-shadow ---
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-core-shadow >-----------
+[INFO] Building COSBench Core Model Protocol and Services 0.1.0-SNAPSHOT  [7/9]
+[INFO]   from cosbench-core/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-core-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-core-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-core/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-core-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 53 source files with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-core-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-core/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-core-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-core-shadow ---
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-driver-shadow >----------
+[INFO] Building COSBench Driver Mission Service 0.1.0-SNAPSHOT            [8/9]
+[INFO]   from cosbench-driver/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-driver-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-driver-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-driver/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-driver-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 77 source files with javac [debug release 21] to target/classes
+[INFO] /workspace/shadow/cosbench-driver/src/main/java/com/intel/cosbench/driver/operator/Cleaner.java: Some input files use or override a deprecated API.
+[INFO] /workspace/shadow/cosbench-driver/src/main/java/com/intel/cosbench/driver/operator/Cleaner.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-driver-shadow ---
+[INFO] Copying 0 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-driver-shadow ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-driver-shadow ---
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-driver-app >------------
+[INFO] Building COSBench Driver Boot Application 0.1.0-SNAPSHOT           [9/9]
+[INFO]   from cosbench-driver-app/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-driver-app ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-driver-app ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-driver-app/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-driver-app ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 4 source files with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-driver-app ---
+[INFO] Copying 2 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-driver-app ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 10 source files with javac [debug release 21] to target/test-classes
+[INFO] /workspace/shadow/cosbench-driver-app/src/test/java/com/intel/cosbench/api/mock/MockUtils.java: /workspace/shadow/cosbench-driver-app/src/test/java/com/intel/cosbench/api/mock/MockUtils.java uses or overrides a deprecated API.
+[INFO] /workspace/shadow/cosbench-driver-app/src/test/java/com/intel/cosbench/api/mock/MockUtils.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-driver-app ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.intel.cosbench.app.driver.SineioDriverMissionTest
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.078 s <<< FAILURE! -- in com.intel.cosbench.app.driver.SineioDriverMissionTest
+[ERROR] com.intel.cosbench.app.driver.SineioDriverMissionTest.discoversTheThreeProductionModesAlongsideTestOnlyMock -- Time elapsed: 0.043 s <<< ERROR!
+com.intel.cosbench.api.provider.StaticProviderRegistry$ProviderRegistryException: Missing storage factory descriptor(s) for expected provider(s): [gdas, sio, siov1]
+	at com.intel.cosbench.api.provider.StaticProviderRegistry.discoverFactories(StaticProviderRegistry.java:156)
+	at com.intel.cosbench.api.provider.StaticProviderRegistry.discover(StaticProviderRegistry.java:42)
+	at com.intel.cosbench.app.driver.SineioDriverMissionTest.discoversTheThreeProductionModesAlongsideTestOnlyMock(SineioDriverMissionTest.java:14)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   SineioDriverMissionTest.discoversTheThreeProductionModesAlongsideTestOnlyMock:14 » ProviderRegistry Missing storage factory descriptor(s) for expected provider(s): [gdas, sio, siov1]
+[INFO] 
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for cosbench-scheme3-shadow 0.1.0-SNAPSHOT:
+[INFO] 
+[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  0.972 s]
+[INFO] COSBench Log4j Runtime Resources ................... SUCCESS [  2.767 s]
+[INFO] COSBench Castor Runtime Resources .................. SUCCESS [  0.044 s]
+[INFO] COSBench Logging API and Log4j Adapter ............. SUCCESS [  1.703 s]
+[INFO] COSBench Config Shadow ............................. SUCCESS [  1.990 s]
+[INFO] COSBench Storage and Auth SPI ...................... SUCCESS [  0.261 s]
+[INFO] COSBench Core Model Protocol and Services .......... SUCCESS [  0.744 s]
+[INFO] COSBench Driver Mission Service .................... SUCCESS [  0.826 s]
+[ERROR] COSBench Driver Boot Application ................... FAILURE [  3.523 s]
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  15.991 s
+[INFO] Finished at: 2026-11-02T04:27:42Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.6.1:test (default-test) on project cosbench-driver-app: 
+[ERROR] 
+[ERROR] See /workspace/shadow/cosbench-driver-app/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <args> -rf :cosbench-driver-app

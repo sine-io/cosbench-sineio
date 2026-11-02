@@ -1,0 +1,63 @@
+2026-11-02 04:47:06,735 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-sineio-process.8w9ihe/log/system.log
+2026-11-02 04:47:06,740 [INFO] [Log4jLogManager] - will append log to console
+2026-11-02 04:47:07,003 [INFO] [COSBAuthAPIService] - detected supported auth types: none
+2026-11-02 04:47:07,004 [INFO] [COSBStorageAPIService] - detected supported storage types: gdas, sio, siov1
+2026-11-02 04:47:08,143 [INFO] [NoneStorage] - performing PUT(create-bucket) at /sineio-mission-329e69fb-1
+2026-11-02 04:47:08,420 [INFO] [NoneStorage] - performing PUT(put-object) at /sineio-mission-329e69fb-1/obj1
+2026-11-02 04:47:08,530 [INFO] [COSBDriverService] - handler=MD9A95276EC
+2026-11-02 04:47:08,533 [INFO] [MissionHandler] - mission MD9A95276EC has been authed successfully
+2026-11-02 04:47:10,838 [INFO] [COSBDriverService] - aborting mission MD9A95276EC during Driver shutdown
+2026-11-02 04:47:10,870 [INFO] [COSBDriverService] - Driver stopped: mission executor terminated
+2026-11-02 04:47:14,266 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-sineio-process.8w9ihe/log/system.log
+2026-11-02 04:47:14,269 [INFO] [Log4jLogManager] - will append log to console
+2026-11-02 04:47:14,509 [INFO] [COSBAuthAPIService] - detected supported auth types: none
+2026-11-02 04:47:14,510 [INFO] [COSBStorageAPIService] - detected supported storage types: gdas, sio, siov1
+2026-11-02 04:47:15,711 [INFO] [NoneStorage] - performing PUT(create-bucket) at /sineio-mission-8d5f2430-1
+2026-11-02 04:47:15,854 [INFO] [NoneStorage] - performing PUT(put-object) at /sineio-mission-8d5f2430-1/obj1
+2026-11-02 04:47:15,894 [INFO] [COSBDriverService] - handler=M69A95423E4
+2026-11-02 04:47:15,897 [INFO] [MissionHandler] - mission M69A95423E4 has been authed successfully
+2026-11-02 04:47:16,414 [WARN] [OperatorContext] - heavy atomic op overhead detected: 0.584841ms
+2026-11-02 04:47:18,217 [INFO] [COSBDriverService] - aborting mission M69A95423E4 during Driver shutdown
+2026-11-02 04:47:18,219 [ERROR] [AbstractAgent] - unexpected exception
+com.amazonaws.AbortedException: 
+	at com.amazonaws.internal.SdkFilterInputStream.abortIfNeeded(SdkFilterInputStream.java:61)
+	at com.amazonaws.internal.SdkFilterInputStream.close(SdkFilterInputStream.java:108)
+	at com.amazonaws.event.ProgressInputStream.close(ProgressInputStream.java:211)
+	at com.amazonaws.internal.SdkFilterInputStream.close(SdkFilterInputStream.java:107)
+	at com.amazonaws.services.s3.model.S3ObjectInputStream.close(S3ObjectInputStream.java:136)
+	at com.amazonaws.internal.SdkFilterInputStream.close(SdkFilterInputStream.java:107)
+	at com.amazonaws.internal.SdkFilterInputStream.close(SdkFilterInputStream.java:107)
+	at com.amazonaws.event.ProgressInputStream.close(ProgressInputStream.java:211)
+	at java.base/java.io.FilterInputStream.close(FilterInputStream.java:170)
+	at com.amazonaws.internal.SdkFilterInputStream.close(SdkFilterInputStream.java:107)
+	at com.amazonaws.services.s3.internal.S3AbortableInputStream.close(S3AbortableInputStream.java:176)
+	at com.amazonaws.internal.SdkFilterInputStream.close(SdkFilterInputStream.java:107)
+	at com.amazonaws.services.s3.model.S3ObjectInputStream.close(S3ObjectInputStream.java:136)
+	at org.apache.commons.io.IOUtils.closeQuietly(IOUtils.java:581)
+	at org.apache.commons.io.IOUtils.closeQ(IOUtils.java:471)
+	at org.apache.commons.io.IOUtils.closeQuietly(IOUtils.java:620)
+	at com.intel.cosbench.driver.operator.Reader.doRead(Reader.java:114)
+	at com.intel.cosbench.driver.operator.Reader.operate(Reader.java:70)
+	at com.intel.cosbench.driver.operator.AbstractOperator.operate(AbstractOperator.java:75)
+	at com.intel.cosbench.driver.agent.WorkAgent.performOperation(WorkAgent.java:197)
+	at com.intel.cosbench.driver.agent.WorkAgent.doWork(WorkAgent.java:177)
+	at com.intel.cosbench.driver.agent.WorkAgent.execute(WorkAgent.java:134)
+	at com.intel.cosbench.driver.agent.AbstractAgent.call(AbstractAgent.java:44)
+	at com.intel.cosbench.driver.agent.AbstractAgent.call(AbstractAgent.java:24)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-11-02 04:47:18,225 [INFO] [COSBDriverService] - Driver stopped: mission executor terminated
+2026-11-02 04:47:21,813 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-sineio-process.8w9ihe/log/system.log
+2026-11-02 04:47:21,816 [INFO] [Log4jLogManager] - will append log to console
+2026-11-02 04:47:22,074 [INFO] [COSBAuthAPIService] - detected supported auth types: none
+2026-11-02 04:47:22,075 [INFO] [COSBStorageAPIService] - detected supported storage types: gdas, sio, siov1
+2026-11-02 04:47:23,306 [INFO] [NoneStorage] - performing PUT(create-bucket) at /sineio-mission-b87b7da1-1
+2026-11-02 04:47:23,435 [INFO] [NoneStorage] - performing PUT(put-object) at /sineio-mission-b87b7da1-1/obj1
+2026-11-02 04:47:23,483 [INFO] [COSBDriverService] - handler=M29A95609A1
+2026-11-02 04:47:23,493 [INFO] [MissionHandler] - mission M29A95609A1 has been authed successfully
+2026-11-02 04:47:25,813 [INFO] [COSBDriverService] - aborting mission M29A95609A1 during Driver shutdown
+2026-11-02 04:47:25,816 [ERROR] [AbstractOperator] - isUnauthorizedException, error is: [Ljava.lang.StackTraceElement;@1a554003
+2026-11-02 04:47:25,817 [ERROR] [AbstractOperator] - errorStatisticsHandle, error is: [Ljava.lang.StackTraceElement;@6e977636
+2026-11-02 04:47:25,822 [INFO] [COSBDriverService] - Driver stopped: mission executor terminated

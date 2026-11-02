@@ -1,0 +1,6 @@
+status=passed
+slow_restore_deadline=passed
+poll_deadline=passed
+ignored_range=rejected
+readable_object=rejected
+interrupt_cleanup=passed

@@ -1,6 +1,6 @@
 # Docker Harness
 
-The continuous entry is `bash ci/verify-shadow.sh EMPTY_REPORT_DIR`. It runs this harness plus the packaged Controller, Web and authenticated HTTP replays and the positive/negative audit fixtures. The default build runs blocking gates for every effective reactor module, including convergence, dependency admission, SHA-256/licenses, production/test boundaries, resources, duplicate classes and `jdeps`. See [`ci-policy.md`](../ci-policy.md) for the extension contract and legacy build entry.
+The continuous entry is `bash ci/verify-shadow.sh EMPTY_REPORT_DIR`. It runs this harness plus the packaged Controller/Driver, active SineIO mission TERM, Web and authenticated HTTP replays and the positive/negative audit fixtures. The default build runs blocking gates for every effective reactor module, including convergence, dependency admission, SHA-256/licenses, production/test boundaries, resources, duplicate classes and `jdeps`. See [`ci-policy.md`](../ci-policy.md) for the extension contract and legacy build entry.
 
 `run.sh` creates an isolated Compose project for each run. It mounts the repository read/write only into the Java 21 Maven container, uses a fresh tmpfs Maven repository, starts a test-only MinIO server and Toxiproxy, and accepts an optional test command in the Java 21 container. MinIO data is held in a project-scoped named volume that `down --volumes` removes.
 
@@ -32,3 +32,5 @@ Create an HTTP proxy, then add a downstream fault. Run these commands from insid
 ```
 
 `disconnect` uses Toxiproxy `reset_peer`; `response-lost` limits downstream response data to zero bytes; `timeout` delays the downstream stream for the requested milliseconds. The test application is responsible for targeting the proxy listener (`toxiproxy:18666` on the Compose network).
+
+The production `cosbench-sineio` module has its own SPI/MinIO/configuration/error tests. `sineio-driver-process.sh` loads two test-only probe classes alongside the packaged Driver, checks an exact production registry without Mock, starts a real MinIO read mission for each SineIO mode, and verifies TERM exit and port release. The normal `driver-process.sh` still runs the executable without probes. See [SineIO providers](../sineio-providers.md).

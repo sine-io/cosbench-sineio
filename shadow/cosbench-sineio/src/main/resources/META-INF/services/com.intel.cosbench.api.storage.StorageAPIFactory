@@ -1,0 +1,3 @@
+com.intel.cosbench.api.sio.SIOStorageFactory
+com.intel.cosbench.api.sio.SIOStorageFactoryV1
+com.intel.cosbench.api.gdas.GdasStorageFactory

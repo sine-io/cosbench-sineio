@@ -440,6 +440,9 @@ class MissionHandler {
     private void abortAgents(boolean shutdownNow) {
         Thread.interrupted(); // clear interruption status
         for (WorkerContext worker : missionContext.getWorkerRegistry()) {
+            // SDK calls may consume interruption while mapping a failed request.
+            // Stop the operation loop before interrupting its current call.
+            worker.setFinished(true);
             try {
                 worker.getStorageApi().abort();
             } catch (RuntimeException | LinkageError error) {

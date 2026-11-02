@@ -8,6 +8,8 @@ The shadow runtime remains a thin Java 21 Spring Boot process used by the #03 co
 
 Ticket #09 adds the ordinary `cosbench-controller` business module and executable `cosbench-controller-app`. The application wires the real `ControllerService`, shared YAML and logging, readiness and graceful local-work shutdown. The Web spike consumes the migrated business JAR. See [Controller application](controller-app.md) for commands, configuration/exit results, test coverage and the remaining archive/HTTP/Web acceptance boundaries.
 
+Ticket #11 adds the ordinary `cosbench-sineio` production JAR to the executable Driver. The production descriptor registers `sio`, `siov1`, and `gdas` on the shared classpath; Mock stays in test sources. See [SineIO providers](sineio-providers.md) for configuration examples, SDK versions, operation/error coverage and mission/TERM resource checks.
+
 The parent POM fixes Java 21, `maven.compiler.release=21`, Spring Boot's 3.5.16 dependency BOM, Maven 3.10.0, and the lifecycle plugin versions. Every module added under this parent inherits the Java/Maven Enforcer policy.
 
 Run the continuous empty-cache build, blocking dependency/license/artifact gates, four prerequisite replays and cleanup with:

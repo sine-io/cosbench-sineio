@@ -1,0 +1,29 @@
+# Existing objects must reject GET with InvalidObjectState before replay.
+# Use separate archived objects for each mode; the replay does not delete them.
+# Credential file paths are relative to this directory, mounted read-only at /fixtures.
+restoreDeadlineSeconds=3600
+pollIntervalSeconds=10
+
+sio.storageConfig=endpoint=${SINEIO_ENDPOINT};path_style_access=true;aws_region=us-east-1;restore_days=1;timeout=30000
+sio.accessKeyFile=access-key
+sio.secretKeyFile=secret-key
+sio.bucket=${SIO_ARCHIVE_BUCKET}
+sio.object=${SIO_ARCHIVE_OBJECT}
+sio.sha256=${SIO_OBJECT_SHA256}
+sio.objectBytes=${SIO_OBJECT_BYTES}
+
+siov1.storageConfig=endpoint=${SINEIO_ENDPOINT};path_style_access=true;restore_days=1;timeout=30000
+siov1.accessKeyFile=access-key
+siov1.secretKeyFile=secret-key
+siov1.bucket=${SIOV1_ARCHIVE_BUCKET}
+siov1.object=${SIOV1_ARCHIVE_OBJECT}
+siov1.sha256=${SIOV1_OBJECT_SHA256}
+siov1.objectBytes=${SIOV1_OBJECT_BYTES}
+
+gdas.storageConfig=endpoint=${GDAS_ENDPOINT};path_style_access=true;restore_days=1;timeout=30000
+gdas.accessKeyFile=access-key
+gdas.secretKeyFile=secret-key
+gdas.bucket=${GDAS_ARCHIVE_BUCKET}
+gdas.object=${GDAS_ARCHIVE_OBJECT}
+gdas.sha256=${GDAS_OBJECT_SHA256}
+gdas.objectBytes=${GDAS_OBJECT_BYTES}

@@ -1,0 +1,51 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-02T04:47:04.935Z  INFO 1629 --- [           main] c.i.c.app.driver.DriverApplication       : Starting DriverApplication using Java 21.0.12.1 with PID 1629 (/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar started by root in /tmp/cosbench-sineio-process.8w9ihe)
+2026-11-02T04:47:04.945Z  INFO 1629 --- [           main] c.i.c.app.driver.DriverApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-11-02T04:47:06.573Z  INFO 1629 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19490 (http)
+2026-11-02T04:47:06.593Z  INFO 1629 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-02T04:47:06.593Z  INFO 1629 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-02T04:47:06.622Z  INFO 1629 --- [           main] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring embedded WebApplicationContext
+2026-11-02T04:47:06.622Z  INFO 1629 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1565 ms
+(Log4jLogManager.java:121)
+2026-11-02 04:47:06,740 [main           ] [INFO ] - will append log to console
+2026-11-02T04:47:06.769Z  INFO 1629 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-11-02T04:47:06.770Z  INFO 1629 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-11-02T04:47:06.770Z  INFO 1629 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-11-02T04:47:06.770Z  INFO 1629 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-11-02T04:47:06.770Z  INFO 1629 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-11-02T04:47:06.770Z  INFO 1629 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-11-02T04:47:06.770Z  INFO 1629 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-11-02T04:47:06.770Z  INFO 1629 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+(COSBAuthAPIService.java:56)
+2026-11-02 04:47:07,003 [main           ] [INFO ] - detected supported auth types: none
+(COSBStorageAPIService.java:56)
+2026-11-02 04:47:07,004 [main           ] [INFO ] - detected supported storage types: gdas, sio, siov1
+2026-11-02T04:47:07.453Z  INFO 1629 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 19490 (http) with context path '/driver'
+2026-11-02T04:47:07.474Z  INFO 1629 --- [           main] c.i.c.app.driver.DriverApplication       : Started DriverApplication in 3.223 seconds (process running for 4.176)
+(NoneStorage.java:116)
+2026-11-02 04:47:08,143 [main           ] [INFO ] - performing PUT(create-bucket) at /sineio-mission-329e69fb-1
+(NoneStorage.java:130)
+2026-11-02 04:47:08,420 [main           ] [INFO ] - performing PUT(put-object) at /sineio-mission-329e69fb-1/obj1
+(COSBDriverService.java:198)
+2026-11-02 04:47:08,530 [main           ] [INFO ] - handler=MD9A95276EC
+(MissionHandler.java:284)
+2026-11-02 04:47:08,533 [-driver-mission] [INFO ] - mission MD9A95276EC has been authed successfully
+SINEIO_MISSION_READY mode=sio mission=MD9A95276EC
+2026-11-02T04:47:09.121Z  INFO 1629 --- [.1-19490-exec-1] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-02T04:47:09.121Z  INFO 1629 --- [.1-19490-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-02T04:47:09.123Z  INFO 1629 --- [.1-19490-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-11-02T04:47:09.337Z  INFO 1629 --- [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-11-02T04:47:09.343Z  INFO 1629 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+(COSBDriverService.java:318)
+2026-11-02 04:47:10,838 [driver-shutdown] [INFO ] - aborting mission MD9A95276EC during Driver shutdown
+(COSBDriverService.java:305)
+2026-11-02 04:47:10,870 [driver-shutdown] [INFO ] - Driver stopped: mission executor terminated

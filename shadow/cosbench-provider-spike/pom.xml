@@ -13,19 +13,12 @@
   <artifactId>cosbench-provider-spike</artifactId>
   <name>COSBench Provider SPI Coexistence Spike</name>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>bom</artifactId>
-        <version>2.26.8</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <dependencies>
+    <dependency>
+      <groupId>com.intel.cosbench.shadow</groupId>
+      <artifactId>cosbench-sineio</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <dependency>
       <groupId>com.intel.cosbench.shadow</groupId>
       <artifactId>cosbench-api-shadow</artifactId>
@@ -35,14 +28,6 @@
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk-s3</artifactId>
       <version>1.12.767</version>
-    </dependency>
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>s3</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>apache-client</artifactId>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -66,7 +51,6 @@
             </goals>
             <configuration>
               <sources>
-                <source>${project.basedir}/../../dev/cosbench-sineio/src</source>
                 <source>${project.basedir}/../../dev/cosbench-s3/src</source>
               </sources>
             </configuration>
@@ -90,11 +74,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <includes>
-            <include>com/intel/cosbench/api/sio/**/*.java</include>
-            <include>com/intel/cosbench/api/gdas/**/*.java</include>
             <include>com/intel/cosbench/api/S3Stor/**/*.java</include>
-            <include>com/intel/cosbench/client/sio/SIOConstants.java</include>
-            <include>com/intel/cosbench/client/gdas/GdasConstants.java</include>
             <include>com/intel/cosbench/client/S3Stor/S3Constants.java</include>
           </includes>
           <testIncludes>

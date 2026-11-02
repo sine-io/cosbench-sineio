@@ -1,0 +1,1 @@
+PASS jdeps /workspace/shadow/cosbench-sineio/target/cosbench-sineio-0.1.0-SNAPSHOT.jar

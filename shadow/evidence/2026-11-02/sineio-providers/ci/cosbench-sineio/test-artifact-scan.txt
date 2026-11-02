@@ -1,0 +1,1 @@
+PASS artifact /tmp/tmp.HOCKr4YDSt/cosbench-sineio-tests.jar

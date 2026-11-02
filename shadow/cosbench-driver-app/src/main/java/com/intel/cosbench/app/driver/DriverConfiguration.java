@@ -43,7 +43,7 @@ public class DriverConfiguration {
     StaticProviderRegistry providerRegistry(Environment environment) {
         return StaticProviderRegistry.discover(
                 Thread.currentThread().getContextClassLoader(),
-                expectedProviders(environment.getProperty("cosbench.providers.expected.storage", "")),
+                expectedProviders(environment.getProperty("cosbench.providers.expected.storage", "sio,siov1,gdas")),
                 expectedProviders(environment.getProperty("cosbench.providers.expected.auth", "")));
     }
 
