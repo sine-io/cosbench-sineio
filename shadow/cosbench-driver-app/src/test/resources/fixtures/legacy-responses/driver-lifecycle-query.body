@@ -1,0 +1,1 @@
+{"maxVersion":0,"minVersion":0,"report":[{"opName":"read","workerCount":1,"avgResTime":0.2,"avgXferTime":0.1,"ratio":1.0,"throughput":2000.0,"bandwidth":128000.0,"byteCount":640,"sampleType":"read","opType":"read","sampleCount":10,"totalSampleCount":10,"opId":"none","name":"none.read.read.read"}],"time":1793162877942,"version":0,"running":false,"succ":true,"code":200}

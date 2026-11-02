@@ -14,6 +14,14 @@ keytool -list -keystore "$COSBENCH_HTTP_TEST_KEYSTORE_FILE" -storepass \
     "$(cat "$COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE")" > "$report/http-keystore.txt"
 
 mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/shadow/pom.xml" \
+    -pl cosbench-driver-app -am -Dtest=com.intel.cosbench.app.driver.DriverHttpContractTest \
+    -DfailIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false test \
+    > "$report/driver-http-targeted-tests.log" 2>&1 || {
+        cat "$report/driver-http-targeted-tests.log"
+        exit 1
+    }
+
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/shadow/pom.xml" \
     -pl cosbench-http-spike -am -Dtest=IdempotencyStoreTest,RequestFingerprintTest,DriverCommandControllerTest,DriverHttpContractTest,RealDriverHttpContractTest,AuthenticatedDriverClientTest -DfailIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false install \
     > "$report/http-targeted-tests.log" 2>&1 || {
         cat "$report/http-targeted-tests.log"
@@ -30,6 +38,8 @@ printf '%s\n' \
     'missing_write_identity=400' \
     'transport_retry=bounded, identity/body preserved' \
     'tls=real DriverService HTTPS endpoint and explicit generated truststore' \
+    'production_driver=eight commands, baseline fixtures, failure replays, identity boundary and shutdown' \
+    'untrusted_tls_certificate=rejected' \
     'retryable_statuses=502,503,504' \
     'non_retryable=4xx and unconfigured 5xx' \
     'pool=bounded endpoint concurrency, HTTP/1.1 keep-alive' \

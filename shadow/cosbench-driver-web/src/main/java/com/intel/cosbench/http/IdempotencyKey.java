@@ -1,6 +1,7 @@
 package com.intel.cosbench.http;
 
 import java.util.Objects;
+import java.nio.charset.StandardCharsets;
 
 public record IdempotencyKey(String value) {
 
@@ -15,7 +16,11 @@ public record IdempotencyKey(String value) {
         if (principal == null || principal.isBlank() || command == null || command.isBlank()) {
             throw new IllegalArgumentException("principal and command are required");
         }
-        return new IdempotencyKey(principal + ":" + command + ":" + value);
+        if (value == null || value.isBlank() || value.length() > 200) {
+            throw new IllegalArgumentException("idempotency key must contain 1 to 200 characters");
+        }
+        return new IdempotencyKey(RequestFingerprint.sha256(principal + ":" + command,
+                value.getBytes(StandardCharsets.UTF_8)));
     }
 
     @Override

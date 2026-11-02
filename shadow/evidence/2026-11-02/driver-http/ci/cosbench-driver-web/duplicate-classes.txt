@@ -1,0 +1,1 @@
+No duplicate classes on the Java 21 classpath (51 JARs).

@@ -138,7 +138,7 @@ class RealDriverHttpContractTest {
             try (AuthenticatedDriverClient client = new AuthenticatedDriverClient(
                     URI.create("https://toxiproxy:18666"),
                     "real-driver-service-token", settings, testTrustContext())) {
-                assertThat(client.ping("instance-discovery".getBytes(java.nio.charset.StandardCharsets.UTF_8))
+                assertThat(client.ping("1782057600000".getBytes(java.nio.charset.StandardCharsets.UTF_8))
                         .status()).isEqualTo(200);
                 toxiproxy(http, admin, "POST", "/proxies/" + proxyName + "/toxics",
                         "{\"name\":\"drop-first-response\",\"type\":\"limit_data\","
@@ -198,9 +198,15 @@ class RealDriverHttpContractTest {
                 .header("Content-Type", MediaType.APPLICATION_XML_VALUE)
                 .POST(HttpRequest.BodyPublishers.ofByteArray(body));
         if (key != null) {
+            HttpRequest ping = HttpRequest.newBuilder(uri.resolve("/i/ping.command"))
+                    .header("Authorization", "Bearer real-driver-service-token")
+                    .POST(HttpRequest.BodyPublishers.ofString("1782057600000")).build();
+            String instance = client.send(ping, HttpResponse.BodyHandlers.ofString()).headers()
+                    .firstValue(DriverCommandController.DRIVER_INSTANCE_HEADER).orElseThrow();
             request.header("Authorization", "Bearer real-driver-service-token")
                     .header(DriverCommandController.REQUEST_ID_HEADER, key)
-                    .header(DriverCommandController.IDEMPOTENCY_KEY_HEADER, key);
+                    .header(DriverCommandController.IDEMPOTENCY_KEY_HEADER, key)
+                    .header(DriverCommandController.DRIVER_INSTANCE_HEADER, instance);
         }
         return client.send(request.build(), HttpResponse.BodyHandlers.ofString());
     }

@@ -1,11 +1,13 @@
 package com.intel.cosbench.driver.service;
 
-import java.io.ByteArrayOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -18,8 +20,6 @@ import com.intel.cosbench.protocol.TriggerResponse;
 
 /** Executes legacy Driver trigger commands against scripts confined to one directory. */
 final class TriggerService implements AutoCloseable {
-    private static final int MAX_LOG_BYTES = 64 * 1024;
-
     private final Path scriptsDirectory;
     private final Map<Long, ProcessHandle> processes = new ConcurrentHashMap<>();
     private final Map<Long, ProcessHandle> ownedTriggers = new ConcurrentHashMap<>();
@@ -35,22 +35,22 @@ final class TriggerService implements AutoCloseable {
         String action = parts.get(0);
         boolean enable = "enableTrigger".equals(action);
         if (!enable && !"killTrigger".equals(action)) {
-            throw new ConfigException("unsupported trigger command: " + action);
+            return emptyResponse();
         }
         if (!enable && parts.size() != 3) {
-            throw new ConfigException("kill-trigger command requires a PID and script name");
+            return emptyResponse();
         }
         if (enable && parts.size() < 2) {
             throw new ConfigException("enable-trigger command requires a script name");
         }
 
         Path script = resolveScript(parts.get(enable ? 1 : 2));
+        if (script == null) {
+            return emptyResponse();
+        }
         List<String> arguments = enable ? parts.subList(2, parts.size()) : List.of("-k");
         long processId = enable ? 0 : parsePid(parts.get(1));
         ProcessHandle triggerToStop = enable ? null : ownedTriggers.get(processId);
-        if (!enable && triggerToStop == null) {
-            throw new ConfigException("trigger PID " + processId + " is not owned by this Driver");
-        }
         Process commandProcess = start(script, arguments);
         long commandPid = commandProcess.pid();
         if (enable) {
@@ -66,12 +66,8 @@ final class TriggerService implements AutoCloseable {
         String output;
         try {
             output = readOutput(commandProcess.getInputStream());
-            int exit = commandProcess.waitFor();
+            commandProcess.waitFor();
             processes.remove(commandPid);
-            if (exit != 0) {
-                throw new ConfigException("trigger script '" + script.getFileName() + "' exited with status " + exit
-                        + (output.isBlank() ? "" : ": " + output.strip()));
-            }
         } catch (InterruptedException error) {
             terminate(commandProcess.toHandle());
             Thread.currentThread().interrupt();
@@ -85,7 +81,7 @@ final class TriggerService implements AutoCloseable {
             }
         }
 
-        if (!enable) {
+        if (!enable && triggerToStop != null) {
             ownedTriggers.remove(processId, triggerToStop);
             terminate(triggerToStop);
         }
@@ -106,7 +102,7 @@ final class TriggerService implements AutoCloseable {
             command.add(script.toString());
             command.addAll(arguments);
             try {
-                Process process = new ProcessBuilder(command).redirectErrorStream(true).start();
+                Process process = new ProcessBuilder(command).redirectError(ProcessBuilder.Redirect.DISCARD).start();
                 processes.put(process.pid(), process.toHandle());
                 return process;
             } catch (IOException error) {
@@ -116,16 +112,26 @@ final class TriggerService implements AutoCloseable {
     }
 
     private Path resolveScript(String name) {
-        if (name == null || !name.matches("[A-Za-z0-9._-]+\\.sh")) {
-            throw new ConfigException("trigger script name must be a simple .sh filename");
+        if (name == null || name.isBlank()) {
+            throw new ConfigException("trigger script name must not be blank");
         }
         try {
-            Path root = scriptsDirectory.toRealPath();
-            Path script = root.resolve(name).toRealPath();
-            if (!script.startsWith(root) || !Files.isRegularFile(script)) {
-                throw new ConfigException("trigger script does not exist within scripts directory: " + name);
+            Path relative = Path.of(name);
+            if (relative.isAbsolute()) {
+                throw new ConfigException("trigger script must be relative to scripts directory: " + name);
             }
-            return script;
+            Path root = scriptsDirectory.toRealPath();
+            Path candidate = root.resolve(relative).normalize();
+            if (!candidate.startsWith(root) || candidate.equals(root)) {
+                throw new ConfigException("trigger script is outside scripts directory: " + name);
+            }
+            Path script = candidate.toRealPath();
+            if (!script.startsWith(root)) {
+                throw new ConfigException("trigger script is outside scripts directory: " + name);
+            }
+            return Files.isRegularFile(script) ? script : null;
+        } catch (NoSuchFileException missing) {
+            return null;
         } catch (InvalidPathException | IOException error) {
             throw new ConfigException("cannot resolve trigger script within scripts directory: " + name, error);
         }
@@ -141,27 +147,28 @@ final class TriggerService implements AutoCloseable {
     private static long parsePid(String value) {
         try {
             long pid = Long.parseLong(value);
-            if (pid <= 0) {
-                throw new NumberFormatException("PID must be positive");
-            }
-            return pid;
+            return Math.max(pid, 0);
         } catch (NumberFormatException error) {
-            throw new ConfigException("invalid trigger PID: " + value, error);
+            return 0;
         }
     }
 
+    private static TriggerResponse emptyResponse() {
+        TriggerResponse response = new TriggerResponse();
+        response.setPID("0");
+        response.setScriptLog("");
+        return response;
+    }
+
     private static String readOutput(InputStream input) throws IOException {
-        try (input; ByteArrayOutputStream captured = new ByteArrayOutputStream()) {
-            byte[] buffer = new byte[4096];
-            int count;
-            while ((count = input.read(buffer)) >= 0) {
-                int remaining = MAX_LOG_BYTES - captured.size();
-                if (remaining > 0) {
-                    captured.write(buffer, 0, Math.min(remaining, count));
-                }
+        StringBuilder captured = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                captured.append(line).append('\n');
             }
-            return captured.toString(StandardCharsets.UTF_8);
         }
+        return captured.toString();
     }
 
     private static void terminate(ProcessHandle process) {

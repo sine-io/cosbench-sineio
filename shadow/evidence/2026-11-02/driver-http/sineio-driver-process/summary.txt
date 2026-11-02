@@ -1,0 +1,6 @@
+status=passed
+production_registry=gdas,s3,sio,siov1
+mock=absent
+classpath=shared
+active_mission_term=sio,siov1,gdas,s3
+restart_and_port_release=passed

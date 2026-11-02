@@ -1,0 +1,5 @@
+HTTP/1.1 200
+X-COSBench-Driver-Instance: 458830e5-899b-485e-993d-b7cda26da181
+Content-Type: application/json
+Content-Length: 129
+Date: Mon, 02 Nov 2026 11:03:39 GMT

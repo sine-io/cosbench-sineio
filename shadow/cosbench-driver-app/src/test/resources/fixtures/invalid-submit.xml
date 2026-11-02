@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mission name="http-invalid" totalWorkers="1" totalOps="10">
+  <auth type="mock" config="" />
+  <storage type="mock" config="" />
+  <operation type="read" ratio="100" config="containers=c(1);objects=c(1)" />
+</mission>

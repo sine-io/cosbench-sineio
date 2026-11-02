@@ -26,7 +26,7 @@ Unknown keys and unknown schema versions fail before service startup. The loader
 | `paths.logs` | path, default `log/system.log` | Log file path. |
 | `drivers[].name` | string, required per entry | Unique Controller-side Driver name. |
 | `drivers[].url` | absolute HTTP(S) URL, required per entry | Driver service endpoint; page cookies do not authorize it. |
-| `auth.token.env` / `auth.token.file` | one optional secret reference | Exactly one is allowed when `auth.token` is present. Empty/unresolved values fail with `SECRET_UNRESOLVED`. The lifecycle spike permits no token for the local unauthenticated smoke; the authenticated contract is owned by #06. |
+| `auth.token.env` / `auth.token.file` | one secret reference | Exactly one is allowed when `auth.token` is present. Empty/unresolved values fail with `SECRET_UNRESOLVED`. The Driver HTTP application requires a resolved token; the separate lifecycle spike permits no token for its local smoke. |
 | `auth.tls.enabled` | boolean, default `false` | If enabled, at least `keyStore` or `trustStore` must be referenced. |
 | `auth.tls.keyStore` / `trustStore` | protected path, optional | Certificate material is mounted/injected; it is not copied into workloads. |
 | `http.pool.maxConnections` | integer, default `32` | `1..10000`. |
@@ -48,6 +48,8 @@ Unknown keys and unknown schema versions fail before service startup. The loader
 | `shutdown.gracePeriod` | duration, default `30s` | `1ms..1h`; stop closes admission first, then waits for workers and clients. |
 
 The loader accepts scalar duration values as milliseconds for programmatic callers and uses explicit unit strings in YAML. It does not silently coerce arbitrary strings, duplicate Driver names, invalid URLs, or unknown fields.
+
+The Driver HTTP listener requires `auth.tls.enabled: true` and `auth.tls.keyStore`. Supply the keystore password through Spring's `SERVER_SSL_KEY_STORE_PASSWORD` environment variable (or another protected Spring configuration source); `SERVER_SSL_KEY_STORE_TYPE` defaults to `PKCS12`. Clients must trust the server certificate and send `Authorization: Bearer <service-token>` independently of any page session. Processed write identities and their responses remain in memory for the lifetime of the Driver, with no eviction or recovery across a restart. Clients must discover `X-COSBench-Driver-Instance` through authenticated ping and send it on every write, retaining the original value on retries to detect a changed process and an unknown write outcome.
 
 ## Legacy mapping
 

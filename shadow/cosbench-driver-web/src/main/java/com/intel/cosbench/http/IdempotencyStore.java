@@ -28,7 +28,7 @@ public final class IdempotencyStore {
         if (existing == null) {
             try {
                 entry.result.complete(Objects.requireNonNull(operation.get(), "operation result"));
-            } catch (RuntimeException failure) {
+            } catch (Throwable failure) {
                 entry.result.complete(new IdempotentResult(500,
                         "{\"succ\":false,\"error\":\"request execution failed; result may be unknown\"}",
                         fingerprint));

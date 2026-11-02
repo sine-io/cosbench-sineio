@@ -255,7 +255,7 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
                             + command + "; write was not sent", null);
                 }
                 HttpRequest boundedPing = request("ping",
-                        "instance-discovery".getBytes(java.nio.charset.StandardCharsets.UTF_8), false,
+                        Long.toString(System.currentTimeMillis()).getBytes(java.nio.charset.StandardCharsets.UTF_8), false,
                         UUID.randomUUID().toString(), null, remainingTimeout, null);
                 HttpResponse<String> response = client.send(boundedPing, HttpResponse.BodyHandlers.ofString());
                 lastUsedNanos.set(System.nanoTime());

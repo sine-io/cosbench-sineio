@@ -2,7 +2,9 @@ package com.intel.cosbench.http;
 
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.BooleanSupplier;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,26 +30,38 @@ public final class DriverCommandController {
     private final ServiceAuth serviceAuth;
     private final DriverCommandPort driver;
     private final IdempotencyStore idempotency;
+    private final BooleanSupplier accepting;
     private final String driverInstanceId = UUID.randomUUID().toString();
 
+    @Autowired
     public DriverCommandController(ServiceAuth serviceAuth, DriverCommandPort driver,
             IdempotencyStore idempotency) {
+        this(serviceAuth, driver, idempotency, () -> true);
+    }
+
+    public DriverCommandController(ServiceAuth serviceAuth, DriverCommandPort driver,
+            IdempotencyStore idempotency, BooleanSupplier accepting) {
         this.serviceAuth = serviceAuth;
         this.driver = driver;
         this.idempotency = idempotency;
+        this.accepting = accepting;
     }
 
     public static DriverCommandController from(com.intel.cosbench.config.runtime.ServiceConfig config,
             DriverCommandPort driver, IdempotencyStore idempotency) {
+        return from(config, driver, idempotency, () -> true);
+    }
+
+    public static DriverCommandController from(com.intel.cosbench.config.runtime.ServiceConfig config,
+            DriverCommandPort driver, IdempotencyStore idempotency, BooleanSupplier accepting) {
         if (config == null || config.auth() == null || config.auth().token() == null) {
             throw new IllegalArgumentException("service configuration requires a resolved auth token");
         }
-        return new DriverCommandController(new ServiceAuth(config.auth().token().value()), driver, idempotency);
+        return new DriverCommandController(new ServiceAuth(config.auth().token().value()), driver, idempotency,
+                accepting);
     }
 
-    @PostMapping(value = "/ping.command", consumes = { MediaType.TEXT_PLAIN_VALUE,
-            MediaType.APPLICATION_OCTET_STREAM_VALUE },
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/ping.command", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> ping(@RequestHeader Map<String, String> headers,
             @RequestBody(required = false) byte[] body) {
         return command("ping", headers, body, false, () -> driver.ping(bodyOrEmpty(body)));
@@ -101,8 +115,12 @@ public final class DriverCommandController {
         if (token == null || !token.startsWith("Bearer ") || !serviceAuth.matches(token.substring(7))) {
             return response(401, "{\"succ\":false,\"error\":\"service authentication failed\"}");
         }
+        if (!accepting.getAsBoolean()) {
+            return response(503, "{\"succ\":false,\"error\":\"Driver is stopping\"}");
+        }
         String expectedInstance = header(headers, DRIVER_INSTANCE_HEADER);
-        if (write && expectedInstance != null && !driverInstanceId.equals(expectedInstance)) {
+        if (write && expectedInstance != null && !expectedInstance.isBlank()
+                && !driverInstanceId.equals(expectedInstance)) {
             return response(409, "{\"succ\":false,\"error\":\""
                     + DRIVER_INSTANCE_CHANGED + "\"}");
         }
@@ -118,6 +136,9 @@ public final class DriverCommandController {
         }
         if (!key.equals(requestId)) {
             return response(400, "{\"succ\":false,\"error\":\"request identity headers must match\"}");
+        }
+        if (expectedInstance == null || expectedInstance.isBlank()) {
+            return response(400, "{\"succ\":false,\"error\":\"Driver instance is required\"}");
         }
         String fingerprint = RequestFingerprint.sha256(command, payload);
         try {
@@ -145,7 +166,7 @@ public final class DriverCommandController {
 
     private ResponseEntity<String> response(int status, String body) {
         return ResponseEntity.status(status).header(DRIVER_INSTANCE_HEADER, driverInstanceId)
-                .contentType(MediaType.APPLICATION_JSON).body(body);
+                .contentType(MediaType.APPLICATION_JSON).body(serviceAuth.redact(body));
     }
 
     private static IdempotentResult toIdempotent(ResponseEntity<String> response, String fingerprint) {

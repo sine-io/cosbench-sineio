@@ -10,6 +10,8 @@ import java.util.TreeSet;
 
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.server.Ssl;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -21,6 +23,9 @@ import com.intel.cosbench.driver.model.DriverContext;
 import com.intel.cosbench.driver.service.COSBAuthAPIService;
 import com.intel.cosbench.driver.service.COSBDriverService;
 import com.intel.cosbench.driver.service.COSBStorageAPIService;
+import com.intel.cosbench.http.DriverCommandController;
+import com.intel.cosbench.http.IdempotencyStore;
+import com.intel.cosbench.http.LegacyDriverCommandPort;
 import com.intel.cosbench.log.LogFactory;
 import com.intel.cosbench.log.LogLevel;
 import com.intel.cosbench.log.LogManager;
@@ -59,7 +64,8 @@ public class DriverConfiguration {
 
         DriverContext context = new DriverContext();
         context.setName(config.name());
-        context.setUrl("http://" + config.listen().host() + ":" + config.listen().port()
+        context.setUrl((config.auth().tls().enabled() ? "https://" : "http://")
+                + config.listen().host() + ":" + config.listen().port()
                 + config.listen().contextPath());
         context.setMission_dir(missionDirectory.toString());
         context.setScripts_dir(installationDirectory.resolve("scripts").toString());
@@ -75,8 +81,12 @@ public class DriverConfiguration {
     }
 
     @Bean
-    WebServerFactoryCustomizer<TomcatServletWebServerFactory> driverServer(ServiceConfig config) {
+    WebServerFactoryCustomizer<TomcatServletWebServerFactory> driverServer(ServiceConfig config,
+            Environment environment) {
         return factory -> {
+            if (!config.auth().tls().enabled()) {
+                throw new IllegalArgumentException("Driver HTTP requires TLS: set auth.tls.enabled to true");
+            }
             try {
                 factory.setAddress(InetAddress.getByName(config.listen().host()));
             } catch (IOException e) {
@@ -84,7 +94,28 @@ public class DriverConfiguration {
             }
             factory.setPort(config.listen().port());
             factory.setContextPath(config.listen().contextPath());
+            String keyStore = config.auth().tls().keyStore();
+            if (keyStore == null) {
+                throw new IllegalArgumentException("Driver TLS requires auth.tls.keyStore");
+            }
+            Ssl ssl = factory.getSsl();
+            if (ssl == null) {
+                ssl = new Ssl();
+            }
+            ssl.setEnabled(true);
+            ssl.setKeyStore(keyStore);
+            ssl.setKeyStorePassword(environment.getProperty("server.ssl.key-store-password"));
+            ssl.setKeyStoreType(environment.getProperty("server.ssl.key-store-type", "PKCS12"));
+            ssl.setKeyPassword(environment.getProperty("server.ssl.key-password"));
+            factory.setSsl(ssl);
         };
+    }
+
+    @Bean
+    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+    DriverCommandController driverCommands(ServiceConfig config, COSBDriverService driver) {
+        return DriverCommandController.from(config, new LegacyDriverCommandPort(driver), new IdempotencyStore(),
+                driver::isAccepting);
     }
 
     private static Collection<String> expectedProviders(String configured) {

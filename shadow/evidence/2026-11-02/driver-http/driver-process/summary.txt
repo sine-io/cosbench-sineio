@@ -1,0 +1,9 @@
+status=passed
+health=real-driver
+config-precedence=passed
+tls-required=passed
+missing-instance=rejected
+restart-and-port-release=passed
+restart-stale-write=unknown-result-409
+service-token-log-and-response=redacted
+mock-runtime-boundary=clean

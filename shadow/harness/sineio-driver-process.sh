@@ -50,12 +50,20 @@ paths:
   archive: archive
   mission: missions
   logs: log/system.log
+auth:
+  token:
+    env: COSBENCH_HTTP_SERVICE_TOKEN
+  tls:
+    enabled: true
+    keyStore: file:/run/secrets/http_test_keystore
 logging:
   level: INFO
   file: log/system.log
 shutdown:
   gracePeriod: 3s
 YAML
+
+export SERVER_SSL_KEY_STORE_PASSWORD="$(<"$COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE")"
 
 sha256sum "$artifact" > "$report_dir/artifact.sha256"
 : > "$report_dir/results.txt"
@@ -81,7 +89,7 @@ for mode in sio siov1 gdas s3; do
         sleep 0.1
     done
     [[ $ready == 1 ]] || { cat "$report_dir/$mode.log"; exit 1; }
-    curl --silent --fail --max-time 2 http://127.0.0.1:19490/driver/health > "$report_dir/$mode-health.json"
+    curl --silent --fail --max-time 2 --cacert "$COSBENCH_HTTP_TEST_CERT_FILE" https://127.0.0.1:19490/driver/health > "$report_dir/$mode-health.json"
     grep -q '"activeMissions":1' "$report_dir/$mode-health.json"
     grep -q 'detected supported storage types: gdas, s3, sio, siov1' "$report_dir/$mode.log"
     status=0
@@ -99,7 +107,7 @@ for mode in sio siov1 gdas s3; do
     driver_pid=
     [[ $status == 143 ]]
     grep -q 'Driver stopped: mission executor terminated' "$report_dir/$mode.log"
-    if curl --silent --fail --max-time 1 http://127.0.0.1:19490/driver/health >/dev/null; then
+    if curl --silent --fail --max-time 1 --cacert "$COSBENCH_HTTP_TEST_CERT_FILE" https://127.0.0.1:19490/driver/health >/dev/null; then
         printf '%s listener survived TERM\n' "$mode" >&2
         exit 1
     fi

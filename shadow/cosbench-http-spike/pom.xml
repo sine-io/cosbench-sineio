@@ -25,6 +25,11 @@
   <dependencies>
     <dependency>
       <groupId>com.intel.cosbench.shadow</groupId>
+      <artifactId>cosbench-driver-web</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.intel.cosbench.shadow</groupId>
       <artifactId>cosbench-api-shadow</artifactId>
       <version>${project.version}</version>
       <exclusions>

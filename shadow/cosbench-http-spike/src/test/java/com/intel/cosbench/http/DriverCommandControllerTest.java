@@ -15,6 +15,48 @@ class DriverCommandControllerTest {
     private static final ServiceAuth AUTH = new ServiceAuth("secret-token");
 
     @Test
+    void serviceTokenDoesNotChangeMissionIdentifiers() throws Exception {
+        DriverCommandController controller = new DriverCommandController(new ServiceAuth("M"),
+                port(new AtomicInteger(), 200, "{\"id\":\"M123456789\",\"succ\":true,\"code\":200}"),
+                new IdempotencyStore());
+        Map<String, String> headers = Map.of("Authorization", "Bearer M", "Idempotency-Key", "request-1",
+                "X-COSBench-Request-Id", "request-1", "X-COSBench-Driver-Instance",
+                controller.ping(Map.of("Authorization", "Bearer M"), new byte[0]).getHeaders()
+                        .getFirst(DriverCommandController.DRIVER_INSTANCE_HEADER));
+
+        ResponseEntity<String> submitted = controller.submit(headers, "mission".getBytes());
+
+        assertThat(new com.fasterxml.jackson.databind.ObjectMapper().readTree(submitted.getBody()).path("id").asText())
+                .isEqualTo("M123456789");
+    }
+
+    @Test
+    void redactsSecretValuesWithoutChangingJsonFieldNamesOrSyntax() throws Exception {
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        ServiceAuth fieldNameToken = new ServiceAuth("succ");
+        String fieldNameResult = fieldNameToken.redact("{\"succ\":true,\"error\":\"succ leaked\"}");
+        assertThat(mapper.readTree(fieldNameResult).path("succ").asBoolean()).isTrue();
+        assertThat(mapper.readTree(fieldNameResult).path("error").asText()).isEqualTo("[REDACTED] leaked");
+
+        String tokenValueResult = AUTH.redact("{\"name\":\"secret-token\",\"id\":\"M123456789\"}");
+        assertThat(mapper.readTree(tokenValueResult).path("name").asText()).isEqualTo("[REDACTED]");
+        assertThat(mapper.readTree(tokenValueResult).path("id").asText()).isEqualTo("M123456789");
+        String embeddedTokenResult = AUTH.redact("{\"name\":\"driver-secret-token-node\"}");
+        assertThat(mapper.readTree(embeddedTokenResult).path("name").asText())
+                .isEqualTo("driver-[REDACTED]-node");
+
+        ServiceAuth escapedToken = new ServiceAuth("token\"value");
+        String escapedResult = escapedToken.redact("{\"succ\":false,\"error\":\"token\\\"value\"}");
+        assertThat(mapper.readTree(escapedResult).path("succ").asBoolean()).isFalse();
+        assertThat(mapper.readTree(escapedResult).path("error").asText()).isEqualTo("[REDACTED]");
+
+        ServiceAuth markerToken = new ServiceAuth("REDACTED");
+        String markerResult = markerToken.redact("{\"error\":\"REDACTED\"}");
+        assertThat(markerResult).doesNotContain("REDACTED");
+        assertThat(markerToken.redact(markerResult)).isEqualTo(markerResult);
+    }
+
+    @Test
     void pageCookieCannotAuthorizeServiceCommand() {
         AtomicInteger executions = new AtomicInteger();
         DriverCommandController controller = controller(port(executions, 200, "ok"));
@@ -48,6 +90,20 @@ class DriverCommandControllerTest {
     }
 
     @Test
+    void writeRequiresKnownDriverInstanceBeforeItCanExecute() {
+        AtomicInteger executions = new AtomicInteger();
+        DriverCommandController controller = controller(port(executions, 200, "ok"));
+        Map<String, String> headers = Map.of("Authorization", "Bearer secret-token",
+                "Idempotency-Key", "request-1", "X-COSBench-Request-Id", "request-1");
+
+        ResponseEntity<String> rejected = controller.submit(headers, "mission".getBytes());
+
+        assertThat(rejected.getStatusCode().value()).isEqualTo(400);
+        assertThat(rejected.getBody()).contains("Driver instance is required");
+        assertThat(executions).hasValue(0);
+    }
+
+    @Test
     void duplicateWriteReturnsOriginalResponseAndRunsOnce() throws Exception {
         AtomicInteger executions = new AtomicInteger();
         CountDownLatch entered = new CountDownLatch(1);
@@ -73,7 +129,7 @@ class DriverCommandControllerTest {
             @Override public DriverCommandResult trigger(byte[] body) { return ok(); }
         };
         DriverCommandController controller = controller(port);
-        Map<String, String> headers = identity();
+        Map<String, String> headers = identity(controller);
         var executor = Executors.newFixedThreadPool(2);
         try {
             var first = executor.submit(() -> controller.submit(headers, "mission".getBytes()));
@@ -93,7 +149,7 @@ class DriverCommandControllerTest {
     void sameKeyWithChangedPayloadIsConflict() {
         AtomicInteger executions = new AtomicInteger();
         DriverCommandController controller = controller(port(executions, 200, "ok"));
-        Map<String, String> headers = identity();
+        Map<String, String> headers = identity(controller);
 
         assertThat(controller.submit(headers, "one".getBytes()).getStatusCode().value()).isEqualTo(200);
         ResponseEntity<String> conflict = controller.submit(headers, "two".getBytes());
@@ -122,7 +178,7 @@ class DriverCommandControllerTest {
             @Override public DriverCommandResult trigger(byte[] body) { return ok(); }
         };
         DriverCommandController controller = controller(port);
-        Map<String, String> headers = identity();
+        Map<String, String> headers = identity(controller);
 
         assertThat(controller.submit(headers, "mission".getBytes()).getStatusCode().value()).isEqualTo(200);
         assertThat(controller.close(headers, "mission".getBytes()).getStatusCode().value()).isEqualTo(200);
@@ -133,7 +189,7 @@ class DriverCommandControllerTest {
     void staleDriverInstanceCannotReplayAnAmbiguousWrite() {
         AtomicInteger executions = new AtomicInteger();
         DriverCommandController firstProcess = controller(port(executions, 200, "accepted"));
-        Map<String, String> headers = identity();
+        Map<String, String> headers = identity(firstProcess);
         ResponseEntity<String> accepted = firstProcess.submit(headers, "mission".getBytes());
         String firstInstance = accepted.getHeaders()
                 .getFirst(DriverCommandController.DRIVER_INSTANCE_HEADER);
@@ -155,7 +211,7 @@ class DriverCommandControllerTest {
     void failedWriteIsReplayedWithoutASecondExecution() {
         AtomicInteger executions = new AtomicInteger();
         DriverCommandController controller = controller(port(executions, 503, "temporary"));
-        Map<String, String> headers = identity();
+        Map<String, String> headers = identity(controller);
 
         ResponseEntity<String> first = controller.submit(headers, "one".getBytes());
         ResponseEntity<String> replay = controller.submit(headers, "one".getBytes());
@@ -202,9 +258,11 @@ class DriverCommandControllerTest {
         };
     }
 
-    private static Map<String, String> identity() {
+    private static Map<String, String> identity(DriverCommandController controller) {
         return Map.of("Authorization", "Bearer secret-token", "Idempotency-Key", "request-1",
-                "X-COSBench-Request-Id", "request-1");
+                "X-COSBench-Request-Id", "request-1", "X-COSBench-Driver-Instance",
+                controller.ping(Map.of("Authorization", "Bearer secret-token"), new byte[0]).getHeaders()
+                        .getFirst(DriverCommandController.DRIVER_INSTANCE_HEADER));
     }
 
     private static DriverCommandResult ok() {

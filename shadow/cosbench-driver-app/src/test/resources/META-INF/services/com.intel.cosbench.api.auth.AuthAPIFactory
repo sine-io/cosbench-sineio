@@ -1,1 +1,2 @@
 com.intel.cosbench.api.mock.MockAuthFactory
+com.intel.cosbench.app.driver.FailingAuthFactory

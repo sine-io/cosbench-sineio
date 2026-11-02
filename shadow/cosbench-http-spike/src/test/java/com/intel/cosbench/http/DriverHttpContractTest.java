@@ -89,8 +89,14 @@ class DriverHttpContractTest {
             request.header("Authorization", "Bearer contract-token");
         }
         if (identity) {
+            HttpRequest ping = HttpRequest.newBuilder(uri.resolve("/i/ping.command"))
+                    .header("Authorization", "Bearer contract-token")
+                    .POST(HttpRequest.BodyPublishers.ofString("1782057600000")).build();
+            String instance = client.send(ping, HttpResponse.BodyHandlers.ofString()).headers()
+                    .firstValue(DriverCommandController.DRIVER_INSTANCE_HEADER).orElseThrow();
             request.header("Idempotency-Key", "contract-request-1")
-                    .header("X-COSBench-Request-Id", "contract-request-1");
+                    .header("X-COSBench-Request-Id", "contract-request-1")
+                    .header(DriverCommandController.DRIVER_INSTANCE_HEADER, instance);
         }
         return client.send(request.build(), HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
     }

@@ -1,0 +1,40 @@
+2026-11-02 11:03:43,154 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-sineio-process.Y0KXXQ/log/system.log
+2026-11-02 11:03:43,158 [INFO] [Log4jLogManager] - will append log to console
+2026-11-02 11:03:43,382 [INFO] [COSBAuthAPIService] - detected supported auth types: none
+2026-11-02 11:03:43,383 [INFO] [COSBStorageAPIService] - detected supported storage types: gdas, s3, sio, siov1
+2026-11-02 11:03:44,829 [INFO] [NoneStorage] - performing PUT(create-bucket) at /cosbench-process-sio-96c307c3ccb0
+2026-11-02 11:03:45,043 [INFO] [NoneStorage] - performing PUT(put-object) at /cosbench-process-sio-96c307c3ccb0/obj1
+2026-11-02 11:03:45,127 [INFO] [COSBDriverService] - handler=MD9BEDF373A
+2026-11-02 11:03:45,132 [INFO] [MissionHandler] - mission MD9BEDF373A has been authed successfully
+2026-11-02 11:03:47,747 [INFO] [COSBDriverService] - aborting mission MD9BEDF373A during Driver shutdown
+2026-11-02 11:03:47,756 [INFO] [COSBDriverService] - Driver stopped: mission executor terminated
+2026-11-02 11:03:51,647 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-sineio-process.Y0KXXQ/log/system.log
+2026-11-02 11:03:51,651 [INFO] [Log4jLogManager] - will append log to console
+2026-11-02 11:03:51,920 [INFO] [COSBAuthAPIService] - detected supported auth types: none
+2026-11-02 11:03:51,921 [INFO] [COSBStorageAPIService] - detected supported storage types: gdas, s3, sio, siov1
+2026-11-02 11:03:53,403 [INFO] [NoneStorage] - performing PUT(create-bucket) at /cosbench-process-siov1-1f174625ec42
+2026-11-02 11:03:53,517 [INFO] [NoneStorage] - performing PUT(put-object) at /cosbench-process-siov1-1f174625ec42/obj1
+2026-11-02 11:03:53,565 [INFO] [COSBDriverService] - handler=M49BEE12633
+2026-11-02 11:03:53,568 [INFO] [MissionHandler] - mission M49BEE12633 has been authed successfully
+2026-11-02 11:03:56,221 [INFO] [COSBDriverService] - aborting mission M49BEE12633 during Driver shutdown
+2026-11-02 11:03:56,224 [INFO] [COSBDriverService] - Driver stopped: mission executor terminated
+2026-11-02 11:03:59,863 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-sineio-process.Y0KXXQ/log/system.log
+2026-11-02 11:03:59,869 [INFO] [Log4jLogManager] - will append log to console
+2026-11-02 11:04:00,140 [INFO] [COSBAuthAPIService] - detected supported auth types: none
+2026-11-02 11:04:00,141 [INFO] [COSBStorageAPIService] - detected supported storage types: gdas, s3, sio, siov1
+2026-11-02 11:04:01,672 [INFO] [NoneStorage] - performing PUT(create-bucket) at /cosbench-process-gdas-672bb143717c
+2026-11-02 11:04:01,800 [INFO] [NoneStorage] - performing PUT(put-object) at /cosbench-process-gdas-672bb143717c/obj1
+2026-11-02 11:04:01,837 [INFO] [COSBDriverService] - handler=M09BEE35B61
+2026-11-02 11:04:01,840 [INFO] [MissionHandler] - mission M09BEE35B61 has been authed successfully
+2026-11-02 11:04:04,440 [INFO] [COSBDriverService] - aborting mission M09BEE35B61 during Driver shutdown
+2026-11-02 11:04:04,444 [INFO] [COSBDriverService] - Driver stopped: mission executor terminated
+2026-11-02 11:04:08,160 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-sineio-process.Y0KXXQ/log/system.log
+2026-11-02 11:04:08,163 [INFO] [Log4jLogManager] - will append log to console
+2026-11-02 11:04:08,416 [INFO] [COSBAuthAPIService] - detected supported auth types: none
+2026-11-02 11:04:08,417 [INFO] [COSBStorageAPIService] - detected supported storage types: gdas, s3, sio, siov1
+2026-11-02 11:04:09,869 [INFO] [NoneStorage] - performing PUT(create-bucket) at /cosbench-process-s3-331140435886
+2026-11-02 11:04:09,984 [INFO] [NoneStorage] - performing PUT(put-object) at /cosbench-process-s3-331140435886/obj1
+2026-11-02 11:04:10,052 [INFO] [COSBDriverService] - handler=MA9BEE5589F
+2026-11-02 11:04:10,055 [INFO] [MissionHandler] - mission MA9BEE5589F has been authed successfully
+2026-11-02 11:04:12,656 [INFO] [COSBDriverService] - aborting mission MA9BEE5589F during Driver shutdown
+2026-11-02 11:04:12,659 [INFO] [COSBDriverService] - Driver stopped: mission executor terminated

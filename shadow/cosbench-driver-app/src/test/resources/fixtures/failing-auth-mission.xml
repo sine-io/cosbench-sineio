@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mission name="http-mock-failing-auth" workers="1" totalWorkers="1" totalOps="10" interval="1">
+  <auth type="failing" config="" />
+  <storage type="mock" config="size=64;delay=0;errors=0" />
+  <operation type="read" ratio="100" config="containers=c(1);objects=c(1)" />
+</mission>

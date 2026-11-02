@@ -186,6 +186,52 @@ class DriverMissionLifecycleTest {
     }
 
     @Test
+    void triggerKeepsLegacyBehaviorForMissingAndExtensionlessScripts() throws Exception {
+        Path scripts = Files.createDirectories(temp.resolve("scripts"));
+        Files.writeString(scripts.resolve("trigger-noop"), "#!/bin/sh\nprintf 'baseline-trigger-ok\\n'\n");
+        COSBDriverService service = newService(Duration.ofSeconds(2));
+        try {
+            TriggerResponse missing = service.trigger("enableTrigger,missing.sh,1");
+            assertEquals("0", missing.getPID());
+            assertEquals("", missing.getScriptLog());
+
+            TriggerResponse enabled = service.trigger("enableTrigger,trigger-noop,1");
+            assertEquals("baseline-trigger-ok\n", enabled.getScriptLog());
+        } finally {
+            service.close();
+        }
+    }
+
+    @Test
+    void nestedTriggerScriptsResolveWithinConfiguredDirectory() throws Exception {
+        Path script = Files.createDirectories(temp.resolve("scripts/maintenance")).resolve("rotate");
+        Files.writeString(script, "#!/bin/sh\nprintf 'nested-trigger-ok\\n'\n");
+        COSBDriverService service = newService(Duration.ofSeconds(2));
+        try {
+            TriggerResponse response = service.trigger("enableTrigger,maintenance/rotate,1");
+
+            assertEquals("nested-trigger-ok\n", response.getScriptLog());
+        } finally {
+            service.close();
+        }
+    }
+
+    @Test
+    void triggerReturnsAllOutputAndTerminatesUnterminatedLastLineLikeLegacy() throws Exception {
+        Path scripts = Files.createDirectories(temp.resolve("scripts"));
+        String output = "x".repeat(70_000);
+        Files.writeString(scripts.resolve("long-output"), "#!/bin/sh\nprintf '%s' '" + output + "'\n");
+        COSBDriverService service = newService(Duration.ofSeconds(2));
+        try {
+            TriggerResponse response = service.trigger("enableTrigger,long-output");
+
+            assertEquals(output + "\n", response.getScriptLog());
+        } finally {
+            service.close();
+        }
+    }
+
+    @Test
     void localTriggerRunsScriptAndReturnsCapturedOutputAndPid() throws Exception {
         Path scripts = Files.createDirectories(temp.resolve("scripts"));
         Files.writeString(scripts.resolve("trigger-noop.sh"), "#!/bin/sh\nprintf 'baseline-trigger-ok:%s\\n' \"$1\"\n");
