@@ -22,6 +22,6 @@
 
 ## 实现与本地验收
 
-2026-11-02：生产 `cosbench-s3` Maven 模块及 StorageAPI descriptor 已加入正式 Driver；配置、签名、路径风格、HTTP 状态/cause、timeout、connection refusal 和 dispose 通过公共 API 测试。MinIO 实际验证 put/get/list/head/delete、空对象及大于 5 MiB 的 multipart 数据完整性；Driver mission close/abort 与活动 mission 上 TERM 释放均通过。全 reactor Java 21 Docker `clean verify` 共 131 项测试通过，17 个模块的依赖、许可证、校验和、重复类与制品闸门通过，完整 CI 重放 `run_status=0`、`cleanup_status=0`，本轮容器、网络、卷及证书容器均清理。
+2026-11-02：生产 `cosbench-s3` Maven 模块及 StorageAPI descriptor 已加入正式 Driver；配置、签名、路径风格、HTTP 状态/cause、timeout、connection refusal 和 dispose 通过公共 API 测试。MinIO 实际验证 put/get/list/head/delete、空对象及大于 5 MiB 的 multipart 数据完整性；控制 endpoint 证明 part 失败会 abort upload，Driver mission close/abort 与活动 mission 上 TERM 释放均通过。全 reactor Java 21 Docker `clean verify` 共 132 项测试通过，17 个模块的依赖、许可证、校验和、重复类与制品闸门通过，完整 CI 重放 `run_status=0`、`cleanup_status=0`，本轮容器、网络、卷及证书容器均清理。
 
 实现说明见 [S3 production provider](../../../shadow/s3-provider.md)，可重放命令、配置样例、生产制品清单、license/checksum、MinIO/Driver 测试和 CI 报告见 [验收证据](../../../shadow/evidence/2026-11-02/s3-provider/README.md)。Driver 与 SineIO 三模式的组合复验归 #19。

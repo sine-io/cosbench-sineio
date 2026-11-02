@@ -49,7 +49,7 @@ software.amazon.awssdk:apache-client:jar:2.26.8	compile	7a3a6d6945526c4fad1a1a9d
 org.apache.httpcomponents:httpclient:jar:4.5.14	compile	c8bc7e1c51a6d4ce72f40d2ebbabf1c4b68bfe76e732104b04381b493478e9d6	Apache-2.0
 org.apache.httpcomponents:httpcore:jar:4.4.16	compile	6c9b3dd142a09dc468e23ad39aad6f75a0f2b85125104469f026e52a474e464f	Apache-2.0
 commons-codec:commons-codec:jar:1.15	compile	b3e9f6d63a790109bf0d056611fbed1cf69055826defeb9894a71369d246ed63	Apache-2.0
-com.intel.cosbench.shadow:cosbench-s3:jar:0.1.0-SNAPSHOT	compile	ab4630bdd97b508243a2cd094763de58be093da10b87fcbf2584a276a57a2eb9	Apache-2.0 (reactor)
+com.intel.cosbench.shadow:cosbench-s3:jar:0.1.0-SNAPSHOT	compile	8a2c0ef0d842742aaf750890a39fcfd4189bd769cb3e7f70935283882e82daf5	Apache-2.0 (reactor)
 com.intel.cosbench.shadow:cosbench-config-shadow:jar:0.1.0-SNAPSHOT	compile	a209d652433012a6ebe1ef50897588ddcf60fc453450395c29d6ced4682a014d	Apache-2.0 (reactor)
 com.intel.cosbench.shadow:cosbench-castor-shadow:jar:0.1.0-SNAPSHOT	compile	a566c95084c5e4eccd09de1851744ea5bff97ebc7b789545cfdccdf85f14f69f	Apache-2.0 (reactor)
 commons-configuration:commons-configuration:jar:1.10	compile	95d4e6711e88ce78992c82c25bc03c8df9ecf5a357f0de0bec72a26db3399374	Apache-2.0

@@ -1,1 +1,1 @@
-PASS artifact /tmp/tmp.4DJb6hEuRt/cosbench-driver-app-tests.jar
+PASS artifact /tmp/tmp.8MPJbF0TqI/cosbench-driver-app-tests.jar

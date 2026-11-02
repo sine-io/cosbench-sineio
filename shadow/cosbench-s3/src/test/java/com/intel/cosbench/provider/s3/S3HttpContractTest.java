@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.net.ServerSocket;
 import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -63,6 +65,26 @@ class S3HttpContractTest {
             port = unused.getLocalPort();
         }
         assertTransportFailure("http://127.0.0.1:" + port);
+    }
+
+    @Test
+    void abortsMultipartUploadWhenAnUploadPartFails() throws Exception {
+        try (var server = new MultipartFailureEndpoint()) {
+            var config = config(server.endpoint());
+            var storage = registry().createStorage("s3", config, LogFactory.getSystemLogger());
+            try {
+                byte[] content = new byte[] {1, 2, 3};
+                var error = assertThrows(StorageException.class,
+                        () -> storage.createMultipartObject("bucket", "object",
+                                new ByteArrayInputStream(content), content.length, config));
+                assertEquals(500,
+                        assertInstanceOf(AmazonS3Exception.class, error.getCause()).getStatusCode());
+                assertTrue(server.uploadPartRequests.get() > 0);
+                assertEquals(1, server.abortRequests.get());
+            } finally {
+                storage.dispose();
+            }
+        }
     }
 
     private static void assertTransportFailure(String endpoint) {
@@ -127,6 +149,67 @@ class S3HttpContractTest {
             } finally {
                 exchange.close();
             }
+        }
+
+        @Override
+        public void close() {
+            server.stop(0);
+            executor.shutdownNow();
+        }
+    }
+
+    private static final class MultipartFailureEndpoint implements AutoCloseable {
+        private static final String INITIATE_RESULT = "<InitiateMultipartUploadResult"
+                + " xmlns=\"http://s3.amazonaws.com/doc/2006-03-01/\">"
+                + "<Bucket>bucket</Bucket><Key>object</Key><UploadId>upload-id</UploadId>"
+                + "</InitiateMultipartUploadResult>";
+        private static final String INTERNAL_ERROR = "<Error><Code>InternalError</Code>"
+                + "<Message>Upload part failed</Message><RequestId>fixture</RequestId>"
+                + "<HostId>fixture</HostId></Error>";
+
+        private final HttpServer server;
+        private final java.util.concurrent.ExecutorService executor = Executors.newCachedThreadPool();
+        private final AtomicInteger uploadPartRequests = new AtomicInteger();
+        private final AtomicInteger abortRequests = new AtomicInteger();
+
+        MultipartFailureEndpoint() throws IOException {
+            server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+            server.setExecutor(executor);
+            server.createContext("/", this::respond);
+            server.start();
+        }
+
+        String endpoint() {
+            return "http://127.0.0.1:" + server.getAddress().getPort();
+        }
+
+        private void respond(HttpExchange exchange) throws IOException {
+            try {
+                exchange.getRequestBody().readAllBytes();
+                String query = exchange.getRequestURI().getRawQuery();
+                if (exchange.getRequestMethod().equals("POST") && query != null && query.contains("uploads")) {
+                    send(exchange, 200, INITIATE_RESULT);
+                } else if (exchange.getRequestMethod().equals("PUT") && query != null
+                        && query.contains("partNumber")) {
+                    uploadPartRequests.incrementAndGet();
+                    send(exchange, 500, INTERNAL_ERROR);
+                } else if (exchange.getRequestMethod().equals("DELETE") && query != null
+                        && query.contains("uploadId")) {
+                    abortRequests.incrementAndGet();
+                    exchange.sendResponseHeaders(204, -1);
+                } else {
+                    send(exchange, 400, INTERNAL_ERROR);
+                }
+            } finally {
+                exchange.close();
+            }
+        }
+
+        private static void send(HttpExchange exchange, int status, String body) throws IOException {
+            byte[] bytes = body.getBytes(StandardCharsets.UTF_8);
+            exchange.getResponseHeaders().set("Content-Type", "application/xml");
+            exchange.sendResponseHeaders(status, bytes.length);
+            exchange.getResponseBody().write(bytes);
         }
 
         @Override

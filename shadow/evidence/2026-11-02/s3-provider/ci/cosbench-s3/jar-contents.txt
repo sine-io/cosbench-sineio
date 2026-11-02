@@ -13,6 +13,7 @@ META-INF/maven/
 META-INF/maven/com.intel.cosbench.shadow/
 META-INF/maven/com.intel.cosbench.shadow/cosbench-s3/
 META-INF/LICENSE
+META-INF/NOTICE
 META-INF/services/com.intel.cosbench.api.storage.StorageAPIFactory
 com/intel/cosbench/api/S3Stor/S3Storage.class
 com/intel/cosbench/api/S3Stor/S3StorageFactory.class

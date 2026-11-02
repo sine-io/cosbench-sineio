@@ -1,8 +1,8 @@
 sio_term_exit=143
-sio_stop_seconds=1
+sio_stop_seconds=2
 siov1_term_exit=143
-siov1_stop_seconds=2
+siov1_stop_seconds=1
 gdas_term_exit=143
 gdas_stop_seconds=2
 s3_term_exit=143
-s3_stop_seconds=2
+s3_stop_seconds=1

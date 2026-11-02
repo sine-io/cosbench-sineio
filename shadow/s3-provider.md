@@ -20,6 +20,8 @@ S3 has no `aws_region` setting in its legacy constants or [sample workload](../r
 
 The adapter keeps the AWS SDK for Java v1 API, static credential behavior, endpoint override, `S3SignerType`, and path-style setting. The shared migrated runtime resolves v1 `1.12.767`, already used by SineIO and selected by the #04 shared-classpath verification; the old S3 bundle carried v1 `1.10.76`. This preserves one v1 implementation on the tested shared classpath and does not migrate S3 to SDK v2. Both versions' dependency provenance and checksums are captured by the CI reports.
 
+The migrated S3 module declares Apache-2.0 and packages the Apache license and repository `NOTICE`, matching the repository's licensing distinction for Intel source code.
+
 ## Operations
 
 The provider implements bucket create/delete, object put/get/list/head/delete, and multipart upload with the AWS SDK v1 APIs. List results are UTF-8 object keys separated by newlines, matching the Driver lister contract. Multipart uploads use 5 MiB parts, complete only after all parts upload, and abort an initiated upload when an operation fails. Zero-length multipart requests use a regular empty-object PUT because S3 rejects an upload with no parts.

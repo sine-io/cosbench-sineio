@@ -41,7 +41,7 @@
 SLF4J(W): No SLF4J providers were found.
 SLF4J(W): Defaulting to no-operation (NOP) logger implementation
 SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.71 s -- in com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.76 s -- in com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest
 [INFO]
 [INFO] Results:
 [INFO]
@@ -50,6 +50,6 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  18.632 s
-[INFO] Finished at: 2026-11-02T08:28:29Z
+[INFO] Total time:  18.619 s
+[INFO] Finished at: 2026-11-02T08:46:56Z
 [INFO] ------------------------------------------------------------------------
