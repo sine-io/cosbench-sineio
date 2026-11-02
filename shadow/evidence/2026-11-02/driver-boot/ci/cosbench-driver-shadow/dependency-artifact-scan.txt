@@ -1,0 +1,17 @@
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/com.intel.cosbench.shadow_cosbench-api-shadow_jar_0.1.0-SNAPSHOT.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/com.intel.cosbench.shadow_cosbench-castor-shadow_jar_0.1.0-SNAPSHOT.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/com.intel.cosbench.shadow_cosbench-config-shadow_jar_0.1.0-SNAPSHOT.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/com.intel.cosbench.shadow_cosbench-core-shadow_jar_0.1.0-SNAPSHOT.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/com.intel.cosbench.shadow_cosbench-log4j-shadow_jar_0.1.0-SNAPSHOT.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/com.intel.cosbench.shadow_cosbench-log-shadow_jar_0.1.0-SNAPSHOT.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/commons-collections_commons-collections_jar_3.2.1.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/commons-configuration_commons-configuration_jar_1.10.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/commons-io_commons-io_jar_2.15.1.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/commons-lang_commons-lang_jar_2.6.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/javax.inject_javax.inject_jar_1.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/log4j_log4j_jar_1.2.17.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/org.apache.commons_commons-csv_jar_1.10.0.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/org.codehaus.castor_castor-core_jar_1.3.3.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/org.codehaus.castor_castor-xml_jar_1.3.3.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/org.slf4j_slf4j-api_jar_2.0.18.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-driver-shadow/org.yaml_snakeyaml_jar_2.4.jar

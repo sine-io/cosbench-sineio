@@ -1,0 +1,86 @@
+com.intel.cosbench.shadow:cosbench-api-shadow:jar:0.1.0-SNAPSHOT	compile	419c68151f4916895b2e960718788858f9998b78736f86b63a03960d413e8275	Apache-2.0 (reactor)
+com.intel.cosbench.shadow:cosbench-log-shadow:jar:0.1.0-SNAPSHOT	compile	1222a3912ecd8bcec71690c986fca6eac0a191a10cffc884a1e7a527ec8767b4	Apache-2.0 (reactor)
+com.intel.cosbench.shadow:cosbench-log4j-shadow:jar:0.1.0-SNAPSHOT	compile	410895c08b0526ff7d272fcdfd7e3341909f09a612173e1291dfe0f3060fe139	Apache-2.0 (reactor)
+log4j:log4j:jar:1.2.17	compile	1d31696445697720527091754369082a6651bd49781b6005deb94e56753406f9	Apache-2.0
+org.slf4j:slf4j-api:jar:2.0.18	compile	44508fd1576500688c790b190acdd16fec4f8c79a3e0b900afd70503cf055f55	MIT
+com.intel.cosbench.shadow:cosbench-core-shadow:jar:0.1.0-SNAPSHOT	compile	c73c0208f286178862e45baf1ed015aa568b064f73dafc3a780f055a0cfde808	Apache-2.0 (reactor)
+org.apache.commons:commons-csv:jar:1.10.0	compile	2d06e6a07a636baf777ad8e659256f2119109dde23551c9b80c5422d424b808c	Apache-2.0
+commons-io:commons-io:jar:2.15.1	compile	a58af12ee1b68cfd2ebb0c27caef164f084381a00ec81a48cc275fd7ea54e154	Apache-2.0
+com.intel.cosbench.shadow:cosbench-http-shadow:jar:0.1.0-SNAPSHOT	compile	a012f6778e3d8baffb03464fca936880e7c5131927ec491be7847f7c3dd81c03	Apache-2.0 (reactor)
+org.apache.httpcomponents:httpclient:jar:4.5.14	compile	c8bc7e1c51a6d4ce72f40d2ebbabf1c4b68bfe76e732104b04381b493478e9d6	Apache-2.0
+org.apache.httpcomponents:httpcore:jar:4.4.16	compile	6c9b3dd142a09dc468e23ad39aad6f75a0f2b85125104469f026e52a474e464f	Apache-2.0
+commons-codec:commons-codec:jar:1.15	compile	b3e9f6d63a790109bf0d056611fbed1cf69055826defeb9894a71369d246ed63	Apache-2.0
+com.intel.cosbench.shadow:cosbench-config-shadow:jar:0.1.0-SNAPSHOT	compile	a209d652433012a6ebe1ef50897588ddcf60fc453450395c29d6ced4682a014d	Apache-2.0 (reactor)
+com.intel.cosbench.shadow:cosbench-castor-shadow:jar:0.1.0-SNAPSHOT	compile	a566c95084c5e4eccd09de1851744ea5bff97ebc7b789545cfdccdf85f14f69f	Apache-2.0 (reactor)
+commons-configuration:commons-configuration:jar:1.10	compile	95d4e6711e88ce78992c82c25bc03c8df9ecf5a357f0de0bec72a26db3399374	Apache-2.0
+org.codehaus.castor:castor-xml:jar:1.3.3	compile	db40227f0bdc2ed4658d80b4138c0bba239c50d763c53a8487b1648f028fcfd1	LicenseRef-Castor-1.3.3 AND Apache-2.0
+org.codehaus.castor:castor-core:jar:1.3.3	compile	4b69771c9932f559a7e6f2b6218f442dd7ae086f68575b45f403c5e2c18ce8ce	LicenseRef-Castor-1.3.3 AND Apache-2.0
+javax.inject:javax.inject:jar:1	compile	91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff	Apache-2.0
+org.yaml:snakeyaml:jar:2.4	compile	ef779af5d29a9dde8cc70ce0341f5c6f7735e23edff9685ceaa9d35359b7bb7f	Apache-2.0
+org.springframework.boot:spring-boot-starter-web:jar:3.5.16	compile	3272f145a6edd94896c60fba7d2a05b525c78f8efd0172e7bffb6c3b9857762e	Apache-2.0
+org.springframework.boot:spring-boot-starter:jar:3.5.16	compile	649da4576c83a4f814222dcff067cd774eeeb1119e790390eaeab8e9955d0d44	Apache-2.0
+org.springframework.boot:spring-boot:jar:3.5.16	compile	2d5b16632402b840b0425ed52610071890bf8cb24c6c49af343bbde574123265	Apache-2.0
+org.springframework.boot:spring-boot-autoconfigure:jar:3.5.16	compile	0198331231e9bf872a135741d59c6d1f9e9007ff207a1ca910179c550bb12bfc	Apache-2.0
+org.springframework.boot:spring-boot-starter-logging:jar:3.5.16	compile	f761d56f6693a47e6cccca8e9202c716ab954ccdf7440e1fccc0cb50c661eeb8	Apache-2.0
+ch.qos.logback:logback-classic:jar:1.5.34	compile	b65e05076a5c1aadb659b4fe4bc5fee31cb26cd70390292eb03e4a7a24cff10f	EPL-2.0
+ch.qos.logback:logback-core:jar:1.5.34	compile	42eda264c0c650c2bec59e66151a88b708a8663dc1b49d788202d53e78b8caae	EPL-2.0
+org.apache.logging.log4j:log4j-to-slf4j:jar:2.24.3	compile	c7f2b0c612a4eb05b1587d1c880eb4cf5f4f53850676a8ede8da2b8fabb4f73f	Apache-2.0
+org.apache.logging.log4j:log4j-api:jar:2.24.3	compile	5b4a0a0cd0e751ded431c162442bdbdd53328d1f8bb2bae5fc1bbeee0f66d80f	Apache-2.0
+org.slf4j:jul-to-slf4j:jar:2.0.18	compile	cbb7d1aaaa9e871eb1a06594abd911bf97027152976edf1edc315be75239204e	MIT
+jakarta.annotation:jakarta.annotation-api:jar:2.1.1	compile	5f65fdaf424eee2b55e1d882ba9bb376be93fb09b37b808be6e22e8851c909fe	EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0
+org.springframework.boot:spring-boot-starter-json:jar:3.5.16	compile	be8340bdd87d5e76bfec5b3b256bb923c841464793e5a8e2f7e8ced37e6eb434	Apache-2.0
+com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.21.4	compile	2dde4a8f1aad3306c040f56ff40da81c6d58dcef3434c00849c9bce09f56a074	Apache-2.0
+com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.21.4	compile	d1ac4b98b70304e56448423589fde5e775b100889643ad1ead62cc7811633684	Apache-2.0
+com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.21.4	compile	9510f91a4be2c700753ad244596b67424cb32c23659db1dc534219226e5df3a3	Apache-2.0
+org.springframework.boot:spring-boot-starter-tomcat:jar:3.5.16	compile	c3bc33205b0a46faab33dcdf743958e845ee94e1f7961bbe0e0f8ce881db747b	Apache-2.0
+org.apache.tomcat.embed:tomcat-embed-core:jar:10.1.55	compile	82473f841824095e03f2c938c18707e44e388e34fb1735b2b338bb4f22fd54f0	Apache-2.0
+org.apache.tomcat.embed:tomcat-embed-el:jar:10.1.55	compile	a527fe51c6f9428c5116f78fe28588e55357b4492309b51fb0453372da16fa5f	Apache-2.0
+org.apache.tomcat.embed:tomcat-embed-websocket:jar:10.1.55	compile	81800431395fe2ef317fc14075ed49faaa64679a3458ee8791159111a1aa1b37	Apache-2.0
+org.springframework:spring-web:jar:6.2.19	compile	ca88e364ecebee61163e2260e8a20584138eca74e28a050d6a2ef6302bad2f2d	Apache-2.0
+org.springframework:spring-beans:jar:6.2.19	compile	846dc8f30a639a36eb551ee99a30469be4d11bd285ca9daf164d98321571b404	Apache-2.0
+io.micrometer:micrometer-observation:jar:1.15.12	compile	54483e68ed44af1bb0c36d1df2235d36f233e459d52f5a3be3e69813827a6300	Apache-2.0
+io.micrometer:micrometer-commons:jar:1.15.12	compile	4b779cf7acb0534bb1f8e964f25200037ecb3944368f859a630fa637d6d5d7c0	Apache-2.0
+org.springframework:spring-webmvc:jar:6.2.19	compile	134f42320cedd31f54f683d2ca9936a4e015c011fb1882a31fa7213e2d8c7e94	Apache-2.0
+org.springframework:spring-aop:jar:6.2.19	compile	a11b93539d80b02caf76171db2da96df39abebbfef49a2fadd6dda0779f2e20b	Apache-2.0
+org.springframework:spring-context:jar:6.2.19	compile	ead4b645f94a7f665f00093eaafde634e97b34524294de653b51e43e0b3fc4a4	Apache-2.0
+org.springframework:spring-expression:jar:6.2.19	compile	d710a44417d890353895b341a722d7d08199e2b7da52f0a11c0e92571e1d6e19	Apache-2.0
+org.springframework.boot:spring-boot-starter-test:jar:3.5.16	test	b71dbd8ff355aa339166ba47ff5c6c31c65ba6985f31480d6d312ee204b0f860	Apache-2.0
+org.springframework.boot:spring-boot-test:jar:3.5.16	test	391c6e3aebd499c727016f4c27c9fbf0d35ca0216686bc1be779752b5c5ae9f3	Apache-2.0
+org.springframework.boot:spring-boot-test-autoconfigure:jar:3.5.16	test	ed451d7789f8b7c39d363e0673561218ac72927ef375979ef99ddff3b387db1f	Apache-2.0
+com.jayway.jsonpath:json-path:jar:2.9.0	test	11a9ee6f88bb31f1450108d1cf6441377dec84aca075eb6bb2343be157575bea	Apache-2.0
+jakarta.xml.bind:jakarta.xml.bind-api:jar:4.0.5	test	5e489b6c874c4119e003ff1403db523ee3a8959ec499f3de29e77245efccf216	BSD-3-Clause
+jakarta.activation:jakarta.activation-api:jar:2.1.4	test	c9db52100ce6c8aac95cc39075f95720d2e561b11f8051b81c121ad4effd7004	BSD-3-Clause
+net.minidev:json-smart:jar:2.5.2	test	4fbdedb0105cedc7f766b95c297d2e88fb6a560da48f3bbaa0cc538ea8b7bf71	Apache-2.0
+net.minidev:accessors-smart:jar:2.5.2	test	9b8a7bc43861d6156c021166d941fb7dddbe4463e2fa5ee88077e4b01452a836	Apache-2.0
+org.ow2.asm:asm:jar:9.7.1	test	8cadd43ac5eb6d09de05faecca38b917a040bb9139c7edeb4cc81c740b713281	BSD-3-Clause
+org.assertj:assertj-core:jar:3.27.7	test	c4a445426c3c2861666863b842cc4ec7bbb1c4226fefd370b6d2fe83d6c4ff0f	Apache-2.0
+net.bytebuddy:byte-buddy:jar:1.17.8	test	2b5ddc8c1f4234bdb7cb45338a8e10a13e0e3ca473e91d5d821d681127ea8ba1	Apache-2.0
+org.awaitility:awaitility:jar:4.2.2	test	e831fee30ed401e2208f1bd5a0ef9add538d9cb1103c0e43216691b647bde9c6	Apache-2.0
+org.hamcrest:hamcrest:jar:3.0	test	5d66b6a4a680755cb6ed7cb104fa7835ef644667586ff0737adeb977c39ecdbc	BSD-3-Clause
+org.junit.jupiter:junit-jupiter:jar:5.12.2	test	3854b3ad434906b827fec474aa0d8da8b56e9e56d5fc7f2e20fc3f12ec4be894	EPL-2.0
+org.junit.jupiter:junit-jupiter-api:jar:5.12.2	test	0b9ca728e4bcd9adc57f29deb9556ff9ed5e08b4e8843b875aba4e4e3e04f092	EPL-2.0
+org.opentest4j:opentest4j:jar:1.3.0	test	48e2df636cab6563ced64dcdff8abb2355627cb236ef0bf37598682ddf742f1b	Apache-2.0
+org.junit.platform:junit-platform-commons:jar:1.12.2	test	e683a01e85dfabea520c056ac6015a6162756e602ec653c0da85e233f0afbc18	EPL-2.0
+org.apiguardian:apiguardian-api:jar:1.1.2	test	b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38	Apache-2.0
+org.junit.jupiter:junit-jupiter-params:jar:5.12.2	test	b219ffa949b90a71aa3b6c2b606456b82bca0b2089b7459c8ff461156ff59b0f	EPL-2.0
+org.junit.jupiter:junit-jupiter-engine:jar:5.12.2	test	f576c06b8accde9985063b8bc80526cb980eec24dee0b7221fc8ddd7ace65800	EPL-2.0
+org.junit.platform:junit-platform-engine:jar:1.12.2	test	cef0efcb5bd2e05e2b808d38bab5c655089c0c3001527376e74cb606a7911ec8	EPL-2.0
+org.mockito:mockito-core:jar:5.17.0	test	dff59ad8c61b026ef86cc113f94f2301eb06caaf81dec30c78a96a1a65595c5e	MIT
+net.bytebuddy:byte-buddy-agent:jar:1.17.8	test	5b17113e66e77ca6f8af07ff367c216df964a980f0e9f11e3b1aa793253aa64f	Apache-2.0
+org.objenesis:objenesis:jar:3.3	test	02dfd0b0439a5591e35b708ed2f5474eb0948f53abf74637e959b8e4ef69bfeb	Apache-2.0
+org.mockito:mockito-junit-jupiter:jar:5.17.0	test	5c5442f8aaaa8f03df03e4862a0d69205d1b41f5edbf7d5aa7a2486a61de49b7	MIT
+org.skyscreamer:jsonassert:jar:1.5.3	test	719095c07d4203961320da593441d8b3b643c18eb1d81aa98ea933bb7eb351ba	Apache-2.0
+com.vaadin.external.google:android-json:jar:0.0.20131108.vaadin1	test	dfb7bae2f404cfe0b72b4d23944698cb716b7665171812a0a4d0f5926c0fac79	Apache-2.0
+org.springframework:spring-core:jar:6.2.19	compile	52146689e71a911c92bac26677d73c692512a739893a57710cc233591756bff6	Apache-2.0
+org.springframework:spring-jcl:jar:6.2.19	compile	9994478bcea1423b8892d4eb0db942c94da0090167c3c684050c1eaef04491d0	Apache-2.0
+org.springframework:spring-test:jar:6.2.19	test	f1cb8549021f50630b4152291fdcde56786421b8448a5ab8bef9befe2ac86b37	Apache-2.0
+org.xmlunit:xmlunit-core:jar:2.10.4	test	208e0cee82aedd9183937e4b9ae44b83884179f724a706bef5795477acfcca91	Apache-2.0
+com.fasterxml.jackson.core:jackson-databind:jar:2.21.4	compile	3888e9e69ab66fbacaacc9aea0e9ffbf15368288e4aca468b024dba11c09fbf9	Apache-2.0
+com.fasterxml.jackson.core:jackson-annotations:jar:2.21	compile	53ca085f4a150f703f49e1aabd935bd03b43e1ea3d55d135438292af22cef56b	Apache-2.0
+com.fasterxml.jackson.core:jackson-core:jar:2.21.4	compile	4b40a06396f239f8de2da57419adde6e94e5edc18a2171d471ea05eeed4e5c2d	Apache-2.0
+org.codehaus.jackson:jackson-mapper-asl:jar:1.9.13	compile	74e7a07a76f2edbade29312a5a2ebccfa019128bc021ece3856d76197e9be0c2	Apache-2.0
+org.codehaus.jackson:jackson-core-asl:jar:1.9.13	compile	440a9cb5ca95b215f953d3a20a6b1a10da1f09b529a9ddea5f8a4905ddab4f5a	Apache-2.0
+commons-lang:commons-lang:jar:2.6	compile	50f11b09f877c294d56f24463f47d28f929cf5044f648661c0f0cfbae9a2f49c	Apache-2.0
+commons-beanutils:commons-beanutils:jar:1.9.4	compile	7d938c81789028045c08c065e94be75fc280527620d5bd62b519d5838532368a	Apache-2.0
+commons-collections:commons-collections:jar:3.2.2	compile	eeeae917917144a68a741d4c0dff66aa5c5c5fd85593ff217bced3fc8ca783b8	Apache-2.0
+javax.servlet:javax.servlet-api:jar:4.0.1	test	83a03dd877d3674576f0da7b90755c8524af099ccf0607fc61aa971535ad7c60	CDDL-1.0 OR GPL-2.0-only WITH Classpath-exception-2.0

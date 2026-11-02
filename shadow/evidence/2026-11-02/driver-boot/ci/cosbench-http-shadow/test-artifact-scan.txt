@@ -1,0 +1,1 @@
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-http-shadow-tests.jar

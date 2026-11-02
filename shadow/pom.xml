@@ -16,6 +16,8 @@
     <module>cosbench-config</module>
     <module>cosbench-api</module>
     <module>cosbench-core</module>
+    <module>cosbench-driver</module>
+    <module>cosbench-driver-app</module>
     <module>cosbench-http</module>
     <module>cosbench-controller</module>
     <module>cosbench-controller-app</module>

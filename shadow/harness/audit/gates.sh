@@ -54,7 +54,7 @@ while IFS=$'\t' read -r coordinate artifact target classes test_classes module; 
         jar --create --file "$work_dir/$module-tests.jar" -C "$test_classes" .
         scope=test
         case "$module" in
-            cosbench-provider-spike|cosbench-http-spike) scope=mock-test ;;
+            cosbench-provider-spike|cosbench-http-spike|cosbench-driver-app) scope=mock-test ;;
         esac
         java -cp "$work_dir/tools" ArtifactAudit "$scope" "$work_dir/$module-tests.jar" \
             > "$module_report/test-artifact-scan.txt"

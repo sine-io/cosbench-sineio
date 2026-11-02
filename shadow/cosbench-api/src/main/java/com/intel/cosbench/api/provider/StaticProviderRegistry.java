@@ -3,6 +3,7 @@ package com.intel.cosbench.api.provider;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ServiceConfigurationError;
@@ -59,6 +60,22 @@ public final class StaticProviderRegistry {
 
     public Set<String> authNames() {
         return Collections.unmodifiableSortedSet(new TreeSet<>(authFactories.keySet()));
+    }
+
+    /**
+     * Returns the discovered storage factories in deterministic provider-name order.
+     * The registry owns discovery; consumers receive an immutable snapshot and never
+     * need to call {@link ServiceLoader} themselves.
+     */
+    public Collection<StorageAPIFactory> storageFactories() {
+        return List.copyOf(storageFactories.values());
+    }
+
+    /**
+     * Returns the discovered auth factories in deterministic provider-name order.
+     */
+    public Collection<AuthAPIFactory> authFactories() {
+        return List.copyOf(authFactories.values());
     }
 
     public StorageAPI createStorage(String name, Config config, Logger logger) {

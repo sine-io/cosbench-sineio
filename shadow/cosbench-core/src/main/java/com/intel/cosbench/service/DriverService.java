@@ -19,6 +19,7 @@ package com.intel.cosbench.service;
 
 import com.intel.cosbench.config.XmlConfig;
 import com.intel.cosbench.model.*;
+import com.intel.cosbench.protocol.TriggerResponse;
 
 
 /**
@@ -38,6 +39,11 @@ public interface DriverService {
     public void close(String id);
 
     public void abort(String id);
+
+    /** Executes one validated driver trigger command, such as enableTrigger or killTrigger. */
+    public default TriggerResponse trigger(String command) {
+        throw new UnsupportedOperationException("Driver trigger execution is not available");
+    }
 
     public DriverInfo getDriverInfo();
 

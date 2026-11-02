@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.intel.cosbench.http.AuthenticatedDriverClientTest
+-------------------------------------------------------------------------------
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.674 s -- in com.intel.cosbench.http.AuthenticatedDriverClientTest

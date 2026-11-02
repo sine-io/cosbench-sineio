@@ -1,0 +1,17 @@
+schemaVersion: 1
+role: driver
+name: Driver executable replay
+listen:
+  host: 127.0.0.1
+  port: 19488
+  contextPath: /driver
+paths:
+  workspace: workspace
+  archive: archive
+  mission: missions
+  logs: log/system.log
+logging:
+  level: INFO
+  file: log/system.log
+shutdown:
+  gracePeriod: 5s

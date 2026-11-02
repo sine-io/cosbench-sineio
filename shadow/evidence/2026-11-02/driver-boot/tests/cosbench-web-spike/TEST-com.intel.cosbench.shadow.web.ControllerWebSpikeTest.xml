@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.intel.cosbench.shadow.web.ControllerWebSpikeTest" time="6.235" tests="3" errors="0" skipped="0" failures="0" flakes="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/workspace/shadow/cosbench-web-spike/target/test-classes:/workspace/shadow/cosbench-web-spike/target/classes:/workspace/shadow/cosbench-controller/target/cosbench-controller-shadow-0.1.0-SNAPSHOT.jar:/workspace/shadow/cosbench-api/target/cosbench-api-shadow-0.1.0-SNAPSHOT.jar:/workspace/shadow/cosbench-log/target/cosbench-log-shadow-0.1.0-SNAPSHOT.jar:/workspace/shadow/cosbench-log4j/target/cosbench-log4j-shadow-0.1.0-SNAPSHOT.jar:/tmp/maven-repository/log4j/log4j/1.2.17/log4j-1.2.17.jar:/tmp/maven-repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar:/workspace/shadow/cosbench-core/target/cosbench-core-shadow-0.1.0-SNAPSHOT.jar:/tmp/maven-repository/org/apache/commons/commons-csv/1.10.0/commons-csv-1.10.0.jar:/tmp/maven-repository/commons-io/commons-io/2.15.1/commons-io-2.15.1.jar:/tmp/maven-repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar:/workspace/shadow/cosbench-http/target/cosbench-http-shadow-0.1.0-SNAPSHOT.jar:/tmp/maven-repository/org/apache/httpcomponents/httpclient/4.5.14/httpclient-4.5.14.jar:/tmp/maven-repository/org/apache/httpcomponents/httpcore/4.4.16/httpcore-4.4.16.jar:/tmp/maven-repository/commons-codec/commons-codec/1.15/commons-codec-1.15.jar:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar:/workspace/shadow/cosbench-castor/target/cosbench-castor-shadow-0.1.0-SNAPSHOT.jar:/tmp/maven-repository/commons-configuration/commons-configuration/1.10/commons-configuration-1.10.jar:/tmp/maven-repository/org/codehaus/castor/castor-xml/1.3.3/castor-xml-1.3.3.jar:/tmp/maven-repository/org/codehaus/castor/castor-core/1.3.3/castor-core-1.3.3.jar:/tmp/maven-repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar:/tmp/maven-repository/javax/inject/javax.inject/1/javax.inject-1.jar:/tmp/maven-repository/org/yaml/snakeyaml/2.4/snakeyaml-2.4.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-web/3.5.16/spring-boot-starter-web-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter/3.5.16/spring-boot-starter-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot/3.5.16/spring-boot-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-autoconfigure/3.5.16/spring-boot-autoconfigure-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-logging/3.5.16/spring-boot-starter-logging-3.5.16.jar:/tmp/maven-repository/ch/qos/logback/logback-classic/1.5.34/logback-classic-1.5.34.jar:/tmp/maven-repository/ch/qos/logback/logback-core/1.5.34/logback-core-1.5.34.jar:/tmp/maven-repository/org/apache/logging/log4j/log4j-to-slf4j/2.24.3/log4j-to-slf4j-2.24.3.jar:/tmp/maven-repository/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar:/tmp/maven-repository/org/slf4j/jul-to-slf4j/2.0.18/jul-to-slf4j-2.0.18.jar:/tmp/maven-repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-json/3.5.16/spring-boot-starter-json-3.5.16.jar:/tmp/maven-repository/com/fasterxml/jackson/core/jackson-databind/2.21.4/jackson-databind-2.21.4.jar:/tmp/maven-repository/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/tmp/maven-repository/com/fasterxml/jackson/core/jackson-core/2.21.4/jackson-core-2.21.4.jar:/tmp/maven-repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.21.4/jackson-datatype-jdk8-2.21.4.jar:/tmp/maven-repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.21.4/jackson-datatype-jsr310-2.21.4.jar:/tmp/maven-repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.21.4/jackson-module-parameter-names-2.21.4.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-tomcat/3.5.16/spring-boot-starter-tomcat-3.5.16.jar:/tmp/maven-repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.55/tomcat-embed-core-10.1.55.jar:/tmp/maven-repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.55/tomcat-embed-el-10.1.55.jar:/tmp/maven-repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.55/tomcat-embed-websocket-10.1.55.jar:/tmp/maven-repository/org/springframework/spring-web/6.2.19/spring-web-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-beans/6.2.19/spring-beans-6.2.19.jar:/tmp/maven-repository/io/micrometer/micrometer-observation/1.15.12/micrometer-observation-1.15.12.jar:/tmp/maven-repository/io/micrometer/micrometer-commons/1.15.12/micrometer-commons-1.15.12.jar:/tmp/maven-repository/org/springframework/spring-webmvc/6.2.19/spring-webmvc-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-context/6.2.19/spring-context-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-expression/6.2.19/spring-expression-6.2.19.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-freemarker/3.5.16/spring-boot-starter-freemarker-3.5.16.jar:/tmp/maven-repository/org/freemarker/freemarker/2.3.34/freemarker-2.3.34.jar:/tmp/maven-repository/org/springframework/spring-context-support/6.2.19/spring-context-support-6.2.19.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-security/3.5.16/spring-boot-starter-security-3.5.16.jar:/tmp/maven-repository/org/springframework/spring-aop/6.2.19/spring-aop-6.2.19.jar:/tmp/maven-repository/org/springframework/security/spring-security-config/6.5.11/spring-security-config-6.5.11.jar:/tmp/maven-repository/org/springframework/security/spring-security-core/6.5.11/spring-security-core-6.5.11.jar:/tmp/maven-repository/org/springframework/security/spring-security-crypto/6.5.11/spring-security-crypto-6.5.11.jar:/tmp/maven-repository/org/springframework/security/spring-security-web/6.5.11/spring-security-web-6.5.11.jar:/tmp/maven-repository/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar:/tmp/maven-repository/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-test/3.5.16/spring-boot-starter-test-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-test/3.5.16/spring-boot-test-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-test-autoconfigure/3.5.16/spring-boot-test-autoconfigure-3.5.16.jar:/tmp/maven-repository/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/tmp/maven-repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.5/jakarta.xml.bind-api-4.0.5.jar:/tmp/maven-repository/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/tmp/maven-repository/net/minidev/json-smart/2.5.2/json-smart-2.5.2.jar:/tmp/maven-repository/net/minidev/accessors-smart/2.5.2/accessors-smart-2.5.2.jar:/tmp/maven-repository/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/tmp/maven-repository/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/tmp/maven-repository/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/tmp/maven-repository/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar:/tmp/maven-repository/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/tmp/maven-repository/org/junit/jupiter/junit-jupiter/5.12.2/junit-jupiter-5.12.2.jar:/tmp/maven-repository/org/junit/jupiter/junit-jupiter-api/5.12.2/junit-jupiter-api-5.12.2.jar:/tmp/maven-repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/tmp/maven-repository/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar:/tmp/maven-repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/tmp/maven-repository/org/junit/jupiter/junit-jupiter-params/5.12.2/junit-jupiter-params-5.12.2.jar:/tmp/maven-repository/org/junit/jupiter/junit-jupiter-engine/5.12.2/junit-jupiter-engine-5.12.2.jar:/tmp/maven-repository/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar:/tmp/maven-repository/org/mockito/mockito-core/5.17.0/mockito-core-5.17.0.jar:/tmp/maven-repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/tmp/maven-repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/tmp/maven-repository/org/mockito/mockito-junit-jupiter/5.17.0/mockito-junit-jupiter-5.17.0.jar:/tmp/maven-repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/tmp/maven-repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/tmp/maven-repository/org/springframework/spring-core/6.2.19/spring-core-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-jcl/6.2.19/spring-jcl-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-test/6.2.19/spring-test-6.2.19.jar:/tmp/maven-repository/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="catalina.useNaming" value="false"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Etc/UTC"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/opt/java/openjdk/lib"/>
+    <property name="sun.java.command" value="/workspace/shadow/cosbench-web-spike/target/surefire/surefirebooter-20261102022125209_30.jar /workspace/shadow/cosbench-web-spike/target/surefire 2026-11-02T02-19-47_567-jvmRun1 surefire-20261102022125209_28tmp surefire_8-20261102022125209_29tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/workspace/shadow/cosbench-web-spike/target/test-classes:/workspace/shadow/cosbench-web-spike/target/classes:/workspace/shadow/cosbench-controller/target/cosbench-controller-shadow-0.1.0-SNAPSHOT.jar:/workspace/shadow/cosbench-api/target/cosbench-api-shadow-0.1.0-SNAPSHOT.jar:/workspace/shadow/cosbench-log/target/cosbench-log-shadow-0.1.0-SNAPSHOT.jar:/workspace/shadow/cosbench-log4j/target/cosbench-log4j-shadow-0.1.0-SNAPSHOT.jar:/tmp/maven-repository/log4j/log4j/1.2.17/log4j-1.2.17.jar:/tmp/maven-repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar:/workspace/shadow/cosbench-core/target/cosbench-core-shadow-0.1.0-SNAPSHOT.jar:/tmp/maven-repository/org/apache/commons/commons-csv/1.10.0/commons-csv-1.10.0.jar:/tmp/maven-repository/commons-io/commons-io/2.15.1/commons-io-2.15.1.jar:/tmp/maven-repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar:/workspace/shadow/cosbench-http/target/cosbench-http-shadow-0.1.0-SNAPSHOT.jar:/tmp/maven-repository/org/apache/httpcomponents/httpclient/4.5.14/httpclient-4.5.14.jar:/tmp/maven-repository/org/apache/httpcomponents/httpcore/4.4.16/httpcore-4.4.16.jar:/tmp/maven-repository/commons-codec/commons-codec/1.15/commons-codec-1.15.jar:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar:/workspace/shadow/cosbench-castor/target/cosbench-castor-shadow-0.1.0-SNAPSHOT.jar:/tmp/maven-repository/commons-configuration/commons-configuration/1.10/commons-configuration-1.10.jar:/tmp/maven-repository/org/codehaus/castor/castor-xml/1.3.3/castor-xml-1.3.3.jar:/tmp/maven-repository/org/codehaus/castor/castor-core/1.3.3/castor-core-1.3.3.jar:/tmp/maven-repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar:/tmp/maven-repository/javax/inject/javax.inject/1/javax.inject-1.jar:/tmp/maven-repository/org/yaml/snakeyaml/2.4/snakeyaml-2.4.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-web/3.5.16/spring-boot-starter-web-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter/3.5.16/spring-boot-starter-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot/3.5.16/spring-boot-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-autoconfigure/3.5.16/spring-boot-autoconfigure-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-logging/3.5.16/spring-boot-starter-logging-3.5.16.jar:/tmp/maven-repository/ch/qos/logback/logback-classic/1.5.34/logback-classic-1.5.34.jar:/tmp/maven-repository/ch/qos/logback/logback-core/1.5.34/logback-core-1.5.34.jar:/tmp/maven-repository/org/apache/logging/log4j/log4j-to-slf4j/2.24.3/log4j-to-slf4j-2.24.3.jar:/tmp/maven-repository/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar:/tmp/maven-repository/org/slf4j/jul-to-slf4j/2.0.18/jul-to-slf4j-2.0.18.jar:/tmp/maven-repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-json/3.5.16/spring-boot-starter-json-3.5.16.jar:/tmp/maven-repository/com/fasterxml/jackson/core/jackson-databind/2.21.4/jackson-databind-2.21.4.jar:/tmp/maven-repository/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/tmp/maven-repository/com/fasterxml/jackson/core/jackson-core/2.21.4/jackson-core-2.21.4.jar:/tmp/maven-repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.21.4/jackson-datatype-jdk8-2.21.4.jar:/tmp/maven-repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.21.4/jackson-datatype-jsr310-2.21.4.jar:/tmp/maven-repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.21.4/jackson-module-parameter-names-2.21.4.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-tomcat/3.5.16/spring-boot-starter-tomcat-3.5.16.jar:/tmp/maven-repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.55/tomcat-embed-core-10.1.55.jar:/tmp/maven-repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.55/tomcat-embed-el-10.1.55.jar:/tmp/maven-repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.55/tomcat-embed-websocket-10.1.55.jar:/tmp/maven-repository/org/springframework/spring-web/6.2.19/spring-web-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-beans/6.2.19/spring-beans-6.2.19.jar:/tmp/maven-repository/io/micrometer/micrometer-observation/1.15.12/micrometer-observation-1.15.12.jar:/tmp/maven-repository/io/micrometer/micrometer-commons/1.15.12/micrometer-commons-1.15.12.jar:/tmp/maven-repository/org/springframework/spring-webmvc/6.2.19/spring-webmvc-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-context/6.2.19/spring-context-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-expression/6.2.19/spring-expression-6.2.19.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-freemarker/3.5.16/spring-boot-starter-freemarker-3.5.16.jar:/tmp/maven-repository/org/freemarker/freemarker/2.3.34/freemarker-2.3.34.jar:/tmp/maven-repository/org/springframework/spring-context-support/6.2.19/spring-context-support-6.2.19.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-security/3.5.16/spring-boot-starter-security-3.5.16.jar:/tmp/maven-repository/org/springframework/spring-aop/6.2.19/spring-aop-6.2.19.jar:/tmp/maven-repository/org/springframework/security/spring-security-config/6.5.11/spring-security-config-6.5.11.jar:/tmp/maven-repository/org/springframework/security/spring-security-core/6.5.11/spring-security-core-6.5.11.jar:/tmp/maven-repository/org/springframework/security/spring-security-crypto/6.5.11/spring-security-crypto-6.5.11.jar:/tmp/maven-repository/org/springframework/security/spring-security-web/6.5.11/spring-security-web-6.5.11.jar:/tmp/maven-repository/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar:/tmp/maven-repository/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-starter-test/3.5.16/spring-boot-starter-test-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-test/3.5.16/spring-boot-test-3.5.16.jar:/tmp/maven-repository/org/springframework/boot/spring-boot-test-autoconfigure/3.5.16/spring-boot-test-autoconfigure-3.5.16.jar:/tmp/maven-repository/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/tmp/maven-repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.5/jakarta.xml.bind-api-4.0.5.jar:/tmp/maven-repository/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/tmp/maven-repository/net/minidev/json-smart/2.5.2/json-smart-2.5.2.jar:/tmp/maven-repository/net/minidev/accessors-smart/2.5.2/accessors-smart-2.5.2.jar:/tmp/maven-repository/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/tmp/maven-repository/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/tmp/maven-repository/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/tmp/maven-repository/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar:/tmp/maven-repository/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/tmp/maven-repository/org/junit/jupiter/junit-jupiter/5.12.2/junit-jupiter-5.12.2.jar:/tmp/maven-repository/org/junit/jupiter/junit-jupiter-api/5.12.2/junit-jupiter-api-5.12.2.jar:/tmp/maven-repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/tmp/maven-repository/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar:/tmp/maven-repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/tmp/maven-repository/org/junit/jupiter/junit-jupiter-params/5.12.2/junit-jupiter-params-5.12.2.jar:/tmp/maven-repository/org/junit/jupiter/junit-jupiter-engine/5.12.2/junit-jupiter-engine-5.12.2.jar:/tmp/maven-repository/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar:/tmp/maven-repository/org/mockito/mockito-core/5.17.0/mockito-core-5.17.0.jar:/tmp/maven-repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/tmp/maven-repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/tmp/maven-repository/org/mockito/mockito-junit-jupiter/5.17.0/mockito-junit-jupiter-5.17.0.jar:/tmp/maven-repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/tmp/maven-repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/tmp/maven-repository/org/springframework/spring-core/6.2.19/spring-core-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-jcl/6.2.19/spring-jcl-6.2.19.jar:/tmp/maven-repository/org/springframework/spring-test/6.2.19/spring-test-6.2.19.jar:/tmp/maven-repository/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/root"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-08-18"/>
+    <property name="java.home" value="/opt/java/openjdk"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/workspace/shadow/cosbench-web-spike"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="FILE_LOG_CHARSET" value="UTF-8"/>
+    <property name="java.awt.headless" value="true"/>
+    <property name="surefire.real.class.path" value="/workspace/shadow/cosbench-web-spike/target/surefire/surefirebooter-20261102022125209_30.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="21.0.12.1+1-LTS"/>
+    <property name="user.name" value="root"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="6.8.0-137-generic"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-21.0.12.1+1"/>
+    <property name="localRepository" value="/tmp/maven-repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="catalina.home" value="/tmp/tomcat.19088.11272098208484019871"/>
+    <property name="java.version" value="21.0.12.1"/>
+    <property name="user.dir" value="/workspace/shadow/cosbench-web-spike/target"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="PID" value="1320"/>
+    <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
+    <property name="catalina.base" value="/tmp/tomcat.19088.11272098208484019871"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="21.0.12.1+1-LTS"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="maven.repo.local" value="/tmp/maven-repository"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="legacyPageAndStaticResourcesRunBehindJakartaSessionSecurity" classname="com.intel.cosbench.shadow.web.ControllerWebSpikeTest" time="1.638">
+    <system-out><![CDATA[02:21:26.031 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.intel.cosbench.shadow.web.ControllerWebSpikeTest]: ControllerWebSpikeTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+02:21:26.220 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.intel.cosbench.shadow.web.WebSpikeApplication for test class com.intel.cosbench.shadow.web.ControllerWebSpikeTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-02T02:21:26.733Z  INFO 1320 --- [           main] c.i.c.shadow.web.ControllerWebSpikeTest  : Starting ControllerWebSpikeTest using Java 21.0.12.1 with PID 1320 (started by root in /workspace/shadow/cosbench-web-spike/target)
+2026-11-02T02:21:26.739Z  INFO 1320 --- [           main] c.i.c.shadow.web.ControllerWebSpikeTest  : No active profile set, falling back to 1 default profile: "default"
+2026-11-02T02:21:28.035Z  INFO 1320 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19088 (http)
+2026-11-02T02:21:28.056Z  INFO 1320 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-02T02:21:28.057Z  INFO 1320 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-02T02:21:28.106Z  INFO 1320 --- [           main] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring embedded WebApplicationContext
+2026-11-02T02:21:28.108Z  INFO 1320 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1338 ms
+(Log4jLogManager.java:121)
+2026-11-02 02:21:28,204 [main           ] [INFO ] - will append log to console
+2026-11-02T02:21:28.228Z  INFO 1320 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-11-02T02:21:28.229Z  INFO 1320 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-11-02T02:21:28.230Z  INFO 1320 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-11-02T02:21:28.230Z  INFO 1320 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-11-02T02:21:28.231Z  INFO 1320 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-11-02T02:21:28.235Z  INFO 1320 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-11-02T02:21:28.235Z  INFO 1320 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-11-02T02:21:28.236Z  INFO 1320 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+(SimpleWorkloadArchiver.java:61)
+2026-11-02 02:21:28,448 [main           ] [INFO ] - using /tmp/cosbench-web-spike-14972124070128317820/archive for storing workload archives
+(SimpleWorkloadLoader.java:63)
+2026-11-02 02:21:28,450 [main           ] [INFO ] - loading workload archives from /tmp/cosbench-web-spike-14972124070128317820/archive
+(PingDriverRunner.java:90)
+2026-11-02 02:21:28,455 [r-driver-pinger] [INFO ] - begin to sleep for 20 seconds.
+2026-11-02T02:21:28.614Z  INFO 1320 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name controllerWebUsers
+2026-11-02T02:21:28.705Z  INFO 1320 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-11-02T02:21:29.156Z  INFO 1320 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 19088 (http) with context path '/controller'
+2026-11-02T02:21:29.171Z  INFO 1320 --- [           main] c.i.c.shadow.web.ControllerWebSpikeTest  : Started ControllerWebSpikeTest in 2.804 seconds (process running for 3.947)
+2026-11-02T02:21:30.188Z  INFO 1320 --- [.1-19088-exec-1] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-02T02:21:30.190Z  INFO 1320 --- [.1-19088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-02T02:21:30.192Z  INFO 1320 --- [.1-19088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+]]></system-out>
+    <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (/tmp/maven-repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+  </testcase>
+  <testcase name="cliFilterReportsAuthenticationAndRequestErrorsAndEnforcesUploadLimit" classname="com.intel.cosbench.shadow.web.ControllerWebSpikeTest" time="0.792">
+    <system-out><![CDATA[(WorkloadProcessor.java:137)
+2026-11-02 02:21:31,236 [pool-3-thread-1] [INFO ] - begin to process workload w1
+(WorkloadProcessor.java:204)
+2026-11-02 02:21:31,237 [pool-3-thread-1] [INFO ] - begin to run stage s1-main
+(WorkloadProcessor.java:206)
+2026-11-02 02:21:31,238 [pool-3-thread-1] [INFO ] - ============================================
+(WorkloadProcessor.java:207)
+2026-11-02 02:21:31,239 [pool-3-thread-1] [INFO ] - START WORK: main
+(WorkloadProcessor.java:150)
+2026-11-02 02:21:31,241 [pool-3-thread-1] [ERROR] - unexpected exception
+com.intel.cosbench.controller.schedule.ScheduleException: no free driver available
+	at com.intel.cosbench.controller.schedule.BalancedScheduler.scheduleRestWorks(BalancedScheduler.java:73)
+	at com.intel.cosbench.controller.schedule.BalancedScheduler.schedule(BalancedScheduler.java:48)
+	at com.intel.cosbench.controller.service.StageRunner.scheduleWorks(StageRunner.java:83)
+	at com.intel.cosbench.controller.service.StageRunner.init(StageRunner.java:73)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.createStageRunner(WorkloadProcessor.java:263)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.executeStage(WorkloadProcessor.java:238)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.runStage(WorkloadProcessor.java:215)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.processWorkload(WorkloadProcessor.java:172)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.process(WorkloadProcessor.java:139)
+	at com.intel.cosbench.controller.service.ControllerThread.run(ControllerThread.java:32)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+(WorkloadProcessor.java:275)
+2026-11-02 02:21:31,244 [pool-3-thread-1] [INFO ] - begin to terminate workload w1
+(SimpleWorkloadArchiver.java:79)
+2026-11-02 02:21:31,324 [pool-3-thread-1] [INFO ] - workload w1 has been successfully archived
+(WorkloadProcessor.java:281)
+2026-11-02 02:21:31,325 [pool-3-thread-1] [INFO ] - successfully terminated workload w1
+2026-11-02T02:21:31.552Z  WARN 1320 --- [1-19088-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded]
+2026-11-02T02:21:31.604Z  WARN 1320 --- [1-19088-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded]
+]]></system-out>
+  </testcase>
+  <testcase name="multipartCliSubmissionAndDownloadsUseTheRealControllerService" classname="com.intel.cosbench.shadow.web.ControllerWebSpikeTest" time="0.452">
+    <system-out><![CDATA[(WorkloadProcessor.java:137)
+2026-11-02 02:21:31,716 [pool-3-thread-2] [INFO ] - begin to process workload w2
+(WorkloadProcessor.java:204)
+2026-11-02 02:21:31,717 [pool-3-thread-2] [INFO ] - begin to run stage s1-main
+(WorkloadProcessor.java:206)
+2026-11-02 02:21:31,718 [pool-3-thread-2] [INFO ] - ============================================
+(WorkloadProcessor.java:207)
+2026-11-02 02:21:31,718 [pool-3-thread-2] [INFO ] - START WORK: main
+(WorkloadProcessor.java:150)
+2026-11-02 02:21:31,719 [pool-3-thread-2] [ERROR] - unexpected exception
+com.intel.cosbench.controller.schedule.ScheduleException: no free driver available
+	at com.intel.cosbench.controller.schedule.BalancedScheduler.scheduleRestWorks(BalancedScheduler.java:73)
+	at com.intel.cosbench.controller.schedule.BalancedScheduler.schedule(BalancedScheduler.java:48)
+	at com.intel.cosbench.controller.service.StageRunner.scheduleWorks(StageRunner.java:83)
+	at com.intel.cosbench.controller.service.StageRunner.init(StageRunner.java:73)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.createStageRunner(WorkloadProcessor.java:263)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.executeStage(WorkloadProcessor.java:238)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.runStage(WorkloadProcessor.java:215)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.processWorkload(WorkloadProcessor.java:172)
+	at com.intel.cosbench.controller.service.WorkloadProcessor.process(WorkloadProcessor.java:139)
+	at com.intel.cosbench.controller.service.ControllerThread.run(ControllerThread.java:32)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+(WorkloadProcessor.java:275)
+2026-11-02 02:21:31,720 [pool-3-thread-2] [INFO ] - begin to terminate workload w2
+(SimpleWorkloadArchiver.java:79)
+2026-11-02 02:21:31,782 [pool-3-thread-2] [INFO ] - workload w2 has been successfully archived
+(WorkloadProcessor.java:281)
+2026-11-02 02:21:31,783 [pool-3-thread-2] [INFO ] - successfully terminated workload w2
+]]></system-out>
+  </testcase>
+</testsuite>

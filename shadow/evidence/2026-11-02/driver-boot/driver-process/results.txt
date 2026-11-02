@@ -1,0 +1,4 @@
+startup_term_exit=143
+startup_stop_seconds=0
+restart_term_exit=143
+restart_stop_seconds=0

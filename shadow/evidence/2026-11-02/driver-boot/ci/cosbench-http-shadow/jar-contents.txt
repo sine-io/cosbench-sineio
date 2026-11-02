@@ -1,0 +1,15 @@
+META-INF/
+META-INF/MANIFEST.MF
+com/
+com/intel/
+com/intel/cosbench/
+com/intel/cosbench/client/
+com/intel/cosbench/client/http/
+META-INF/maven/
+META-INF/maven/com.intel.cosbench.shadow/
+META-INF/maven/com.intel.cosbench.shadow/cosbench-http-shadow/
+com/intel/cosbench/client/http/HttpClientException.class
+com/intel/cosbench/client/http/HttpClientUtil$1.class
+com/intel/cosbench/client/http/HttpClientUtil.class
+META-INF/maven/com.intel.cosbench.shadow/cosbench-http-shadow/pom.xml
+META-INF/maven/com.intel.cosbench.shadow/cosbench-http-shadow/pom.properties

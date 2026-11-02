@@ -1,0 +1,30 @@
+com.intel.cosbench.shadow:cosbench-driver-shadow:jar:0.1.0-SNAPSHOT
++- com.intel.cosbench.shadow:cosbench-api-shadow:jar:0.1.0-SNAPSHOT:compile
+|  +- (com.intel.cosbench.shadow:cosbench-config-shadow:jar:0.1.0-SNAPSHOT:compile - omitted for duplicate)
+|  \- (com.intel.cosbench.shadow:cosbench-log-shadow:jar:0.1.0-SNAPSHOT:compile - omitted for duplicate)
++- com.intel.cosbench.shadow:cosbench-core-shadow:jar:0.1.0-SNAPSHOT:compile
+|  +- (com.intel.cosbench.shadow:cosbench-config-shadow:jar:0.1.0-SNAPSHOT:compile - omitted for duplicate)
+|  +- (com.intel.cosbench.shadow:cosbench-log-shadow:jar:0.1.0-SNAPSHOT:compile - omitted for duplicate)
+|  +- org.apache.commons:commons-csv:jar:1.10.0:compile (version managed from 1.10.0)
+|  +- (commons-io:commons-io:jar:2.15.1:compile - version managed from 2.15.1; omitted for duplicate)
+|  \- (commons-lang:commons-lang:jar:2.6:compile - version managed from 2.6; omitted for duplicate)
++- com.intel.cosbench.shadow:cosbench-config-shadow:jar:0.1.0-SNAPSHOT:compile
+|  +- com.intel.cosbench.shadow:cosbench-castor-shadow:jar:0.1.0-SNAPSHOT:compile
+|  +- (com.intel.cosbench.shadow:cosbench-log-shadow:jar:0.1.0-SNAPSHOT:compile - omitted for duplicate)
+|  +- commons-configuration:commons-configuration:jar:1.10:compile (version managed from 1.10)
+|  |  \- (commons-lang:commons-lang:jar:2.6:compile - version managed from 2.6; omitted for duplicate)
+|  +- (commons-lang:commons-lang:jar:2.6:compile - version managed from 2.6; omitted for duplicate)
+|  +- org.codehaus.castor:castor-xml:jar:1.3.3:compile (version managed from 1.3.3)
+|  |  +- org.codehaus.castor:castor-core:jar:1.3.3:compile
+|  |  |  \- (commons-lang:commons-lang:jar:2.6:compile - version managed from 2.6; omitted for duplicate)
+|  |  +- (commons-lang:commons-lang:jar:2.6:compile - version managed from 2.6; omitted for duplicate)
+|  |  +- commons-collections:commons-collections:jar:3.2.1:compile
+|  |  \- javax.inject:javax.inject:jar:1:compile
+|  \- org.yaml:snakeyaml:jar:2.4:compile (version managed from 2.4)
++- com.intel.cosbench.shadow:cosbench-log-shadow:jar:0.1.0-SNAPSHOT:compile
+|  +- com.intel.cosbench.shadow:cosbench-log4j-shadow:jar:0.1.0-SNAPSHOT:compile
+|  +- (commons-io:commons-io:jar:2.15.1:compile - version managed from 2.15.1; omitted for duplicate)
+|  +- log4j:log4j:jar:1.2.17:compile (version managed from 1.2.17)
+|  \- org.slf4j:slf4j-api:jar:2.0.18:compile (version managed from 2.0.18)
++- commons-io:commons-io:jar:2.15.1:compile
+\- commons-lang:commons-lang:jar:2.6:compile

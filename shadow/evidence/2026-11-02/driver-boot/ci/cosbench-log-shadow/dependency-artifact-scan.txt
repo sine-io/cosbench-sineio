@@ -1,0 +1,4 @@
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-log-shadow/com.intel.cosbench.shadow_cosbench-log4j-shadow_jar_0.1.0-SNAPSHOT.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-log-shadow/commons-io_commons-io_jar_2.15.1.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-log-shadow/log4j_log4j_jar_1.2.17.jar
+PASS artifact /tmp/tmp.Dz0aIqzx1y/cosbench-log-shadow/org.slf4j_slf4j-api_jar_2.0.18.jar

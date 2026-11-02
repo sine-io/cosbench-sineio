@@ -60,9 +60,11 @@ public class Log4jLogManager implements LogManager {
     }
 
     @Override
-    public void dispose() {
-        repository.shutdown();
-        repository = null;
+    public synchronized void dispose() {
+        if (repository != null) {
+            repository.shutdown();
+            repository = null;
+        }
     }
 
     @Override

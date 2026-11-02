@@ -1,0 +1,1 @@
+PASS artifact /workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar

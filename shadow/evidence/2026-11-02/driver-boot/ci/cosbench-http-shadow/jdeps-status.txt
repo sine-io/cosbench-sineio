@@ -1,0 +1,1 @@
+PASS jdeps /workspace/shadow/cosbench-http/target/cosbench-http-shadow-0.1.0-SNAPSHOT.jar

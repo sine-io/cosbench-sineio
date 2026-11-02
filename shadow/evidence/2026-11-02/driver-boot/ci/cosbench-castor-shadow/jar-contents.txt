@@ -1,0 +1,8 @@
+META-INF/
+META-INF/MANIFEST.MF
+META-INF/maven/
+META-INF/maven/com.intel.cosbench.shadow/
+META-INF/maven/com.intel.cosbench.shadow/cosbench-castor-shadow/
+castor.properties
+META-INF/maven/com.intel.cosbench.shadow/cosbench-castor-shadow/pom.xml
+META-INF/maven/com.intel.cosbench.shadow/cosbench-castor-shadow/pom.properties

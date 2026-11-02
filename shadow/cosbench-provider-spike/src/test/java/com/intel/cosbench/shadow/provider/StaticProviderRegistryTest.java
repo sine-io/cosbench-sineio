@@ -90,6 +90,9 @@ class StaticProviderRegistryTest {
 
         assertEquals(List.of("gdas", "mock", "s3", "sio", "siov1"), List.copyOf(registry.storageNames()));
         assertEquals(Set.of("mock"), registry.authNames());
+        assertEquals(List.of("gdas", "mock", "s3", "sio", "siov1"),
+                registry.storageFactories().stream().map(StorageAPIFactory::getStorageName).toList());
+        assertThrows(UnsupportedOperationException.class, () -> registry.storageFactories().clear());
         assertFalse(registry.storageNames().contains("swift"));
     }
 
