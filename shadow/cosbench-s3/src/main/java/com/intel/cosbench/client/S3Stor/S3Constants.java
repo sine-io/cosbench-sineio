@@ -1,0 +1,23 @@
+package com.intel.cosbench.client.S3Stor;
+
+public interface S3Constants {
+    String CONN_TIMEOUT_KEY = "timeout";
+    int CONN_TIMEOUT_DEFAULT = 30000;
+
+    String ENDPOINT_KEY = "endpoint";
+    String ENDPOINT_DEFAULT = "http://s3.amazonaws.com";
+
+    String AUTH_USERNAME_KEY = "accesskey";
+    String AUTH_USERNAME_DEFAULT = "";
+
+    String AUTH_PASSWORD_KEY = "secretkey";
+    String AUTH_PASSWORD_DEFAULT = "";
+
+    String PROXY_HOST_KEY = "proxyhost";
+    String PROXY_PORT_KEY = "proxyport";
+
+    String PATH_STYLE_ACCESS_KEY = "path_style_access";
+    boolean PATH_STYLE_ACCESS_DEFAULT = false;
+
+    String S3CLIENT_KEY = "s3client";
+}

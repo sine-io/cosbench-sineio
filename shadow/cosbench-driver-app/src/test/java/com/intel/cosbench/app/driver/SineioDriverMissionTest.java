@@ -25,14 +25,14 @@ class SineioDriverMissionTest {
     @TempDir Path temp;
 
     @Test
-    void discoversTheThreeProductionModesAlongsideTestOnlyMock() {
+    void discoversAllProductionProvidersAlongsideTestOnlyMock() {
         var registry = StaticProviderRegistry.discover(
-                getClass().getClassLoader(), Set.of("sio", "siov1", "gdas"), Set.of());
-        assertEquals(Set.of("sio", "siov1", "gdas", "mock"), Set.copyOf(registry.storageNames()));
+                getClass().getClassLoader(), Set.of("sio", "siov1", "gdas", "s3"), Set.of());
+        assertEquals(Set.of("sio", "siov1", "gdas", "s3", "mock"), Set.copyOf(registry.storageNames()));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"sio", "siov1", "gdas"})
+    @ValueSource(strings = {"sio", "siov1", "gdas", "s3"})
     void completedMissionReportsSuccessfulReadsAndReleasesConnections(String mode) throws Exception {
         String bucket = SineioMissionFixture.prepare(mode);
         try (var service = service()) {
@@ -56,7 +56,7 @@ class SineioDriverMissionTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"sio", "siov1", "gdas"})
+    @ValueSource(strings = {"sio", "siov1", "gdas", "s3"})
     void abortReleasesAnActiveProductionProvidersConnections(String mode) throws Exception {
         String bucket = SineioMissionFixture.prepare(mode);
         try (var service = service()) {
@@ -72,6 +72,32 @@ class SineioDriverMissionTest {
                     mode + " retained storage sockets after abort");
         } finally {
             SineioMissionFixture.remove(mode, bucket);
+        }
+    }
+
+    @Test
+    void s3MultipartAndListAreAvailableThroughTheDriverProviderFactory() throws Exception {
+        String bucket = SineioMissionFixture.prepareBucket("cosbench-s3-mission", "s3");
+        var config = SineioMissionFixture.config("s3");
+        var storage = SineioMissionFixture.registry().createStorage("s3", config,
+                com.intel.cosbench.log.LogFactory.getSystemLogger());
+        byte[] multipart = new byte[5 * 1024 * 1024 + 23];
+        new java.util.Random(13).nextBytes(multipart);
+        try {
+            storage.createMultipartObject(bucket, "multipart.bin", new java.io.ByteArrayInputStream(multipart),
+                    multipart.length, config);
+            try (var object = storage.getObject(bucket, "multipart.bin", config)) {
+                assertTrue(Arrays.equals(multipart, object.readAllBytes()));
+            }
+            try (var listing = storage.getList(bucket, "", config)) {
+                String names = new String(listing.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+                assertTrue(names.contains("obj1\n"));
+                assertTrue(names.contains("multipart.bin\n"));
+            }
+            storage.deleteObject(bucket, "multipart.bin", config);
+        } finally {
+            storage.dispose();
+            SineioMissionFixture.remove("s3", bucket);
         }
     }
 

@@ -59,10 +59,11 @@ YAML
 
 sha256sum "$artifact" > "$report_dir/artifact.sha256"
 : > "$report_dir/results.txt"
-for mode in sio siov1 gdas; do
+for mode in sio siov1 gdas s3; do
     (
         cd "$runtime_dir"
         export COSBENCH_SINEIO_MODE="$mode"
+        export COSBENCH_MISSION_BUCKET="cosbench-process-$mode"
         exec java --add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED \
             -Dloader.path="$runtime_dir/probe" \
             -Dloader.main=com.intel.cosbench.app.driver.SineioDriverProcessProbe \
@@ -82,7 +83,7 @@ for mode in sio siov1 gdas; do
     [[ $ready == 1 ]] || { cat "$report_dir/$mode.log"; exit 1; }
     curl --silent --fail --max-time 2 http://127.0.0.1:19490/driver/health > "$report_dir/$mode-health.json"
     grep -q '"activeMissions":1' "$report_dir/$mode-health.json"
-    grep -q 'detected supported storage types: gdas, sio, siov1' "$report_dir/$mode.log"
+    grep -q 'detected supported storage types: gdas, s3, sio, siov1' "$report_dir/$mode.log"
     status=0
     started=$SECONDS
     kill -TERM "$driver_pid"
@@ -105,5 +106,5 @@ for mode in sio siov1 gdas; do
     printf '%s_term_exit=%s\n%s_stop_seconds=%s\n' "$mode" "$status" "$mode" "$((SECONDS - started))" \
         >> "$report_dir/results.txt"
 done
-printf 'status=passed\nproduction_registry=gdas,sio,siov1\nmock=absent\nclasspath=shared\nactive_mission_term=sio,siov1,gdas\nrestart_and_port_release=passed\n' \
+printf 'status=passed\nproduction_registry=gdas,s3,sio,siov1\nmock=absent\nclasspath=shared\nactive_mission_term=sio,siov1,gdas,s3\nrestart_and_port_release=passed\n' \
     > "$report_dir/summary.txt"

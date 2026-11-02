@@ -1,0 +1,1 @@
+PASS artifact /workspace/shadow/cosbench-s3/target/cosbench-s3-0.1.0-SNAPSHOT.jar

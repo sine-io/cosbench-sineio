@@ -106,6 +106,8 @@
 | 依赖隔离 | 默认共享 classpath；只有 SineIO/S3 smoke 证明存在冲突时，才验收静态 child loader 的 SPI 边界及关闭行为 |
 | 发布 | SineIO/S3 JAR、lib、license、checksum 和配置样例随生产归档完整；Mock 和 legacy Provider 不在归档 |
 
+PROV-S3 的必需 list/multipart 由 #12 补齐实际 SDK v1 实现，不能沿用 #04 记录的空结果/no-op 作为通过依据。list 输出 UTF-8 换行对象 key；multipart 验证数据、完成及失败 abort，空对象采用普通 PUT；head 用于对象验证。旧 S3 没有 restore 实现或 region 配置，二者列为不适用并保留源码依据。SDK 版本沿用 #04 冻结的共享 v1 `1.12.767`，签名仍为 `S3SignerType`。
+
 本次垂直链路覆盖：Controller/Driver/core 业务、两侧页面 backend 和测试 classpath 上的 `mock` storage/auth，以及生产包中的 SineIO `sio`/`siov1`/`gdas` 和 S3 `s3`。生产归档必须不包含 Mock。Swift、GCS、OSS、ECS、OpenIO、Scality、CDMI、Librados、Manta 和 ext 不在本次新发行范围，旧版归档继续提供对应的旧运行支持。
 
 ## 7. 构建、容器和运行测试

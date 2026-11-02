@@ -37,6 +37,7 @@ sha256sum "$artifact" > "$report_dir/artifact.sha256"
 jar tf "$artifact" > "$report_dir/jar-contents.txt"
 grep -q 'BOOT-INF/lib/cosbench-driver-shadow-' "$report_dir/jar-contents.txt"
 grep -q 'BOOT-INF/lib/cosbench-sineio-' "$report_dir/jar-contents.txt"
+grep -q 'BOOT-INF/lib/cosbench-s3-' "$report_dir/jar-contents.txt"
 if grep -Eq '(^|/)com/intel/cosbench/api/mock/|META-INF/services/com.intel.cosbench.api.(auth.AuthAPIFactory|storage.StorageAPIFactory)' \
     "$report_dir/jar-contents.txt"; then
     printf '%s\n' 'Mock classes or service descriptors leaked into the Driver executable' >&2
@@ -115,7 +116,7 @@ stop_driver() {
     driver_pid=
     [[ $status == 143 ]]
     grep -q 'Driver stopped: mission executor terminated' "$report_dir/$name.log"
-    grep -q 'detected supported storage types: gdas, sio, siov1' "$report_dir/$name.log"
+    grep -q 'detected supported storage types: gdas, s3, sio, siov1' "$report_dir/$name.log"
     printf '%s_term_exit=%s\n%s_stop_seconds=%s\n' "$name" "$status" "$name" "$((SECONDS - stopping))" \
         >> "$report_dir/results.txt"
     if curl --silent --fail --max-time 1 http://127.0.0.1:19488/driver/health >/dev/null; then

@@ -25,23 +25,45 @@ final class SineioMissionFixture {
 
     static StaticProviderRegistry registry() {
         return StaticProviderRegistry.discover(SineioMissionFixture.class.getClassLoader(),
-                Set.of("sio", "siov1", "gdas"), Set.of());
+                Set.of("sio", "siov1", "gdas", "s3"), Set.of());
     }
 
     static String storageValues() throws IOException {
-        return "endpoint=" + required("COSBENCH_MINIO_ENDPOINT")
+        return storageValues("s3");
+    }
+
+    static String storageValues(String mode) throws IOException {
+        String values = "endpoint=" + required("COSBENCH_MINIO_ENDPOINT")
                 + ";accesskey=" + Files.readString(Path.of(required("COSBENCH_MINIO_ACCESS_KEY_FILE"))).trim()
                 + ";secretkey=" + Files.readString(Path.of(required("COSBENCH_MINIO_SECRET_KEY_FILE"))).trim()
-                + ";timeout=1000;max_connections=4;path_style_access=true;aws_region=us-east-1";
+                + ";timeout=1000;path_style_access=true";
+        return mode.equals("s3") ? values : values + ";max_connections=4;aws_region=us-east-1";
     }
 
     static Config config() throws IOException {
         return KVConfigParser.parse(storageValues());
     }
 
+    static Config config(String mode) throws IOException {
+        return KVConfigParser.parse(storageValues(mode));
+    }
+
     static String prepare(String mode) throws IOException {
         String bucket = "sineio-mission-" + UUID.randomUUID().toString().substring(0, 8) + "-1";
-        Config config = config();
+        Config config = config(mode);
+        var storage = registry().createStorage(mode, config, LogFactory.getSystemLogger());
+        try {
+            storage.createContainer(bucket, config);
+            storage.createObject(bucket, "obj1", new ByteArrayInputStream(new byte[OBJECT_SIZE]), OBJECT_SIZE, config);
+        } finally {
+            storage.dispose();
+        }
+        return bucket;
+    }
+
+    static String prepareBucket(String prefix, String mode) throws IOException {
+        String bucket = prefix + "-" + UUID.randomUUID().toString().replace("-", "").substring(0, 12);
+        Config config = config(mode);
         var storage = registry().createStorage(mode, config, LogFactory.getSystemLogger());
         try {
             storage.createContainer(bucket, config);
@@ -53,7 +75,7 @@ final class SineioMissionFixture {
     }
 
     static void remove(String mode, String bucket) throws IOException {
-        Config config = config();
+        Config config = config(mode);
         var storage = registry().createStorage(mode, config, LogFactory.getSystemLogger());
         try {
             storage.deleteObject(bucket, "obj1", config);
@@ -70,7 +92,7 @@ final class SineioMissionFixture {
                   <storage type="%s" config="%s"/>
                   <operation type="read" ratio="100" config="containers=c(1);cprefix=%s;objects=c(1);oprefix=obj"/>
                 </mission>
-                """.formatted(operations, mode, storageValues().replace("&", "&amp;").replace("\"", "&quot;"),
+                """.formatted(operations, mode, storageValues(mode).replace("&", "&amp;").replace("\"", "&quot;"),
                         bucket.substring(0, bucket.length() - 1));
         return new XmlConfig(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
     }

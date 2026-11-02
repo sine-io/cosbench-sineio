@@ -16,6 +16,7 @@
     <module>cosbench-config</module>
     <module>cosbench-api</module>
     <module>cosbench-sineio</module>
+    <module>cosbench-s3</module>
     <module>cosbench-core</module>
     <module>cosbench-driver</module>
     <module>cosbench-driver-app</module>

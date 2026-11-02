@@ -23,6 +23,14 @@
     </dependency>
     <dependency>
       <groupId>com.intel.cosbench.shadow</groupId>
+      <artifactId>cosbench-s3</artifactId>
+      <version>${project.version}</version>
+      <exclusions>
+        <exclusion><groupId>commons-logging</groupId><artifactId>commons-logging</artifactId></exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.intel.cosbench.shadow</groupId>
       <artifactId>cosbench-driver-shadow</artifactId>
       <version>${project.version}</version>
       <exclusions>

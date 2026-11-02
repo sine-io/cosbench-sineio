@@ -350,51 +350,30 @@ class ProviderMinioSmokeTest {
             }
             operations.append(",get");
 
-            if (provider.equals("s3")) {
-                try (InputStream listing = storage.getList(bucket, "", config)) {
-                    assertEquals(0, listing.readAllBytes().length);
-                }
-                operations.append(",list=legacy-default-empty");
-
-                byte[] multipartObject = new byte[MULTIPART_PART_SIZE + 37];
-                storage.createMultipartObject(
-                        bucket,
-                        "provider-smoke-multipart.bin",
-                        new ByteArrayInputStream(multipartObject),
-                        multipartObject.length,
-                        config);
-                assertThrows(StorageException.class, () -> {
-                    try (InputStream ignored = storage.getObject(bucket, "provider-smoke-multipart.bin", config)) {
-                        ignored.readAllBytes();
-                    }
-                });
-                operations.append(",multipart=inherited-no-op");
-            } else {
-                try (InputStream listing = storage.getList(bucket, objectName, config)) {
-                    String listingXml = new String(listing.readAllBytes(), StandardCharsets.UTF_8);
-                    assertTrue(listingXml.contains(objectName), listingXml);
-                }
-                operations.append(",list");
-
-                storage.headObject(bucket, objectName, config);
-                operations.append(",head");
-
-                byte[] multipartObject = new byte[MULTIPART_PART_SIZE + 37];
-                Arrays.fill(multipartObject, (byte) 0x5a);
-                storage.createMultipartObject(
-                        bucket,
-                        "provider-smoke-multipart.bin",
-                        new ByteArrayInputStream(multipartObject),
-                        multipartObject.length,
-                        config);
-                multipartObjectCreated = true;
-                try (InputStream multipart = storage.getObject(bucket, "provider-smoke-multipart.bin", config)) {
-                    assertArrayEquals(multipartObject, multipart.readAllBytes());
-                }
-                storage.deleteObject(bucket, "provider-smoke-multipart.bin", config);
-                multipartObjectCreated = false;
-                operations.append(",multipart-put/get/delete");
+            try (InputStream listing = storage.getList(bucket, objectName, config)) {
+                String listingResult = new String(listing.readAllBytes(), StandardCharsets.UTF_8);
+                assertTrue(listingResult.contains(objectName), listingResult);
             }
+            operations.append(",list");
+
+            storage.headObject(bucket, objectName, config);
+            operations.append(",head");
+
+            byte[] multipartObject = new byte[MULTIPART_PART_SIZE + 37];
+            Arrays.fill(multipartObject, (byte) 0x5a);
+            storage.createMultipartObject(
+                    bucket,
+                    "provider-smoke-multipart.bin",
+                    new ByteArrayInputStream(multipartObject),
+                    multipartObject.length,
+                    config);
+            multipartObjectCreated = true;
+            try (InputStream multipart = storage.getObject(bucket, "provider-smoke-multipart.bin", config)) {
+                assertArrayEquals(multipartObject, multipart.readAllBytes());
+            }
+            storage.deleteObject(bucket, "provider-smoke-multipart.bin", config);
+            multipartObjectCreated = false;
+            operations.append(",multipart-put/get/delete");
 
             storage.deleteObject(bucket, objectName, config);
             objectCreated = false;
@@ -434,9 +413,7 @@ class ProviderMinioSmokeTest {
         operations.append(",post-dispose=").append(postDisposeError.getSimpleName());
 
         if (provider.equals("s3")) {
-            report.write("s3-list=legacy default returned empty for a bucket containing an object\n");
-            report.write("s3-multipart=legacy default created no object; MinIO GET returned not found\n");
-            report.write("s3-head/restore=not implemented by legacy S3Storage source; not claimed\n");
+            report.write("s3-restore=legacy S3 has no archive restore configuration or implementation; not applicable\n");
         } else if (provider.equals("sio") || provider.equals("siov1")) {
             report.write(provider + "-restore/prefetch/range=not exercised by MinIO fixture\n");
         } else if (provider.equals("gdas")) {

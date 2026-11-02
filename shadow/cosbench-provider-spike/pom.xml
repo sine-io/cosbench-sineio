@@ -21,13 +21,13 @@
     </dependency>
     <dependency>
       <groupId>com.intel.cosbench.shadow</groupId>
-      <artifactId>cosbench-api-shadow</artifactId>
+      <artifactId>cosbench-s3</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk-s3</artifactId>
-      <version>1.12.767</version>
+      <groupId>com.intel.cosbench.shadow</groupId>
+      <artifactId>cosbench-api-shadow</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -43,18 +43,6 @@
         <artifactId>build-helper-maven-plugin</artifactId>
         <version>3.6.1</version>
         <executions>
-          <execution>
-            <id>legacy-provider-sources</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>add-source</goal>
-            </goals>
-            <configuration>
-              <sources>
-                <source>${project.basedir}/../../dev/cosbench-s3/src</source>
-              </sources>
-            </configuration>
-          </execution>
           <execution>
             <id>test-only-mock-provider-sources</id>
             <phase>generate-test-sources</phase>
@@ -73,10 +61,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <includes>
-            <include>com/intel/cosbench/api/S3Stor/**/*.java</include>
-            <include>com/intel/cosbench/client/S3Stor/S3Constants.java</include>
-          </includes>
           <testIncludes>
             <testInclude>com/intel/cosbench/api/mock/**/*.java</testInclude>
             <testInclude>com/intel/cosbench/shadow/provider/**/*.java</testInclude>

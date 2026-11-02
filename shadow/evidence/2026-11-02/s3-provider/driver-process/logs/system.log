@@ -1,0 +1,10 @@
+2026-11-02 08:32:05,731 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-driver-process.ElcZhm/log/system.log
+2026-11-02 08:32:05,733 [INFO] [Log4jLogManager] - will append log to console
+2026-11-02 08:32:05,983 [INFO] [COSBAuthAPIService] - detected supported auth types: none
+2026-11-02 08:32:05,984 [INFO] [COSBStorageAPIService] - detected supported storage types: gdas, s3, sio, siov1
+2026-11-02 08:32:06,725 [INFO] [COSBDriverService] - Driver stopped: mission executor terminated
+2026-11-02 08:32:10,091 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-driver-process.ElcZhm/log/system.log
+2026-11-02 08:32:10,095 [INFO] [Log4jLogManager] - will append log to console
+2026-11-02 08:32:10,339 [INFO] [COSBAuthAPIService] - detected supported auth types: none
+2026-11-02 08:32:10,339 [INFO] [COSBStorageAPIService] - detected supported storage types: gdas, s3, sio, siov1
+2026-11-02 08:32:11,087 [INFO] [COSBDriverService] - Driver stopped: mission executor terminated

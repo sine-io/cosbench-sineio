@@ -26,12 +26,13 @@ public final class SineioDriverProcessProbe implements ApplicationListener<Appli
     private static void launchMission(ApplicationReadyEvent event) throws Exception {
         var context = event.getApplicationContext();
         var registry = context.getBean(StaticProviderRegistry.class);
-        if (!registry.storageNames().equals(java.util.Set.of("sio", "siov1", "gdas"))
+        if (!registry.storageNames().equals(java.util.Set.of("sio", "siov1", "gdas", "s3"))
                 || !registry.authNames().isEmpty()) {
             throw new IllegalStateException("Unexpected production providers: " + registry.storageNames());
         }
         String mode = SineioMissionFixture.required("COSBENCH_SINEIO_MODE");
-        String bucket = SineioMissionFixture.prepare(mode);
+        String bucket = SineioMissionFixture.prepareBucket(
+                System.getenv().getOrDefault("COSBENCH_MISSION_BUCKET", "cosbench-term-" + mode), mode);
         var service = context.getBean(COSBDriverService.class);
         String id = service.submit(SineioMissionFixture.mission(mode, bucket, 1_000_000));
         service.login(id);
