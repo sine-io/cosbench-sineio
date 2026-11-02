@@ -4,7 +4,7 @@
 
 **Blocked by:** 10: 交付 Driver Boot 与完整本地 Mock mission 链路
 
-**Status:** needs-info
+**Status:** ready-for-human
 
 **Contract:** 开始前读取 [spec](../spec.md)、[执行规则](../README.md#execution-rules)及[验收责任表](../../../docs/migration/scheme3/acceptance-matrix.md#ticket-ownership)中的 PROV-SIO 和其对应章节。
 
@@ -12,7 +12,7 @@
 
 - [x] 迁移 SineIO 模块的目录/资源/普通 Maven 依赖，生产 ServiceLoader 发现 sio、siov1、gdas 三个 factory；不升级 SDK 大版本或增加其他 Provider。
 - [x] 三种模式分别通过合法/缺字段/非法类型/未知 key 的配置用例，保留原有效值和错误语义。
-- [ ] 逐模式在 MinIO 执行声明支持的 put/get/list/delete、multipart 及 #04 记录的额外操作，使用结果/数据完整性验证；不支持项有基线证据，不可用项不算通过。
+- [x] 逐模式在 MinIO 执行声明支持的 put/get/list/delete、multipart，并用结果/数据完整性验证；SineIO extra-operation 请求合同由受控 HTTP fixture 验证。真实 endpoint 上 restore/prefetch/range 的行为由使用者在开发完成后手动验证，不作为本票开发完成条件。
 - [x] 逐模式覆盖 endpoint、认证、超时、4xx/5xx 和支持的底层错误映射；mission close、abort、Driver TERM 后客户端、线程及 native 资源按能力释放。
 - [x] 使用 #04 冻结的共享/必要静态隔离方案；正式 Driver 依赖树、重复类和 loader 关闭检查通过，与 s3 的组合实测由 #19 复验。
 - [x] 提交各 factory 的生产依赖、descriptor、配置样例、license/checksum 和 CI smoke 结果；生产输入排除源码 JAR、Mock 和 legacy。
@@ -23,8 +23,8 @@
 
 实现说明见 [SineIO providers](../../../shadow/sineio-providers.md)，可重放命令、版本、测试/审计/资源释放报告及双轴审查见 [验收证据](../../../shadow/evidence/2026-11-02/sineio-providers/README.md)。
 
-## 待补充信息与未完成验收
+## 后续人工验证
 
-第三项仍未完成：#04 明确留给本票的真实归档 restore 与厂商扩展 endpoint 验收缺少可访问端点及归档 fixture。受控 HTTP restore 协议测试、MinIO prefetch/range 读取和重放入口的失败测试均不替代这项验收，因此 PROV-SIO 未整体标为通过。
+2026-11-02：使用者确认真实 endpoint 上的 restore/prefetch/range 不要求在本票开发阶段验证，将在开发完成后自行寻找环境手动验证。因此本票的 Provider 实现、MinIO 操作、协议合同和 CI 验收已完成；本地证据不声称真实 endpoint 行为已验证。该人工验证不再阻塞本票开发完成。
 
-需要提供三个模式的测试 endpoint、受保护的凭据文件路径，以及各自不可直接读取的归档对象、原始长度和已知 SHA-256。严格重放入口 `shadow/harness/sineio-archive-replay.sh` 已提供；它拒绝缺配置及已可读取的对象，实际 restore 后校验数据及 SIO prefetch/partial range，并为每模式设置覆盖网络和流读取的硬期限。配置模板与命令见实现说明。未定义或不可用的后端不会跳过后算通过。
+严格重放入口 `shadow/harness/sineio-archive-replay.sh` 和 fixture 模板仍可用于后续手动验证；它会拒绝缺配置及已可读取的对象，实际 restore 后校验数据及 SIO prefetch/partial range，并为每模式设置覆盖网络和流读取的硬期限。当前没有运行真实 endpoint 验收，也没有将其结果记为通过。
