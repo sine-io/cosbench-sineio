@@ -24,13 +24,13 @@ public class ControllerWebSecurityConfiguration {
 
     @Bean
     SecurityFilterChain controllerWebSecurity(HttpSecurity http,
-            @Qualifier("controllerWebCredentials") Map<String, String> credentials) throws Exception {
+            @Qualifier("controllerWebCredentials") Map<String, LegacyWebUserLoader.User> credentials) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(publicRoutes())
                         .permitAll()
                         .requestMatchers(pageRoutes())
-                        .authenticated()
+                        .hasRole("cosbench")
                         .anyRequest().permitAll())
                 .formLogin(form -> form
                         .loginPage("/logon.html")
@@ -45,7 +45,7 @@ public class ControllerWebSecurityConfiguration {
     }
 
     @Bean
-    Map<String, String> controllerWebCredentials(
+    Map<String, LegacyWebUserLoader.User> controllerWebCredentials(
             @Value("${cosbench.web.username:anonymous}") String username,
             @Value("${cosbench.web.password:cosbench}") String password,
             @Value("${cosbench.web.cosbenchUsers:}") String usersFile) {
@@ -53,11 +53,13 @@ public class ControllerWebSecurityConfiguration {
     }
 
     @Bean
-    UserDetailsService controllerWebUsers(@Qualifier("controllerWebCredentials") Map<String, String> credentials) {
+    UserDetailsService controllerWebUsers(
+            @Qualifier("controllerWebCredentials") Map<String, LegacyWebUserLoader.User> credentials) {
         var users = credentials.entrySet().stream()
+                .filter(entry -> entry.getValue().roles().contains("cosbench"))
                 .map(entry -> User.withUsername(entry.getKey())
-                        .password("{noop}" + entry.getValue())
-                        .roles("COSBENCH")
+                        .password("{noop}" + entry.getValue().password())
+                        .roles(entry.getValue().roles().toArray(String[]::new))
                         .build())
                 .toArray(org.springframework.security.core.userdetails.UserDetails[]::new);
         return new InMemoryUserDetailsManager(users);

@@ -3,7 +3,9 @@ package com.intel.cosbench.controller.web;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,18 +20,22 @@ final class LegacyWebUserLoader {
 
     private static final String USERS_FILE_PROPERTY = "cosbench.web.cosbenchUsers";
 
+    record User(String password, Set<String> roles) {
+        User {
+            roles = Set.copyOf(roles);
+        }
+    }
+
     private LegacyWebUserLoader() {
     }
 
-    static Map<String, String> load(String defaultUsername, String defaultPassword, String configuredFile) {
-        Map<String, String> users = new LinkedHashMap<>();
-        users.put(defaultUsername, defaultPassword);
-
+    static Map<String, User> load(String defaultUsername, String defaultPassword, String configuredFile) {
         try {
             Path usersFile = usersFile(configuredFile);
             if (usersFile == null) {
-                return Map.copyOf(users);
+                return Map.of(defaultUsername, new User(defaultPassword, Set.of("cosbench")));
             }
+            Map<String, User> users = new LinkedHashMap<>();
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
@@ -50,7 +56,13 @@ final class LegacyWebUserLoader {
                 if (username.isEmpty() || password.isEmpty()) {
                     throw new IllegalArgumentException("user entries require username and password");
                 }
-                users.put(username, password);
+                Set<String> roles = new LinkedHashSet<>();
+                for (String role : user.getAttribute("roles").split(",")) {
+                    if (!role.isBlank()) {
+                        roles.add(role.trim());
+                    }
+                }
+                users.put(username, new User(password, roles));
             }
             return Map.copyOf(users);
         } catch (Exception e) {

@@ -68,8 +68,9 @@ cat > "$runtime_dir/conf/cosbench-users.xml" <<'XML'
 <?xml version="1.0" encoding="UTF-8"?>
 <tomcat-users>
   <role rolename="cosbench" />
-  <user username="anonymous" password="cosbench" roles="cosbench" />
+  <role rolename="cli" />
   <user username="operator" password="operator-secret" roles="cosbench" />
+  <user username="cli-only" password="cli-secret" roles="cli" />
 </tomcat-users>
 XML
 
@@ -169,6 +170,31 @@ curl --silent --show-error --fail --max-time 2 \
     'http://127.0.0.1:19488/controller/cli/index.action?username=operator&password=operator-secret' \
     > "$report_dir/web-cli-index.txt"
 grep -q 'Drivers:' "$report_dir/web-cli-index.txt"
+curl --silent --show-error --fail --max-time 2 \
+    'http://127.0.0.1:19488/controller/cli/index.action?username=cli-only&password=cli-secret' \
+    > "$report_dir/web-cli-only-index.txt"
+grep -q 'Drivers:' "$report_dir/web-cli-only-index.txt"
+curl --silent --show-error --max-time 2 --output "$report_dir/web-default-user-cli.txt" \
+    'http://127.0.0.1:19488/controller/cli/index.action?username=anonymous&password=cosbench'
+grep -q 'User info \[username:password\] incorrect !' "$report_dir/web-default-user-cli.txt"
+cli_only_login_status=$(curl --silent --show-error --max-time 2 \
+    --cookie-jar "$runtime_dir/cli-only.cookies" --output /dev/null --write-out '%{http_code}' \
+    --data 'j_username=cli-only&j_password=cli-secret' \
+    http://127.0.0.1:19488/controller/j_security_check)
+[[ $cli_only_login_status == 302 ]]
+cli_only_page_status=$(curl --silent --show-error --max-time 2 \
+    --cookie "$runtime_dir/cli-only.cookies" --output /dev/null --write-out '%{http_code}' \
+    http://127.0.0.1:19488/controller/index.html)
+[[ $cli_only_page_status == 302 ]]
+default_login_status=$(curl --silent --show-error --max-time 2 \
+    --cookie-jar "$runtime_dir/default-user.cookies" --output /dev/null --write-out '%{http_code}' \
+    --data 'j_username=anonymous&j_password=cosbench' \
+    http://127.0.0.1:19488/controller/j_security_check)
+[[ $default_login_status == 302 ]]
+default_page_status=$(curl --silent --show-error --max-time 2 \
+    --cookie "$runtime_dir/default-user.cookies" --output /dev/null --write-out '%{http_code}' \
+    http://127.0.0.1:19488/controller/index.html)
+[[ $default_page_status == 302 ]]
 expect_failure port-conflict 'Port 19488 was already in use' --cosbench.config="$runtime_dir/conf/controller.yml"
 grep -q 'Controller stopped: executor terminated, heartbeat terminated' "$report_dir/port-conflict.log"
 curl --silent --fail --max-time 2 http://127.0.0.1:19488/controller/health > "$report_dir/after-conflict-health.json"
@@ -183,5 +209,5 @@ test ! -e "$runtime_dir/launch/workspace"
     find archive workspace -type f -exec sha256sum '{}' + | sort
 ) > "$report_dir/existing-after.sha256"
 diff -u "$report_dir/existing-before.sha256" "$report_dir/existing-after.sha256"
-printf 'status=passed\nhealth=real-controller\nconfig-precedence=passed\nport-conflict=diagnosed\nrestart-and-port-release=passed\nexisting-data=unchanged\n' \
+printf 'status=passed\nhealth=real-controller\nconfig-precedence=passed\nport-conflict=diagnosed\nrestart-and-port-release=passed\nexisting-data=unchanged\nweb=packaged-pages-resources-and-multi-user-roles\n' \
     > "$report_dir/summary.txt"

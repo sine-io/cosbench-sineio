@@ -12,9 +12,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 final class CliLoginFilter extends OncePerRequestFilter {
 
-    private final Map<String, String> users;
+    private final Map<String, LegacyWebUserLoader.User> users;
 
-    CliLoginFilter(Map<String, String> users) {
+    CliLoginFilter(Map<String, LegacyWebUserLoader.User> users) {
         this.users = Map.copyOf(users);
     }
 
@@ -34,7 +34,8 @@ final class CliLoginFilter extends OncePerRequestFilter {
             response.getWriter().write("Please input complete user info [username:password] to get authentication!");
             return;
         }
-        if (!requestPassword.equals(users.get(requestUsername))) {
+        LegacyWebUserLoader.User user = users.get(requestUsername);
+        if (user == null || !requestPassword.equals(user.password())) {
             response.getWriter().write("User info [username:password] incorrect !");
             return;
         }
