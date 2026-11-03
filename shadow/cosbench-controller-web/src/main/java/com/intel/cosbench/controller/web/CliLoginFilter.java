@@ -1,6 +1,7 @@
 package com.intel.cosbench.controller.web;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -11,12 +12,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 final class CliLoginFilter extends OncePerRequestFilter {
 
-    private final String username;
-    private final String password;
+    private final Map<String, String> users;
 
-    CliLoginFilter(String username, String password) {
-        this.username = username;
-        this.password = password;
+    CliLoginFilter(Map<String, String> users) {
+        this.users = Map.copyOf(users);
     }
 
     @Override
@@ -35,7 +34,7 @@ final class CliLoginFilter extends OncePerRequestFilter {
             response.getWriter().write("Please input complete user info [username:password] to get authentication!");
             return;
         }
-        if (!username.equals(requestUsername) || !password.equals(requestPassword)) {
+        if (!requestPassword.equals(users.get(requestUsername))) {
             response.getWriter().write("User info [username:password] incorrect !");
             return;
         }

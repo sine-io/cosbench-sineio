@@ -1,5 +1,8 @@
 package com.intel.cosbench.controller.web;
 
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
@@ -21,8 +24,7 @@ public class ControllerWebSecurityConfiguration {
 
     @Bean
     SecurityFilterChain controllerWebSecurity(HttpSecurity http,
-            @Value("${cosbench.web.username:anonymous}") String username,
-            @Value("${cosbench.web.password:cosbench}") String password) throws Exception {
+            @Qualifier("controllerWebCredentials") Map<String, String> credentials) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(publicRoutes())
@@ -38,18 +40,27 @@ public class ControllerWebSecurityConfiguration {
                         .defaultSuccessUrl("/index.html", true)
                         .failureUrl("/logonError.html")
                         .permitAll())
-                .addFilterBefore(new CliLoginFilter(username, password), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new CliLoginFilter(credentials), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
     @Bean
-    UserDetailsService controllerWebUsers(
+    Map<String, String> controllerWebCredentials(
             @Value("${cosbench.web.username:anonymous}") String username,
-            @Value("${cosbench.web.password:cosbench}") String password) {
-        return new InMemoryUserDetailsManager(User.withUsername(username)
-                .password("{noop}" + password)
-                .roles("COSBENCH")
-                .build());
+            @Value("${cosbench.web.password:cosbench}") String password,
+            @Value("${cosbench.web.cosbenchUsers:}") String usersFile) {
+        return LegacyWebUserLoader.load(username, password, usersFile);
+    }
+
+    @Bean
+    UserDetailsService controllerWebUsers(@Qualifier("controllerWebCredentials") Map<String, String> credentials) {
+        var users = credentials.entrySet().stream()
+                .map(entry -> User.withUsername(entry.getKey())
+                        .password("{noop}" + entry.getValue())
+                        .roles("COSBENCH")
+                        .build())
+                .toArray(org.springframework.security.core.userdetails.UserDetails[]::new);
+        return new InMemoryUserDetailsManager(users);
     }
 
     private static RequestMatcher publicRoutes() {

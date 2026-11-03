@@ -64,8 +64,17 @@ logging:
 shutdown:
   gracePeriod: 5s
 YAML
+cat > "$runtime_dir/conf/cosbench-users.xml" <<'XML'
+<?xml version="1.0" encoding="UTF-8"?>
+<tomcat-users>
+  <role rolename="cosbench" />
+  <user username="anonymous" password="cosbench" roles="cosbench" />
+  <user username="operator" password="operator-secret" roles="cosbench" />
+</tomcat-users>
+XML
 
-java_command=(java --add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -jar "$artifact")
+java_command=(java --add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED
+    -Dcosbench.web.cosbenchUsers="$runtime_dir/conf/cosbench-users.xml" -jar "$artifact")
 expect_failure() {
     local name=$1 diagnostic=$2
     shift 2
@@ -130,6 +139,36 @@ stop_controller() {
 }
 
 start_controller startup
+web_cookie_jar="$runtime_dir/web.cookies"
+unauthenticated_page_status=$(curl --silent --show-error --max-time 2 \
+    --dump-header "$report_dir/web-unauthenticated.headers" --output /dev/null \
+    --write-out '%{http_code}' http://127.0.0.1:19488/controller/index.html)
+[[ $unauthenticated_page_status == 302 ]]
+grep -qi '^Location: .*/controller/logon.html' "$report_dir/web-unauthenticated.headers"
+curl --silent --show-error --fail --max-time 2 \
+    http://127.0.0.1:19488/controller/logon.html > "$report_dir/web-logon.html"
+grep -q 'j_username' "$report_dir/web-logon.html"
+login_status=$(curl --silent --show-error --max-time 2 \
+    --cookie-jar "$web_cookie_jar" --output "$report_dir/web-login-response.txt" \
+    --write-out '%{http_code}' --data 'j_username=operator&j_password=operator-secret' \
+    http://127.0.0.1:19488/controller/j_security_check)
+[[ $login_status == 302 ]]
+for page in index matrix submit config advanced-config; do
+    curl --silent --show-error --fail --max-time 2 --cookie "$web_cookie_jar" \
+        "http://127.0.0.1:19488/controller/$page.html" > "$report_dir/web-$page.html"
+done
+grep -q 'Controller Overview' "$report_dir/web-index.html"
+grep -q 'action="submit-workload.do"' "$report_dir/web-submit.html"
+grep -q 'action="config-workload.do"' "$report_dir/web-config.html"
+grep -q 'action="advanced-config-workload.do"' "$report_dir/web-advanced-config.html"
+curl --silent --show-error --fail --max-time 2 \
+    http://127.0.0.1:19488/controller/resources/cosbench.css > "$report_dir/web-cosbench.css"
+curl --silent --show-error --fail --max-time 2 \
+    http://127.0.0.1:19488/controller/favicon.ico > "$report_dir/web-favicon.ico"
+curl --silent --show-error --fail --max-time 2 \
+    'http://127.0.0.1:19488/controller/cli/index.action?username=operator&password=operator-secret' \
+    > "$report_dir/web-cli-index.txt"
+grep -q 'Drivers:' "$report_dir/web-cli-index.txt"
 expect_failure port-conflict 'Port 19488 was already in use' --cosbench.config="$runtime_dir/conf/controller.yml"
 grep -q 'Controller stopped: executor terminated, heartbeat terminated' "$report_dir/port-conflict.log"
 curl --silent --fail --max-time 2 http://127.0.0.1:19488/controller/health > "$report_dir/after-conflict-health.json"
