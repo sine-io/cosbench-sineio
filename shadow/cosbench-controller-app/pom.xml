@@ -13,6 +13,11 @@
   <dependencies>
     <dependency>
       <groupId>com.intel.cosbench.shadow</groupId>
+      <artifactId>cosbench-controller-web-shadow</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.intel.cosbench.shadow</groupId>
       <artifactId>cosbench-controller-shadow</artifactId>
       <version>${project.version}</version>
       <exclusions>

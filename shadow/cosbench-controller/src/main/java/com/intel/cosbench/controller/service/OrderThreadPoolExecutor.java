@@ -42,4 +42,15 @@ public class OrderThreadPoolExecutor extends ThreadPoolExecutor {
         execute(ftask);
         return ftask;
     }
+
+    public boolean removeQueued(Future<?> future) {
+        return future instanceof Runnable task && getQueue().remove(task);
+    }
+
+    public void restoreQueued(Future<?> future) {
+        if (!(future instanceof Runnable task)) {
+            throw new IllegalArgumentException("queued controller future is not runnable");
+        }
+        execute(task);
+    }
 }

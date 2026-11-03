@@ -9,10 +9,16 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.io.ByteArrayOutputStream;
 import java.util.concurrent.TimeUnit;
+
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,6 +29,107 @@ import org.junit.jupiter.api.io.TempDir;
 class ControllerProcessTest {
     @TempDir Path home;
     private final HttpClient http = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(1)).build();
+
+    @Test
+    void controllerPagesAndCliKeepTheLegacyOperationContract() throws Exception {
+        try (var app = start()) {
+            HttpClient browser = HttpClient.newBuilder()
+                    .cookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ALL))
+                    .connectTimeout(Duration.ofSeconds(1)).build();
+
+            var protectedIndex = request(browser, app, "/index.html");
+            assertEquals(302, protectedIndex.statusCode());
+            HttpResponse<String> logon;
+            try {
+                logon = request(browser, app, "/logon.html");
+            } catch (java.io.IOException failure) {
+                fail("GET /logon.html failed: " + failure + "\n" + readLog(app)
+                        + "\n" + readSystemLog());
+                return;
+            }
+            assertEquals(200, logon.statusCode(), logon.body());
+            assertTrue(logon.body().contains("j_username"), logon.body());
+            assertEquals(200, request(browser, app, "/resources/cosbench.css").statusCode());
+            assertEquals(200, request(browser, app, "/resources/build/dist/echarts.js").statusCode());
+            assertEquals(200, request(browser, app, "/favicon.ico").statusCode());
+            var login = postForm(browser, app, "/j_security_check",
+                    "j_username=anonymous&j_password=cosbench");
+            assertEquals(302, login.statusCode());
+
+            var index = request(browser, app, "/index.html");
+            assertEquals(200, index.statusCode(), index.body());
+            assertTrue(index.body().contains("Controller Overview"));
+            assertTrue(index.body().contains("name=\"cancelIds\""));
+            assertTrue(index.body().contains("name=\"resubmitIds\""));
+            assertTrue(request(browser, app, "/matrix.html?type=histo").body().contains("Performance Matrix"));
+            assertTrue(request(browser, app, "/submit.html").body().contains("action=\"submit-workload.do\""));
+            assertTrue(request(browser, app, "/config.html").body().contains("action=\"config-workload.do\""));
+            assertTrue(request(browser, app, "/advanced-config.html").body()
+                    .contains("action=\"advanced-config-workload.do\""));
+            var generatedConfig = postForm(browser, app, "/config-workload.do",
+                    "workload.name=page-config&auth.type=none&storage.type=none&init.checked=on"
+                            + "&init.workers=1&init.containers=r&init.containers.min=1&init.containers.max=1");
+            assertEquals(200, generatedConfig.statusCode(), generatedConfig.body());
+            assertTrue(generatedConfig.headers().firstValue("Content-Type").orElse("").startsWith("application/xml"),
+                    generatedConfig.body());
+            assertTrue(generatedConfig.body().contains("<workload name=\"page-config\""), generatedConfig.body());
+            var generatedMatrix = postForm(browser, app, "/advanced-config-workload.do",
+                    "workload.matrix.name=web-advanced&auth.type=none&storage.type=mock&storage.config=delay%3D0"
+                            + "&runtime=1&rampup=0&delay=0&num_of_drivers=1&workload.name=advanced-mock"
+                            + "&workload-number=0&object-sizes=1&object-size-unit=B&num-of-objects=1"
+                            + "&num-of-containers=1&workers=1&read-ratio0=100&write-ratio0=0&delete-ratio0=0"
+                            + "&generate-workload=Generate");
+            assertEquals(200, generatedMatrix.statusCode(), generatedMatrix.body());
+            assertTrue(generatedMatrix.body().contains("Workload Submission"), generatedMatrix.body());
+            assertTrue(Files.readString(home.resolve("launch/workloads/web-advanced/advanced-mock.xml"))
+                    .contains("<workload name=\"advanced-mock\""));
+
+            byte[] workload = actionWorkload().getBytes(StandardCharsets.UTF_8);
+            var submitted = postMultipart(browser, app, "/submit-workload.do", workload);
+            assertEquals(200, submitted.statusCode(), submitted.body());
+            assertTrue(submitted.body().contains("your workload has been accepted"), submitted.body());
+            assertTrue(submitted.body().contains("w1"), submitted.body());
+            awaitArchived(app, "w1");
+            var workloadPage = request(browser, app, "/workload.html?id=w1");
+            assertEquals(200, workloadPage.statusCode(), workloadPage.body());
+            assertTrue(workloadPage.body().contains("web-actions"), workloadPage.body());
+            assertEquals(200, request(browser, app, "/cancel-workload.do?id=w1").statusCode());
+
+            var cliIndex = request(http, app, "/cli/index.action?username=anonymous&password=cosbench");
+            assertEquals(200, cliIndex.statusCode(), cliIndex.body());
+            assertTrue(cliIndex.body().contains("Drivers:"), cliIndex.body());
+            var cliSubmit = postMultipart(http, app,
+                    "/cli/submit.action?username=anonymous&password=cosbench", workload);
+            assertEquals(200, cliSubmit.statusCode(), cliSubmit.body());
+            assertTrue(cliSubmit.body().matches("(?s)Accepted with ID: w[0-9]+"), cliSubmit.body());
+            var cliConfig = postMultipart(http, app,
+                    "/cli/config.action?username=anonymous&password=cosbench", workload);
+            assertEquals(200, cliConfig.statusCode(), cliConfig.body());
+            assertTrue(cliConfig.body().matches("(?s)Accepted with ID: w[0-9]+"), cliConfig.body());
+            var cliWorkload = request(http, app,
+                    "/cli/workload.action?username=anonymous&password=cosbench&id=w2");
+            assertEquals(200, cliWorkload.statusCode(), cliWorkload.body());
+            assertTrue(cliWorkload.body().startsWith("w2\t"), cliWorkload.body());
+            var cliCancel = request(http, app,
+                    "/cli/cancel.action?username=anonymous&password=cosbench&id=w2");
+            assertEquals(200, cliCancel.statusCode(), cliCancel.body());
+            assertTrue(cliCancel.body().startsWith("w2\t"), cliCancel.body());
+            var cliBadCredentials = request(http, app, "/cli/index.action?username=anonymous&password=wrong");
+            assertEquals("User info [username:password] incorrect !", cliBadCredentials.body());
+            var cliMissingCredentials = request(http, app, "/cli/index.action");
+            assertEquals("Please input complete user info [username:password] to get authentication!",
+                    cliMissingCredentials.body());
+            assertNotEquals(200, request(http, app,
+                    "/cli/resubmit.action?username=anonymous&password=cosbench&id=w2").statusCode());
+            var missingConfig = postMultipart(http, app,
+                    "/cli/submit.action?username=anonymous&password=cosbench", new byte[0]);
+            assertEquals("Bad Request", missingConfig.body());
+            var invalidXml = postMultipart(http, app,
+                    "/cli/submit.action?username=anonymous&password=cosbench", "<workload".getBytes(StandardCharsets.UTF_8));
+            assertEquals(200, invalidXml.statusCode());
+            assertFalse(invalidXml.body().contains("Accepted with ID:"), invalidXml.body());
+        }
+    }
 
     @Test
     void configurationAssemblesControllerAndLegacyBeanName() throws Exception {
@@ -103,6 +210,15 @@ class ControllerProcessTest {
     private static String readLog(RunningApp app) {
         try {
             return Files.readString(app.log);
+        } catch (java.io.IOException e) {
+            return e.toString();
+        }
+    }
+
+    private String readSystemLog() {
+        try {
+            Path log = home.resolve("log/system.log");
+            return Files.exists(log) ? Files.readString(log) : "system log not created";
         } catch (java.io.IOException e) {
             return e.toString();
         }
@@ -378,8 +494,51 @@ class ControllerProcessTest {
     }
 
     private HttpResponse<String> request(RunningApp app, String path) throws Exception {
-        return http.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + app.port + "/controller" + path))
+        return request(http, app, path);
+    }
+
+    private HttpResponse<String> request(HttpClient client, RunningApp app, String path) throws Exception {
+        return client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + app.port + "/controller" + path))
                 .timeout(Duration.ofSeconds(2)).GET().build(), HttpResponse.BodyHandlers.ofString());
+    }
+
+    private HttpResponse<String> postForm(HttpClient client, RunningApp app, String path, String form)
+            throws Exception {
+        return client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + app.port + "/controller" + path))
+                .timeout(Duration.ofSeconds(3)).header("Content-Type", "application/x-www-form-urlencoded")
+                .POST(HttpRequest.BodyPublishers.ofString(form)).build(), HttpResponse.BodyHandlers.ofString());
+    }
+
+    private HttpResponse<String> postMultipart(HttpClient client, RunningApp app, String path, byte[] content)
+            throws Exception {
+        String boundary = "cosbench-" + UUID.randomUUID();
+        ByteArrayOutputStream body = new ByteArrayOutputStream();
+        body.write(("--" + boundary + "\r\nContent-Disposition: form-data; name=\"config\"; filename=\"workload.xml\"\r\n"
+                + "Content-Type: application/xml\r\n\r\n").getBytes(StandardCharsets.UTF_8));
+        body.write(content);
+        body.write(("\r\n--" + boundary + "--\r\n").getBytes(StandardCharsets.UTF_8));
+        return client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + app.port + "/controller" + path))
+                .timeout(Duration.ofSeconds(5)).header("Content-Type", "multipart/form-data; boundary=" + boundary)
+                .POST(HttpRequest.BodyPublishers.ofByteArray(body.toByteArray())).build(),
+                HttpResponse.BodyHandlers.ofString());
+    }
+
+    private void awaitArchived(RunningApp app, String id) throws Exception {
+        long deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(10);
+        while (System.nanoTime() < deadline) {
+            var archive = request(app, "/_probe/archive/" + id);
+            if (archive.statusCode() == 200 && archive.body().contains(id)) {
+                return;
+            }
+            Thread.sleep(50);
+        }
+        fail("workload was not archived: " + id + "\n" + readLog(app));
+    }
+
+    private static String actionWorkload() {
+        return "<workload name=\"web-actions\"><auth type=\"none\"/><storage type=\"none\"/>"
+                + "<workflow><workstage name=\"wait\" closuredelay=\"0\"><work type=\"delay\" "
+                + "workers=\"1\" totalOps=\"1\"/></workstage></workflow></workload>";
     }
 
     private record RunningApp(Process process, int port, Path log) implements AutoCloseable {

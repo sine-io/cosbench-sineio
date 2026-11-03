@@ -11,10 +11,13 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import com.intel.cosbench.config.castor.CastorConfigTools;
 import com.intel.cosbench.config.runtime.ServiceConfig;
 import com.intel.cosbench.config.runtime.DriverEndpoint;
+import com.intel.cosbench.controller.web.ControllerWebConfiguration;
+import com.intel.cosbench.controller.web.ControllerWebSecurityConfiguration;
 import com.intel.cosbench.controller.port.DriverCommandClient;
 import com.intel.cosbench.controller.port.DriverCommandClientProvider;
 import com.intel.cosbench.controller.port.DriverCommandResponse;
@@ -33,6 +36,7 @@ import com.intel.cosbench.log.LogLevel;
 import com.intel.cosbench.log.LogManager;
 
 @Configuration(proxyBeanMethods = false)
+@Import({ControllerWebConfiguration.class, ControllerWebSecurityConfiguration.class})
 public class ControllerConfiguration {
     @Bean(destroyMethod = "dispose")
     LogManager systemLogManager(ServiceConfig config, Path installationDirectory) throws IOException {

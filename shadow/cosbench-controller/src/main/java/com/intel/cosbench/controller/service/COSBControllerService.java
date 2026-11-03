@@ -229,11 +229,8 @@ public class COSBControllerService implements ControllerService, WorkloadListene
         /* for strong consistency: a lock should be employed here */
         if (processor.getWorkloadContext().getFuture() != null)
             throw new IllegalStateException();
-        ControllerThread ctrlThrd = new ControllerThread(processor);
-
-        Future<?> future = null;
         synchronized(processor) {
-            future = executor.submit(ctrlThrd);
+            Future<?> future = enqueue(processor);
             processor.getWorkloadContext().setFuture(future);
         }
         LOGGER.debug("[ CT ] - workload {} started", id);
@@ -246,117 +243,108 @@ public class COSBControllerService implements ControllerService, WorkloadListene
         if (StringUtils.isEmpty(neighbourWId)) {
             return changeOrder(id, up);
         }
-        if(neighbourWId.equals(String.valueOf(0)))//multiple checked workload id
+        if ("0".equals(neighbourWId)) // multiple checked workload id
             return false;
-        int order = processors.get(id).getWorkloadContext().getOrder();
-        int neighOrder = processors.get(neighbourWId).getWorkloadContext()
-                .getOrder();
-        if (!up == order > neighOrder ? true : false)
+        WorkloadProcessor moving = processors.get(id);
+        WorkloadProcessor neighbour = processors.get(neighbourWId);
+        if (moving == null || neighbour == null)
+            return false;
+        WorkloadContext movingContext = moving.getWorkloadContext();
+        WorkloadContext neighbourContext = neighbour.getWorkloadContext();
+        int movingOrder = movingContext.getOrder();
+        int neighbourOrder = neighbourContext.getOrder();
+        if ((up && movingOrder <= neighbourOrder) || (!up && movingOrder >= neighbourOrder))
             return false;
 
-        if (processors.get(neighbourWId).getWorkloadContext().getState() != WorkloadState.QUEUING) {
-            LOGGER.error(
-                    "[ CT ] - workload {} order failed cause it's highest order...",
-                    id);
+        int lowOrder = Math.min(movingOrder, neighbourOrder);
+        int highOrder = Math.max(movingOrder, neighbourOrder);
+        List<WorkloadContext> affected = Arrays.stream(getActiveWorkloads())
+                .filter(workload -> workload.getOrder() >= lowOrder && workload.getOrder() <= highOrder)
+                .sorted(Comparator.comparingInt(WorkloadContext::getOrder))
+                .toList();
+        if (affected.size() < 2 || affected.stream()
+                .anyMatch(workload -> workload.getState() != WorkloadState.QUEUING)) {
             return false;
         }
-        List<Integer> orders = new ArrayList<Integer>();
-        Map<String, String> orderWorkloadMap = new HashMap<String, String>();
-        for (WorkloadContext workload : getActiveWorkloads()) {
-            if ((workload.getOrder() >= order && workload.getOrder() <= neighOrder)
-                    || (workload.getOrder() <= order && workload
-                            .getOrder() >= neighOrder)) {
-                orders.add(workload.getOrder());
-                orderWorkloadMap.put(String.valueOf(workload.getOrder()),
-                        workload.getId());
-            }
-        }
-        Integer[] orderArray = orders.toArray(new Integer[orders.size()]);
-        Arrays.sort(orderArray);
 
-        if (up) {
-            for (int i = orderArray.length - 2; i >= 0; i--) {
-                processors.get(orderWorkloadMap.get(String.valueOf(orderArray[i])))
-                        .getWorkloadContext().setOrder(orderArray[i + 1]);
-            }
-        } else {
-            for (int i = 1; i <orderArray.length; i++) {
-                processors.get(orderWorkloadMap.get(String.valueOf(orderArray[i])))
-                        .getWorkloadContext().setOrder(orderArray[i - 1]);
-            }
-        }
-        processors.get(id).getWorkloadContext().setOrder(neighOrder);
-        for (String workloadId : orderWorkloadMap.values()) {
-            if (!processors.get(workloadId).getWorkloadContext().getFuture()
-                    .cancel(true)) {
-                LOGGER.error(
-                        "[ CT ] - change workload {} order failed cause can't remove workload...",
-                        workloadId);
+        List<Future<?>> removed = new ArrayList<>(affected.size());
+        for (WorkloadContext workload : affected) {
+            Future<?> future = workload.getFuture();
+            if (future == null || !executor.removeQueued(future)) {
+                removed.forEach(executor::restoreQueued);
                 return false;
             }
-            processors.get(workloadId).getWorkloadContext().setFuture(null);
-            fire(workloadId);
+            removed.add(future);
         }
+
+        for (Future<?> future : removed) {
+            if (!future.cancel(false)) {
+                for (WorkloadContext workload : affected) {
+                    WorkloadProcessor processor = processors.get(workload.getId());
+                    workload.setFuture(enqueue(processor));
+                }
+                return false;
+            }
+        }
+
+        for (WorkloadContext workload : affected) {
+            int newOrder = workload.getOrder();
+            if (up) {
+                if (workload == movingContext) {
+                    newOrder = neighbourOrder;
+                } else if (workload.getOrder() >= neighbourOrder) {
+                    newOrder++;
+                }
+            } else {
+                if (workload == movingContext) {
+                    newOrder = neighbourOrder;
+                } else if (workload.getOrder() <= neighbourOrder) {
+                    newOrder--;
+                }
+            }
+            workload.setOrder(newOrder);
+            workload.setFuture(null);
+        }
+        affected.stream().sorted(Comparator.comparingInt(WorkloadContext::getOrder))
+                .forEach(workload -> {
+                    workload.setFuture(enqueue(processors.get(workload.getId())));
+                });
         return true;
     }
 
-    public boolean changeOrder(String id, boolean up) {
-        int order = processors.get(id).getWorkloadContext().getOrder();
-        int neighbourOrder = 0;
-        List<Integer> orders = new ArrayList<Integer>();
-        for(WorkloadContext workload:getActiveWorkloads()){
-            orders.add(workload.getOrder());
-        }
-        Integer[] orderArray = orders.toArray(new Integer[orders.size()]);
-        Arrays.sort(orderArray);
+    private Future<?> enqueue(WorkloadProcessor processor) {
+        return executor.submit(new ControllerThread(processor));
+    }
+
+    public synchronized boolean changeOrder(String id, boolean up) {
+        requireAccepting();
+        WorkloadProcessor processor = processors.get(id);
+        if (processor == null || processor.getWorkloadContext().getState() != WorkloadState.QUEUING)
+            return false;
+        WorkloadContext moving = processor.getWorkloadContext();
+        List<WorkloadContext> active = Arrays.stream(getActiveWorkloads())
+                .sorted(Comparator.comparingInt(WorkloadContext::getOrder)).toList();
+        WorkloadContext neighbour = null;
         if (up) {
-            for (int i = orderArray.length - 1; i >= 0; i--) {
-                if (orderArray[i] < order) {
-                    neighbourOrder = orderArray[i];
+            for (int i = active.size() - 1; i >= 0; i--) {
+                if (active.get(i).getOrder() < moving.getOrder()) {
+                    neighbour = active.get(i);
                     break;
                 }
             }
-        }else{
-            for (int i = 0; i < orderArray.length; i++) {
-                if (orderArray[i] > order) {
-                    neighbourOrder = orderArray[i];
+        } else {
+            for (WorkloadContext candidate : active) {
+                if (candidate.getOrder() > moving.getOrder()) {
+                    neighbour = candidate;
                     break;
                 }
             }
         }
-        String neighbourWId = String.valueOf(0);
-        for(WorkloadContext workload:getActiveWorkloads()){
-            if (workload.getOrder() == neighbourOrder) {
-                neighbourWId = workload.getId();
-            }
-        }
-        if (neighbourWId.equals(String.valueOf(0)))//can't find neighbour workload
-            return false;
-        if (processors.get(neighbourWId).getWorkloadContext().getState() != WorkloadState.QUEUING) {
-            LOGGER.debug(
-                    "[ CT ] - workload {} order failed cause it's highest order...",
-                    id);
-            return false;
-        }
-        if (!processors.get(id).getWorkloadContext().getFuture().cancel(true)
-                || !processors.get(neighbourWId).getWorkloadContext()
-                        .getFuture().cancel(true)) {
-            LOGGER.error(
-                    "[ CT ] - change workload {} {} order failed cause can't remove workload...",
-                    id, neighbourWId);
-            return false;
-        }
-        processors.get(id).getWorkloadContext().setFuture(null);
-        processors.get(neighbourWId).getWorkloadContext().setFuture(null);
-        processors.get(id).getWorkloadContext().setOrder(neighbourOrder);
-        processors.get(neighbourWId).getWorkloadContext().setOrder(order);
-        fire(id);
-        fire(neighbourWId);
-        return true;
+        return neighbour != null && changeOrder(id, neighbour.getId(), up);
     }
 
     @Override
-    public void cancel(String id) {
+    public synchronized void cancel(String id) {
         WorkloadProcessor processor = processors.get(id);
         if (processor == null)
             return; // already stopped

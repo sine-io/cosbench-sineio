@@ -18,11 +18,13 @@
     <module>cosbench-sineio</module>
     <module>cosbench-s3</module>
     <module>cosbench-core</module>
+    <module>cosbench-core-web</module>
     <module>cosbench-driver</module>
     <module>cosbench-driver-web</module>
     <module>cosbench-driver-app</module>
     <module>cosbench-http</module>
     <module>cosbench-controller</module>
+    <module>cosbench-controller-web</module>
     <module>cosbench-controller-app</module>
     <module>cosbench-runtime</module>
     <module>cosbench-provider-spike</module>

@@ -7,7 +7,7 @@ driver_pid=
 controller_pid=
 mkdir -p "$report_dir" "$runtime_dir/conf" "$runtime_dir/scripts" \
     "$runtime_dir/controller/launch" "$runtime_dir/controller/workspace" \
-    "$runtime_dir/driver/missions"
+    "$runtime_dir/driver/missions" "$runtime_dir/tmp"
 
 cleanup_process() {
     local name=$1 pid=$2
@@ -45,6 +45,22 @@ cleanup() {
 trap cleanup EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM
+
+wait_for_workload_state() {
+    local workload_id=$1 expected_state=$2 output_file=$3
+    for ((attempt = 0; attempt < 200; attempt++)); do
+        curl --silent --show-error --fail --max-time 2 \
+            "http://127.0.0.1:$controller_port/controller/_probe/workloads/$workload_id" \
+            > "$output_file"
+        if grep -q "\"state\":\"$expected_state\"" "$output_file"; then
+            return 0
+        fi
+        sleep 0.05
+    done
+    printf 'workload %s did not reach %s\n' "$workload_id" "$expected_state" >&2
+    cat "$output_file" >&2
+    return 1
+}
 
 repo=/workspace
 maven_repo=/tmp/maven-repository
@@ -119,6 +135,8 @@ paths:
   workspace: $runtime_dir/controller/workspace
   archive: $runtime_dir/controller/archive
   logs: $runtime_dir/controller/system.log
+web:
+  maxUploadBytes: 4096
 drivers:
   - name: driver1
     url: https://127.0.0.1:$driver_port/driver
@@ -149,6 +167,7 @@ shutdown:
 YAML
 
 SERVER_SSL_KEY_STORE_PASSWORD="$test_password" java \
+    -Djava.io.tmpdir="$runtime_dir/tmp" \
     --add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED \
     -cp "$driver_cp" com.intel.cosbench.app.driver.DriverApplication \
     --cosbench.config="$runtime_dir/conf/driver.yml" \
@@ -168,6 +187,7 @@ test -s "$report_dir/driver-health.json"
 grep -q '"accepting":true' "$report_dir/driver-health.json"
 
 java --add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED \
+    -Djava.io.tmpdir="$runtime_dir/tmp" \
     -cp "$controller_cp" com.intel.cosbench.app.controller.ControllerApplication \
     --cosbench.config="$runtime_dir/conf/controller.yml" \
     '--spring.main.sources=com.intel.cosbench.testing.controller.ControllerProcessProbe$ProbeConfiguration' \
@@ -325,6 +345,176 @@ for ((attempt = 0; attempt < 100; attempt++)); do
     sleep 0.1
 done
 [[ $mission_aborted == 1 ]]
+
+controller_url="http://127.0.0.1:$controller_port/controller"
+web_fixture="$repo/shadow/harness/fixtures/controller-web-actions.xml"
+curl --silent --show-error --fail --max-time 3 --cookie-jar "$runtime_dir/web.cookies" \
+    "$controller_url/logon.html" > "$report_dir/web-logon.html"
+grep -q 'name="j_username"' "$report_dir/web-logon.html"
+login_status=$(curl --silent --show-error --max-time 3 --cookie "$runtime_dir/web.cookies" \
+    --cookie-jar "$runtime_dir/web.cookies" --output "$report_dir/web-login.response" \
+    --write-out '%{http_code}' --data 'j_username=anonymous&j_password=cosbench' \
+    "$controller_url/j_security_check")
+[[ $login_status == 302 ]]
+
+page_status=$(curl --silent --show-error --max-time 5 --cookie "$runtime_dir/web.cookies" \
+    --cookie-jar "$runtime_dir/web.cookies" --output "$report_dir/web-submit.html" \
+    --write-out '%{http_code}' -F "config=@$web_fixture;type=application/xml" \
+    "$controller_url/submit-workload.do")
+[[ $page_status == 200 ]]
+page_workload_id=$(grep -oE 'workload.html\?id=w[0-9]+' "$report_dir/web-submit.html" \
+    | head -n 1 | cut -d= -f2)
+test -n "$page_workload_id"
+grep -q 'your workload has been accepted' "$report_dir/web-submit.html"
+wait_for_workload_state "$page_workload_id" PROCESSING "$report_dir/web-workload-state.json"
+
+curl --silent --show-error --fail --max-time 3 --cookie "$runtime_dir/web.cookies" \
+    "$controller_url/index.html" > "$report_dir/web-index.html"
+grep -q 'name="cancelIds"' "$report_dir/web-index.html"
+grep -q 'name="resubmitIds"' "$report_dir/web-index.html"
+grep -q "checkMe('$page_workload_id','AllActive')" "$report_dir/web-index.html"
+curl --silent --show-error --fail --max-time 3 --cookie "$runtime_dir/web.cookies" \
+    "$controller_url/workload.html?id=$page_workload_id" > "$report_dir/web-workload.html"
+grep -q 'workload-state-processing state' "$report_dir/web-workload.html"
+curl --silent --show-error --fail --max-time 3 --cookie "$runtime_dir/web.cookies" \
+    "$controller_url/matrix.html?type=histo" > "$report_dir/web-matrix.html"
+grep -q 'Performance Matrix' "$report_dir/web-matrix.html"
+curl --silent --show-error --fail --max-time 3 --cookie "$runtime_dir/web.cookies" \
+    "$controller_url/config.html" > "$report_dir/web-config.html"
+grep -q 'action="config-workload.do"' "$report_dir/web-config.html"
+curl --silent --show-error --fail --max-time 3 --cookie "$runtime_dir/web.cookies" \
+    "$controller_url/advanced-config.html" > "$report_dir/web-advanced-config.html"
+grep -q 'action="advanced-config-workload.do"' "$report_dir/web-advanced-config.html"
+
+curl --silent --show-error --fail --max-time 3 \
+    "$controller_url/cli/index.action?username=anonymous&password=cosbench" \
+    > "$report_dir/cli-index.txt"
+grep -q '^Drivers:' "$report_dir/cli-index.txt"
+curl --silent --show-error --fail --max-time 3 \
+    "$controller_url/cli/workload.action?username=anonymous&password=cosbench&id=$page_workload_id" \
+    > "$report_dir/cli-workload.txt"
+grep -q "^$page_workload_id$(printf '\t').*PROCESSING" "$report_dir/cli-workload.txt"
+grep -q 'workload-state-processing state' "$report_dir/web-workload.html"
+
+cli_submit_status=$(curl --silent --show-error --max-time 5 --output "$report_dir/cli-submit.txt" \
+    --write-out '%{http_code}' -F "config=@$web_fixture;type=application/xml" \
+    "$controller_url/cli/submit.action?username=anonymous&password=cosbench")
+[[ $cli_submit_status == 200 ]]
+cli_submit_id=$(sed -nE 's/^Accepted with ID: (w[0-9]+)$/\1/p' "$report_dir/cli-submit.txt")
+test -n "$cli_submit_id"
+cli_config_status=$(curl --silent --show-error --max-time 5 --output "$report_dir/cli-config.txt" \
+    --write-out '%{http_code}' -F "config=@$web_fixture;type=application/xml" \
+    "$controller_url/cli/config.action?username=anonymous&password=cosbench")
+[[ $cli_config_status == 200 ]]
+cli_config_id=$(sed -nE 's/^Accepted with ID: (w[0-9]+)$/\1/p' "$report_dir/cli-config.txt")
+test -n "$cli_config_id"
+wait_for_workload_state "$cli_submit_id" QUEUING "$report_dir/cli-submit-state.json"
+wait_for_workload_state "$cli_config_id" QUEUING "$report_dir/cli-config-state.json"
+
+page_second_status=$(curl --silent --show-error --max-time 5 --cookie "$runtime_dir/web.cookies" \
+    --cookie-jar "$runtime_dir/web.cookies" --output "$report_dir/web-submit-second.html" \
+    --write-out '%{http_code}' -F "config=@$web_fixture;type=application/xml" \
+    "$controller_url/submit-workload.do")
+[[ $page_second_status == 200 ]]
+page_second_id=$(grep -oE 'workload.html\?id=w[0-9]+' "$report_dir/web-submit-second.html" \
+    | head -n 1 | cut -d= -f2)
+test -n "$page_second_id"
+wait_for_workload_state "$page_second_id" QUEUING "$report_dir/web-second-state.json"
+
+page_third_status=$(curl --silent --show-error --max-time 5 --cookie "$runtime_dir/web.cookies" \
+    --cookie-jar "$runtime_dir/web.cookies" --output "$report_dir/web-submit-third.html" \
+    --write-out '%{http_code}' -F "config=@$web_fixture;type=application/xml" \
+    "$controller_url/submit-workload.do")
+[[ $page_third_status == 200 ]]
+page_third_id=$(grep -oE 'workload.html\?id=w[0-9]+' "$report_dir/web-submit-third.html" \
+    | head -n 1 | cut -d= -f2)
+test -n "$page_third_id"
+wait_for_workload_state "$page_third_id" QUEUING "$report_dir/web-third-state.json"
+
+reorder_status=$(curl --silent --show-error --max-time 5 --cookie "$runtime_dir/web.cookies" \
+    --cookie-jar "$runtime_dir/web.cookies" --output "$report_dir/web-reorder.html" \
+    --write-out '%{http_code}' --data "id=$page_third_id&neighid=$page_second_id&up=yes" \
+    "$controller_url/index.html")
+[[ $reorder_status == 200 ]]
+grep -q 'class="high-light"' "$report_dir/web-reorder.html"
+third_row=$(grep -nF "checkMe('$page_third_id','AllActive')" "$report_dir/web-reorder.html" | head -n 1 | cut -d: -f1)
+second_row=$(grep -nF "checkMe('$page_second_id','AllActive')" "$report_dir/web-reorder.html" | head -n 1 | cut -d: -f1)
+[[ -n $third_row && -n $second_row && $third_row -lt $second_row ]]
+
+reject_reorder_status=$(curl --silent --show-error --max-time 5 --cookie "$runtime_dir/web.cookies" \
+    --cookie-jar "$runtime_dir/web.cookies" --output "$report_dir/web-running-reorder.html" \
+    --write-out '%{http_code}' --data "id=$page_workload_id&neighid=$page_third_id&up=no" \
+    "$controller_url/index.html")
+[[ $reject_reorder_status == 200 ]]
+if grep -q 'class="high-light"' "$report_dir/web-running-reorder.html"; then
+    printf '%s\n' 'running workload reorder unexpectedly succeeded' >&2
+    exit 1
+fi
+third_row=$(grep -nF "checkMe('$page_third_id','AllActive')" "$report_dir/web-running-reorder.html" | head -n 1 | cut -d: -f1)
+running_row=$(grep -nF "checkMe('$page_workload_id','AllActive')" "$report_dir/web-running-reorder.html" | head -n 1 | cut -d: -f1)
+[[ -n $third_row && -n $running_row && $running_row -lt $third_row ]]
+
+curl --silent --show-error --max-time 5 --cookie "$runtime_dir/web.cookies" \
+    --cookie-jar "$runtime_dir/web.cookies" --output "$report_dir/web-cancel-queued.html" \
+    --data "cancelIds=${page_second_id}_${page_third_id}&cancel=yes" "$controller_url/index.html"
+wait_for_workload_state "$page_second_id" CANCELLED "$report_dir/web-cancel-queued-state.json"
+wait_for_workload_state "$page_third_id" CANCELLED "$report_dir/web-cancel-third-state.json"
+cli_cancel_status=$(curl --silent --show-error --max-time 5 --output "$report_dir/cli-cancel.txt" \
+    --write-out '%{http_code}' "$controller_url/cli/cancel.action?username=anonymous&password=cosbench&id=$cli_submit_id")
+[[ $cli_cancel_status == 200 ]]
+grep -q "^$cli_submit_id$(printf '\t')" "$report_dir/cli-cancel.txt"
+wait_for_workload_state "$cli_submit_id" CANCELLED "$report_dir/cli-cancel-state.json"
+cli_cancel_config_status=$(curl --silent --show-error --max-time 5 --output "$report_dir/cli-cancel-config.txt" \
+    --write-out '%{http_code}' "$controller_url/cli/cancel.action?username=anonymous&password=cosbench&id=$cli_config_id")
+[[ $cli_cancel_config_status == 200 ]]
+wait_for_workload_state "$cli_config_id" CANCELLED "$report_dir/cli-cancel-config-state.json"
+
+page_cancel_status=$(curl --silent --show-error --max-time 5 --cookie "$runtime_dir/web.cookies" \
+    --output "$report_dir/web-cancel.html" --write-out '%{http_code}' \
+    "$controller_url/cancel-workload.do?id=$page_workload_id")
+[[ $page_cancel_status == 200 ]]
+wait_for_workload_state "$page_workload_id" CANCELLED "$report_dir/web-cancel-state.json"
+
+resubmit_status=$(curl --silent --show-error --max-time 5 --cookie "$runtime_dir/web.cookies" \
+    --cookie-jar "$runtime_dir/web.cookies" --output "$report_dir/web-resubmit.html" \
+    --write-out '%{http_code}' --data "resubmitIds=$page_workload_id&resubmit=yes" \
+    "$controller_url/index.html")
+[[ $resubmit_status == 200 ]]
+resubmitted_id=$(sed -nE 's/.*id="checkbox-(w[0-9]+)" name="ActiveWorkload".*/\1/p' \
+    "$report_dir/web-resubmit.html" | tail -n 1)
+test -n "$resubmitted_id"
+[[ $resubmitted_id != "$page_workload_id" ]]
+grep -q 'controller-web-actions' "$report_dir/web-resubmit.html"
+wait_for_workload_state "$resubmitted_id" PROCESSING "$report_dir/web-resubmit-state.json"
+curl --silent --show-error --max-time 5 --cookie "$runtime_dir/web.cookies" \
+    --output "$report_dir/web-cancel-resubmitted.html" \
+    "$controller_url/cancel-workload.do?id=$resubmitted_id"
+wait_for_workload_state "$resubmitted_id" CANCELLED "$report_dir/web-cancel-resubmitted-state.json"
+grep -q 'controller-web-actions' "$runtime_dir/controller/archive/$resubmitted_id-controller-web-actions/workload-config.xml"
+
+printf '<workload' > "$runtime_dir/invalid-workload.xml"
+archive_count_before=$(find "$runtime_dir/controller/archive" -mindepth 1 -maxdepth 1 -type d -name 'w*' | wc -l)
+invalid_status=$(curl --silent --show-error --max-time 5 --output "$report_dir/cli-invalid-xml.txt" \
+    --write-out '%{http_code}' -F "config=@$runtime_dir/invalid-workload.xml;type=application/xml" \
+    "$controller_url/cli/submit.action?username=anonymous&password=cosbench")
+[[ $invalid_status == 200 ]]
+if grep -q 'Accepted with ID:' "$report_dir/cli-invalid-xml.txt"; then
+    printf '%s\n' 'invalid workload XML was accepted' >&2
+    exit 1
+fi
+head -c 8192 /dev/zero > "$runtime_dir/oversized-workload.xml"
+oversized_status=$(curl --silent --show-error --max-time 5 --output "$report_dir/cli-oversized-upload.txt" \
+    --write-out '%{http_code}' -F "config=@$runtime_dir/oversized-workload.xml;type=application/xml" \
+    "$controller_url/cli/submit.action?username=anonymous&password=cosbench")
+[[ $oversized_status -ge 400 ]]
+archive_count_after=$(find "$runtime_dir/controller/archive" -mindepth 1 -maxdepth 1 -type d -name 'w*' | wc -l)
+[[ $archive_count_before == "$archive_count_after" ]]
+if find "$runtime_dir/tmp" -type f -print -quit | grep -q .; then
+    printf '%s\n' 'multipart temporary files remained after request completion' >&2
+    find "$runtime_dir/tmp" -type f -print >&2
+    exit 1
+fi
+
 if grep -F -q -- "$COSBENCH_HTTP_SERVICE_TOKEN" "$runtime_dir/controller.log" \
     "$runtime_dir/driver.log" "$runtime_dir/controller/system.log" \
     "$runtime_dir/driver/system.log" "$report_dir/workload-archive.json"; then
@@ -341,5 +531,9 @@ printf '%s\n' \
     'long-running-state=processing-then-finished-after-session-expiry' \
     'archive=workload-log-and-trigger-output-present' \
     'cancel=controller-issued-driver-abort;driver-mission=ABORTED' \
+    'web=authenticated-login-pages-submit-query-cancel-and-history-resubmit' \
+    'web-order=queued-reordered;running-reorder-rejected' \
+    'cli=index-submit-config-workload-cancel' \
+    'multipart=invalid-xml-rejected;oversized-rejected;archive-unchanged;temps-cleaned' \
     'token=absent-from-logs-and-archive' \
     > "$report_dir/summary.txt"
