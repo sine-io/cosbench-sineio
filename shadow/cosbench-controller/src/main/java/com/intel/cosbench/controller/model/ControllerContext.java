@@ -17,8 +17,11 @@ limitations under the License.
 
 package com.intel.cosbench.controller.model;
 
+import java.time.Duration;
 import java.util.Date;
 import com.intel.cosbench.model.*;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import com.intel.cosbench.controller.port.DriverCommandClientProvider;
 
 /**
  * This class encapsulates the configurations in controller.conf.
@@ -33,6 +36,8 @@ public class ControllerContext implements ControllerInfo {
     private String archive_dir;
     private int concurrency;
     private DriverRegistry driverRegistry;
+    private DriverCommandClientProvider driverCommandClientProvider;
+    private Duration workloadTimeout;
     private String version;
     private String time;
 
@@ -97,6 +102,24 @@ public class ControllerContext implements ControllerInfo {
 
     public void setDriverRegistry(DriverRegistry driverRegistry) {
         this.driverRegistry = driverRegistry;
+    }
+
+    @JsonIgnore
+    public DriverCommandClientProvider getDriverCommandClientProvider() {
+        return driverCommandClientProvider;
+    }
+
+    public void setDriverCommandClientProvider(DriverCommandClientProvider driverCommandClientProvider) {
+        this.driverCommandClientProvider = driverCommandClientProvider;
+    }
+
+    @JsonIgnore
+    public Duration getWorkloadTimeout() {
+        return workloadTimeout;
+    }
+
+    public void setWorkloadTimeout(Duration workloadTimeout) {
+        this.workloadTimeout = workloadTimeout;
     }
 
     @Override

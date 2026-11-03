@@ -15,6 +15,11 @@ import javax.net.ssl.SSLContext;
 /** Controller-side pooled HTTP/1.1 adapter for the legacy Driver /i protocol. */
 public final class AuthenticatedDriverClient implements AutoCloseable {
 
+    private static final String REQUEST_ID_HEADER = "X-COSBench-Request-Id";
+    private static final String IDEMPOTENCY_KEY_HEADER = "Idempotency-Key";
+    private static final String DRIVER_INSTANCE_HEADER = "X-COSBench-Driver-Instance";
+    private static final String DRIVER_INSTANCE_CHANGED = "Driver instance changed; write result may be unknown";
+
     private final URI baseUri;
     private final String token;
     private final HttpClientSettings config;
@@ -106,7 +111,7 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
                             remainingTimeout, expectedInstance);
                     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                     lastUsedNanos.set(System.nanoTime());
-                    response.headers().firstValue(DriverCommandController.DRIVER_INSTANCE_HEADER)
+                    response.headers().firstValue(DRIVER_INSTANCE_HEADER)
                             .ifPresent(value -> driverInstanceId = value);
                     DriverCommandResult result = new DriverCommandResult(response.statusCode(), response.body());
                     if (retryPolicy.retryStatus(response.statusCode()) && attempts < retryPolicy.maxAttempts()) {
@@ -116,7 +121,7 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
                     }
                     if (response.statusCode() >= 400) {
                         if (write && response.statusCode() == 409
-                                && response.body().contains(DriverCommandController.DRIVER_INSTANCE_CHANGED)) {
+                                && response.body().contains(DRIVER_INSTANCE_CHANGED)) {
                             driverInstanceId = null;
                         }
                         throw new DriverCommandException(response.statusCode(), response.body());
@@ -209,6 +214,7 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
                 return false;
             }
             closed = true;
+            client.shutdownNow();
             return true;
         }
     }
@@ -221,9 +227,9 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
                 .header("Content-Type", "application/octet-stream")
                 .POST(HttpRequest.BodyPublishers.ofByteArray(payload));
         if (write) {
-            builder.header(DriverCommandController.REQUEST_ID_HEADER, requestId)
-                    .header(DriverCommandController.IDEMPOTENCY_KEY_HEADER, idempotencyKey)
-                    .header(DriverCommandController.DRIVER_INSTANCE_HEADER, expectedInstance)
+            builder.header(REQUEST_ID_HEADER, requestId)
+                    .header(IDEMPOTENCY_KEY_HEADER, idempotencyKey)
+                    .header(DRIVER_INSTANCE_HEADER, expectedInstance)
                     .header("X-COSBench-Request-Fingerprint", RequestFingerprint.sha256(command, payload));
         }
         return builder.build();
@@ -261,7 +267,7 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
                 lastUsedNanos.set(System.nanoTime());
                 if (response.statusCode() >= 200 && response.statusCode() < 300) {
                     String discovered = response.headers()
-                            .firstValue(DriverCommandController.DRIVER_INSTANCE_HEADER)
+                            .firstValue(DRIVER_INSTANCE_HEADER)
                             .filter(value -> !value.isBlank())
                             .orElseThrow(() -> new DriverTransportException(
                                     "Driver did not provide an instance identity before " + command, null));
@@ -371,13 +377,27 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
     private static boolean retryableTransport(IOException failure) {
         Throwable current = failure;
         while (current != null) {
-            if (current instanceof javax.net.ssl.SSLHandshakeException
-                    || current instanceof javax.net.ssl.SSLPeerUnverifiedException) {
+            if (current instanceof javax.net.ssl.SSLException) {
                 return false;
+            }
+            if (current instanceof java.net.http.HttpTimeoutException
+                    || current instanceof java.net.ConnectException
+                    || current instanceof java.net.NoRouteToHostException
+                    || current instanceof java.net.UnknownHostException
+                    || current instanceof java.net.SocketException
+                    || current instanceof java.io.EOFException) {
+                return true;
+            }
+            if (current instanceof IOException) {
+                String message = current.getMessage();
+                if (message != null && (message.equals("HTTP/1.1 header parser received no bytes")
+                        || message.startsWith("BUFFER_UNDERFLOW with EOF,"))) {
+                    return true;
+                }
             }
             current = current.getCause();
         }
-        return true;
+        return false;
     }
 
     private static Duration min(Duration left, Duration right) {
@@ -392,6 +412,6 @@ public final class AuthenticatedDriverClient implements AutoCloseable {
     @Override
     public synchronized void close() {
         closed = true;
-        // HttpClient has no close method on Java 21; dropping the reference lets the JDK reclaim its pool.
+        client.shutdownNow();
     }
 }

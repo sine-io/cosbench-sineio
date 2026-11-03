@@ -41,11 +41,6 @@ class Closer extends AbstractCommandTasklet<CloseResponse> {
     protected void execute() {
         String id = context.getMissionId();
         issueCommand("close", id);
-        try {
-            closeHttpClient();
-        } catch (Exception e) {
-            LOGGER.error("unexpected exception", e);
-        }
     }
 
     @Override
@@ -55,7 +50,9 @@ class Closer extends AbstractCommandTasklet<CloseResponse> {
             report.addMetrics(metrics);
         context.setReport(report);
         context.setLog(response.getDriverLog());
-        context.setState(response.getState());
+        if (!context.isWorkloadTimedOut()) {
+            context.setState(response.getState());
+        }
         context.setErrorStatistics(response.getErrorStatistics());
 
         for(Metrics metrics : response.getWrReport()){

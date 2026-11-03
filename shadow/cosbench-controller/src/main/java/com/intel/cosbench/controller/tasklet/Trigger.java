@@ -21,27 +21,23 @@ package com.intel.cosbench.controller.tasklet;
 import org.apache.commons.lang.StringUtils;
 
 import com.intel.cosbench.controller.model.DriverContext;
+import com.intel.cosbench.controller.port.DriverCommandClient;
 import com.intel.cosbench.protocol.TriggerResponse;
 
 
 public class Trigger extends TriggerHttpTasklet {
-    public Trigger(DriverContext driver, String trigger, boolean option, String wsId) {
-        super(driver, trigger, option, wsId);
+    public Trigger(DriverContext driver, String trigger, boolean option, String wsId,
+            DriverCommandClient client, long workloadDeadlineNanos) {
+        super(driver, trigger, option, wsId, client, workloadDeadlineNanos);
     }
 
     @Override
     public void execute() {
-        initHttpClient();
         initObjectMapper();
         String content = getCmdLine();
         if (content == null || content.isEmpty())
             return;
         issueCommand("trigger", content);
-        try {
-            closeHttpClient();
-        } catch (Exception e) {
-            LOGGER.error("unexpected exception", e);
-        }
     }
 
     private String getCmdLine() {

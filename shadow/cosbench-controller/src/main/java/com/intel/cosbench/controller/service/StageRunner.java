@@ -44,6 +44,7 @@ class StageRunner implements StageCallable {
 
     private StageContext stageContext;
     private ControllerContext controllerContext;
+    private long workloadDeadlineNanos = Long.MAX_VALUE;
 
     private ExecutorService executor;
 
@@ -61,6 +62,10 @@ class StageRunner implements StageCallable {
 
     public void setControllerContext(ControllerContext controllerContext) {
         this.controllerContext = controllerContext;
+    }
+
+    public void setWorkloadDeadlineNanos(long workloadDeadlineNanos) {
+        this.workloadDeadlineNanos = workloadDeadlineNanos;
     }
 
     public void dispose() {
@@ -93,11 +98,16 @@ class StageRunner implements StageCallable {
         stageContext.setTaskRegistry(registry);
     }
 
-    private static TaskContext createTaskContext(String id, SchedulePlan plan) {
+    private TaskContext createTaskContext(String id, SchedulePlan plan) {
         TaskContext context = new TaskContext();
         context.setId(id);
         context.setSchedule(plan);
         context.setState(TaskState.CREATED);
+        context.setWorkloadDeadlineNanos(workloadDeadlineNanos);
+        if (controllerContext.getDriverCommandClientProvider() != null) {
+            context.setDriverCommandClient(controllerContext.getDriverCommandClientProvider()
+                    .client(plan.getDriver().getUrl()));
+        }
         return context;
     }
 

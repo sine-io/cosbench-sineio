@@ -53,8 +53,6 @@ class Aborter extends AbstractCommandTasklet<AbortResponse> {
                 issueCommand("abort", id);
             } catch (Exception e) {
                 LOGGER.error("fail to abort driver", e);
-            } finally {
-                closeHttpClient();
             }
         } catch (Exception e) {
             LOGGER.error("unexpected exception", e);

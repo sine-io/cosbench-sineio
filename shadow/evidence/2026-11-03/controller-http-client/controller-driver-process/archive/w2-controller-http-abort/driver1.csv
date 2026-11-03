@@ -1,0 +1,2 @@
+Stage,Mission-ID,Task-ID,Task-Interval,Task-State,Schedule-offset,Work-Name,Workers
+s1-abort-stage,M7A002197ED,t1,0,ABORTED,0,read,1

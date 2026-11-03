@@ -1,0 +1,119 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-03T06:03:37.744Z  INFO 3963 --- [           main] c.i.c.a.c.ControllerApplication          : Starting ControllerApplication using Java 21.0.12.1 with PID 3963 (/workspace/shadow/cosbench-controller-app/target/classes started by root in /workspace)
+2026-11-03T06:03:37.749Z  INFO 3963 --- [           main] c.i.c.a.c.ControllerApplication          : No active profile set, falling back to 1 default profile: "default"
+2026-11-03T06:03:38.911Z  INFO 3963 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19487 (http)
+2026-11-03T06:03:38.933Z  INFO 3963 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-03T06:03:38.934Z  INFO 3963 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-03T06:03:39.003Z  INFO 3963 --- [           main] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring embedded WebApplicationContext
+2026-11-03T06:03:39.003Z  INFO 3963 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1146 ms
+(Log4jLogManager.java:121)
+2026-11-03 06:03:39,121 [main           ] [INFO ] - will append log to console
+2026-11-03T06:03:39.402Z  INFO 3963 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-11-03T06:03:39.403Z  INFO 3963 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-11-03T06:03:39.403Z  INFO 3963 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-11-03T06:03:39.403Z  INFO 3963 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-11-03T06:03:39.403Z  INFO 3963 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-11-03T06:03:39.403Z  INFO 3963 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-11-03T06:03:39.403Z  INFO 3963 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-11-03T06:03:39.403Z  INFO 3963 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+(SimpleWorkloadArchiver.java:61)
+2026-11-03 06:03:39,593 [main           ] [INFO ] - using /tmp/cosbench-controller-driver.jj7NX3/controller/archive for storing workload archives
+(SimpleWorkloadLoader.java:63)
+2026-11-03 06:03:39,594 [main           ] [INFO ] - loading workload archives from /tmp/cosbench-controller-driver.jj7NX3/controller/archive
+(PingDriverRunner.java:106)
+2026-11-03 06:03:39,596 [r-driver-pinger] [INFO ] - Trying to ping driver driver1 at https://127.0.0.1:19486/driver with ip=127.0.0.1, port=19486...
+(PingDriverRunner.java:124)
+2026-11-03 06:03:39,612 [r-driver-pinger] [INFO ] - The driver driver1 at https://127.0.0.1:19486/driver is reachable
+(PingDriverRunner.java:90)
+2026-11-03 06:03:39,612 [r-driver-pinger] [INFO ] - begin to sleep for 20 seconds.
+2026-11-03T06:03:40.020Z  INFO 3963 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 19487 (http) with context path '/controller'
+2026-11-03T06:03:40.032Z  INFO 3963 --- [           main] c.i.c.a.c.ControllerApplication          : Started ControllerApplication in 2.854 seconds (process running for 3.388)
+2026-11-03T06:03:40.227Z  INFO 3963 --- [.1-19487-exec-1] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-03T06:03:40.228Z  INFO 3963 --- [.1-19487-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-03T06:03:40.230Z  INFO 3963 --- [.1-19487-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+(WorkloadProcessor.java:138)
+2026-11-03 06:03:40,407 [pool-2-thread-1] [INFO ] - begin to process workload w1
+(WorkloadProcessor.java:220)
+2026-11-03 06:03:41,090 [pool-2-thread-1] [INFO ] - begin to run stage s1-main
+(WorkloadProcessor.java:222)
+2026-11-03 06:03:41,090 [pool-2-thread-1] [INFO ] - ============================================
+(WorkloadProcessor.java:223)
+2026-11-03 06:03:41,091 [pool-2-thread-1] [INFO ] - START WORK: main
+(AbstractCommandTasklet.java:62)
+2026-11-03 06:03:41,109 [pool-5-thread-1] [INFO ] - time drift between controller and driver-driver1 is 6 mSec
+(StageRunner.java:202)
+2026-11-03 06:03:41,110 [pool-3-thread-1] [INFO ] - successfully booted all tasks in stage s1-main
+(StageRunner.java:211)
+2026-11-03 06:03:41,218 [pool-3-thread-1] [INFO ] - successfully submitted all tasks in stage s1-main
+(StageRunner.java:220)
+2026-11-03 06:03:41,431 [pool-3-thread-1] [INFO ] - successfully authenticated all tasks in stage s1-main
+(StageRunner.java:233)
+2026-11-03 06:03:41,647 [pool-3-thread-1] [INFO ] - successfully launched all tasks in stage s1-main
+(PingDriverRunner.java:92)
+2026-11-03 06:03:59,613 [r-driver-pinger] [INFO ] - wake up from sleep.
+(PingDriverRunner.java:106)
+2026-11-03 06:03:59,613 [r-driver-pinger] [INFO ] - Trying to ping driver driver1 at https://127.0.0.1:19486/driver with ip=127.0.0.1, port=19486...
+(PingDriverRunner.java:124)
+2026-11-03 06:03:59,613 [r-driver-pinger] [INFO ] - The driver driver1 at https://127.0.0.1:19486/driver is reachable
+(PingDriverRunner.java:90)
+2026-11-03 06:03:59,613 [r-driver-pinger] [INFO ] - begin to sleep for 20 seconds.
+(StageRunner.java:251)
+2026-11-03 06:04:11,922 [pool-3-thread-1] [INFO ] - successfully queried all tasks in stage s1-main
+(StageRunner.java:260)
+2026-11-03 06:04:12,118 [pool-3-thread-1] [INFO ] - successfully closed all tasks in stage s1-main
+(StageRunner.java:183)
+2026-11-03 06:04:12,129 [pool-3-thread-1] [INFO ] - acceptable failure ratio of work s1-main-read = 0.2
+(StageRunner.java:184)
+2026-11-03 06:04:12,129 [pool-3-thread-1] [INFO ] - real failure ratio of work s1-main-read = 0.0
+(StageRunner.java:191)
+2026-11-03 06:04:12,129 [pool-3-thread-1] [INFO ] - successfully reach the goal of acceptable failure ratio in stage s1-main - work read
+(WorkloadProcessor.java:237)
+2026-11-03 06:04:14,153 [pool-2-thread-1] [INFO ] - END WORK:   main, Time elapsed: 0:0::33
+(WorkloadProcessor.java:238)
+2026-11-03 06:04:14,153 [pool-2-thread-1] [INFO ] - ============================================
+(WorkloadProcessor.java:243)
+2026-11-03 06:04:14,153 [pool-2-thread-1] [INFO ] - successfully ran stage s1-main
+(SimpleWorkloadArchiver.java:79)
+2026-11-03 06:04:14,368 [pool-2-thread-1] [INFO ] - workload w1 has been successfully archived
+(WorkloadProcessor.java:156)
+2026-11-03 06:04:14,368 [pool-2-thread-1] [INFO ] - sucessfully processed workload w1
+(WorkloadProcessor.java:138)
+2026-11-03 06:04:14,411 [pool-2-thread-1] [INFO ] - begin to process workload w2
+(WorkloadProcessor.java:220)
+2026-11-03 06:04:14,411 [pool-2-thread-1] [INFO ] - begin to run stage s1-abort-stage
+(WorkloadProcessor.java:222)
+2026-11-03 06:04:14,411 [pool-2-thread-1] [INFO ] - ============================================
+(WorkloadProcessor.java:223)
+2026-11-03 06:04:14,411 [pool-2-thread-1] [INFO ] - START WORK: abort-stage
+(AbstractCommandTasklet.java:62)
+2026-11-03 06:04:14,423 [pool-8-thread-1] [INFO ] - time drift between controller and driver-driver1 is 5 mSec
+(StageRunner.java:202)
+2026-11-03 06:04:14,423 [pool-7-thread-1] [INFO ] - successfully booted all tasks in stage s1-abort-stage
+(StageRunner.java:211)
+2026-11-03 06:04:14,462 [pool-7-thread-1] [INFO ] - successfully submitted all tasks in stage s1-abort-stage
+(StageRunner.java:220)
+2026-11-03 06:04:14,673 [pool-7-thread-1] [INFO ] - successfully authenticated all tasks in stage s1-abort-stage
+(WorkloadProcessor.java:356)
+2026-11-03 06:04:14,816 [pool-2-thread-1] [INFO ] - begin to cancel workload w2
+(StageRunner.java:278)
+2026-11-03 06:04:14,816 [pool-7-thread-1] [INFO ] - begin to cancel stage s1-abort-stage
+(StageRunner.java:299)
+2026-11-03 06:04:15,094 [pool-7-thread-1] [INFO ] - stage s1-abort-stage has been cancelled
+(SimpleWorkloadArchiver.java:79)
+2026-11-03 06:04:15,183 [pool-2-thread-1] [INFO ] - workload w2 has been successfully archived
+(WorkloadProcessor.java:380)
+2026-11-03 06:04:15,183 [pool-2-thread-1] [INFO ] - successfully cancelled workload w2
+PROBE_TERM_ADMISSION_REJECTED
+2026-11-03T06:04:15.387Z  INFO 3963 --- [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+(COSBControllerService.java:473)
+2026-11-03 06:04:15,388 [roller-shutdown] [INFO ] - Controller stopped: executor terminated, heartbeat terminated
+2026-11-03T06:04:15.392Z  INFO 3963 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete

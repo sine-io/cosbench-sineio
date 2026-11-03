@@ -48,6 +48,26 @@ class ControllerProcessTest {
     }
 
     @Test
+    void workloadDeadlineBoundsDelayStages() throws Exception {
+        try (var app = startWithWorkloadTimeout("1s")) {
+            long started = System.nanoTime();
+            assertEquals(200, submit(app, 8, true).statusCode(), readLog(app));
+            long deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(4);
+            String state = "";
+            while (System.nanoTime() < deadline) {
+                state = request(app, "/_probe/workloads/w1").body();
+                if (state.contains("FAILED")) {
+                    break;
+                }
+                Thread.sleep(50);
+            }
+            assertTrue(state.contains("FAILED"), state + "\n" + readLog(app));
+            assertTrue(System.nanoTime() - started < TimeUnit.SECONDS.toNanos(4), readLog(app));
+            assertTrue(readLog(app).contains("workload deadline expired during delay stage"), readLog(app));
+        }
+    }
+
+    @Test
     void termClosesAdmissionThenDrainsLocalWorkWithinGracePeriod() throws Exception {
         try (var app = start()) {
             assertEquals(200, submit(app, 3, true).statusCode(), readLog(app));
@@ -298,6 +318,15 @@ class ControllerProcessTest {
     }
 
     private RunningApp start(String gracePeriod, String loggingLevel, String pathLogs, String loggingFile) throws Exception {
+        return start(gracePeriod, loggingLevel, pathLogs, loggingFile, "1h");
+    }
+
+    private RunningApp startWithWorkloadTimeout(String workloadTimeout) throws Exception {
+        return start("5s", "INFO", "log/system.log", null, workloadTimeout);
+    }
+
+    private RunningApp start(String gracePeriod, String loggingLevel, String pathLogs, String loggingFile,
+            String workloadTimeout) throws Exception {
         int port;
         try (var socket = new ServerSocket(0)) {
             port = socket.getLocalPort();
@@ -314,10 +343,14 @@ class ControllerProcessTest {
                 logging:
                   level: "%s"
                   %s
+                http:
+                  timeouts:
+                    command: 1s
+                    workload: %s
                 shutdown:
                   gracePeriod: %s
                 """.formatted(port, pathLogs, loggingLevel,
-                        loggingFile == null ? "" : "file: \"" + loggingFile + "\"", gracePeriod));
+                        loggingFile == null ? "" : "file: \"" + loggingFile + "\"", workloadTimeout, gracePeriod));
         List<String> command = new ArrayList<>(List.of(
                 Path.of(System.getProperty("java.home"), "bin", "java").toString(),
                 "--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED",

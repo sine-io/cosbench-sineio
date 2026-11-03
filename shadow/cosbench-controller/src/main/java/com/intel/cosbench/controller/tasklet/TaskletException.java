@@ -28,4 +28,8 @@ class TaskletException extends RuntimeException {
         super();
     }
 
+    public TaskletException(Throwable cause) {
+        super(cause);
+    }
+
 }

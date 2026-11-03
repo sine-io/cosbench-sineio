@@ -43,22 +43,54 @@ class Querier extends AbstractCommandTasklet<QueryResponse> {
     protected void execute() {
         String id = context.getMissionId();
         do {
-            sleep();
+            if (!sleepUntilNextQuery()) {
+                return;
+            }
             try{
                 issueCommand("query", id);
             }catch(Exception tle) {
+                if (context.isWorkloadDeadlineExpired()) {
+                    markWorkloadTimedOut();
+                    return;
+                }
                 LOGGER.warn("some unexpected exception occurs when ping drivers, but it's ignorable.", tle);
             }
         } while (!context.getState().equals(FINISHED));
     }
 
-    private void sleep() {
+    private boolean sleepUntilNextQuery() {
         long seconds = context.getInterval();
         try {
-            Thread.sleep(seconds * 1000);
+            if (context.isWorkloadDeadlineExpired()) {
+                markWorkloadTimedOut();
+                return false;
+            }
+            if (context.getWorkloadDeadlineNanos() == Long.MAX_VALUE) {
+                Thread.sleep(seconds * 1000);
+                return true;
+            }
+            long remainingNanos = context.getWorkloadDeadlineNanos() - System.nanoTime();
+            if (remainingNanos <= 0) {
+                markWorkloadTimedOut();
+                return false;
+            }
+            long requestedNanos = java.util.concurrent.TimeUnit.SECONDS.toNanos(seconds);
+            if (requestedNanos >= remainingNanos) {
+                java.util.concurrent.TimeUnit.NANOSECONDS.sleep(remainingNanos);
+                markWorkloadTimedOut();
+                return false;
+            }
+            java.util.concurrent.TimeUnit.NANOSECONDS.sleep(requestedNanos);
+            return true;
         } catch (InterruptedException e) {
             throw new CancelledException(); // task cancelled
         }
+    }
+
+    private void markWorkloadTimedOut() {
+        context.setWorkloadTimedOut(true);
+        context.setState(com.intel.cosbench.model.TaskState.FAILED);
+        LOGGER.error("Driver query stopped because the workload deadline expired");
     }
 
     @Override

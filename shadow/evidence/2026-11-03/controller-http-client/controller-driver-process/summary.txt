@@ -1,0 +1,9 @@
+status=passed
+processes=separate-controller-and-driver
+transport=https-bearer-service-token
+workload=submit-login-launch-query-trigger-close
+page-session=expired-while-workload-processing
+long-running-state=processing-then-finished-after-session-expiry
+archive=workload-log-and-trigger-output-present
+cancel=controller-issued-driver-abort;driver-mission=ABORTED
+token=absent-from-logs-and-archive

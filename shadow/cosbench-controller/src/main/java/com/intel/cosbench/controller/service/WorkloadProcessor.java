@@ -21,6 +21,7 @@ import static com.intel.cosbench.model.WorkloadState.*;
 import static java.util.concurrent.TimeUnit.*;
 
 import java.util.*;
+import java.time.Duration;
 import java.util.concurrent.*;
 
 //import org.apache.commons.lang.StringUtils;
@@ -163,6 +164,9 @@ class WorkloadProcessor {
     private void processWorkload() throws InterruptedException {
         workloadContext.setState(PROCESSING);
         workloadContext.setStartDate(new Date());
+        Duration timeout = controllerContext.getWorkloadTimeout();
+        workloadContext.setWorkloadDeadlineNanos(timeout == null ? Long.MAX_VALUE
+                : System.nanoTime() + timeout.toNanos());
         Iterator<StageContext> iter = queue.iterator();
         String trigger = workloadContext.getWorkload().getTrigger();
         executeTrigger(trigger, true, workloadContext.getId());
@@ -170,6 +174,13 @@ class WorkloadProcessor {
             StageContext stageContext = iter.next();
             iter.remove();
             runStage(stageContext);
+            if (isWorkloadDeadlineExpired()) {
+                while (iter.hasNext()) {
+                    iter.next().setState(StageState.FAILED);
+                    iter.remove();
+                }
+                break;
+            }
         }
         executeTrigger(trigger, false, workloadContext.getId());
         workloadContext.setStopDate(new Date());
@@ -183,6 +194,11 @@ class WorkloadProcessor {
             }
         }
         workloadContext.setState(FINISHED);
+    }
+
+    private boolean isWorkloadDeadlineExpired() {
+        long deadline = workloadContext.getWorkloadDeadlineNanos();
+        return deadline != Long.MAX_VALUE && System.nanoTime() >= deadline;
     }
 
     private static String millisToHMS(long millis) {
@@ -210,7 +226,9 @@ class WorkloadProcessor {
 
         workloadContext.setCurrentStage(stageContext);
         if (stageName.equals("delay") && closuredelay > 0) {
-            executeDelay(stageContext, closuredelay);
+            if (!executeDelay(stageContext, closuredelay)) {
+                return;
+            }
         } else {
             executeStage(stageContext);
 
@@ -218,20 +236,35 @@ class WorkloadProcessor {
 
             LOGGER.info("END WORK:   {}, Time elapsed: {}", stageName, millisToHMS(elapsedTime));
             LOGGER.info("============================================");
-            if(closuredelay > 0)
-                executeDelay(stageContext, closuredelay);
+            if (closuredelay > 0 && !executeDelay(stageContext, closuredelay)) {
+                return;
+            }
         }
         LOGGER.info("successfully ran stage {}", id);
     }
 
-    private void executeDelay(StageContext stageContext, int closuredelay)
+    private boolean executeDelay(StageContext stageContext, int closuredelay)
             throws InterruptedException {
 
         LOGGER.info("sleeping for " + closuredelay + " seconds...");
         stageContext.setState(StageState.SLEEPING);
-        Thread.sleep(closuredelay * 1000);
+        long requestedNanos = SECONDS.toNanos(closuredelay);
+        long deadline = workloadContext.getWorkloadDeadlineNanos();
+        long remainingNanos = deadline == Long.MAX_VALUE ? Long.MAX_VALUE : deadline - System.nanoTime();
+        if (remainingNanos <= 0) {
+            stageContext.setState(StageState.FAILED);
+            LOGGER.warn("workload deadline expired before delay stage {} completed", stageContext.getId());
+            return false;
+        }
+        TimeUnit.NANOSECONDS.sleep(Math.min(requestedNanos, remainingNanos));
+        if (deadline != Long.MAX_VALUE && System.nanoTime() >= deadline) {
+            stageContext.setState(StageState.FAILED);
+            LOGGER.warn("workload deadline expired during delay stage {}", stageContext.getId());
+            return false;
+        }
         LOGGER.info("sleep complete.");
         stageContext.setState(StageState.COMPLETED);
+        return true;
     }
 
     private void executeStage(StageContext stageContext) {
@@ -260,6 +293,7 @@ class WorkloadProcessor {
         StageRunner runner = new StageRunner();
         runner.setStageContext(stageContext);
         runner.setControllerContext(controllerContext);
+        runner.setWorkloadDeadlineNanos(workloadContext.getWorkloadDeadlineNanos());
         runner.init();
         return runner;
     }
@@ -284,7 +318,8 @@ class WorkloadProcessor {
     private void executeTrigger(String trigger, boolean isEnable, String wsId) {
         if (trigger == null || trigger.isEmpty())
             return;
-        TriggerRunner runner = new TriggerRunner(workloadContext.getDriverRegistry());
+        TriggerRunner runner = new TriggerRunner(workloadContext.getDriverRegistry(),
+                controllerContext.getDriverCommandClientProvider(), workloadContext.getWorkloadDeadlineNanos());
         runner.runTrigger(isEnable, trigger, wsId);
     }
 

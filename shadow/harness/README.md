@@ -19,7 +19,7 @@ shadow/harness/run.sh /tmp/cosbench-provider-run -- \
   /bin/bash /workspace/path/to/provider-tests.sh
 ```
 
-The Java 21 container receives `COSBENCH_MINIO_ENDPOINT`, `COSBENCH_MINIO_BUCKET`, `COSBENCH_TOXIPROXY_ADMIN_URL`, and file paths in `COSBENCH_MINIO_ACCESS_KEY_FILE`, `COSBENCH_MINIO_SECRET_KEY_FILE`, `COSBENCH_HTTP_TEST_CERT_FILE`, `COSBENCH_HTTP_TEST_KEYSTORE_FILE`, and `COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE`.
+The Java 21 container receives `COSBENCH_MINIO_ENDPOINT`, `COSBENCH_MINIO_BUCKET`, `COSBENCH_TOXIPROXY_ADMIN_URL`, and file paths in `COSBENCH_MINIO_ACCESS_KEY_FILE`, `COSBENCH_MINIO_SECRET_KEY_FILE`, `COSBENCH_HTTP_TEST_CERT_FILE`, `COSBENCH_HTTP_TEST_KEYSTORE_FILE`, `COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE`, and `COSBENCH_TLS_STORE_PASSWORD_FILE`.
 
 Create an HTTP proxy, then add a downstream fault. Run these commands from inside the harness Java container, or set `COSBENCH_TOXIPROXY_ADMIN_URL` to the host-mapped admin endpoint:
 
@@ -35,4 +35,4 @@ Create an HTTP proxy, then add a downstream fault. Run these commands from insid
 
 The production `cosbench-sineio` module has its own SPI/MinIO/configuration/error tests. `sineio-driver-process.sh` loads two test-only probe classes alongside the packaged Driver, checks an exact production registry without Mock, starts a real MinIO read mission for each SineIO mode, and verifies TERM exit and port release. The normal `driver-process.sh` still runs the executable without probes. See [SineIO providers](../sineio-providers.md).
 
-The Driver HTTP checks exercise all eight commands on the production Boot listener with generated TLS material and the local Mock providers. They compare the baseline response fixtures, test service authentication separately from provider login, and cover failure, concurrent, late and lost-response replays. The packaged Driver replay also restarts the process and verifies that an old instance identity receives an unknown-result response. Reports include `driver-http-targeted-tests.log`, `http-contract-summary.txt`, `driver-process/summary.txt`, and the complete test reports under `tests/`.
+The Driver HTTP checks exercise all eight commands on the production Boot listener with generated TLS material and the local Mock providers. They compare the baseline response fixtures, test service authentication separately from provider login, and cover failure, concurrent, late and lost-response replays. The Controller/Driver process replay starts two independent Java processes, completes a 12-second Mock workload over authenticated HTTPS, runs its trigger, archives its state and checks both process logs and archive data for token leakage. The Controller HTTP tests also cover response loss, bounded retries, connection reuse and idle client reaping. Reports include `driver-http-targeted-tests.log`, `http-contract-summary.txt`, `controller-driver-process/summary.txt`, `driver-process/summary.txt`, and the complete test reports under `tests/`.

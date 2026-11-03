@@ -25,6 +25,7 @@ import com.intel.cosbench.config.*;
 //import com.intel.cosbench.log.LogFactory;
 import com.intel.cosbench.log.Logger;
 import com.intel.cosbench.model.*;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 public class WorkloadContext implements WorkloadInfo {
 
@@ -52,6 +53,7 @@ public class WorkloadContext implements WorkloadInfo {
     private String[] opInfo;
 
     private boolean archived = false;
+    private transient volatile long workloadDeadlineNanos = Long.MAX_VALUE;
 
  // private HashMap<String, HashMap<String, Integer>> errorStatistics = new HashMap<String, HashMap<String,Integer>>();
     private HashMap<String, ErrorSummary> errorStatistics = new HashMap<String, ErrorSummary>();
@@ -331,6 +333,15 @@ public class WorkloadContext implements WorkloadInfo {
 
     public void setDriverRegistry(DriverRegistry driverRegistry) {
         this.driverRegistry = driverRegistry;
+    }
+
+    @JsonIgnore
+    public long getWorkloadDeadlineNanos() {
+        return workloadDeadlineNanos;
+    }
+
+    public void setWorkloadDeadlineNanos(long workloadDeadlineNanos) {
+        this.workloadDeadlineNanos = workloadDeadlineNanos;
     }
 
     @Override

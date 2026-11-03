@@ -12,6 +12,7 @@ public final class DriverClientRegistry implements AutoCloseable {
 
     private final Map<URI, ClientEntry> clients = new HashMap<>();
     private final java.util.function.Function<URI, AuthenticatedDriverClient> clientFactory;
+    private boolean closed;
     private final java.util.concurrent.ScheduledExecutorService reaper =
             java.util.concurrent.Executors.newSingleThreadScheduledExecutor(task -> {
                 Thread thread = new Thread(task, "cosbench-driver-http-client-reaper");
@@ -55,6 +56,9 @@ public final class DriverClientRegistry implements AutoCloseable {
     }
 
     public synchronized AuthenticatedDriverClient client(URI endpoint) {
+        if (closed) {
+            throw new IllegalStateException("Driver HTTP client registry is closed");
+        }
         Objects.requireNonNull(endpoint, "endpoint");
         evictIdleLocked();
         ClientEntry entry = clients.computeIfAbsent(endpoint, ignored -> new ClientEntry(clientFactory.apply(endpoint)));
@@ -82,6 +86,10 @@ public final class DriverClientRegistry implements AutoCloseable {
 
     @Override
     public synchronized void close() {
+        if (closed) {
+            return;
+        }
+        closed = true;
         reaper.shutdownNow();
         clients.values().forEach(entry -> entry.client.close());
         clients.clear();

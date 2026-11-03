@@ -40,7 +40,6 @@ class Bootor extends AbstractCommandTasklet<PingResponse> {
 
     @Override
     public void execute() {
-        initHttpClient();
         initObjectMapper();
         issueCommand("ping");
         context.setState(BOOTED);

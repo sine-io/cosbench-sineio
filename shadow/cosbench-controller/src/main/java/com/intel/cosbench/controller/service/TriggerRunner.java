@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.intel.cosbench.controller.model.DriverRegistry;
+import com.intel.cosbench.controller.port.DriverCommandClientProvider;
 import com.intel.cosbench.controller.tasklet.Tasklet;
 import com.intel.cosbench.controller.tasklet.Tasklets;
 import com.intel.cosbench.log.LogFactory;
@@ -30,16 +31,22 @@ import com.intel.cosbench.log.Logger;
 
 public class TriggerRunner {
     DriverRegistry registry;
+    private final DriverCommandClientProvider clientProvider;
+    private final long workloadDeadlineNanos;
     private ExecutorService executor;
     private static final Logger LOGGER = LogFactory.getSystemLogger();
 
-    public TriggerRunner(DriverRegistry registry) {
+    public TriggerRunner(DriverRegistry registry, DriverCommandClientProvider clientProvider,
+            long workloadDeadlineNanos) {
         this.registry = registry;
+        this.clientProvider = clientProvider;
+        this.workloadDeadlineNanos = workloadDeadlineNanos;
         createExecutor();
     }
 
     public void runTrigger(boolean option, String trigger, String wsId) {
-        List<Tasklet> tasklets = Tasklets.newTriggers(trigger, registry, option, wsId);
+        List<Tasklet> tasklets = Tasklets.newTriggers(
+                trigger, registry, option, wsId, clientProvider, workloadDeadlineNanos);
         executeTasklets(tasklets, option);
         dispose();
     }

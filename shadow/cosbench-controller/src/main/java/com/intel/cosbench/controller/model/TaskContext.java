@@ -21,11 +21,12 @@ package com.intel.cosbench.controller.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.http.client.HttpClient;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import com.intel.cosbench.bench.*;
 import com.intel.cosbench.model.*;
+import com.intel.cosbench.controller.port.DriverCommandClient;
 
 public class TaskContext implements TaskInfo {
 
@@ -33,8 +34,10 @@ public class TaskContext implements TaskInfo {
     private volatile TaskState state;
     private SchedulePlan schedule;
 
-    private transient HttpClient httpClient;
     private transient ObjectMapper mapper;
+    private transient DriverCommandClient driverCommandClient;
+    private transient long workloadDeadlineNanos = Long.MAX_VALUE;
+    private transient volatile boolean workloadTimedOut;
 
     private String missionId;
     /* The interval that is chosen by the driver */
@@ -87,20 +90,45 @@ public class TaskContext implements TaskInfo {
         this.schedule = schedule;
     }
 
-    public HttpClient getHttpClient() {
-        return httpClient;
-    }
-
-    public void setHttpClient(HttpClient httpClient) {
-        this.httpClient = httpClient;
-    }
-
     public ObjectMapper getMapper() {
         return mapper;
     }
 
     public void setMapper(ObjectMapper mapper) {
         this.mapper = mapper;
+    }
+
+    @JsonIgnore
+    public DriverCommandClient getDriverCommandClient() {
+        return driverCommandClient;
+    }
+
+    public void setDriverCommandClient(DriverCommandClient driverCommandClient) {
+        this.driverCommandClient = driverCommandClient;
+    }
+
+    @JsonIgnore
+    public long getWorkloadDeadlineNanos() {
+        return workloadDeadlineNanos;
+    }
+
+    public void setWorkloadDeadlineNanos(long workloadDeadlineNanos) {
+        this.workloadDeadlineNanos = workloadDeadlineNanos;
+    }
+
+    @JsonIgnore
+    public boolean isWorkloadDeadlineExpired() {
+        return workloadDeadlineNanos != Long.MAX_VALUE && System.nanoTime() >= workloadDeadlineNanos;
+    }
+
+    @JsonIgnore
+    public boolean isWorkloadTimedOut() {
+        return workloadTimedOut;
+    }
+
+    @JsonIgnore
+    public void setWorkloadTimedOut(boolean workloadTimedOut) {
+        this.workloadTimedOut = workloadTimedOut;
     }
 
     @Override
@@ -156,8 +184,8 @@ public class TaskContext implements TaskInfo {
     @Override
     public void disposeRuntime() {
         if(TaskState.isStopped(state)) {
-            httpClient = null;
             mapper = null;
+            driverCommandClient = null;
             report = null;
             log = null;
             snapshot = new Snapshot();

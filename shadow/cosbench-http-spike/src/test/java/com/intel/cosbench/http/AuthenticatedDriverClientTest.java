@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
@@ -67,6 +68,53 @@ class AuthenticatedDriverClientTest {
             assertThat(executions).hasValue(1);
         } finally {
             client.close();
+        }
+    }
+
+    @Test
+    void sequentialCommandsReuseThePooledHttpConnection() throws Exception {
+        Set<Integer> remotePorts = ConcurrentHashMap.newKeySet();
+        server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        server.createContext("/driver/i/query.command", exchange -> {
+            remotePorts.add(exchange.getRemoteAddress().getPort());
+            respond(exchange, 200, "{\"running\":true}");
+        });
+        server.start();
+
+        try (AuthenticatedDriverClient client = client(1)) {
+            for (int request = 0; request < 6; request++) {
+                assertThat(client.query(new byte[0]).status()).isEqualTo(200);
+            }
+            assertThat(remotePorts).hasSize(1);
+        }
+    }
+
+    @Test
+    void idleEndpointClientIsEvictedAndRecreatedForTheSameDriver() throws Exception {
+        AtomicInteger calls = new AtomicInteger();
+        server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        server.createContext("/driver/i/query.command", exchange -> {
+            calls.incrementAndGet();
+            respond(exchange, 200, "ok");
+        });
+        server.start();
+        HttpClientSettings settings = new HttpClientSettings(2, 2, Duration.ofMillis(5),
+                Duration.ofSeconds(1), Duration.ofSeconds(2), Duration.ofSeconds(2),
+                Duration.ofSeconds(5), 1, Duration.ZERO, java.util.Set.of(503));
+        URI endpoint = URI.create("http://127.0.0.1:" + server.getAddress().getPort() + "/driver");
+
+        try (DriverClientRegistry registry = DriverClientRegistry.pooled(settings,
+                (uri, slots) -> AuthenticatedDriverClient.pooled(uri, "token", settings, null, slots))) {
+            AuthenticatedDriverClient first = registry.client(endpoint);
+            assertThat(first.query(new byte[0]).body()).isEqualTo("ok");
+            Thread.sleep(20);
+            registry.evictIdle();
+            assertThat(registry.size()).isZero();
+
+            AuthenticatedDriverClient replacement = registry.client(endpoint);
+            assertThat(replacement).isNotSameAs(first);
+            assertThat(replacement.query(new byte[0]).body()).isEqualTo("ok");
+            assertThat(calls).hasValue(2);
         }
     }
 
@@ -205,6 +253,44 @@ class AuthenticatedDriverClientTest {
                     "query", new byte[0], false, workloadDeadline))
                     .isInstanceOf(DriverTransportException.class)
                     .hasMessageContaining("command deadline expired");
+            assertThat(transportRequests(transport)).isEqualTo(2);
+        } finally {
+            client.close();
+        }
+    }
+
+    @Test
+    void unclassifiedTransportIoIsNotRetried() throws Exception {
+        HttpClient transport = org.mockito.Mockito.mock(HttpClient.class);
+        org.mockito.Mockito.when(transport.send(org.mockito.ArgumentMatchers.any(HttpRequest.class),
+                org.mockito.ArgumentMatchers.any(HttpResponse.BodyHandler.class)))
+                .thenThrow(new IOException("invalid HTTP protocol response"));
+        HttpClientSettings settings = settings(4);
+        AuthenticatedDriverClient client = new AuthenticatedDriverClient(
+                URI.create("http://127.0.0.1:1/driver"), "token", settings, null, transport);
+
+        try {
+            assertThatThrownBy(() -> client.query(new byte[0]))
+                    .isInstanceOf(DriverTransportException.class)
+                    .hasMessageContaining("failed after 1 attempt");
+            assertThat(transportRequests(transport)).isEqualTo(1);
+        } finally {
+            client.close();
+        }
+    }
+
+    @Test
+    void retriesJdkHttpClientConnectionEof() throws Exception {
+        HttpClient transport = org.mockito.Mockito.mock(HttpClient.class);
+        org.mockito.Mockito.when(transport.send(org.mockito.ArgumentMatchers.any(HttpRequest.class),
+                org.mockito.ArgumentMatchers.any(HttpResponse.BodyHandler.class)))
+                .thenThrow(new IOException("HTTP/1.1 header parser received no bytes"))
+                .thenReturn(response(200, "ok"));
+        AuthenticatedDriverClient client = new AuthenticatedDriverClient(
+                URI.create("http://127.0.0.1:1/driver"), "token", settings(2), null, transport);
+
+        try {
+            assertThat(client.query(new byte[0]).status()).isEqualTo(200);
             assertThat(transportRequests(transport)).isEqualTo(2);
         } finally {
             client.close();
@@ -409,6 +495,14 @@ class AuthenticatedDriverClientTest {
         }).when(transport).send(org.mockito.ArgumentMatchers.any(HttpRequest.class),
                 org.mockito.ArgumentMatchers.any(HttpResponse.BodyHandler.class));
         return transport;
+    }
+
+    private static HttpResponse<String> response(int status, String body) {
+        HttpResponse<String> response = org.mockito.Mockito.mock(HttpResponse.class);
+        org.mockito.Mockito.when(response.statusCode()).thenReturn(status);
+        org.mockito.Mockito.when(response.body()).thenReturn(body);
+        org.mockito.Mockito.when(response.headers()).thenReturn(HttpHeaders.of(Map.of(), (name, value) -> true));
+        return response;
     }
 
     private static int transportRequests(HttpClient transport) {

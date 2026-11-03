@@ -20,6 +20,7 @@ package com.intel.cosbench.controller.tasklet;
 import java.util.*;
 
 import com.intel.cosbench.controller.model.*;
+import com.intel.cosbench.controller.port.DriverCommandClientProvider;
 
 public class Tasklets {
 
@@ -79,10 +80,12 @@ public class Tasklets {
         return result;
     }
 
-    public static List<Tasklet> newTriggers(String trigger, DriverRegistry registry, boolean option, String wsId) {
+    public static List<Tasklet> newTriggers(String trigger, DriverRegistry registry, boolean option, String wsId,
+            DriverCommandClientProvider clientProvider, long workloadDeadlineNanos) {
         List<Tasklet> result = new ArrayList<Tasklet>();
         for (DriverContext driver : registry) {
-            result.add(new Trigger(driver, trigger, option, wsId));
+            result.add(new Trigger(driver, trigger, option, wsId,
+                    clientProvider.client(driver.getUrl()), workloadDeadlineNanos));
         }
         return result;
     }
