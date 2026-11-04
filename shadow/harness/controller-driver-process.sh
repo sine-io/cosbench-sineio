@@ -50,7 +50,7 @@ wait_for_workload_state() {
     local workload_id=$1 expected_state=$2 output_file=$3
     for ((attempt = 0; attempt < 200; attempt++)); do
         curl --silent --show-error --fail --max-time 2 \
-            "http://127.0.0.1:$controller_port/controller/_probe/workloads/$workload_id" \
+            "$controller_url/_probe/workloads/$workload_id" \
             > "$output_file"
         if grep -q "\"state\":\"$expected_state\"" "$output_file"; then
             return 0
@@ -66,6 +66,8 @@ repo=/workspace
 maven_repo=/tmp/maven-repository
 driver_port=19486
 controller_port=19487
+controller_context=/proxy/controller
+controller_url="http://127.0.0.1:$controller_port$controller_context"
 test_password=$(<"$COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE")
 export COSBENCH_HTTP_SERVICE_TOKEN
 export COSBENCH_TLS_STORE_PASSWORD_FILE="$COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE"
@@ -130,7 +132,7 @@ name: cross-process-controller
 listen:
   host: 127.0.0.1
   port: $controller_port
-  contextPath: /controller
+  contextPath: $controller_context
 paths:
   workspace: $runtime_dir/controller/workspace
   archive: $runtime_dir/controller/archive
@@ -188,13 +190,14 @@ grep -q '"accepting":true' "$report_dir/driver-health.json"
 
 java --add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED \
     -Djava.io.tmpdir="$runtime_dir/tmp" \
+    -Dprometheus.export.workloads.archived=true \
     -cp "$controller_cp" com.intel.cosbench.app.controller.ControllerApplication \
     --cosbench.config="$runtime_dir/conf/controller.yml" \
     '--spring.main.sources=com.intel.cosbench.testing.controller.ControllerProcessProbe$ProbeConfiguration' \
     > "$runtime_dir/controller.log" 2>&1 &
 controller_pid=$!
 for ((attempt = 0; attempt < 200; attempt++)); do
-    if curl --silent --fail --max-time 1 "http://127.0.0.1:$controller_port/controller/health" \
+    if curl --silent --fail --max-time 1 "$controller_url/health" \
         > "$report_dir/controller-health.json"; then
         break
     fi
@@ -221,7 +224,7 @@ XML
 curl --silent --show-error --fail --max-time 5 \
     --cookie-jar "$runtime_dir/page-session.cookies" \
     -H 'Content-Type: application/xml' --data-binary "@$runtime_dir/workload.xml" \
-    "http://127.0.0.1:$controller_port/controller/_probe/workloads?fire=true" \
+    "$controller_url/_probe/workloads?fire=true" \
     > "$report_dir/workload-submit.json"
 workload_id=$(sed -nE 's/.*"id":"([^"]+)".*/\1/p' "$report_dir/workload-submit.json")
 test -n "$workload_id"
@@ -231,26 +234,95 @@ grep -q 'JSESSIONID' "$runtime_dir/page-session.cookies"
 
 curl --silent --show-error --fail --max-time 2 \
     --cookie "$runtime_dir/page-session.cookies" \
-    "http://127.0.0.1:$controller_port/controller/_probe/session" \
+    "$controller_url/_probe/session" \
     > "$report_dir/page-session-created.json"
 grep -q '"present":true' "$report_dir/page-session-created.json"
 grep -q "\"workloadId\":\"$workload_id\"" "$report_dir/page-session-created.json"
 
 finished=0
+curl --silent --show-error --fail --max-time 3 --cookie "$runtime_dir/page-session.cookies" \
+    "$controller_url/logon.html" > "$report_dir/workload-logon.html"
+grep -q 'name="j_username"' "$report_dir/workload-logon.html"
+login_status=$(curl --silent --show-error --max-time 3 --cookie "$runtime_dir/page-session.cookies" \
+    --cookie-jar "$runtime_dir/page-session.cookies" --output "$report_dir/workload-login.response" \
+    --write-out '%{http_code}' --data 'j_username=anonymous&j_password=cosbench' \
+    "$controller_url/j_security_check")
+[[ $login_status == 302 ]]
+
+root_status=$(curl --silent --show-error --max-time 3 --output "$report_dir/context-root.response" \
+    --write-out '%{http_code}' --dump-header "$report_dir/context-root.headers" "$controller_url/")
+[[ $root_status == 302 ]]
+grep -q "$controller_context/index.html" "$report_dir/context-root.headers"
+denied_download_status=$(curl --silent --show-error --max-time 3 --output "$report_dir/context-denied-download.html" \
+    --write-out '%{http_code}' "$controller_url/download-log.do?id=$workload_id")
+[[ $denied_download_status == 302 ]]
+curl --silent --show-error --fail --max-time 3 --cookie "$runtime_dir/page-session.cookies" \
+    "$controller_url/logonError.html" > "$report_dir/workload-logon-error.html"
+grep -q 'no access permission' "$report_dir/workload-logon-error.html"
+for resource in resources/cosbench.css resources/build/dist/echarts.js resources/up_arrow.png; do
+    resource_name=${resource##*/}
+    curl --silent --show-error --fail --max-time 3 "$controller_url/$resource" \
+        --dump-header "$report_dir/context-$resource_name.headers" \
+        --output "$report_dir/context-$resource_name.body"
+    test -s "$report_dir/context-$resource_name.body"
+done
+grep -qi '^Content-Type: text/css' "$report_dir/context-cosbench.css.headers"
+grep -qi '^Content-Type: .*javascript' "$report_dir/context-echarts.js.headers"
+grep -qi '^Content-Type: image/png' "$report_dir/context-up_arrow.png.headers"
+
+curl --silent --show-error --fail --max-time 3 --cookie "$runtime_dir/page-session.cookies" \
+    "$controller_url/workload.html?id=$workload_id" > "$report_dir/workload-page-before-timeout.html"
+grep -q 'workload-state-processing state' "$report_dir/workload-page-before-timeout.html"
+timeout_exit=0
+timeout_code=$(curl --silent --show-error --max-time 0.2 --cookie "$runtime_dir/page-session.cookies" \
+    -H 'X-COSBENCH-TEST-DELAY-MILLIS: 1200' -H 'X-COSBENCH-TEST-REQUEST: timeout' \
+    --output "$report_dir/workload-page-timeout.response" --write-out '%{http_code}' \
+    "$controller_url/workload.html?id=$workload_id" 2> "$report_dir/workload-page-timeout.stderr") || timeout_exit=$?
+[[ $timeout_exit == 28 && $timeout_code == 000 ]]
+
+curl --silent --show-error --max-time 5 --cookie "$runtime_dir/page-session.cookies" \
+    -H 'X-COSBENCH-TEST-DELAY-MILLIS: 1200' -H 'X-COSBENCH-TEST-REQUEST: disconnect' \
+    --output "$report_dir/workload-page-disconnect.response" \
+    "$controller_url/workload.html?id=$workload_id" 2> "$report_dir/workload-page-disconnect.stderr" &
+disconnect_pid=$!
+for ((attempt = 0; attempt < 40; attempt++)); do
+    grep -q 'PROBE_PAGE_DELAY_STARTED requestId=disconnect' "$runtime_dir/controller.log" && break
+    sleep 0.05
+done
+grep -q 'PROBE_PAGE_DELAY_STARTED requestId=disconnect' "$runtime_dir/controller.log"
+kill -TERM "$disconnect_pid" 2>/dev/null || true
+disconnect_exit=0
+wait "$disconnect_pid" || disconnect_exit=$?
+[[ $disconnect_exit != 0 ]]
 sleep 12
 curl --silent --show-error --fail --max-time 2 \
     --cookie "$runtime_dir/page-session.cookies" \
-    "http://127.0.0.1:$controller_port/controller/_probe/session" \
+    "$controller_url/_probe/session" \
     > "$report_dir/page-session-state.json"
 grep -q '"present":false' "$report_dir/page-session-state.json"
 curl --silent --show-error --fail --max-time 2 \
-    "http://127.0.0.1:$controller_port/controller/_probe/workloads/$workload_id" \
+    "$controller_url/_probe/workloads/$workload_id" \
     > "$report_dir/workload-state-after-session-expiry.json"
 grep -q 'PROCESSING' "$report_dir/workload-state-after-session-expiry.json"
+expired_page_status=$(curl --silent --show-error --max-time 3 --cookie "$runtime_dir/page-session.cookies" \
+    --output "$report_dir/workload-page-expired-session.html" --write-out '%{http_code}' \
+    "$controller_url/workload.html?id=$workload_id")
+[[ $expired_page_status == 302 ]]
+web_session_cookies="$runtime_dir/relogin.cookies"
+relogin_status=$(curl --silent --show-error --max-time 3 --cookie-jar "$web_session_cookies" \
+    --output "$report_dir/workload-relogin.response" --write-out '%{http_code}' \
+    --data 'j_username=anonymous&j_password=cosbench' "$controller_url/j_security_check")
+[[ $relogin_status == 302 ]]
+resumed_page_status=$(curl --silent --show-error --fail --max-time 3 \
+    --cookie "$web_session_cookies" --output "$report_dir/workload-page-after-relogin.html" \
+    --write-out '%{http_code}' "$controller_url/workload.html?id=$workload_id")
+[[ $resumed_page_status == 200 ]]
+grep -q "id=$workload_id" "$report_dir/workload-page-after-relogin.html"
+grep -q 'workload-state-processing state' "$report_dir/workload-page-after-relogin.html"
 sleep 19
 for ((attempt = 0; attempt < 500; attempt++)); do
     curl --silent --show-error --fail --max-time 2 \
-        "http://127.0.0.1:$controller_port/controller/_probe/workloads/$workload_id" \
+        "$controller_url/_probe/workloads/$workload_id" \
         > "$report_dir/workload-state.json"
     if grep -q 'FINISHED' "$report_dir/workload-state.json"; then
         finished=1
@@ -267,12 +339,86 @@ done
 [[ $finished == 1 ]]
 
 curl --silent --show-error --fail --max-time 3 \
-    "http://127.0.0.1:$controller_port/controller/_probe/archive/$workload_id" > "$report_dir/workload-archive.json"
+    "$controller_url/_probe/archive/$workload_id" > "$report_dir/workload-archive.json"
+curl --silent --show-error --fail --max-time 3 --cookie "$web_session_cookies" \
+    "$controller_url/workload.html?id=$workload_id" > "$report_dir/workload-page-finished.html"
+grep -q 'workload-state-finished state' "$report_dir/workload-page-finished.html"
+stage_link=$(grep -oE "stage\.html\?wid=${workload_id}(&amp;|&)sid=[A-Za-z0-9_.-]+" \
+    "$report_dir/workload-page-finished.html" | head -n 1)
+stage_id=${stage_link##*sid=}
+test -n "$stage_id"
+
+curl --silent --show-error --fail --max-time 3 --cookie "$web_session_cookies" \
+    "$controller_url/stage.html?wid=$workload_id&sid=$stage_id" > "$report_dir/workload-stage.html"
+grep -q "$workload_id-$stage_id" "$report_dir/workload-stage.html"
+grep -q 'stage-state-completed state' "$report_dir/workload-stage.html"
+curl --silent --show-error --fail --max-time 3 --cookie "$web_session_cookies" \
+    "$controller_url/timeline.html?wid=$workload_id&sid=$stage_id" > "$report_dir/workload-timeline.html"
+grep -q 'Stage Timeline Status' "$report_dir/workload-timeline.html"
+grep -q "$stage_id" "$report_dir/workload-timeline.html"
+curl --silent --show-error --fail --max-time 3 --cookie "$web_session_cookies" \
+    --dump-header "$report_dir/workload-timeline.csv.headers" \
+    --output "$report_dir/workload-timeline.csv" \
+    "$controller_url/timeline.csv?wid=$workload_id&sid=$stage_id"
+grep -qi '^Content-Type: text/csv' "$report_dir/workload-timeline.csv.headers"
+grep -q '^Timestamp,Op-Count' "$report_dir/workload-timeline.csv"
+grep -q 'Version-Info' "$report_dir/workload-timeline.csv"
+
+curl --silent --show-error --fail --max-time 3 --cookie "$web_session_cookies" \
+    --dump-header "$report_dir/workload-log.headers" --output "$report_dir/workload-log.txt" \
+    "$controller_url/download-log.do?id=$workload_id"
+grep -qi '^Content-Type: text/plain' "$report_dir/workload-log.headers"
+grep -qi '^Content-Disposition: attachment; filename="workload-log.txt"' "$report_dir/workload-log.headers"
+log_length=$(awk 'tolower($1) == "content-length:" { print $2 }' \
+    "$report_dir/workload-log.headers" | tr -d '\r')
+[[ $log_length == "$(wc -c < "$report_dir/workload-log.txt" | tr -d '[:space:]')" ]]
+
+curl --silent --show-error --fail --max-time 3 --cookie "$web_session_cookies" \
+    --dump-header "$report_dir/workload-config.headers" --output "$report_dir/workload-config.xml" \
+    "$controller_url/download-config.do?id=$workload_id"
+grep -qi '^Content-Type: application/xml' "$report_dir/workload-config.headers"
+grep -qi '^Content-Disposition: attachment; filename="workload-config.xml"' \
+    "$report_dir/workload-config.headers"
+config_length=$(awk 'tolower($1) == "content-length:" { print $2 }' \
+    "$report_dir/workload-config.headers" | tr -d '\r')
+[[ $config_length == "$(wc -c < "$report_dir/workload-config.xml" | tr -d '[:space:]')" ]]
+grep -q 'controller-http-long' "$report_dir/workload-config.xml"
+
+missing_stage_status=$(curl --silent --show-error --max-time 3 --cookie "$web_session_cookies" \
+    --output "$report_dir/workload-stage-missing.html" --write-out '%{http_code}' \
+    "$controller_url/stage.html?wid=$workload_id&sid=missing")
+[[ $missing_stage_status == 200 ]]
+grep -q '404 Not Found' "$report_dir/workload-stage-missing.html"
+missing_log_status=$(curl --silent --show-error --max-time 3 --cookie "$web_session_cookies" \
+    --output "$report_dir/workload-log-missing.html" --write-out '%{http_code}' \
+    "$controller_url/download-log.do?id=not-found")
+[[ $missing_log_status == 200 ]]
+grep -q '404 Not Found' "$report_dir/workload-log-missing.html"
+
+curl --silent --show-error --fail --max-time 3 --dump-header "$report_dir/workload-prometheus.headers" \
+    "$controller_url/prometheus" > "$report_dir/workload-prometheus.txt"
+grep -Eqi '^Content-Type: text/plain;[[:space:]]*version=0.0.4' "$report_dir/workload-prometheus.headers"
+grep -Eq "^cosbench_workload_state[[:space:]]+[{][^}]*workload=\"$workload_id \\(controller-http-long\\)\"[^}]*}[[:space:]]2([.]0)?$" \
+    "$report_dir/workload-prometheus.txt"
+for metric in workload_ops_count workload_byte_count workload_average_response_time \
+    workload_average_transfer_time workload_average_process_time workload_throughput \
+    workload_bandwidth workload_success_ratio; do
+    grep -Eq "^cosbench_${metric}[[:space:]]+[{][^}]*workload=\"$workload_id \\(controller-http-long\\)\"[^}]*}[[:space:]][-+]?[0-9]+([.][0-9]+)?$" \
+        "$report_dir/workload-prometheus.txt"
+done
+operation_sample=$(grep -E '^cosbench_workload_ops_count[[:space:]]' \
+    "$report_dir/workload-prometheus.txt" | head -n 1)
+[[ $operation_sample == *'operation_name="'* && $operation_sample == *'unit="operation"'* ]]
+operation_count=$(sed -E 's/.*}[[:space:]]([-+]?[0-9]+([.][0-9]+)?)([[:space:]]+[0-9]+)?$/\1/' <<< "$operation_sample")
+awk -v value="$operation_count" 'BEGIN { exit !(value > 0) }'
+
 grep -q 'baseline-trigger-ok' "$runtime_dir/controller/archive/$workload_id-controller-http-long/scripts.log"
 grep -q 'controller-http-long' "$runtime_dir/controller/archive/run-history.csv"
 grep -q 'mission .* has been authed successfully' "$runtime_dir/driver.log"
 grep -q 'mission .* has been executed successfully' "$runtime_dir/driver.log"
 grep -q 'mission .* has been closed successfully' "$runtime_dir/driver.log"
+grep -q "PROBE_PAGE_DELAY_STARTED requestId=timeout workloadId=$workload_id" "$runtime_dir/controller.log"
+grep -q "PROBE_PAGE_DELAY_STARTED requestId=disconnect workloadId=$workload_id" "$runtime_dir/controller.log"
 
 cat > "$runtime_dir/abort-workload.xml" <<'XML'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -291,7 +437,7 @@ XML
 
 curl --silent --show-error --fail --max-time 5 \
     -H 'Content-Type: application/xml' --data-binary "@$runtime_dir/abort-workload.xml" \
-    "http://127.0.0.1:$controller_port/controller/_probe/workloads?fire=true" \
+    "$controller_url/_probe/workloads?fire=true" \
     > "$report_dir/abort-workload-submit.json"
 abort_workload_id=$(sed -nE 's/.*"id":"([^"]+)".*/\1/p' "$report_dir/abort-workload-submit.json")
 test -n "$abort_workload_id"
@@ -300,7 +446,7 @@ abort_mission_id=
 mission_launched=0
 for ((attempt = 0; attempt < 100; attempt++)); do
     curl --silent --show-error --fail --max-time 2 \
-        "http://127.0.0.1:$controller_port/controller/_probe/workloads/$abort_workload_id/missions" \
+        "$controller_url/_probe/workloads/$abort_workload_id/missions" \
         > "$report_dir/abort-workload-missions.json"
     abort_mission_id=$(sed -nE 's/.*"missionIds":\["([^"]+)"\].*/\1/p' \
         "$report_dir/abort-workload-missions.json")
@@ -318,12 +464,12 @@ done
 [[ $mission_launched == 1 ]]
 
 curl --silent --show-error --fail --max-time 5 -X POST \
-    "http://127.0.0.1:$controller_port/controller/_probe/workloads/$abort_workload_id/cancel" \
+    "$controller_url/_probe/workloads/$abort_workload_id/cancel" \
     > "$report_dir/abort-workload-cancel.json"
 cancelled=0
 for ((attempt = 0; attempt < 300; attempt++)); do
     curl --silent --show-error --fail --max-time 2 \
-        "http://127.0.0.1:$controller_port/controller/_probe/workloads/$abort_workload_id" \
+        "$controller_url/_probe/workloads/$abort_workload_id" \
         > "$report_dir/abort-workload-state.json"
     if grep -q 'CANCELLED' "$report_dir/abort-workload-state.json"; then
         cancelled=1
@@ -346,7 +492,6 @@ for ((attempt = 0; attempt < 100; attempt++)); do
 done
 [[ $mission_aborted == 1 ]]
 
-controller_url="http://127.0.0.1:$controller_port/controller"
 web_fixture="$repo/shadow/harness/fixtures/controller-web-actions.xml"
 curl --silent --show-error --fail --max-time 3 --cookie-jar "$runtime_dir/web.cookies" \
     "$controller_url/logon.html" > "$report_dir/web-logon.html"

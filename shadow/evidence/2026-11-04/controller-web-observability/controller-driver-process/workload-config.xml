@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workload name="controller-http-long" trigger="baseline-trigger.sh()" config="">
+    <auth type="mock" config="delay=0;errors=0"/>
+    <storage type="mock" config="size=64;delay=50;errors=0"/>
+    <workflow config="">
+        <workstage name="main" closuredelay="0" config="">
+            <auth type="mock" config="delay=0;errors=0"/>
+            <storage type="mock" config="size=64;delay=50;errors=0"/>
+            <work name="read" type="normal" workers="1" interval="5"
+                division="none" runtime="30" rampup="0" rampdown="0"
+                afr="200000" totalOps="0" totalBytes="0" config="">
+                <auth type="mock" config="delay=0;errors=0"/>
+                <storage type="mock" config="size=64;delay=50;errors=0"/>
+                <operation type="read" ratio="100" division="none"
+                    config="containers=c(1);objects=c(1)" id="op1"/>
+            </work>
+        </workstage>
+    </workflow>
+</workload>

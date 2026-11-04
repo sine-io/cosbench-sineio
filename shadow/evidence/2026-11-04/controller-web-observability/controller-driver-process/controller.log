@@ -1,0 +1,431 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-04T03:09:23.036Z  INFO 355 --- [           main] c.i.c.a.c.ControllerApplication          : Starting ControllerApplication using Java 21.0.12.1 with PID 355 (/workspace/shadow/cosbench-controller-app/target/classes started by root in /workspace)
+2026-11-04T03:09:23.041Z  INFO 355 --- [           main] c.i.c.a.c.ControllerApplication          : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T03:09:24.292Z  INFO 355 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19487 (http)
+2026-11-04T03:09:24.309Z  INFO 355 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-04T03:09:24.309Z  INFO 355 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-04T03:09:24.366Z  INFO 355 --- [           main] o.a.c.c.C.[.[.[/proxy/controller]        : Initializing Spring embedded WebApplicationContext
+2026-11-04T03:09:24.367Z  INFO 355 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1219 ms
+(Log4jLogManager.java:121)
+2026-11-04 03:09:24,469 [main           ] [INFO ] - will append log to console
+2026-11-04T03:09:24.896Z  INFO 355 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-11-04T03:09:24.896Z  INFO 355 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-11-04T03:09:24.896Z  INFO 355 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-11-04T03:09:24.896Z  INFO 355 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-11-04T03:09:24.896Z  INFO 355 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-11-04T03:09:24.896Z  INFO 355 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-11-04T03:09:24.896Z  INFO 355 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-11-04T03:09:24.897Z  INFO 355 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+(SimpleWorkloadArchiver.java:61)
+2026-11-04 03:09:25,112 [main           ] [INFO ] - using /tmp/cosbench-controller-driver.CBdp2T/controller/archive for storing workload archives
+(SimpleWorkloadLoader.java:63)
+2026-11-04 03:09:25,113 [main           ] [INFO ] - loading workload archives from /tmp/cosbench-controller-driver.CBdp2T/controller/archive
+(PingDriverRunner.java:106)
+2026-11-04 03:09:25,115 [r-driver-pinger] [INFO ] - Trying to ping driver driver1 at https://127.0.0.1:19486/driver with ip=127.0.0.1, port=19486...
+(PingDriverRunner.java:124)
+2026-11-04 03:09:25,126 [r-driver-pinger] [INFO ] - The driver driver1 at https://127.0.0.1:19486/driver is reachable
+(PingDriverRunner.java:90)
+2026-11-04 03:09:25,127 [r-driver-pinger] [INFO ] - begin to sleep for 20 seconds.
+2026-11-04T03:09:25.372Z  INFO 355 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name controllerWebUsers
+2026-11-04T03:09:25.516Z  INFO 355 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-11-04T03:09:25.802Z  INFO 355 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 19487 (http) with context path '/proxy/controller'
+2026-11-04T03:09:25.813Z  INFO 355 --- [           main] c.i.c.a.c.ControllerApplication          : Started ControllerApplication in 3.444 seconds (process running for 3.91)
+2026-11-04T03:09:25.850Z  INFO 355 --- [.1-19487-exec-1] o.a.c.c.C.[.[.[/proxy/controller]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-04T03:09:25.850Z  INFO 355 --- [.1-19487-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-04T03:09:25.851Z  INFO 355 --- [.1-19487-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+(WorkloadProcessor.java:138)
+2026-11-04 03:09:25,989 [pool-2-thread-1] [INFO ] - begin to process workload w1
+java.io.FileNotFoundException: /etc/cosbench/cosbench-users.xml (No such file or directory)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:213)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:152)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.connect(FileURLConnection.java:84)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.getInputStream(FileURLConnection.java:186)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLEntityManager.setupCurrentEntity(XMLEntityManager.java:654)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLVersionDetector.determineDocVersion(XMLVersionDetector.java:150)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:861)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:825)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:247)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:342)
+	at java.xml/javax.xml.parsers.DocumentBuilder.parse(DocumentBuilder.java:206)
+	at com.intel.cosbench.utils.AuthValidator.NeedLogon(AuthValidator.java:60)
+	at com.intel.cosbench.utils.AuthValidator.NeedLogon(AuthValidator.java:52)
+	at com.intel.cosbench.controller.web.LogonPageController.process(LogonPageController.java:47)
+	at com.intel.cosbench.web.AbstractController.handleRequest(AbstractController.java:44)
+	at org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter.handle(SimpleControllerHandlerAdapter.java:51)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at com.intel.cosbench.testing.controller.ControllerProcessProbe$ProbeConfiguration$1.doFilter(ControllerProcessProbe.java:73)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:370)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:235)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:229)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:492)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:1272)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1797)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+(WorkloadProcessor.java:220)
+2026-11-04 03:09:26,865 [pool-2-thread-1] [INFO ] - begin to run stage s1-main
+(WorkloadProcessor.java:222)
+2026-11-04 03:09:26,865 [pool-2-thread-1] [INFO ] - ============================================
+(WorkloadProcessor.java:223)
+2026-11-04 03:09:26,865 [pool-2-thread-1] [INFO ] - START WORK: main
+(AbstractCommandTasklet.java:62)
+2026-11-04 03:09:26,884 [pool-5-thread-1] [INFO ] - time drift between controller and driver-driver1 is 5 mSec
+(StageRunner.java:202)
+2026-11-04 03:09:26,886 [pool-3-thread-1] [INFO ] - successfully booted all tasks in stage s1-main
+(StageRunner.java:211)
+2026-11-04 03:09:27,104 [pool-3-thread-1] [INFO ] - successfully submitted all tasks in stage s1-main
+(StageRunner.java:220)
+2026-11-04 03:09:27,332 [pool-3-thread-1] [INFO ] - successfully authenticated all tasks in stage s1-main
+PROBE_PAGE_DELAY_STARTED requestId=timeout workloadId=w1
+(StageRunner.java:233)
+2026-11-04 03:09:27,552 [pool-3-thread-1] [INFO ] - successfully launched all tasks in stage s1-main
+PROBE_PAGE_DELAY_STARTED requestId=disconnect workloadId=w1
+(PingDriverRunner.java:92)
+2026-11-04 03:09:45,127 [r-driver-pinger] [INFO ] - wake up from sleep.
+(PingDriverRunner.java:106)
+2026-11-04 03:09:45,128 [r-driver-pinger] [INFO ] - Trying to ping driver driver1 at https://127.0.0.1:19486/driver with ip=127.0.0.1, port=19486...
+(PingDriverRunner.java:124)
+2026-11-04 03:09:45,128 [r-driver-pinger] [INFO ] - The driver driver1 at https://127.0.0.1:19486/driver is reachable
+(PingDriverRunner.java:90)
+2026-11-04 03:09:45,128 [r-driver-pinger] [INFO ] - begin to sleep for 20 seconds.
+(StageRunner.java:251)
+2026-11-04 03:09:57,878 [pool-3-thread-1] [INFO ] - successfully queried all tasks in stage s1-main
+(StageRunner.java:260)
+2026-11-04 03:09:58,032 [pool-3-thread-1] [INFO ] - successfully closed all tasks in stage s1-main
+(StageRunner.java:183)
+2026-11-04 03:09:58,039 [pool-3-thread-1] [INFO ] - acceptable failure ratio of work s1-main-read = 0.2
+(StageRunner.java:184)
+2026-11-04 03:09:58,039 [pool-3-thread-1] [INFO ] - real failure ratio of work s1-main-read = 0.0
+(StageRunner.java:191)
+2026-11-04 03:09:58,039 [pool-3-thread-1] [INFO ] - successfully reach the goal of acceptable failure ratio in stage s1-main - work read
+(WorkloadProcessor.java:237)
+2026-11-04 03:10:00,058 [pool-2-thread-1] [INFO ] - END WORK:   main, Time elapsed: 0:0::33
+(WorkloadProcessor.java:238)
+2026-11-04 03:10:00,058 [pool-2-thread-1] [INFO ] - ============================================
+(WorkloadProcessor.java:243)
+2026-11-04 03:10:00,058 [pool-2-thread-1] [INFO ] - successfully ran stage s1-main
+(SimpleWorkloadArchiver.java:79)
+2026-11-04 03:10:00,224 [pool-2-thread-1] [INFO ] - workload w1 has been successfully archived
+(WorkloadProcessor.java:156)
+2026-11-04 03:10:00,225 [pool-2-thread-1] [INFO ] - sucessfully processed workload w1
+(WorkloadProcessor.java:138)
+2026-11-04 03:10:00,590 [pool-2-thread-1] [INFO ] - begin to process workload w2
+(WorkloadProcessor.java:220)
+2026-11-04 03:10:00,590 [pool-2-thread-1] [INFO ] - begin to run stage s1-abort-stage
+(WorkloadProcessor.java:222)
+2026-11-04 03:10:00,591 [pool-2-thread-1] [INFO ] - ============================================
+(WorkloadProcessor.java:223)
+2026-11-04 03:10:00,591 [pool-2-thread-1] [INFO ] - START WORK: abort-stage
+(AbstractCommandTasklet.java:62)
+2026-11-04 03:10:00,599 [pool-8-thread-1] [INFO ] - time drift between controller and driver-driver1 is 3 mSec
+(StageRunner.java:202)
+2026-11-04 03:10:00,600 [pool-7-thread-1] [INFO ] - successfully booted all tasks in stage s1-abort-stage
+(StageRunner.java:211)
+2026-11-04 03:10:00,622 [pool-7-thread-1] [INFO ] - successfully submitted all tasks in stage s1-abort-stage
+(StageRunner.java:220)
+2026-11-04 03:10:00,833 [pool-7-thread-1] [INFO ] - successfully authenticated all tasks in stage s1-abort-stage
+(WorkloadProcessor.java:356)
+2026-11-04 03:10:00,898 [pool-2-thread-1] [INFO ] - begin to cancel workload w2
+(StageRunner.java:278)
+2026-11-04 03:10:00,898 [pool-7-thread-1] [INFO ] - begin to cancel stage s1-abort-stage
+(StageRunner.java:299)
+2026-11-04 03:10:01,205 [pool-7-thread-1] [INFO ] - stage s1-abort-stage has been cancelled
+(SimpleWorkloadArchiver.java:79)
+2026-11-04 03:10:01,287 [pool-2-thread-1] [INFO ] - workload w2 has been successfully archived
+(WorkloadProcessor.java:380)
+2026-11-04 03:10:01,288 [pool-2-thread-1] [INFO ] - successfully cancelled workload w2
+java.io.FileNotFoundException: /etc/cosbench/cosbench-users.xml (No such file or directory)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:213)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:152)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.connect(FileURLConnection.java:84)
+	at java.base/sun.net.www.protocol.file.FileURLConnection.getInputStream(FileURLConnection.java:186)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLEntityManager.setupCurrentEntity(XMLEntityManager.java:654)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLVersionDetector.determineDocVersion(XMLVersionDetector.java:150)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:861)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:825)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:247)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:342)
+	at java.xml/javax.xml.parsers.DocumentBuilder.parse(DocumentBuilder.java:206)
+	at com.intel.cosbench.utils.AuthValidator.NeedLogon(AuthValidator.java:60)
+	at com.intel.cosbench.utils.AuthValidator.NeedLogon(AuthValidator.java:52)
+	at com.intel.cosbench.controller.web.LogonPageController.process(LogonPageController.java:47)
+	at com.intel.cosbench.web.AbstractController.handleRequest(AbstractController.java:44)
+	at org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter.handle(SimpleControllerHandlerAdapter.java:51)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at com.intel.cosbench.testing.controller.ControllerProcessProbe$ProbeConfiguration$1.doFilter(ControllerProcessProbe.java:73)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:370)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:235)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:229)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:379)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:492)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:1272)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1797)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+(WorkloadProcessor.java:138)
+2026-11-04 03:10:01,612 [pool-2-thread-1] [INFO ] - begin to process workload w3
+(WorkloadProcessor.java:220)
+2026-11-04 03:10:01,631 [pool-2-thread-1] [INFO ] - begin to run stage s1-main
+(WorkloadProcessor.java:222)
+2026-11-04 03:10:01,631 [pool-2-thread-1] [INFO ] - ============================================
+(WorkloadProcessor.java:223)
+2026-11-04 03:10:01,631 [pool-2-thread-1] [INFO ] - START WORK: main
+(AbstractCommandTasklet.java:62)
+2026-11-04 03:10:01,641 [ool-12-thread-1] [INFO ] - time drift between controller and driver-driver1 is 4 mSec
+(StageRunner.java:202)
+2026-11-04 03:10:01,642 [ool-10-thread-1] [INFO ] - successfully booted all tasks in stage s1-main
+(StageRunner.java:211)
+2026-11-04 03:10:01,658 [ool-10-thread-1] [INFO ] - successfully submitted all tasks in stage s1-main
+(StageRunner.java:220)
+2026-11-04 03:10:01,871 [ool-10-thread-1] [INFO ] - successfully authenticated all tasks in stage s1-main
+(StageRunner.java:233)
+2026-11-04 03:10:02,095 [ool-10-thread-1] [INFO ] - successfully launched all tasks in stage s1-main
+(SimpleWorkloadArchiver.java:79)
+2026-11-04 03:10:03,120 [.1-19487-exec-1] [INFO ] - workload w6 has been successfully archived
+(WorkloadProcessor.java:339)
+2026-11-04 03:10:03,120 [.1-19487-exec-1] [INFO ] - successfully cancelled workload w6
+(SimpleWorkloadArchiver.java:79)
+2026-11-04 03:10:03,630 [.1-19487-exec-1] [INFO ] - workload w7 has been successfully archived
+(WorkloadProcessor.java:339)
+2026-11-04 03:10:03,630 [.1-19487-exec-1] [INFO ] - successfully cancelled workload w7
+(SimpleWorkloadArchiver.java:79)
+2026-11-04 03:10:04,198 [.1-19487-exec-7] [INFO ] - workload w4 has been successfully archived
+(WorkloadProcessor.java:339)
+2026-11-04 03:10:04,200 [.1-19487-exec-7] [INFO ] - successfully cancelled workload w4
+(SimpleWorkloadArchiver.java:79)
+2026-11-04 03:10:04,734 [.1-19487-exec-1] [INFO ] - workload w5 has been successfully archived
+(WorkloadProcessor.java:339)
+2026-11-04 03:10:04,734 [.1-19487-exec-1] [INFO ] - successfully cancelled workload w5
+(PingDriverRunner.java:92)
+2026-11-04 03:10:05,128 [r-driver-pinger] [INFO ] - wake up from sleep.
+(PingDriverRunner.java:106)
+2026-11-04 03:10:05,129 [r-driver-pinger] [INFO ] - Trying to ping driver driver1 at https://127.0.0.1:19486/driver with ip=127.0.0.1, port=19486...
+(PingDriverRunner.java:124)
+2026-11-04 03:10:05,129 [r-driver-pinger] [INFO ] - The driver driver1 at https://127.0.0.1:19486/driver is reachable
+(PingDriverRunner.java:90)
+2026-11-04 03:10:05,129 [r-driver-pinger] [INFO ] - begin to sleep for 20 seconds.
+(StageRunner.java:278)
+2026-11-04 03:10:05,255 [ool-10-thread-1] [INFO ] - begin to cancel stage s1-main
+(WorkloadProcessor.java:356)
+2026-11-04 03:10:05,255 [pool-2-thread-1] [INFO ] - begin to cancel workload w3
+(StageRunner.java:299)
+2026-11-04 03:10:05,498 [ool-10-thread-1] [INFO ] - stage s1-main has been cancelled
+(SimpleWorkloadArchiver.java:79)
+2026-11-04 03:10:05,551 [pool-2-thread-1] [INFO ] - workload w3 has been successfully archived
+(WorkloadProcessor.java:380)
+2026-11-04 03:10:05,551 [pool-2-thread-1] [INFO ] - successfully cancelled workload w3
+(WorkloadProcessor.java:138)
+2026-11-04 03:10:05,785 [pool-2-thread-1] [INFO ] - begin to process workload w8
+(WorkloadProcessor.java:220)
+2026-11-04 03:10:05,800 [pool-2-thread-1] [INFO ] - begin to run stage s1-main
+(WorkloadProcessor.java:222)
+2026-11-04 03:10:05,801 [pool-2-thread-1] [INFO ] - ============================================
+(WorkloadProcessor.java:223)
+2026-11-04 03:10:05,801 [pool-2-thread-1] [INFO ] - START WORK: main
+(AbstractCommandTasklet.java:62)
+2026-11-04 03:10:05,806 [ool-21-thread-1] [INFO ] - time drift between controller and driver-driver1 is 2 mSec
+(StageRunner.java:202)
+2026-11-04 03:10:05,807 [ool-19-thread-1] [INFO ] - successfully booted all tasks in stage s1-main
+(StageRunner.java:211)
+2026-11-04 03:10:05,831 [ool-19-thread-1] [INFO ] - successfully submitted all tasks in stage s1-main
+(WorkloadProcessor.java:356)
+2026-11-04 03:10:06,020 [pool-2-thread-1] [INFO ] - begin to cancel workload w8
+(StageRunner.java:278)
+2026-11-04 03:10:06,020 [ool-19-thread-1] [INFO ] - begin to cancel stage s1-main
+(StageRunner.java:299)
+2026-11-04 03:10:06,267 [ool-19-thread-1] [INFO ] - stage s1-main has been cancelled
+(SimpleWorkloadArchiver.java:79)
+2026-11-04 03:10:06,284 [pool-2-thread-1] [INFO ] - workload w8 has been successfully archived
+(WorkloadProcessor.java:380)
+2026-11-04 03:10:06,284 [pool-2-thread-1] [INFO ] - successfully cancelled workload w8
+2026-11-04T03:10:06.598Z  WARN 355 --- [.1-19487-exec-8] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded]
+2026-11-04T03:10:06.606Z  WARN 355 --- [.1-19487-exec-8] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded]
+PROBE_TERM_ADMISSION_REJECTED
+2026-11-04T03:10:06.624Z  INFO 355 --- [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+(COSBControllerService.java:461)
+2026-11-04 03:10:06,627 [roller-shutdown] [INFO ] - Controller stopped: executor terminated, heartbeat terminated
+2026-11-04T03:10:06.628Z  INFO 355 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete

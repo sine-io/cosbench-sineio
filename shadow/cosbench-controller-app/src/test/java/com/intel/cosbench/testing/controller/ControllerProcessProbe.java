@@ -9,10 +9,16 @@ import java.nio.file.Files;
 import java.time.Duration;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextClosedEvent;
@@ -38,6 +44,37 @@ public final class ControllerProcessProbe {
         @Bean
         WebServerFactoryCustomizer<TomcatServletWebServerFactory> expireSessionsPromptly() {
             return factory -> factory.setBackgroundProcessorDelay(1);
+        }
+
+        @Bean
+        FilterRegistrationBean<Filter> delayWorkloadPageForDisconnectChecks() {
+            FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>();
+            registration.setFilter(new Filter() {
+                @Override
+                public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+                        throws java.io.IOException, ServletException {
+                    var httpRequest = (HttpServletRequest) request;
+                    String delayHeader = httpRequest.getHeader("X-COSBENCH-TEST-DELAY-MILLIS");
+                    if (httpRequest.getRequestURI().endsWith("/workload.html") && delayHeader != null) {
+                        int delayMillis = Integer.parseInt(delayHeader);
+                        if (delayMillis < 1 || delayMillis > 5000) {
+                            throw new ServletException("test page delay is out of range");
+                        }
+                        System.out.printf("PROBE_PAGE_DELAY_STARTED requestId=%s workloadId=%s%n",
+                                httpRequest.getHeader("X-COSBENCH-TEST-REQUEST"),
+                                httpRequest.getParameter("id"));
+                        try {
+                            Thread.sleep(delayMillis);
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                            throw new ServletException(e);
+                        }
+                    }
+                    chain.doFilter(request, response);
+                }
+            });
+            registration.addUrlPatterns("/*");
+            return registration;
         }
     }
 

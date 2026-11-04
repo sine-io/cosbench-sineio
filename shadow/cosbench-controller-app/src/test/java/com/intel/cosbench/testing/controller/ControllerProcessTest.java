@@ -132,6 +132,117 @@ class ControllerProcessTest {
     }
 
     @Test
+    void controllerObservabilityRoutesRetainTheLegacyHttpContract() throws Exception {
+        try (var app = startWithWebConfiguration("/proxy", 1024, "5s")) {
+            var deniedDownload = request(http, app, "/download-log.do?id=w1");
+            assertEquals(302, deniedDownload.statusCode(), deniedDownload.body());
+
+            var root = request(http, app, "/");
+            assertEquals(302, root.statusCode(), root.body());
+            assertTrue(root.headers().firstValue("Location").orElse("").contains("/proxy/index.html"));
+
+            HttpClient browser = HttpClient.newBuilder()
+                    .cookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ALL))
+                    .connectTimeout(Duration.ofSeconds(1)).build();
+            var logon = request(browser, app, "/logon.html");
+            assertEquals(200, logon.statusCode(), logon.body());
+            assertTrue(logon.body().contains("href=\"resources/cosbench.css\""), logon.body());
+            var logonError = request(browser, app, "/logonError.html");
+            assertEquals(200, logonError.statusCode(), logonError.body());
+            assertTrue(logonError.body().contains("no access permission"), logonError.body());
+            assertStaticResource(browser, app, "/resources/cosbench.css", "text/css");
+            assertStaticResource(browser, app, "/resources/build/dist/echarts.js", "javascript");
+            assertStaticResource(browser, app, "/resources/up_arrow.png", "image/png");
+            assertEquals(302, postForm(browser, app, "/j_security_check",
+                    "j_username=anonymous&j_password=cosbench").statusCode());
+
+            var malformedXml = postMultipart(browser, app, "/submit-workload.do",
+                    "<workload".getBytes(StandardCharsets.UTF_8));
+            assertEquals(200, malformedXml.statusCode(), malformedXml.body());
+            assertFalse(malformedXml.body().contains("your workload has been accepted"), malformedXml.body());
+            assertFalse(Files.exists(home.resolve("archive/w1-web-actions/workload-config.xml")));
+            assertNoMultipartTemporaryFiles();
+
+            var oversizedUpload = postMultipart(browser, app, "/submit-workload.do", new byte[1025]);
+            assertEquals(413, oversizedUpload.statusCode(), oversizedUpload.body());
+            assertFalse(Files.exists(home.resolve("archive/w1-web-actions/workload-config.xml")));
+            assertNoMultipartTemporaryFiles();
+
+            var submitted = postMultipart(browser, app, "/submit-workload.do",
+                    actionWorkload().getBytes(StandardCharsets.UTF_8));
+            assertEquals(200, submitted.statusCode(), submitted.body());
+            assertTrue(submitted.body().contains("your workload has been accepted"), submitted.body());
+            String workloadId = submitted.body().replaceFirst(
+                    "(?s).*workload\\.html\\?id=(w[0-9]+).*", "$1");
+            assertTrue(workloadId.matches("w[0-9]+"), submitted.body());
+            awaitArchived(app, workloadId);
+
+            var stage = request(browser, app, "/stage.html");
+            assertEquals(200, stage.statusCode(), stage.body());
+            assertTrue(stage.body().contains("400 Bad Request"), stage.body());
+
+            var timeline = request(browser, app, "/timeline.html");
+            assertEquals(200, timeline.statusCode(), timeline.body());
+            assertTrue(timeline.body().contains("400 Bad Request"), timeline.body());
+
+            var csv = request(browser, app, "/timeline.csv");
+            assertEquals(200, csv.statusCode(), csv.body());
+            assertTrue(csv.body().contains("400 Bad Request"), csv.body());
+
+            var log = request(browser, app, "/download-log.do?id=" + workloadId);
+            assertEquals(200, log.statusCode(), log.body());
+            assertTrue(log.headers().firstValue("Content-Type").orElse("").startsWith("text/plain"));
+            assertTrue(log.headers().firstValue("Content-Disposition").orElse("")
+                    .contains("workload-log.txt"));
+            assertEquals(Integer.toString(log.body().getBytes(StandardCharsets.UTF_8).length),
+                    log.headers().firstValue("Content-Length").orElse(""));
+
+            var config = request(browser, app, "/download-config.do?id=" + workloadId);
+            assertEquals(200, config.statusCode(), config.body());
+            assertTrue(config.headers().firstValue("Content-Type").orElse("").startsWith("application/xml"));
+            assertTrue(config.headers().firstValue("Content-Disposition").orElse("")
+                    .contains("workload-config.xml"));
+            assertEquals(Integer.toString(config.body().getBytes(StandardCharsets.UTF_8).length),
+                    config.headers().firstValue("Content-Length").orElse(""));
+            assertTrue(config.body().contains("web-actions"), config.body());
+
+            var missingStage = request(browser, app, "/stage.html?wid=" + workloadId + "&sid=missing");
+            assertEquals(200, missingStage.statusCode(), missingStage.body());
+            assertTrue(missingStage.body().contains("404 Not Found"), missingStage.body());
+            var missingDownload = request(browser, app, "/download-log.do?id=not-found");
+            assertEquals(200, missingDownload.statusCode(), missingDownload.body());
+            assertTrue(missingDownload.body().contains("404 Not Found"), missingDownload.body());
+
+            var prometheus = request(http, app, "/prometheus");
+            assertEquals(200, prometheus.statusCode(), prometheus.body());
+            String prometheusContentType = prometheus.headers().firstValue("Content-Type").orElse("");
+            assertTrue(prometheusContentType.startsWith("text/plain"), prometheusContentType);
+            assertTrue(prometheusContentType.contains("version=0.0.4"), prometheusContentType);
+        }
+    }
+
+    private void assertStaticResource(HttpClient client, RunningApp app, String path, String contentType)
+            throws Exception {
+        var response = request(client, app, path);
+        assertEquals(200, response.statusCode(), response.body());
+        assertTrue(response.headers().firstValue("Content-Type").orElse("").contains(contentType),
+                response.headers().toString());
+        assertFalse(response.body().isEmpty());
+    }
+
+    private void assertNoMultipartTemporaryFiles() throws Exception {
+        Path temp = home.resolve("controller-tmp");
+        if (!Files.exists(temp)) {
+            return;
+        }
+        try (var paths = Files.walk(temp)) {
+            assertFalse(paths.anyMatch(path -> Files.isRegularFile(path)
+                    && (path.getFileName().toString().endsWith(".tmp")
+                            || path.getFileName().toString().startsWith("upload_"))));
+        }
+    }
+
+    @Test
     void configurationAssemblesControllerAndLegacyBeanName() throws Exception {
         try (var app = start()) {
             var response = request(app, "/_probe/info");
@@ -443,41 +554,60 @@ class ControllerProcessTest {
 
     private RunningApp start(String gracePeriod, String loggingLevel, String pathLogs, String loggingFile,
             String workloadTimeout) throws Exception {
+        return start(gracePeriod, loggingLevel, pathLogs, loggingFile, workloadTimeout,
+                "/controller", 10L * 1024 * 1024, "30m");
+    }
+
+    private RunningApp startWithWebConfiguration(String contextPath, long maxUploadBytes,
+            String sessionTimeout) throws Exception {
+        return start("5s", "INFO", "log/system.log", null, "1h",
+                contextPath, maxUploadBytes, sessionTimeout);
+    }
+
+    private RunningApp start(String gracePeriod, String loggingLevel, String pathLogs, String loggingFile,
+            String workloadTimeout, String contextPath, long maxUploadBytes, String sessionTimeout) throws Exception {
         int port;
         try (var socket = new ServerSocket(0)) {
             port = socket.getLocalPort();
         }
         Path conf = Files.createDirectories(home.resolve("conf")).resolve("controller.yml");
+        Path multipartTemp = Files.createDirectories(home.resolve("controller-tmp"));
         Files.writeString(conf, """
                 schemaVersion: 1
                 role: controller
                 name: process-test
                 listen:
                   port: %d
+                  contextPath: "%s"
                 paths:
                   logs: "%s"
                 logging:
                   level: "%s"
                   %s
+                web:
+                  maxUploadBytes: %d
                 http:
                   timeouts:
                     command: 1s
                     workload: %s
                 shutdown:
                   gracePeriod: %s
-                """.formatted(port, pathLogs, loggingLevel,
-                        loggingFile == null ? "" : "file: \"" + loggingFile + "\"", workloadTimeout, gracePeriod));
+                """.formatted(port, contextPath, pathLogs, loggingLevel,
+                        loggingFile == null ? "" : "file: \"" + loggingFile + "\"",
+                        maxUploadBytes, workloadTimeout, gracePeriod));
         List<String> command = new ArrayList<>(List.of(
                 Path.of(System.getProperty("java.home"), "bin", "java").toString(),
                 "--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED",
+                "-Djava.io.tmpdir=" + multipartTemp,
                 "-cp", System.getProperty("java.class.path"),
                 "com.intel.cosbench.app.controller.ControllerApplication",
                 "--cosbench.config=" + conf,
+                "--server.servlet.session.timeout=" + sessionTimeout,
                 "--spring.main.sources=" + ControllerProcessProbe.ProbeConfiguration.class.getName()));
         Path log = home.resolve("process.log");
         var process = new ProcessBuilder(command).directory(Files.createDirectories(home.resolve("launch")).toFile())
                 .redirectErrorStream(true).redirectOutput(log.toFile()).start();
-        var app = new RunningApp(process, port, log);
+        var app = new RunningApp(process, port, log, contextPath);
         long deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(25);
         while (process.isAlive() && System.nanoTime() < deadline) {
             try {
@@ -498,13 +628,13 @@ class ControllerProcessTest {
     }
 
     private HttpResponse<String> request(HttpClient client, RunningApp app, String path) throws Exception {
-        return client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + app.port + "/controller" + path))
+        return client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + app.port + app.contextPath + path))
                 .timeout(Duration.ofSeconds(2)).GET().build(), HttpResponse.BodyHandlers.ofString());
     }
 
     private HttpResponse<String> postForm(HttpClient client, RunningApp app, String path, String form)
             throws Exception {
-        return client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + app.port + "/controller" + path))
+        return client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + app.port + app.contextPath + path))
                 .timeout(Duration.ofSeconds(3)).header("Content-Type", "application/x-www-form-urlencoded")
                 .POST(HttpRequest.BodyPublishers.ofString(form)).build(), HttpResponse.BodyHandlers.ofString());
     }
@@ -517,7 +647,7 @@ class ControllerProcessTest {
                 + "Content-Type: application/xml\r\n\r\n").getBytes(StandardCharsets.UTF_8));
         body.write(content);
         body.write(("\r\n--" + boundary + "--\r\n").getBytes(StandardCharsets.UTF_8));
-        return client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + app.port + "/controller" + path))
+        return client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + app.port + app.contextPath + path))
                 .timeout(Duration.ofSeconds(5)).header("Content-Type", "multipart/form-data; boundary=" + boundary)
                 .POST(HttpRequest.BodyPublishers.ofByteArray(body.toByteArray())).build(),
                 HttpResponse.BodyHandlers.ofString());
@@ -541,7 +671,11 @@ class ControllerProcessTest {
                 + "workers=\"1\" totalOps=\"1\"/></workstage></workflow></workload>";
     }
 
-    private record RunningApp(Process process, int port, Path log) implements AutoCloseable {
+    private record RunningApp(Process process, int port, Path log, String contextPath) implements AutoCloseable {
+        private RunningApp(Process process, int port, Path log) {
+            this(process, port, log, "/controller");
+        }
+
         @Override public void close() throws Exception {
             process.destroy();
             if (!process.waitFor(8, TimeUnit.SECONDS)) {

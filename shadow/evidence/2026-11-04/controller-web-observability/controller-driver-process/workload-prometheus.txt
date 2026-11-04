@@ -1,0 +1,10 @@
+cosbench_workload_state {instance="c205c1f4f30e",workload="w1 (controller-http-long)"} 2
+cosbench_workload_ops_count {instance="c205c1f4f30e",workload="w1 (controller-http-long)",operation_name="op1:read",operation_type="read",unit="operation"} 594
+cosbench_workload_byte_count {instance="c205c1f4f30e",workload="w1 (controller-http-long)",operation_name="op1:read",operation_type="read",unit="byte"} 38016
+cosbench_workload_average_response_time {instance="c205c1f4f30e",workload="w1 (controller-http-long)",operation_name="op1:read",operation_type="read",unit="ms"} 50.04
+cosbench_workload_average_transfer_time {instance="c205c1f4f30e",workload="w1 (controller-http-long)",operation_name="op1:read",operation_type="read",unit="ms"} 0
+cosbench_workload_average_process_time {instance="c205c1f4f30e",workload="w1 (controller-http-long)",operation_name="op1:read",operation_type="read",unit="ms"} 50.04
+cosbench_workload_throughput {instance="c205c1f4f30e",workload="w1 (controller-http-long)",operation_name="op1:read",operation_type="read",unit="op/s"} 19.82
+cosbench_workload_bandwidth {instance="c205c1f4f30e",workload="w1 (controller-http-long)",operation_name="op1:read",operation_type="read",unit="byte/s"} 1268.55
+cosbench_workload_success_ratio {instance="c205c1f4f30e",workload="w1 (controller-http-long)",operation_name="op1:read",operation_type="read",unit="%"} 100
+

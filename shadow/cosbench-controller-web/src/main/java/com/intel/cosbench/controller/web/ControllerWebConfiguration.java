@@ -89,6 +89,18 @@ public class ControllerWebConfiguration {
                 WorkloadPageController::setController));
         routes.put("/cancel-workload.do", wired(new CancelWorkloadController(), controller,
                 CancelWorkloadController::setController));
+        routes.put("/stage.html", wired(new StagePageController(), controller,
+                StagePageController::setController));
+        routes.put("/timeline.html", wired(new TimelinePageController(), controller,
+                TimelinePageController::setController));
+        routes.put("/timeline.csv", wired(new TimelineCSVController(), controller,
+                TimelineCSVController::setController));
+        routes.put("/download-log.do", wired(new DownloadLogController(), controller,
+                DownloadLogController::setController));
+        routes.put("/download-config.do", wired(new DownloadConfigController(), controller,
+                DownloadConfigController::setController));
+        routes.put("/prometheus", wired(new PrometheusController(), controller,
+                PrometheusController::setController));
 
         routes.put("/cli/index.action", wired(new IndexHandler(), controller, IndexHandler::setController));
         routes.put("/cli/submit.action", wired(new SubmitHandler(), controller, SubmitHandler::setController));

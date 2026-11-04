@@ -1,0 +1,12 @@
+HTTP/1.1 302 
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Location: http://127.0.0.1:19487/proxy/controller/index.html
+Content-Language: en-US
+Content-Length: 0
+Date: Wed, 04 Nov 2026 03:09:26 GMT
+

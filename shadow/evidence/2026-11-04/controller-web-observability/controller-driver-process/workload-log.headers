@@ -1,0 +1,13 @@
+HTTP/1.1 200 
+Content-Disposition: attachment; filename="workload-log.txt"
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Type: text/plain;charset=UTF-8
+Content-Language: en-US
+Content-Length: 62555
+Date: Wed, 04 Nov 2026 03:10:00 GMT
+
