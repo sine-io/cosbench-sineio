@@ -21,7 +21,7 @@ public class DownloadLogController extends WorkloadPageController {
         if (log == null || !log.isFile()) {
             throw new NotFoundException();
         }
-        ModelAndView result = new ModelAndView(new FileDownloadView(log, "text/plain", "workload-log.txt"));
+        ModelAndView result = new ModelAndView(new FileDownloadView(log, "workload-log.txt"));
         result.addObject("cInfo", controller.getControllerInfo());
         return result;
     }

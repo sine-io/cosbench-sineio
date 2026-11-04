@@ -8,290 +8,290 @@
 
  :: Spring Boot ::               (v3.5.16)
 
-2026-11-04T03:09:18.513Z  INFO 255 --- [           main] c.i.c.app.driver.DriverApplication       : Starting DriverApplication using Java 21.0.12.1 with PID 255 (/workspace/shadow/cosbench-driver-app/target/classes started by root in /workspace)
-2026-11-04T03:09:18.517Z  INFO 255 --- [           main] c.i.c.app.driver.DriverApplication       : No active profile set, falling back to 1 default profile: "default"
-2026-11-04T03:09:19.823Z  INFO 255 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19486 (https)
-2026-11-04T03:09:19.853Z  INFO 255 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-11-04T03:09:19.853Z  INFO 255 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
-2026-11-04T03:09:19.929Z  INFO 255 --- [           main] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring embedded WebApplicationContext
-2026-11-04T03:09:19.929Z  INFO 255 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1327 ms
+2026-11-04T03:48:49.727Z  INFO 253 --- [           main] c.i.c.app.driver.DriverApplication       : Starting DriverApplication using Java 21.0.12.1 with PID 253 (/workspace/shadow/cosbench-driver-app/target/classes started by root in /workspace)
+2026-11-04T03:48:49.733Z  INFO 253 --- [           main] c.i.c.app.driver.DriverApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T03:48:51.199Z  INFO 253 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19486 (https)
+2026-11-04T03:48:51.236Z  INFO 253 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-04T03:48:51.237Z  INFO 253 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-04T03:48:51.326Z  INFO 253 --- [           main] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring embedded WebApplicationContext
+2026-11-04T03:48:51.326Z  INFO 253 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1507 ms
 (Log4jLogManager.java:121)
-2026-11-04 03:09:20,049 [main           ] [INFO ] - will append log to console
-2026-11-04T03:09:20.076Z  INFO 255 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-11-04 03:48:51,470 [main           ] [INFO ] - will append log to console
+2026-11-04T03:48:51.504Z  INFO 253 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
 (CastorConfigBase.java:76)
-2026-11-04 03:09:20,080 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
-2026-11-04T03:09:20.081Z  INFO 255 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-11-04 03:48:51,505 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-11-04T03:48:51.506Z  INFO 253 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
 (CastorConfigBase.java:76)
-2026-11-04 03:09:20,081 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
-2026-11-04T03:09:20.084Z  INFO 255 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-11-04 03:48:51,507 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-11-04T03:48:51.508Z  INFO 253 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
 (CastorConfigBase.java:76)
-2026-11-04 03:09:20,085 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
-2026-11-04T03:09:20.086Z  INFO 255 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-11-04 03:48:51,508 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-11-04T03:48:51.509Z  INFO 253 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
 (CastorConfigBase.java:76)
-2026-11-04 03:09:20,086 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
-2026-11-04T03:09:20.087Z  INFO 255 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-11-04 03:48:51,509 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-11-04T03:48:51.509Z  INFO 253 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
 (CastorConfigBase.java:76)
-2026-11-04 03:09:20,087 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
-2026-11-04T03:09:20.087Z  INFO 255 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-11-04 03:48:51,509 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-11-04T03:48:51.509Z  INFO 253 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
 (CastorConfigBase.java:76)
-2026-11-04 03:09:20,087 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
-2026-11-04T03:09:20.089Z  INFO 255 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-11-04 03:48:51,509 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-11-04T03:48:51.510Z  INFO 253 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
 (CastorConfigBase.java:76)
-2026-11-04 03:09:20,089 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
-2026-11-04T03:09:20.089Z  INFO 255 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+2026-11-04 03:48:51,510 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-11-04T03:48:51.510Z  INFO 253 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
 (CastorConfigBase.java:76)
-2026-11-04 03:09:20,090 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+2026-11-04 03:48:51,510 [main           ] [DEBUG] - sucessfully loaded mapping from jar:file:/tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
 (COSBAuthAPIService.java:56)
-2026-11-04 03:09:20,458 [main           ] [INFO ] - detected supported auth types: mock
+2026-11-04 03:48:51,823 [main           ] [INFO ] - detected supported auth types: mock
 (COSBStorageAPIService.java:56)
-2026-11-04 03:09:20,459 [main           ] [INFO ] - detected supported storage types: gdas, mock, s3, sio, siov1
+2026-11-04 03:48:51,825 [main           ] [INFO ] - detected supported storage types: gdas, mock, s3, sio, siov1
 (RAMMissionRepository.java:58)
-2026-11-04 03:09:20,460 [main           ] [DEBUG] - will hold 100 missions in RAM
-2026-11-04T03:09:21.633Z  INFO 255 --- [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-127.0.0.1-19486], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [Set directly - location unknown] using alias [tomcat] with trust store [null]
-2026-11-04T03:09:21.655Z  INFO 255 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 19486 (https) with context path '/driver'
-2026-11-04T03:09:21.668Z  INFO 255 --- [           main] c.i.c.app.driver.DriverApplication       : Started DriverApplication in 3.823 seconds (process running for 4.291)
-2026-11-04T03:09:21.813Z  INFO 255 --- [.1-19486-exec-5] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-11-04T03:09:21.813Z  INFO 255 --- [.1-19486-exec-5] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-11-04T03:09:21.814Z  INFO 255 --- [.1-19486-exec-5] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2026-11-04 03:48:51,826 [main           ] [DEBUG] - will hold 100 missions in RAM
+2026-11-04T03:48:52.623Z  INFO 253 --- [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-127.0.0.1-19486], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [Set directly - location unknown] using alias [tomcat] with trust store [null]
+2026-11-04T03:48:52.646Z  INFO 253 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 19486 (https) with context path '/driver'
+2026-11-04T03:48:52.668Z  INFO 253 --- [           main] c.i.c.app.driver.DriverApplication       : Started DriverApplication in 3.541 seconds (process running for 4.026)
+2026-11-04T03:48:52.804Z  INFO 253 --- [.1-19486-exec-5] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-04T03:48:52.804Z  INFO 253 --- [.1-19486-exec-5] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-04T03:48:52.805Z  INFO 253 --- [.1-19486-exec-5] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 (COSBDriverService.java:127)
-2026-11-04 03:09:26,940 [.1-19486-exec-5] [DEBUG] - submitting mission ... 
+2026-11-04 03:48:57,783 [.1-19486-exec-5] [DEBUG] - submitting mission ... 
 (KVConfigParser.java:54)
-2026-11-04 03:09:26,994 [.1-19486-exec-5] [DEBUG] - key=containers;value=c(1)
+2026-11-04 03:48:57,829 [.1-19486-exec-5] [DEBUG] - key=containers;value=c(1)
 (KVConfigParser.java:54)
-2026-11-04 03:09:26,997 [.1-19486-exec-5] [DEBUG] - key=objects;value=c(1)
+2026-11-04 03:48:57,834 [.1-19486-exec-5] [DEBUG] - key=objects;value=c(1)
 (KVConfigParser.java:54)
-2026-11-04 03:09:27,044 [.1-19486-exec-5] [DEBUG] - key=delay;value=0
+2026-11-04 03:48:57,869 [.1-19486-exec-5] [DEBUG] - key=delay;value=0
 (KVConfigParser.java:54)
-2026-11-04 03:09:27,045 [.1-19486-exec-5] [DEBUG] - key=errors;value=0
+2026-11-04 03:48:57,870 [.1-19486-exec-5] [DEBUG] - key=errors;value=0
 (KVConfigParser.java:54)
-2026-11-04 03:09:27,048 [.1-19486-exec-5] [DEBUG] - key=size;value=64
+2026-11-04 03:48:57,872 [.1-19486-exec-5] [DEBUG] - key=size;value=64
 (KVConfigParser.java:54)
-2026-11-04 03:09:27,049 [.1-19486-exec-5] [DEBUG] - key=delay;value=50
+2026-11-04 03:48:57,872 [.1-19486-exec-5] [DEBUG] - key=delay;value=50
 (KVConfigParser.java:54)
-2026-11-04 03:09:27,051 [.1-19486-exec-5] [DEBUG] - key=errors;value=0
+2026-11-04 03:48:57,872 [.1-19486-exec-5] [DEBUG] - key=errors;value=0
 (MissionHandler.java:212)
-2026-11-04 03:09:27,052 [.1-19486-exec-5] [DEBUG] - driver mission config  is: 
+2026-11-04 03:48:57,873 [.1-19486-exec-5] [DEBUG] - driver mission config  is: 
 (RAMMissionRepository.java:71)
-2026-11-04 03:09:27,076 [.1-19486-exec-5] [DEBUG] - mission M3A4886F85B has been saved in RAM
+2026-11-04 03:48:57,889 [.1-19486-exec-5] [DEBUG] - mission MBA4AC9A9DC has been saved in RAM
 (RAMMissionRepository.java:72)
-2026-11-04 03:09:27,080 [.1-19486-exec-5] [DEBUG] - 0 missions have been removed from RAM
+2026-11-04 03:48:57,890 [.1-19486-exec-5] [DEBUG] - 0 missions have been removed from RAM
 (COSBDriverService.java:134)
-2026-11-04 03:09:27,081 [.1-19486-exec-5] [DEBUG] - mission M3A4886F85B has been submitted
+2026-11-04 03:48:57,893 [.1-19486-exec-5] [DEBUG] - mission MBA4AC9A9DC has been submitted
 (COSBDriverService.java:198)
-2026-11-04 03:09:27,124 [.1-19486-exec-6] [INFO ] - handler=M3A4886F85B
+2026-11-04 03:48:57,945 [.1-19486-exec-6] [INFO ] - handler=MBA4AC9A9DC
 (COSBDriverService.java:210)
-2026-11-04 03:09:27,124 [.1-19486-exec-6] [DEBUG] - authing mission M3A4886F85B ...
-(COSBDriverService.java:212)
-2026-11-04 03:09:27,126 [.1-19486-exec-6] [DEBUG] - mission M3A4886F85B has been requested to auth
+2026-11-04 03:48:57,949 [.1-19486-exec-6] [DEBUG] - authing mission MBA4AC9A9DC ...
 (MissionHandler.java:267)
-2026-11-04 03:09:27,127 [-driver-mission] [DEBUG] - begin to auth mission M3A4886F85B
+2026-11-04 03:48:57,955 [-driver-mission] [DEBUG] - begin to auth mission MBA4AC9A9DC
+(COSBDriverService.java:212)
+2026-11-04 03:48:57,957 [.1-19486-exec-6] [DEBUG] - mission MBA4AC9A9DC has been requested to auth
 (MissionHandler.java:374)
-2026-11-04 03:09:27,131 [-driver-mission] [DEBUG] - begin to execute agents, 1 in total
+2026-11-04 03:48:57,961 [-driver-mission] [DEBUG] - begin to execute agents, 1 in total
 (AbstractAgent.java:45)
-2026-11-04 03:09:27,137 [pool-2-thread-1] [DEBUG] - agent 1 exits normally
+2026-11-04 03:48:57,965 [pool-2-thread-1] [DEBUG] - agent 1 exits normally
 (MissionHandler.java:388)
-2026-11-04 03:09:27,137 [-driver-mission] [DEBUG] - all 1 agents have finished execution
+2026-11-04 03:48:57,965 [-driver-mission] [DEBUG] - all 1 agents have finished execution
 (MissionHandler.java:284)
-2026-11-04 03:09:27,137 [-driver-mission] [INFO ] - mission M3A4886F85B has been authed successfully
+2026-11-04 03:48:57,965 [-driver-mission] [INFO ] - mission MBA4AC9A9DC has been authed successfully
 (COSBDriverService.java:232)
-2026-11-04 03:09:27,344 [.1-19486-exec-8] [DEBUG] - launching mission M3A4886F85B ...
-(MissionHandler.java:326)
-2026-11-04 03:09:27,347 [-driver-mission] [DEBUG] - begin to execute mission M3A4886F85B
+2026-11-04 03:48:58,169 [.1-19486-exec-7] [DEBUG] - launching mission MBA4AC9A9DC ...
 (COSBDriverService.java:235)
-2026-11-04 03:09:27,348 [.1-19486-exec-8] [DEBUG] - mission M3A4886F85B has been requested to launch
+2026-11-04 03:48:58,170 [.1-19486-exec-7] [DEBUG] - mission MBA4AC9A9DC has been requested to launch
+(MissionHandler.java:326)
+2026-11-04 03:48:58,170 [-driver-mission] [DEBUG] - begin to execute mission MBA4AC9A9DC
 (MissionHandler.java:374)
-2026-11-04 03:09:27,354 [-driver-mission] [DEBUG] - begin to execute agents, 1 in total
+2026-11-04 03:48:58,173 [-driver-mission] [DEBUG] - begin to execute agents, 1 in total
 (WatchDog.java:46)
-2026-11-04 03:09:57,375 [pool-2-thread-1] [DEBUG] - timeout service has been dismissed
+2026-11-04 03:49:28,176 [pool-2-thread-1] [DEBUG] - timeout service has been dismissed
 (AbstractAgent.java:45)
-2026-11-04 03:09:57,375 [pool-2-thread-1] [DEBUG] - agent 1 exits normally
+2026-11-04 03:49:28,177 [pool-2-thread-1] [DEBUG] - agent 1 exits normally
 (MissionHandler.java:388)
-2026-11-04 03:09:57,375 [-driver-mission] [DEBUG] - all 1 agents have finished execution
+2026-11-04 03:49:28,177 [-driver-mission] [DEBUG] - all 1 agents have finished execution
 (MissionHandler.java:351)
-2026-11-04 03:09:57,376 [-driver-mission] [INFO ] - mission M3A4886F85B has been executed successfully
+2026-11-04 03:49:28,177 [-driver-mission] [INFO ] - mission MBA4AC9A9DC has been executed successfully
 (COSBDriverService.java:244)
-2026-11-04 03:09:57,888 [.1-19486-exec-1] [DEBUG] - closing mission M3A4886F85B ... 
+2026-11-04 03:49:28,707 [.1-19486-exec-2] [DEBUG] - closing mission MBA4AC9A9DC ... 
 (COSBDriverService.java:377)
-2026-11-04 03:09:57,906 [.1-19486-exec-1] [DEBUG] - handler for mission M3A4886F85B has been detached
+2026-11-04 03:49:28,713 [.1-19486-exec-2] [DEBUG] - handler for mission MBA4AC9A9DC has been detached
 (RAMMissionRepository.java:107)
-2026-11-04 03:09:57,906 [.1-19486-exec-1] [DEBUG] - mission M3A4886F85B has been disposed
+2026-11-04 03:49:28,713 [.1-19486-exec-2] [DEBUG] - mission MBA4AC9A9DC has been disposed
 (MissionHandler.java:407)
-2026-11-04 03:09:57,907 [.1-19486-exec-1] [DEBUG] - !!!! mission op: read-read
+2026-11-04 03:49:28,713 [.1-19486-exec-2] [DEBUG] - !!!! mission op: read-read
 (MissionHandler.java:419)
-2026-11-04 03:09:57,907 [.1-19486-exec-1] [INFO ] - mission M3A4886F85B has been closed successfully
+2026-11-04 03:49:28,713 [.1-19486-exec-2] [INFO ] - mission MBA4AC9A9DC has been closed successfully
 (COSBDriverService.java:246)
-2026-11-04 03:09:57,907 [.1-19486-exec-1] [DEBUG] - mission M3A4886F85B has been closed
+2026-11-04 03:49:28,715 [.1-19486-exec-2] [DEBUG] - mission MBA4AC9A9DC has been closed
 (COSBDriverService.java:127)
-2026-11-04 03:10:00,604 [.1-19486-exec-4] [DEBUG] - submitting mission ... 
+2026-11-04 03:49:31,427 [.1-19486-exec-4] [DEBUG] - submitting mission ... 
 (KVConfigParser.java:54)
-2026-11-04 03:10:00,616 [.1-19486-exec-4] [DEBUG] - key=containers;value=c(1)
+2026-11-04 03:49:31,433 [.1-19486-exec-4] [DEBUG] - key=containers;value=c(1)
 (KVConfigParser.java:54)
-2026-11-04 03:10:00,616 [.1-19486-exec-4] [DEBUG] - key=objects;value=c(1)
+2026-11-04 03:49:31,433 [.1-19486-exec-4] [DEBUG] - key=objects;value=c(1)
 (KVConfigParser.java:54)
-2026-11-04 03:10:00,616 [.1-19486-exec-4] [DEBUG] - key=delay;value=0
+2026-11-04 03:49:31,433 [.1-19486-exec-4] [DEBUG] - key=delay;value=0
 (KVConfigParser.java:54)
-2026-11-04 03:10:00,616 [.1-19486-exec-4] [DEBUG] - key=errors;value=0
+2026-11-04 03:49:31,433 [.1-19486-exec-4] [DEBUG] - key=errors;value=0
 (KVConfigParser.java:54)
-2026-11-04 03:10:00,616 [.1-19486-exec-4] [DEBUG] - key=size;value=64
+2026-11-04 03:49:31,433 [.1-19486-exec-4] [DEBUG] - key=size;value=64
 (KVConfigParser.java:54)
-2026-11-04 03:10:00,616 [.1-19486-exec-4] [DEBUG] - key=delay;value=50
+2026-11-04 03:49:31,433 [.1-19486-exec-4] [DEBUG] - key=delay;value=50
 (KVConfigParser.java:54)
-2026-11-04 03:10:00,616 [.1-19486-exec-4] [DEBUG] - key=errors;value=0
+2026-11-04 03:49:31,433 [.1-19486-exec-4] [DEBUG] - key=errors;value=0
 (MissionHandler.java:212)
-2026-11-04 03:10:00,616 [.1-19486-exec-4] [DEBUG] - driver mission config  is: 
+2026-11-04 03:49:31,433 [.1-19486-exec-4] [DEBUG] - driver mission config  is: 
 (RAMMissionRepository.java:71)
-2026-11-04 03:10:00,617 [.1-19486-exec-4] [DEBUG] - mission MEA488F0031 has been saved in RAM
+2026-11-04 03:49:31,434 [.1-19486-exec-4] [DEBUG] - mission M8A4AD1F058 has been saved in RAM
 (RAMMissionRepository.java:72)
-2026-11-04 03:10:00,617 [.1-19486-exec-4] [DEBUG] - 0 missions have been removed from RAM
+2026-11-04 03:49:31,434 [.1-19486-exec-4] [DEBUG] - 0 missions have been removed from RAM
 (COSBDriverService.java:134)
-2026-11-04 03:10:00,617 [.1-19486-exec-4] [DEBUG] - mission MEA488F0031 has been submitted
+2026-11-04 03:49:31,434 [.1-19486-exec-4] [DEBUG] - mission M8A4AD1F058 has been submitted
 (COSBDriverService.java:198)
-2026-11-04 03:10:00,625 [.1-19486-exec-5] [INFO ] - handler=MEA488F0031
+2026-11-04 03:49:31,439 [.1-19486-exec-5] [INFO ] - handler=M8A4AD1F058
 (COSBDriverService.java:210)
-2026-11-04 03:10:00,625 [.1-19486-exec-5] [DEBUG] - authing mission MEA488F0031 ...
+2026-11-04 03:49:31,440 [.1-19486-exec-5] [DEBUG] - authing mission M8A4AD1F058 ...
 (COSBDriverService.java:212)
-2026-11-04 03:10:00,625 [.1-19486-exec-5] [DEBUG] - mission MEA488F0031 has been requested to auth
+2026-11-04 03:49:31,440 [.1-19486-exec-5] [DEBUG] - mission M8A4AD1F058 has been requested to auth
 (MissionHandler.java:267)
-2026-11-04 03:10:00,625 [-driver-mission] [DEBUG] - begin to auth mission MEA488F0031
+2026-11-04 03:49:31,441 [-driver-mission] [DEBUG] - begin to auth mission M8A4AD1F058
 (MissionHandler.java:374)
-2026-11-04 03:10:00,626 [-driver-mission] [DEBUG] - begin to execute agents, 1 in total
+2026-11-04 03:49:31,441 [-driver-mission] [DEBUG] - begin to execute agents, 1 in total
 (AbstractAgent.java:45)
-2026-11-04 03:10:00,626 [pool-3-thread-1] [DEBUG] - agent 1 exits normally
+2026-11-04 03:49:31,441 [pool-3-thread-1] [DEBUG] - agent 1 exits normally
 (MissionHandler.java:388)
-2026-11-04 03:10:00,626 [-driver-mission] [DEBUG] - all 1 agents have finished execution
+2026-11-04 03:49:31,441 [-driver-mission] [DEBUG] - all 1 agents have finished execution
 (MissionHandler.java:284)
-2026-11-04 03:10:00,626 [-driver-mission] [INFO ] - mission MEA488F0031 has been authed successfully
+2026-11-04 03:49:31,441 [-driver-mission] [INFO ] - mission M8A4AD1F058 has been authed successfully
 (COSBDriverService.java:232)
-2026-11-04 03:10:00,841 [.1-19486-exec-6] [DEBUG] - launching mission MEA488F0031 ...
+2026-11-04 03:49:31,650 [.1-19486-exec-6] [DEBUG] - launching mission M8A4AD1F058 ...
 (COSBDriverService.java:235)
-2026-11-04 03:10:00,841 [.1-19486-exec-6] [DEBUG] - mission MEA488F0031 has been requested to launch
+2026-11-04 03:49:31,653 [.1-19486-exec-6] [DEBUG] - mission M8A4AD1F058 has been requested to launch
 (MissionHandler.java:326)
-2026-11-04 03:10:00,841 [-driver-mission] [DEBUG] - begin to execute mission MEA488F0031
+2026-11-04 03:49:31,653 [-driver-mission] [DEBUG] - begin to execute mission M8A4AD1F058
 (MissionHandler.java:374)
-2026-11-04 03:10:00,843 [-driver-mission] [DEBUG] - begin to execute agents, 1 in total
+2026-11-04 03:49:31,654 [-driver-mission] [DEBUG] - begin to execute agents, 1 in total
 (COSBDriverService.java:254)
-2026-11-04 03:10:00,927 [.1-19486-exec-7] [DEBUG] - aborting mission MEA488F0031 ... 
+2026-11-04 03:49:31,719 [1-19486-exec-10] [DEBUG] - aborting mission M8A4AD1F058 ... 
 (WatchDog.java:46)
-2026-11-04 03:10:00,930 [pool-3-thread-1] [DEBUG] - timeout service has been dismissed
+2026-11-04 03:49:31,721 [pool-3-thread-1] [DEBUG] - timeout service has been dismissed
 (AbstractAgent.java:45)
-2026-11-04 03:10:00,930 [pool-3-thread-1] [DEBUG] - agent 1 exits normally
+2026-11-04 03:49:31,721 [pool-3-thread-1] [DEBUG] - agent 1 exits normally
 (COSBDriverService.java:377)
-2026-11-04 03:10:00,933 [-driver-mission] [DEBUG] - handler for mission MEA488F0031 has been detached
+2026-11-04 03:49:31,726 [-driver-mission] [DEBUG] - handler for mission M8A4AD1F058 has been detached
 (RAMMissionRepository.java:107)
-2026-11-04 03:10:00,933 [-driver-mission] [DEBUG] - mission MEA488F0031 has been disposed
+2026-11-04 03:49:31,726 [-driver-mission] [DEBUG] - mission M8A4AD1F058 has been disposed
 (COSBDriverService.java:257)
-2026-11-04 03:10:01,127 [.1-19486-exec-7] [DEBUG] - mission MEA488F0031 has been requested to abort
+2026-11-04 03:49:31,920 [1-19486-exec-10] [DEBUG] - mission M8A4AD1F058 has been requested to abort
 (COSBDriverService.java:127)
-2026-11-04 03:10:01,647 [.1-19486-exec-8] [DEBUG] - submitting mission ... 
+2026-11-04 03:49:32,409 [.1-19486-exec-6] [DEBUG] - submitting mission ... 
 (KVConfigParser.java:54)
-2026-11-04 03:10:01,654 [.1-19486-exec-8] [DEBUG] - key=containers;value=c(1)
+2026-11-04 03:49:32,414 [.1-19486-exec-6] [DEBUG] - key=containers;value=c(1)
 (KVConfigParser.java:54)
-2026-11-04 03:10:01,654 [.1-19486-exec-8] [DEBUG] - key=objects;value=c(1)
+2026-11-04 03:49:32,415 [.1-19486-exec-6] [DEBUG] - key=objects;value=c(1)
 (KVConfigParser.java:54)
-2026-11-04 03:10:01,654 [.1-19486-exec-8] [DEBUG] - key=delay;value=0
+2026-11-04 03:49:32,415 [.1-19486-exec-6] [DEBUG] - key=delay;value=0
 (KVConfigParser.java:54)
-2026-11-04 03:10:01,654 [.1-19486-exec-8] [DEBUG] - key=errors;value=0
+2026-11-04 03:49:32,416 [.1-19486-exec-6] [DEBUG] - key=errors;value=0
 (KVConfigParser.java:54)
-2026-11-04 03:10:01,654 [.1-19486-exec-8] [DEBUG] - key=size;value=64
+2026-11-04 03:49:32,416 [.1-19486-exec-6] [DEBUG] - key=size;value=64
 (KVConfigParser.java:54)
-2026-11-04 03:10:01,654 [.1-19486-exec-8] [DEBUG] - key=delay;value=50
+2026-11-04 03:49:32,416 [.1-19486-exec-6] [DEBUG] - key=delay;value=50
 (KVConfigParser.java:54)
-2026-11-04 03:10:01,654 [.1-19486-exec-8] [DEBUG] - key=errors;value=0
+2026-11-04 03:49:32,416 [.1-19486-exec-6] [DEBUG] - key=errors;value=0
 (MissionHandler.java:212)
-2026-11-04 03:10:01,654 [.1-19486-exec-8] [DEBUG] - driver mission config  is: 
+2026-11-04 03:49:32,416 [.1-19486-exec-6] [DEBUG] - driver mission config  is: 
 (RAMMissionRepository.java:71)
-2026-11-04 03:10:01,655 [.1-19486-exec-8] [DEBUG] - mission MEA488F411D has been saved in RAM
+2026-11-04 03:49:32,417 [.1-19486-exec-6] [DEBUG] - mission MCA4AD23D8E has been saved in RAM
 (RAMMissionRepository.java:72)
-2026-11-04 03:10:01,655 [.1-19486-exec-8] [DEBUG] - 0 missions have been removed from RAM
+2026-11-04 03:49:32,417 [.1-19486-exec-6] [DEBUG] - 0 missions have been removed from RAM
 (COSBDriverService.java:134)
-2026-11-04 03:10:01,655 [.1-19486-exec-8] [DEBUG] - mission MEA488F411D has been submitted
+2026-11-04 03:49:32,417 [.1-19486-exec-6] [DEBUG] - mission MCA4AD23D8E has been submitted
 (COSBDriverService.java:198)
-2026-11-04 03:10:01,664 [.1-19486-exec-6] [INFO ] - handler=MEA488F411D
+2026-11-04 03:49:32,428 [1-19486-exec-10] [INFO ] - handler=MCA4AD23D8E
 (COSBDriverService.java:210)
-2026-11-04 03:10:01,664 [.1-19486-exec-6] [DEBUG] - authing mission MEA488F411D ...
+2026-11-04 03:49:32,428 [1-19486-exec-10] [DEBUG] - authing mission MCA4AD23D8E ...
 (COSBDriverService.java:212)
-2026-11-04 03:10:01,664 [.1-19486-exec-6] [DEBUG] - mission MEA488F411D has been requested to auth
+2026-11-04 03:49:32,428 [1-19486-exec-10] [DEBUG] - mission MCA4AD23D8E has been requested to auth
 (MissionHandler.java:267)
-2026-11-04 03:10:01,664 [-driver-mission] [DEBUG] - begin to auth mission MEA488F411D
+2026-11-04 03:49:32,429 [-driver-mission] [DEBUG] - begin to auth mission MCA4AD23D8E
 (MissionHandler.java:374)
-2026-11-04 03:10:01,664 [-driver-mission] [DEBUG] - begin to execute agents, 1 in total
+2026-11-04 03:49:32,429 [-driver-mission] [DEBUG] - begin to execute agents, 1 in total
 (AbstractAgent.java:45)
-2026-11-04 03:10:01,665 [pool-4-thread-1] [DEBUG] - agent 1 exits normally
+2026-11-04 03:49:32,429 [pool-4-thread-1] [DEBUG] - agent 1 exits normally
 (MissionHandler.java:388)
-2026-11-04 03:10:01,665 [-driver-mission] [DEBUG] - all 1 agents have finished execution
+2026-11-04 03:49:32,429 [-driver-mission] [DEBUG] - all 1 agents have finished execution
 (MissionHandler.java:284)
-2026-11-04 03:10:01,665 [-driver-mission] [INFO ] - mission MEA488F411D has been authed successfully
+2026-11-04 03:49:32,429 [-driver-mission] [INFO ] - mission MCA4AD23D8E has been authed successfully
 (COSBDriverService.java:232)
-2026-11-04 03:10:01,884 [.1-19486-exec-7] [DEBUG] - launching mission MEA488F411D ...
+2026-11-04 03:49:32,639 [.1-19486-exec-8] [DEBUG] - launching mission MCA4AD23D8E ...
 (COSBDriverService.java:235)
-2026-11-04 03:10:01,887 [.1-19486-exec-7] [DEBUG] - mission MEA488F411D has been requested to launch
+2026-11-04 03:49:32,643 [.1-19486-exec-8] [DEBUG] - mission MCA4AD23D8E has been requested to launch
 (MissionHandler.java:326)
-2026-11-04 03:10:01,890 [-driver-mission] [DEBUG] - begin to execute mission MEA488F411D
+2026-11-04 03:49:32,643 [-driver-mission] [DEBUG] - begin to execute mission MCA4AD23D8E
 (MissionHandler.java:374)
-2026-11-04 03:10:01,892 [-driver-mission] [DEBUG] - begin to execute agents, 1 in total
+2026-11-04 03:49:32,647 [-driver-mission] [DEBUG] - begin to execute agents, 1 in total
 (COSBDriverService.java:254)
-2026-11-04 03:10:05,261 [.1-19486-exec-9] [DEBUG] - aborting mission MEA488F411D ... 
+2026-11-04 03:49:35,908 [.1-19486-exec-2] [DEBUG] - aborting mission MCA4AD23D8E ... 
 (WatchDog.java:46)
-2026-11-04 03:10:05,262 [pool-4-thread-1] [DEBUG] - timeout service has been dismissed
+2026-11-04 03:49:35,909 [pool-4-thread-1] [DEBUG] - timeout service has been dismissed
 (AbstractAgent.java:45)
-2026-11-04 03:10:05,262 [pool-4-thread-1] [DEBUG] - agent 1 exits normally
+2026-11-04 03:49:35,909 [pool-4-thread-1] [DEBUG] - agent 1 exits normally
 (COSBDriverService.java:377)
-2026-11-04 03:10:05,263 [-driver-mission] [DEBUG] - handler for mission MEA488F411D has been detached
+2026-11-04 03:49:35,910 [-driver-mission] [DEBUG] - handler for mission MCA4AD23D8E has been detached
 (RAMMissionRepository.java:107)
-2026-11-04 03:10:05,263 [-driver-mission] [DEBUG] - mission MEA488F411D has been disposed
+2026-11-04 03:49:35,910 [-driver-mission] [DEBUG] - mission MCA4AD23D8E has been disposed
 (COSBDriverService.java:257)
-2026-11-04 03:10:05,461 [.1-19486-exec-9] [DEBUG] - mission MEA488F411D has been requested to abort
+2026-11-04 03:49:36,108 [.1-19486-exec-2] [DEBUG] - mission MCA4AD23D8E has been requested to abort
 (COSBDriverService.java:127)
-2026-11-04 03:10:05,812 [.1-19486-exec-4] [DEBUG] - submitting mission ... 
+2026-11-04 03:49:36,469 [.1-19486-exec-9] [DEBUG] - submitting mission ... 
 (KVConfigParser.java:54)
-2026-11-04 03:10:05,817 [.1-19486-exec-4] [DEBUG] - key=containers;value=c(1)
+2026-11-04 03:49:36,472 [.1-19486-exec-9] [DEBUG] - key=containers;value=c(1)
 (KVConfigParser.java:54)
-2026-11-04 03:10:05,817 [.1-19486-exec-4] [DEBUG] - key=objects;value=c(1)
+2026-11-04 03:49:36,473 [.1-19486-exec-9] [DEBUG] - key=objects;value=c(1)
 (KVConfigParser.java:54)
-2026-11-04 03:10:05,817 [.1-19486-exec-4] [DEBUG] - key=delay;value=0
+2026-11-04 03:49:36,473 [.1-19486-exec-9] [DEBUG] - key=delay;value=0
 (KVConfigParser.java:54)
-2026-11-04 03:10:05,818 [.1-19486-exec-4] [DEBUG] - key=errors;value=0
+2026-11-04 03:49:36,473 [.1-19486-exec-9] [DEBUG] - key=errors;value=0
 (KVConfigParser.java:54)
-2026-11-04 03:10:05,818 [.1-19486-exec-4] [DEBUG] - key=size;value=64
+2026-11-04 03:49:36,473 [.1-19486-exec-9] [DEBUG] - key=size;value=64
 (KVConfigParser.java:54)
-2026-11-04 03:10:05,818 [.1-19486-exec-4] [DEBUG] - key=delay;value=50
+2026-11-04 03:49:36,473 [.1-19486-exec-9] [DEBUG] - key=delay;value=50
 (KVConfigParser.java:54)
-2026-11-04 03:10:05,818 [.1-19486-exec-4] [DEBUG] - key=errors;value=0
+2026-11-04 03:49:36,473 [.1-19486-exec-9] [DEBUG] - key=errors;value=0
 (MissionHandler.java:212)
-2026-11-04 03:10:05,818 [.1-19486-exec-4] [DEBUG] - driver mission config  is: 
+2026-11-04 03:49:36,473 [.1-19486-exec-9] [DEBUG] - driver mission config  is: 
 (RAMMissionRepository.java:71)
-2026-11-04 03:10:05,820 [.1-19486-exec-4] [DEBUG] - mission M4A48904558 has been saved in RAM
+2026-11-04 03:49:36,474 [.1-19486-exec-9] [DEBUG] - mission M0A4AD33F72 has been saved in RAM
 (RAMMissionRepository.java:72)
-2026-11-04 03:10:05,826 [.1-19486-exec-4] [DEBUG] - 0 missions have been removed from RAM
+2026-11-04 03:49:36,474 [.1-19486-exec-9] [DEBUG] - 0 missions have been removed from RAM
 (COSBDriverService.java:134)
-2026-11-04 03:10:05,826 [.1-19486-exec-4] [DEBUG] - mission M4A48904558 has been submitted
+2026-11-04 03:49:36,474 [.1-19486-exec-9] [DEBUG] - mission M0A4AD33F72 has been submitted
 (COSBDriverService.java:198)
-2026-11-04 03:10:05,835 [.1-19486-exec-5] [INFO ] - handler=M4A48904558
+2026-11-04 03:49:36,490 [.1-19486-exec-7] [INFO ] - handler=M0A4AD33F72
 (COSBDriverService.java:210)
-2026-11-04 03:10:05,835 [.1-19486-exec-5] [DEBUG] - authing mission M4A48904558 ...
+2026-11-04 03:49:36,490 [.1-19486-exec-7] [DEBUG] - authing mission M0A4AD33F72 ...
 (COSBDriverService.java:212)
-2026-11-04 03:10:05,835 [.1-19486-exec-5] [DEBUG] - mission M4A48904558 has been requested to auth
+2026-11-04 03:49:36,490 [.1-19486-exec-7] [DEBUG] - mission M0A4AD33F72 has been requested to auth
 (MissionHandler.java:267)
-2026-11-04 03:10:05,836 [-driver-mission] [DEBUG] - begin to auth mission M4A48904558
+2026-11-04 03:49:36,490 [-driver-mission] [DEBUG] - begin to auth mission M0A4AD33F72
 (MissionHandler.java:374)
-2026-11-04 03:10:05,836 [-driver-mission] [DEBUG] - begin to execute agents, 1 in total
+2026-11-04 03:49:36,490 [-driver-mission] [DEBUG] - begin to execute agents, 1 in total
 (AbstractAgent.java:45)
-2026-11-04 03:10:05,836 [pool-5-thread-1] [DEBUG] - agent 1 exits normally
+2026-11-04 03:49:36,491 [pool-5-thread-1] [DEBUG] - agent 1 exits normally
 (MissionHandler.java:388)
-2026-11-04 03:10:05,836 [-driver-mission] [DEBUG] - all 1 agents have finished execution
+2026-11-04 03:49:36,491 [-driver-mission] [DEBUG] - all 1 agents have finished execution
 (MissionHandler.java:284)
-2026-11-04 03:10:05,837 [-driver-mission] [INFO ] - mission M4A48904558 has been authed successfully
+2026-11-04 03:49:36,491 [-driver-mission] [INFO ] - mission M0A4AD33F72 has been authed successfully
 (COSBDriverService.java:254)
-2026-11-04 03:10:06,055 [.1-19486-exec-1] [DEBUG] - aborting mission M4A48904558 ... 
+2026-11-04 03:49:36,700 [.1-19486-exec-5] [DEBUG] - aborting mission M0A4AD33F72 ... 
 (COSBDriverService.java:377)
-2026-11-04 03:10:06,056 [.1-19486-exec-1] [DEBUG] - handler for mission M4A48904558 has been detached
+2026-11-04 03:49:36,701 [.1-19486-exec-5] [DEBUG] - handler for mission M0A4AD33F72 has been detached
 (RAMMissionRepository.java:107)
-2026-11-04 03:10:06,056 [.1-19486-exec-1] [DEBUG] - mission M4A48904558 has been disposed
+2026-11-04 03:49:36,701 [.1-19486-exec-5] [DEBUG] - mission M0A4AD33F72 has been disposed
 (MissionHandler.java:437)
-2026-11-04 03:10:06,056 [.1-19486-exec-1] [INFO ] - mission M4A48904558 has been aborted successfully
+2026-11-04 03:49:36,701 [.1-19486-exec-5] [INFO ] - mission M0A4AD33F72 has been aborted successfully
 (COSBDriverService.java:257)
-2026-11-04 03:10:06,257 [.1-19486-exec-1] [DEBUG] - mission M4A48904558 has been requested to abort
-2026-11-04T03:10:06.729Z  INFO 255 --- [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-11-04 03:49:36,902 [.1-19486-exec-5] [DEBUG] - mission M0A4AD33F72 has been requested to abort
 (COSBDriverService.java:305)
-2026-11-04 03:10:06,729 [driver-shutdown] [INFO ] - Driver stopped: mission executor terminated
-2026-11-04T03:10:06.734Z  INFO 255 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-11-04 03:49:37,357 [driver-shutdown] [INFO ] - Driver stopped: mission executor terminated
+2026-11-04T03:49:37.357Z  INFO 253 --- [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-11-04T03:49:37.362Z  INFO 253 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete

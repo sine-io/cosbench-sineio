@@ -27,13 +27,13 @@ public class TimelineCSVController extends StagePageController {
 
         @Override
         public String getContentType() {
-            return "text/csv";
+            return "text/csv;charset=ISO-8859-1";
         }
 
         @Override
         public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response)
                 throws Exception {
-            response.setContentType("text/csv");
+            response.setContentType("text/csv;charset=ISO-8859-1");
             StageInfo stage = (StageInfo) model.get("sInfo");
             StageExporter exporter = Exporters.newStageExporter(stage);
             exporter.export(response.getWriter());

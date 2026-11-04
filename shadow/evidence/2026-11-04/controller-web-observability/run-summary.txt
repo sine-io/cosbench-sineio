@@ -1,5 +1,5 @@
 status=passed
-project=cosbench-scheme3-02-1793761182-2718332
+project=cosbench-scheme3-02-1793763555-2779631
 minio=http://127.0.0.1:19000
 toxiproxy_admin=http://127.0.0.1:18474
 toxiproxy_proxy_port=18666

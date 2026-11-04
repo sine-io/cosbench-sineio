@@ -136,6 +136,7 @@ class ControllerProcessTest {
         try (var app = startWithWebConfiguration("/proxy", 1024, "5s")) {
             var deniedDownload = request(http, app, "/download-log.do?id=w1");
             assertEquals(302, deniedDownload.statusCode(), deniedDownload.body());
+            assertTrue(deniedDownload.headers().firstValue("Location").orElse("").contains("/proxy/logon.html"));
 
             var root = request(http, app, "/");
             assertEquals(302, root.statusCode(), root.body());
@@ -159,6 +160,8 @@ class ControllerProcessTest {
             var malformedXml = postMultipart(browser, app, "/submit-workload.do",
                     "<workload".getBytes(StandardCharsets.UTF_8));
             assertEquals(200, malformedXml.statusCode(), malformedXml.body());
+            assertTrue(malformedXml.body().contains("Workload Submission"), malformedXml.body());
+            assertTrue(malformedXml.body().contains("class=\"error\""), malformedXml.body());
             assertFalse(malformedXml.body().contains("your workload has been accepted"), malformedXml.body());
             assertFalse(Files.exists(home.resolve("archive/w1-web-actions/workload-config.xml")));
             assertNoMultipartTemporaryFiles();
@@ -191,7 +194,7 @@ class ControllerProcessTest {
 
             var log = request(browser, app, "/download-log.do?id=" + workloadId);
             assertEquals(200, log.statusCode(), log.body());
-            assertTrue(log.headers().firstValue("Content-Type").orElse("").startsWith("text/plain"));
+            assertTrue(log.headers().firstValue("Content-Type").isEmpty(), log.headers().toString());
             assertTrue(log.headers().firstValue("Content-Disposition").orElse("")
                     .contains("workload-log.txt"));
             assertEquals(Integer.toString(log.body().getBytes(StandardCharsets.UTF_8).length),
@@ -199,7 +202,7 @@ class ControllerProcessTest {
 
             var config = request(browser, app, "/download-config.do?id=" + workloadId);
             assertEquals(200, config.statusCode(), config.body());
-            assertTrue(config.headers().firstValue("Content-Type").orElse("").startsWith("application/xml"));
+            assertTrue(config.headers().firstValue("Content-Type").isEmpty(), config.headers().toString());
             assertTrue(config.headers().firstValue("Content-Disposition").orElse("")
                     .contains("workload-config.xml"));
             assertEquals(Integer.toString(config.body().getBytes(StandardCharsets.UTF_8).length),
@@ -209,9 +212,19 @@ class ControllerProcessTest {
             var missingStage = request(browser, app, "/stage.html?wid=" + workloadId + "&sid=missing");
             assertEquals(200, missingStage.statusCode(), missingStage.body());
             assertTrue(missingStage.body().contains("404 Not Found"), missingStage.body());
+            assertTrue(missingStage.body().contains("href=\"index.html\""), missingStage.body());
+            var missingTimeline = request(browser, app, "/timeline.html?wid=" + workloadId + "&sid=missing");
+            assertEquals(200, missingTimeline.statusCode(), missingTimeline.body());
+            assertTrue(missingTimeline.body().contains("404 Not Found"), missingTimeline.body());
+            var missingCsv = request(browser, app, "/timeline.csv?wid=" + workloadId + "&sid=missing");
+            assertEquals(200, missingCsv.statusCode(), missingCsv.body());
+            assertTrue(missingCsv.body().contains("404 Not Found"), missingCsv.body());
             var missingDownload = request(browser, app, "/download-log.do?id=not-found");
             assertEquals(200, missingDownload.statusCode(), missingDownload.body());
             assertTrue(missingDownload.body().contains("404 Not Found"), missingDownload.body());
+            var missingConfig = request(browser, app, "/download-config.do?id=not-found");
+            assertEquals(200, missingConfig.statusCode(), missingConfig.body());
+            assertTrue(missingConfig.body().contains("404 Not Found"), missingConfig.body());
 
             var prometheus = request(http, app, "/prometheus");
             assertEquals(200, prometheus.statusCode(), prometheus.body());

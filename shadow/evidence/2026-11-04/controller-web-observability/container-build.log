@@ -1,5 +1,5 @@
- Container cosbench-scheme3-02-1793761182-2718332-maven-run-73d7860bc754 Creating 
- Container cosbench-scheme3-02-1793761182-2718332-maven-run-73d7860bc754 Created 
+ Container cosbench-scheme3-02-1793763555-2779631-maven-run-5c89125e6c88 Creating 
+ Container cosbench-scheme3-02-1793763555-2779631-maven-run-5c89125e6c88 Created 
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
 [INFO] ------------------------------------------------------------------------
@@ -140,7 +140,7 @@
 log4j:WARN No appenders could be found for logger (root).
 log4j:WARN Please initialize the log4j system properly.
 log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.170 s -- in com.intel.cosbench.log.LoggingContractTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.195 s -- in com.intel.cosbench.log.LoggingContractTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -185,13 +185,13 @@ log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more in
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.intel.cosbench.config.castor.CastorMappingsPackagingTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.110 s -- in com.intel.cosbench.config.castor.CastorMappingsPackagingTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.068 s -- in com.intel.cosbench.config.castor.CastorMappingsPackagingTest
 [INFO] Running com.intel.cosbench.config.castor.LegacyXmlContractTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.479 s -- in com.intel.cosbench.config.castor.LegacyXmlContractTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.421 s -- in com.intel.cosbench.config.castor.LegacyXmlContractTest
 [INFO] Running com.intel.cosbench.config.runtime.LegacyConfigMigratorTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.194 s -- in com.intel.cosbench.config.runtime.LegacyConfigMigratorTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.206 s -- in com.intel.cosbench.config.runtime.LegacyConfigMigratorTest
 [INFO] Running com.intel.cosbench.config.runtime.VersionedConfigTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.050 s -- in com.intel.cosbench.config.runtime.VersionedConfigTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.072 s -- in com.intel.cosbench.config.runtime.VersionedConfigTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -267,11 +267,11 @@ log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more in
 SLF4J(W): No SLF4J providers were found.
 SLF4J(W): Defaulting to no-operation (NOP) logger implementation
 SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.389 s -- in com.intel.cosbench.provider.sineio.SineioMinioTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.431 s -- in com.intel.cosbench.provider.sineio.SineioMinioTest
 [INFO] Running com.intel.cosbench.provider.sineio.SineioProviderTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.126 s -- in com.intel.cosbench.provider.sineio.SineioProviderTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.102 s -- in com.intel.cosbench.provider.sineio.SineioProviderTest
 [INFO] Running com.intel.cosbench.provider.sineio.SineioHttpContractTest
-[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.548 s -- in com.intel.cosbench.provider.sineio.SineioHttpContractTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.783 s -- in com.intel.cosbench.provider.sineio.SineioHttpContractTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -316,11 +316,11 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.intel.cosbench.provider.s3.S3HttpContractTest
-[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.681 s -- in com.intel.cosbench.provider.s3.S3HttpContractTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.003 s -- in com.intel.cosbench.provider.s3.S3HttpContractTest
 [INFO] Running com.intel.cosbench.provider.s3.S3MinioTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.257 s -- in com.intel.cosbench.provider.s3.S3MinioTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.278 s -- in com.intel.cosbench.provider.s3.S3MinioTest
 [INFO] Running com.intel.cosbench.provider.s3.S3ProviderTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.063 s -- in com.intel.cosbench.provider.s3.S3ProviderTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.071 s -- in com.intel.cosbench.provider.s3.S3ProviderTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -363,7 +363,7 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.intel.cosbench.protocol.DriverResponseSerializationTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.207 s -- in com.intel.cosbench.protocol.DriverResponseSerializationTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.192 s -- in com.intel.cosbench.protocol.DriverResponseSerializationTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -471,7 +471,7 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.intel.cosbench.client.http.HttpClientUtilContractTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.061 s -- in com.intel.cosbench.client.http.HttpClientUtilContractTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.066 s -- in com.intel.cosbench.client.http.HttpClientUtilContractTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -549,15 +549,15 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.intel.cosbench.app.driver.SineioDriverMissionTest
-03:00:46.855 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
-03:00:46.866 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
-03:00:46.868 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
-03:00:46.869 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
-03:00:46.871 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
-03:00:46.875 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
-03:00:46.876 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
-03:00:46.877 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
-03:00:47.829 [main] WARN com.amazonaws.util.VersionInfoUtils -- The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support on December 31, 2025. For more information, see https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/
+03:40:18.778 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+03:40:18.791 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+03:40:18.793 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+03:40:18.795 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+03:40:18.797 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+03:40:18.798 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+03:40:18.800 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+03:40:18.802 [main] INFO org.exolab.castor.mapping.Mapping -- Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+03:40:19.770 [main] WARN com.amazonaws.util.VersionInfoUtils -- The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support on December 31, 2025. For more information, see https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/
 You can print where on the file system the AWS SDK for Java 1.x core runtime is located by setting the AWS_JAVA_V1_PRINT_LOCATION environment variable or aws.java.v1.printLocation system property to 'true'.
 This message can be disabled by setting the AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT environment variable or aws.java.v1.disableDeprecationAnnouncement system property to 'true'.
 The AWS SDK for Java 1.x is being used here:
@@ -701,8 +701,8 @@ at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter
 at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:190)
 at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:547)
 at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:535)
-03:00:48.500 [main] WARN com.amazonaws.util.Base64 -- JAXB is unavailable. Will fallback to SDK implementation which may be less performant.If you are using Java 9+, you will need to include javax.xml.bind:jaxb-api as a dependency.
-[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.840 s -- in com.intel.cosbench.app.driver.SineioDriverMissionTest
+03:40:20.313 [main] WARN com.amazonaws.util.Base64 -- JAXB is unavailable. Will fallback to SDK implementation which may be less performant.If you are using Java 9+, you will need to include javax.xml.bind:jaxb-api as a dependency.
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.597 s -- in com.intel.cosbench.app.driver.SineioDriverMissionTest
 [INFO] Running com.intel.cosbench.app.driver.DriverTlsConfigurationTest
 Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
@@ -710,9 +710,9 @@ WARNING: A Java agent has been loaded dynamically (/tmp/maven-repository/net/byt
 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
 WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
 WARNING: Dynamic loading of agents will be disallowed by default in a future release
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.170 s -- in com.intel.cosbench.app.driver.DriverTlsConfigurationTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.022 s -- in com.intel.cosbench.app.driver.DriverTlsConfigurationTest
 [INFO] Running com.intel.cosbench.app.driver.DriverMissionLifecycleTest
-[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.513 s -- in com.intel.cosbench.app.driver.DriverMissionLifecycleTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.565 s -- in com.intel.cosbench.app.driver.DriverMissionLifecycleTest
 [INFO] Running com.intel.cosbench.app.driver.DriverHttpContractTest
 
   .   ____          _            __ _ _
@@ -724,41 +724,41 @@ WARNING: Dynamic loading of agents will be disallowed by default in a future rel
 
  :: Spring Boot ::               (v3.5.16)
 
-2026-11-04T03:00:58.015Z  INFO 552 --- [           main] c.i.c.app.driver.DriverHttpContractTest  : Starting DriverHttpContractTest using Java 21.0.12.1 with PID 552 (started by root in /workspace/shadow/cosbench-driver-app/target)
-2026-11-04T03:00:58.016Z  INFO 552 --- [           main] c.i.c.app.driver.DriverHttpContractTest  : No active profile set, falling back to 1 default profile: "default"
-2026-11-04T03:00:59.607Z  INFO 552 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 33303 (https)
-2026-11-04T03:00:59.627Z  INFO 552 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-11-04T03:00:59.628Z  INFO 552 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
-2026-11-04T03:00:59.687Z  INFO 552 --- [           main] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring embedded WebApplicationContext
-2026-11-04T03:00:59.691Z  INFO 552 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1661 ms
+2026-11-04T03:40:29.783Z  INFO 556 --- [           main] c.i.c.app.driver.DriverHttpContractTest  : Starting DriverHttpContractTest using Java 21.0.12.1 with PID 556 (started by root in /workspace/shadow/cosbench-driver-app/target)
+2026-11-04T03:40:29.784Z  INFO 556 --- [           main] c.i.c.app.driver.DriverHttpContractTest  : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T03:40:31.033Z  INFO 556 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 33705 (https)
+2026-11-04T03:40:31.051Z  INFO 556 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-04T03:40:31.052Z  INFO 556 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-04T03:40:31.093Z  INFO 556 --- [           main] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring embedded WebApplicationContext
+2026-11-04T03:40:31.096Z  INFO 556 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1296 ms
 (Log4jLogManager.java:121)
-2026-11-04 03:00:59,791 [main           ] [INFO ] - will append log to console
+2026-11-04 03:40:31,219 [main           ] [INFO ] - will append log to console
 (COSBAuthAPIService.java:56)
-2026-11-04 03:00:59,796 [main           ] [INFO ] - detected supported auth types: failing, mock
+2026-11-04 03:40:31,229 [main           ] [INFO ] - detected supported auth types: failing, mock
 (COSBStorageAPIService.java:56)
-2026-11-04 03:00:59,798 [main           ] [INFO ] - detected supported storage types: gdas, mock, s3, sio, siov1
-2026-11-04T03:01:00.670Z  INFO 552 --- [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-127.0.0.1-33303], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [Set directly - location unknown] using alias [tomcat] with trust store [null]
-2026-11-04T03:01:00.685Z  INFO 552 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 33303 (https) with context path '/driver'
-2026-11-04T03:01:00.699Z  INFO 552 --- [           main] c.i.c.app.driver.DriverHttpContractTest  : Started DriverHttpContractTest in 3.114 seconds (process running for 15.78)
-2026-11-04T03:01:01.111Z  INFO 552 --- [.1-33303-exec-6] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-11-04T03:01:01.114Z  INFO 552 --- [.1-33303-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-11-04T03:01:01.116Z  INFO 552 --- [.1-33303-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-11-04 03:40:31,230 [main           ] [INFO ] - detected supported storage types: gdas, mock, s3, sio, siov1
+2026-11-04T03:40:32.103Z  INFO 556 --- [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-127.0.0.1-33705], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [Set directly - location unknown] using alias [tomcat] with trust store [null]
+2026-11-04T03:40:32.115Z  INFO 556 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 33705 (https) with context path '/driver'
+2026-11-04T03:40:32.126Z  INFO 556 --- [           main] c.i.c.app.driver.DriverHttpContractTest  : Started DriverHttpContractTest in 2.851 seconds (process running for 15.275)
+2026-11-04T03:40:32.564Z  INFO 556 --- [.1-33705-exec-6] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-04T03:40:32.564Z  INFO 556 --- [.1-33705-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-04T03:40:32.566Z  INFO 556 --- [.1-33705-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 (COSBDriverService.java:198)
-2026-11-04 03:01:01,681 [.1-33303-exec-6] [INFO ] - handler=M9A480B9E68
+2026-11-04 03:40:33,217 [.1-33705-exec-5] [INFO ] - handler=M8A4A4E65F4
 (MissionHandler.java:284)
-2026-11-04 03:01:01,682 [-driver-mission] [INFO ] - mission M9A480B9E68 has been authed successfully
+2026-11-04 03:40:33,221 [-driver-mission] [INFO ] - mission M8A4A4E65F4 has been authed successfully
 (COSBDriverService.java:198)
-2026-11-04 03:01:07,018 [.1-33303-exec-4] [INFO ] - handler=M4A480CCA7E
+2026-11-04 03:40:38,782 [.1-33705-exec-7] [INFO ] - handler=M4A4A4FC0F6
 (MissionHandler.java:284)
-2026-11-04 03:01:07,024 [-driver-mission] [INFO ] - mission M4A480CCA7E has been authed successfully
+2026-11-04 03:40:38,787 [-driver-mission] [INFO ] - mission M4A4A4FC0F6 has been authed successfully
 (MissionHandler.java:351)
-2026-11-04 03:01:07,245 [-driver-mission] [INFO ] - mission M4A480CCA7E has been executed successfully
+2026-11-04 03:40:39,014 [-driver-mission] [INFO ] - mission M4A4A4FC0F6 has been executed successfully
 (MissionHandler.java:419)
-2026-11-04 03:01:07,489 [1-33303-exec-10] [INFO ] - mission M4A480CCA7E has been closed successfully
+2026-11-04 03:40:39,272 [.1-33705-exec-6] [INFO ] - mission M4A4A4FC0F6 has been closed successfully
 (COSBDriverService.java:198)
-2026-11-04 03:01:07,745 [.1-33303-exec-5] [INFO ] - handler=MCA480CE5FF
+2026-11-04 03:40:39,611 [.1-33705-exec-1] [INFO ] - handler=M3A4A500837
 (AbstractAgent.java:54)
-2026-11-04 03:01:07,746 [ool-28-thread-1] [ERROR] - unexpected exception
+2026-11-04 03:40:39,612 [ool-28-thread-1] [ERROR] - unexpected exception
 java.lang.IllegalStateException: provider authentication rejected
 	at com.intel.cosbench.app.driver.FailingAuth.login(FailingAuth.java:8)
 	at com.intel.cosbench.driver.agent.AuthAgent.tryLogin(AuthAgent.java:126)
@@ -771,34 +771,34 @@ java.lang.IllegalStateException: provider authentication rejected
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
 (MissionHandler.java:395)
-2026-11-04 03:01:07,747 [-driver-mission] [ERROR] - detected workers [1] have encountered errors
+2026-11-04 03:40:39,613 [-driver-mission] [ERROR] - detected workers [1] have encountered errors
 (MissionHandler.java:276)
-2026-11-04 03:01:07,747 [-driver-mission] [INFO ] - mission MCA480CE5FF has been terminated
+2026-11-04 03:40:39,614 [-driver-mission] [INFO ] - mission M3A4A500837 has been terminated
 (COSBDriverService.java:198)
-2026-11-04 03:01:07,999 [.1-33303-exec-1] [INFO ] - handler=M1A480D0ADD
+2026-11-04 03:40:39,860 [.1-33705-exec-7] [INFO ] - handler=M7A4A50383E
 (MissionHandler.java:284)
-2026-11-04 03:01:08,704 [-driver-mission] [INFO ] - mission M1A480D0ADD has been authed successfully
-2026-11-04T03:01:08.985Z  INFO 552 --- [           main] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-11-04 03:40:40,562 [-driver-mission] [INFO ] - mission M7A4A50383E has been authed successfully
+2026-11-04T03:40:40.814Z  INFO 556 --- [           main] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
 (COSBDriverService.java:318)
-2026-11-04 03:01:08,989 [driver-shutdown] [INFO ] - aborting mission M7A480C1D8A during Driver shutdown
+2026-11-04 03:40:40,816 [driver-shutdown] [INFO ] - aborting mission M5A4A4F1233 during Driver shutdown
 (MissionHandler.java:437)
-2026-11-04 03:01:08,990 [driver-shutdown] [INFO ] - mission M7A480C1D8A has been aborted successfully
+2026-11-04 03:40:40,817 [driver-shutdown] [INFO ] - mission M5A4A4F1233 has been aborted successfully
 (COSBDriverService.java:318)
-2026-11-04 03:01:08,990 [driver-shutdown] [INFO ] - aborting mission MDA480C1B1D during Driver shutdown
+2026-11-04 03:40:40,817 [driver-shutdown] [INFO ] - aborting mission M6A4A4EE201 during Driver shutdown
 (MissionHandler.java:437)
-2026-11-04 03:01:08,993 [driver-shutdown] [INFO ] - mission MDA480C1B1D has been aborted successfully
+2026-11-04 03:40:40,817 [driver-shutdown] [INFO ] - mission M6A4A4EE201 has been aborted successfully
 (COSBDriverService.java:318)
-2026-11-04 03:01:08,994 [driver-shutdown] [INFO ] - aborting mission M1A480D0ADD during Driver shutdown
-2026-11-04T03:01:08.992Z  INFO 552 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-11-04 03:40:40,817 [driver-shutdown] [INFO ] - aborting mission M7A4A50383E during Driver shutdown
+2026-11-04T03:40:40.818Z  INFO 556 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
 (MissionHandler.java:437)
-2026-11-04 03:01:08,996 [driver-shutdown] [INFO ] - mission M1A480D0ADD has been aborted successfully
+2026-11-04 03:40:40,820 [driver-shutdown] [INFO ] - mission M7A4A50383E has been aborted successfully
 (COSBDriverService.java:318)
-2026-11-04 03:01:08,996 [driver-shutdown] [INFO ] - aborting mission M2A480BED20 during Driver shutdown
+2026-11-04 03:40:40,820 [driver-shutdown] [INFO ] - aborting mission M5A4A4F1A84 during Driver shutdown
 (MissionHandler.java:437)
-2026-11-04 03:01:08,999 [driver-shutdown] [INFO ] - mission M2A480BED20 has been aborted successfully
+2026-11-04 03:40:40,821 [driver-shutdown] [INFO ] - mission M5A4A4F1A84 has been aborted successfully
 (COSBDriverService.java:305)
-2026-11-04 03:01:08,999 [driver-shutdown] [INFO ] - Driver stopped: mission executor terminated
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.77 s -- in com.intel.cosbench.app.driver.DriverHttpContractTest
+2026-11-04 03:40:40,824 [driver-shutdown] [INFO ] - Driver stopped: mission executor terminated
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.89 s -- in com.intel.cosbench.app.driver.DriverHttpContractTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -910,7 +910,7 @@ java.lang.IllegalStateException: provider authentication rejected
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.intel.cosbench.testing.controller.ControllerProcessTest
-[INFO] Tests run: 25, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 83.32 s -- in com.intel.cosbench.testing.controller.ControllerProcessTest
+[INFO] Tests run: 25, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 84.09 s -- in com.intel.cosbench.testing.controller.ControllerProcessTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -957,9 +957,9 @@ java.lang.IllegalStateException: provider authentication rejected
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.intel.cosbench.runtime.RuntimeHealthControllerTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.082 s -- in com.intel.cosbench.runtime.RuntimeHealthControllerTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.079 s -- in com.intel.cosbench.runtime.RuntimeHealthControllerTest
 [INFO] Running com.intel.cosbench.runtime.ServiceRuntimeTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.050 s -- in com.intel.cosbench.runtime.ServiceRuntimeTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.053 s -- in com.intel.cosbench.runtime.ServiceRuntimeTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -1010,14 +1010,14 @@ java.lang.IllegalStateException: provider authentication rejected
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.intel.cosbench.shadow.provider.StaticProviderRegistryTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.131 s -- in com.intel.cosbench.shadow.provider.StaticProviderRegistryTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.154 s -- in com.intel.cosbench.shadow.provider.StaticProviderRegistryTest
 [INFO] Running com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest
 SLF4J(W): No SLF4J providers were found.
 SLF4J(W): Defaulting to no-operation (NOP) logger implementation
 SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.84 s -- in com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.37 s -- in com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest
 [INFO] Running com.intel.cosbench.shadow.provider.ServiceLoaderDiscoveryTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.intel.cosbench.shadow.provider.ServiceLoaderDiscoveryTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s -- in com.intel.cosbench.shadow.provider.ServiceLoaderDiscoveryTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -1063,8 +1063,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.intel.cosbench.shadow.web.ControllerWebSpikeTest
-03:02:54.259 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.intel.cosbench.shadow.web.ControllerWebSpikeTest]: ControllerWebSpikeTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-03:02:54.407 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.intel.cosbench.shadow.web.WebSpikeApplication for test class com.intel.cosbench.shadow.web.ControllerWebSpikeTest
+03:42:27.384 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.intel.cosbench.shadow.web.ControllerWebSpikeTest]: ControllerWebSpikeTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+03:42:27.522 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.intel.cosbench.shadow.web.WebSpikeApplication for test class com.intel.cosbench.shadow.web.ControllerWebSpikeTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -1075,52 +1075,52 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 
  :: Spring Boot ::               (v3.5.16)
 
-2026-11-04T03:02:54.966Z  INFO 2270 --- [           main] c.i.c.shadow.web.ControllerWebSpikeTest  : Starting ControllerWebSpikeTest using Java 21.0.12.1 with PID 2270 (started by root in /workspace/shadow/cosbench-web-spike/target)
-2026-11-04T03:02:54.970Z  INFO 2270 --- [           main] c.i.c.shadow.web.ControllerWebSpikeTest  : No active profile set, falling back to 1 default profile: "default"
-2026-11-04T03:02:56.248Z  INFO 2270 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19088 (http)
-2026-11-04T03:02:56.266Z  INFO 2270 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-11-04T03:02:56.268Z  INFO 2270 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
-2026-11-04T03:02:56.321Z  INFO 2270 --- [           main] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring embedded WebApplicationContext
-2026-11-04T03:02:56.323Z  INFO 2270 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1322 ms
+2026-11-04T03:42:28.081Z  INFO 2254 --- [           main] c.i.c.shadow.web.ControllerWebSpikeTest  : Starting ControllerWebSpikeTest using Java 21.0.12.1 with PID 2254 (started by root in /workspace/shadow/cosbench-web-spike/target)
+2026-11-04T03:42:28.091Z  INFO 2254 --- [           main] c.i.c.shadow.web.ControllerWebSpikeTest  : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T03:42:29.414Z  INFO 2254 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19088 (http)
+2026-11-04T03:42:29.445Z  INFO 2254 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-04T03:42:29.446Z  INFO 2254 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-04T03:42:29.484Z  INFO 2254 --- [           main] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring embedded WebApplicationContext
+2026-11-04T03:42:29.486Z  INFO 2254 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1335 ms
 (Log4jLogManager.java:121)
-2026-11-04 03:02:56,429 [main           ] [INFO ] - will append log to console
-2026-11-04T03:02:56.458Z  INFO 2270 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
-2026-11-04T03:02:56.460Z  INFO 2270 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
-2026-11-04T03:02:56.460Z  INFO 2270 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
-2026-11-04T03:02:56.461Z  INFO 2270 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
-2026-11-04T03:02:56.462Z  INFO 2270 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
-2026-11-04T03:02:56.462Z  INFO 2270 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
-2026-11-04T03:02:56.463Z  INFO 2270 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
-2026-11-04T03:02:56.463Z  INFO 2270 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+2026-11-04 03:42:29,576 [main           ] [INFO ] - will append log to console
+2026-11-04T03:42:29.614Z  INFO 2254 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-11-04T03:42:29.615Z  INFO 2254 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-11-04T03:42:29.616Z  INFO 2254 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-11-04T03:42:29.617Z  INFO 2254 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-11-04T03:42:29.618Z  INFO 2254 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-11-04T03:42:29.619Z  INFO 2254 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-11-04T03:42:29.620Z  INFO 2254 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-11-04T03:42:29.620Z  INFO 2254 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
 (SimpleWorkloadArchiver.java:61)
-2026-11-04 03:02:56,725 [main           ] [INFO ] - using /tmp/cosbench-web-spike-13897456488624488204/archive for storing workload archives
+2026-11-04 03:42:29,883 [main           ] [INFO ] - using /tmp/cosbench-web-spike-8306521281949103541/archive for storing workload archives
 (SimpleWorkloadLoader.java:63)
-2026-11-04 03:02:56,728 [main           ] [INFO ] - loading workload archives from /tmp/cosbench-web-spike-13897456488624488204/archive
+2026-11-04 03:42:29,886 [main           ] [INFO ] - loading workload archives from /tmp/cosbench-web-spike-8306521281949103541/archive
 (PingDriverRunner.java:90)
-2026-11-04 03:02:56,732 [r-driver-pinger] [INFO ] - begin to sleep for 20 seconds.
-2026-11-04T03:02:56.961Z  INFO 2270 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name controllerWebUsers
-2026-11-04T03:02:57.065Z  INFO 2270 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
-2026-11-04T03:02:57.592Z  INFO 2270 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 19088 (http) with context path '/controller'
-2026-11-04T03:02:57.611Z  INFO 2270 --- [           main] c.i.c.shadow.web.ControllerWebSpikeTest  : Started ControllerWebSpikeTest in 3.022 seconds (process running for 4.17)
+2026-11-04 03:42:29,893 [r-driver-pinger] [INFO ] - begin to sleep for 20 seconds.
+2026-11-04T03:42:30.057Z  INFO 2254 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name controllerWebUsers
+2026-11-04T03:42:30.156Z  INFO 2254 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-11-04T03:42:30.733Z  INFO 2254 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 19088 (http) with context path '/controller'
+2026-11-04T03:42:30.745Z  INFO 2254 --- [           main] c.i.c.shadow.web.ControllerWebSpikeTest  : Started ControllerWebSpikeTest in 3.071 seconds (process running for 4.242)
 Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
-OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 WARNING: A Java agent has been loaded dynamically (/tmp/maven-repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
 WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
 WARNING: Dynamic loading of agents will be disallowed by default in a future release
-2026-11-04T03:02:58.405Z  INFO 2270 --- [.1-19088-exec-1] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-11-04T03:02:58.405Z  INFO 2270 --- [.1-19088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-11-04T03:02:58.407Z  INFO 2270 --- [.1-19088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-11-04T03:42:31.721Z  INFO 2254 --- [.1-19088-exec-1] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-04T03:42:31.722Z  INFO 2254 --- [.1-19088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-04T03:42:31.724Z  INFO 2254 --- [.1-19088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 (WorkloadProcessor.java:138)
-2026-11-04 03:02:59,438 [pool-3-thread-1] [INFO ] - begin to process workload w1
+2026-11-04 03:42:32,783 [pool-3-thread-1] [INFO ] - begin to process workload w1
 (WorkloadProcessor.java:220)
-2026-11-04 03:02:59,439 [pool-3-thread-1] [INFO ] - begin to run stage s1-main
+2026-11-04 03:42:32,786 [pool-3-thread-1] [INFO ] - begin to run stage s1-main
 (WorkloadProcessor.java:222)
-2026-11-04 03:02:59,441 [pool-3-thread-1] [INFO ] - ============================================
+2026-11-04 03:42:32,787 [pool-3-thread-1] [INFO ] - ============================================
 (WorkloadProcessor.java:223)
-2026-11-04 03:02:59,441 [pool-3-thread-1] [INFO ] - START WORK: main
+2026-11-04 03:42:32,787 [pool-3-thread-1] [INFO ] - START WORK: main
 (WorkloadProcessor.java:151)
-2026-11-04 03:02:59,443 [pool-3-thread-1] [ERROR] - unexpected exception
+2026-11-04 03:42:32,790 [pool-3-thread-1] [ERROR] - unexpected exception
 com.intel.cosbench.controller.schedule.ScheduleException: no free driver available
 	at com.intel.cosbench.controller.schedule.BalancedScheduler.scheduleRestWorks(BalancedScheduler.java:73)
 	at com.intel.cosbench.controller.schedule.BalancedScheduler.schedule(BalancedScheduler.java:48)
@@ -1138,23 +1138,23 @@ com.intel.cosbench.controller.schedule.ScheduleException: no free driver availab
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
 (WorkloadProcessor.java:309)
-2026-11-04 03:02:59,445 [pool-3-thread-1] [INFO ] - begin to terminate workload w1
+2026-11-04 03:42:32,793 [pool-3-thread-1] [INFO ] - begin to terminate workload w1
 (SimpleWorkloadArchiver.java:79)
-2026-11-04 03:02:59,522 [pool-3-thread-1] [INFO ] - workload w1 has been successfully archived
+2026-11-04 03:42:32,906 [pool-3-thread-1] [INFO ] - workload w1 has been successfully archived
 (WorkloadProcessor.java:315)
-2026-11-04 03:02:59,524 [pool-3-thread-1] [INFO ] - successfully terminated workload w1
-2026-11-04T03:02:59.748Z  WARN 2270 --- [1-19088-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded]
-2026-11-04T03:02:59.753Z  WARN 2270 --- [1-19088-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded]
+2026-11-04 03:42:32,907 [pool-3-thread-1] [INFO ] - successfully terminated workload w1
+2026-11-04T03:42:33.095Z  WARN 2254 --- [1-19088-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded]
+2026-11-04T03:42:33.105Z  WARN 2254 --- [1-19088-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded]
 (WorkloadProcessor.java:138)
-2026-11-04 03:02:59,872 [pool-3-thread-2] [INFO ] - begin to process workload w2
+2026-11-04 03:42:33,224 [pool-3-thread-2] [INFO ] - begin to process workload w2
 (WorkloadProcessor.java:220)
-2026-11-04 03:02:59,873 [pool-3-thread-2] [INFO ] - begin to run stage s1-main
+2026-11-04 03:42:33,225 [pool-3-thread-2] [INFO ] - begin to run stage s1-main
 (WorkloadProcessor.java:222)
-2026-11-04 03:02:59,873 [pool-3-thread-2] [INFO ] - ============================================
+2026-11-04 03:42:33,225 [pool-3-thread-2] [INFO ] - ============================================
 (WorkloadProcessor.java:223)
-2026-11-04 03:02:59,873 [pool-3-thread-2] [INFO ] - START WORK: main
+2026-11-04 03:42:33,226 [pool-3-thread-2] [INFO ] - START WORK: main
 (WorkloadProcessor.java:151)
-2026-11-04 03:02:59,874 [pool-3-thread-2] [ERROR] - unexpected exception
+2026-11-04 03:42:33,226 [pool-3-thread-2] [ERROR] - unexpected exception
 com.intel.cosbench.controller.schedule.ScheduleException: no free driver available
 	at com.intel.cosbench.controller.schedule.BalancedScheduler.scheduleRestWorks(BalancedScheduler.java:73)
 	at com.intel.cosbench.controller.schedule.BalancedScheduler.schedule(BalancedScheduler.java:48)
@@ -1172,12 +1172,12 @@ com.intel.cosbench.controller.schedule.ScheduleException: no free driver availab
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
 (WorkloadProcessor.java:309)
-2026-11-04 03:02:59,875 [pool-3-thread-2] [INFO ] - begin to terminate workload w2
+2026-11-04 03:42:33,229 [pool-3-thread-2] [INFO ] - begin to terminate workload w2
 (SimpleWorkloadArchiver.java:79)
-2026-11-04 03:02:59,925 [pool-3-thread-2] [INFO ] - workload w2 has been successfully archived
+2026-11-04 03:42:33,289 [pool-3-thread-2] [INFO ] - workload w2 has been successfully archived
 (WorkloadProcessor.java:315)
-2026-11-04 03:02:59,926 [pool-3-thread-2] [INFO ] - successfully terminated workload w2
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.068 s -- in com.intel.cosbench.shadow.web.ControllerWebSpikeTest
+2026-11-04 03:42:33,290 [pool-3-thread-2] [INFO ] - successfully terminated workload w2
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.256 s -- in com.intel.cosbench.shadow.web.ControllerWebSpikeTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -1236,9 +1236,9 @@ com.intel.cosbench.controller.schedule.ScheduleException: no free driver availab
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.intel.cosbench.http.IdempotencyStoreTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.120 s -- in com.intel.cosbench.http.IdempotencyStoreTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.153 s -- in com.intel.cosbench.http.IdempotencyStoreTest
 [INFO] Running com.intel.cosbench.http.DriverCommandControllerTest
-[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.297 s -- in com.intel.cosbench.http.DriverCommandControllerTest
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.368 s -- in com.intel.cosbench.http.DriverCommandControllerTest
 [INFO] Running com.intel.cosbench.http.RequestFingerprintTest
 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in com.intel.cosbench.http.RequestFingerprintTest
 [INFO] Running com.intel.cosbench.http.real.RealDriverHttpContractTest
@@ -1252,40 +1252,40 @@ com.intel.cosbench.controller.schedule.ScheduleException: no free driver availab
 
  :: Spring Boot ::               (v3.5.16)
 
-2026-11-04T03:03:03.897Z  INFO 2382 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : Starting RealDriverHttpContractTest using Java 21.0.12.1 with PID 2382 (started by root in /workspace/shadow/cosbench-http-spike/target)
-2026-11-04T03:03:03.904Z  INFO 2382 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : No active profile set, falling back to 1 default profile: "default"
-2026-11-04T03:03:05.053Z  INFO 2382 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (https)
-2026-11-04T03:03:05.075Z  INFO 2382 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-11-04T03:03:05.076Z  INFO 2382 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
-2026-11-04T03:03:05.128Z  INFO 2382 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2026-11-04T03:03:05.131Z  INFO 2382 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1211 ms
-2026-11-04T03:03:05.286Z  INFO 2382 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
-2026-11-04T03:03:05.292Z  INFO 2382 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
-2026-11-04T03:03:05.294Z  INFO 2382 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
-2026-11-04T03:03:05.297Z  INFO 2382 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
-2026-11-04T03:03:05.299Z  INFO 2382 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
-2026-11-04T03:03:05.312Z  INFO 2382 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
-2026-11-04T03:03:05.312Z  INFO 2382 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
-2026-11-04T03:03:05.315Z  INFO 2382 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+2026-11-04T03:42:37.404Z  INFO 2367 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : Starting RealDriverHttpContractTest using Java 21.0.12.1 with PID 2367 (started by root in /workspace/shadow/cosbench-http-spike/target)
+2026-11-04T03:42:37.410Z  INFO 2367 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T03:42:38.511Z  INFO 2367 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (https)
+2026-11-04T03:42:38.560Z  INFO 2367 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-04T03:42:38.560Z  INFO 2367 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-04T03:42:38.623Z  INFO 2367 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-11-04T03:42:38.625Z  INFO 2367 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1194 ms
+2026-11-04T03:42:38.762Z  INFO 2367 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-11-04T03:42:38.765Z  INFO 2367 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-11-04T03:42:38.765Z  INFO 2367 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-11-04T03:42:38.774Z  INFO 2367 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-11-04T03:42:38.777Z  INFO 2367 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-11-04T03:42:38.781Z  INFO 2367 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-11-04T03:42:38.782Z  INFO 2367 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-11-04T03:42:38.803Z  INFO 2367 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
 Can't Find VERSION
 Can't Find BUILD.no
-2026-11-04T03:03:06.214Z  INFO 2382 --- [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-0.0.0.0-auto-1], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [Set directly - location unknown] using alias [tomcat] with trust store [null]
-2026-11-04T03:03:06.226Z  INFO 2382 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 35825 (https) with context path '/'
-2026-11-04T03:03:06.239Z  INFO 2382 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : Started RealDriverHttpContractTest in 2.745 seconds (process running for 4.169)
+2026-11-04T03:42:39.720Z  INFO 2367 --- [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-0.0.0.0-auto-1], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [Set directly - location unknown] using alias [tomcat] with trust store [null]
+2026-11-04T03:42:39.730Z  INFO 2367 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 45201 (https) with context path '/'
+2026-11-04T03:42:39.743Z  INFO 2367 --- [           main] c.i.c.h.real.RealDriverHttpContractTest  : Started RealDriverHttpContractTest in 2.711 seconds (process running for 4.312)
 Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 WARNING: A Java agent has been loaded dynamically (/tmp/maven-repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
 WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
 WARNING: Dynamic loading of agents will be disallowed by default in a future release
-2026-11-04T03:03:07.249Z  INFO 2382 --- [0-auto-1-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-11-04T03:03:07.250Z  INFO 2382 --- [0-auto-1-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-11-04T03:03:07.253Z  INFO 2382 --- [0-auto-1-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.716 s -- in com.intel.cosbench.http.real.RealDriverHttpContractTest
+2026-11-04T03:42:40.853Z  INFO 2367 --- [0-auto-1-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-04T03:42:40.853Z  INFO 2367 --- [0-auto-1-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-04T03:42:40.855Z  INFO 2367 --- [0-auto-1-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.595 s -- in com.intel.cosbench.http.real.RealDriverHttpContractTest
 [INFO] Running com.intel.cosbench.http.LegacyDriverCommandPortTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.546 s -- in com.intel.cosbench.http.LegacyDriverCommandPortTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.462 s -- in com.intel.cosbench.http.LegacyDriverCommandPortTest
 [INFO] Running com.intel.cosbench.http.DriverHttpContractTest
-2026-11-04T03:03:09.529Z  INFO 2382 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.intel.cosbench.http.DriverHttpContractTest$Config for test class com.intel.cosbench.http.DriverHttpContractTest
+2026-11-04T03:42:42.856Z  INFO 2367 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.intel.cosbench.http.DriverHttpContractTest$Config for test class com.intel.cosbench.http.DriverHttpContractTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -1296,21 +1296,21 @@ WARNING: Dynamic loading of agents will be disallowed by default in a future rel
 
  :: Spring Boot ::               (v3.5.16)
 
-2026-11-04T03:03:09.631Z  INFO 2382 --- [           main] c.i.c.http.DriverHttpContractTest        : Starting DriverHttpContractTest using Java 21.0.12.1 with PID 2382 (started by root in /workspace/shadow/cosbench-http-spike/target)
-2026-11-04T03:03:09.632Z  INFO 2382 --- [           main] c.i.c.http.DriverHttpContractTest        : No active profile set, falling back to 1 default profile: "default"
-2026-11-04T03:03:10.048Z  INFO 2382 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
-2026-11-04T03:03:10.050Z  INFO 2382 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-11-04T03:03:10.051Z  INFO 2382 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
-2026-11-04T03:03:10.069Z  INFO 2382 --- [           main] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
-2026-11-04T03:03:10.069Z  INFO 2382 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 431 ms
-2026-11-04T03:03:10.284Z  INFO 2382 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 34391 (http) with context path '/'
-2026-11-04T03:03:10.297Z  INFO 2382 --- [           main] c.i.c.http.DriverHttpContractTest        : Started DriverHttpContractTest in 0.756 seconds (process running for 8.226)
-2026-11-04T03:03:10.338Z  INFO 2382 --- [o-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-11-04T03:03:10.339Z  INFO 2382 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-11-04T03:03:10.341Z  INFO 2382 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.968 s -- in com.intel.cosbench.http.DriverHttpContractTest
+2026-11-04T03:42:42.937Z  INFO 2367 --- [           main] c.i.c.http.DriverHttpContractTest        : Starting DriverHttpContractTest using Java 21.0.12.1 with PID 2367 (started by root in /workspace/shadow/cosbench-http-spike/target)
+2026-11-04T03:42:42.938Z  INFO 2367 --- [           main] c.i.c.http.DriverHttpContractTest        : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T03:42:43.325Z  INFO 2367 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-11-04T03:42:43.329Z  INFO 2367 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-04T03:42:43.332Z  INFO 2367 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-04T03:42:43.367Z  INFO 2367 --- [           main] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2026-11-04T03:42:43.367Z  INFO 2367 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 427 ms
+2026-11-04T03:42:43.548Z  INFO 2367 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 41181 (http) with context path '/'
+2026-11-04T03:42:43.553Z  INFO 2367 --- [           main] c.i.c.http.DriverHttpContractTest        : Started DriverHttpContractTest in 0.69 seconds (process running for 8.121)
+2026-11-04T03:42:43.564Z  INFO 2367 --- [o-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-04T03:42:43.564Z  INFO 2367 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-04T03:42:43.567Z  INFO 2367 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.844 s -- in com.intel.cosbench.http.DriverHttpContractTest
 [INFO] Running com.intel.cosbench.http.AuthenticatedDriverClientTest
-[INFO] Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.810 s -- in com.intel.cosbench.http.AuthenticatedDriverClientTest
+[INFO] Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.693 s -- in com.intel.cosbench.http.AuthenticatedDriverClientTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -1322,32 +1322,32 @@ WARNING: Dynamic loading of agents will be disallowed by default in a future rel
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Summary for cosbench-scheme3-shadow 0.1.0-SNAPSHOT:
 [INFO] 
-[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  1.158 s]
-[INFO] COSBench Log4j Runtime Resources ................... SUCCESS [  3.743 s]
-[INFO] COSBench Castor Runtime Resources .................. SUCCESS [  0.066 s]
-[INFO] COSBench Logging API and Log4j Adapter ............. SUCCESS [  2.830 s]
-[INFO] COSBench Config Shadow ............................. SUCCESS [  3.245 s]
-[INFO] COSBench Storage and Auth SPI ...................... SUCCESS [  0.343 s]
-[INFO] COSBench SineIO Production Providers ............... SUCCESS [ 15.204 s]
-[INFO] COSBench Legacy S3 Production Provider ............. SUCCESS [ 11.520 s]
-[INFO] COSBench Core Model Protocol and Services .......... SUCCESS [  1.622 s]
+[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  1.174 s]
+[INFO] COSBench Log4j Runtime Resources ................... SUCCESS [  3.840 s]
+[INFO] COSBench Castor Runtime Resources .................. SUCCESS [  0.069 s]
+[INFO] COSBench Logging API and Log4j Adapter ............. SUCCESS [  2.618 s]
+[INFO] COSBench Config Shadow ............................. SUCCESS [  3.555 s]
+[INFO] COSBench Storage and Auth SPI ...................... SUCCESS [  0.337 s]
+[INFO] COSBench SineIO Production Providers ............... SUCCESS [ 14.727 s]
+[INFO] COSBench Legacy S3 Production Provider ............. SUCCESS [ 10.671 s]
+[INFO] COSBench Core Model Protocol and Services .......... SUCCESS [  1.280 s]
 [INFO] COSBench Web Compatibility Support ................. SUCCESS [  0.848 s]
-[INFO] COSBench Driver Mission Service .................... SUCCESS [  0.829 s]
-[INFO] COSBench HTTP Client Utility ....................... SUCCESS [  1.060 s]
-[INFO] COSBench authenticated Driver HTTP adapter ......... SUCCESS [  0.282 s]
-[INFO] COSBench Driver Boot Application ................... SUCCESS [ 27.964 s]
-[INFO] COSBench Controller Business Services .............. SUCCESS [  0.776 s]
-[INFO] COSBench Controller Web Pages and CLI .............. SUCCESS [  0.736 s]
-[INFO] COSBench Controller Boot Application ............... SUCCESS [01:25 min]
-[INFO] COSBench Runtime Lifecycle Shadow .................. SUCCESS [  1.667 s]
-[INFO] COSBench Provider SPI Coexistence Spike ............ SUCCESS [ 13.326 s]
-[INFO] COSBench Controller Web Jakarta Spike .............. SUCCESS [  7.821 s]
-[INFO] COSBench authenticated Driver HTTP spike ........... SUCCESS [ 12.885 s]
+[INFO] COSBench Driver Mission Service .................... SUCCESS [  0.686 s]
+[INFO] COSBench HTTP Client Utility ....................... SUCCESS [  1.037 s]
+[INFO] COSBench authenticated Driver HTTP adapter ......... SUCCESS [  0.361 s]
+[INFO] COSBench Driver Boot Application ................... SUCCESS [ 28.147 s]
+[INFO] COSBench Controller Business Services .............. SUCCESS [  0.880 s]
+[INFO] COSBench Controller Web Pages and CLI .............. SUCCESS [  0.712 s]
+[INFO] COSBench Controller Boot Application ............... SUCCESS [01:26 min]
+[INFO] COSBench Runtime Lifecycle Shadow .................. SUCCESS [  1.422 s]
+[INFO] COSBench Provider SPI Coexistence Spike ............ SUCCESS [ 13.288 s]
+[INFO] COSBench Controller Web Jakarta Spike .............. SUCCESS [  8.240 s]
+[INFO] COSBench authenticated Driver HTTP spike ........... SUCCESS [ 12.653 s]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  03:16 min
-[INFO] Finished at: 2026-11-04T03:03:13Z
+[INFO] Total time:  03:15 min
+[INFO] Finished at: 2026-11-04T03:42:46Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1392,7 +1392,7 @@ WARNING: Dynamic loading of agents will be disallowed by default in a future rel
 SLF4J(W): No SLF4J providers were found.
 SLF4J(W): Defaulting to no-operation (NOP) logger implementation
 SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.46 s -- in com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.71 s -- in com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -1401,8 +1401,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  18.607 s
-[INFO] Finished at: 2026-11-04T03:06:06Z
+[INFO] Total time:  18.447 s
+[INFO] Finished at: 2026-11-04T03:45:36Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1418,8 +1418,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.660 s
-[INFO] Finished at: 2026-11-04T03:06:12Z
+[INFO] Total time:  3.247 s
+[INFO] Finished at: 2026-11-04T03:45:42Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1434,8 +1434,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.178 s
-[INFO] Finished at: 2026-11-04T03:06:16Z
+[INFO] Total time:  3.284 s
+[INFO] Finished at: 2026-11-04T03:45:47Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1451,8 +1451,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.194 s
-[INFO] Finished at: 2026-11-04T03:06:22Z
+[INFO] Total time:  3.066 s
+[INFO] Finished at: 2026-11-04T03:45:52Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1467,8 +1467,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.177 s
-[INFO] Finished at: 2026-11-04T03:06:27Z
+[INFO] Total time:  3.106 s
+[INFO] Finished at: 2026-11-04T03:45:57Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1484,8 +1484,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.355 s
-[INFO] Finished at: 2026-11-04T03:06:33Z
+[INFO] Total time:  3.250 s
+[INFO] Finished at: 2026-11-04T03:46:03Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1500,8 +1500,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.596 s
-[INFO] Finished at: 2026-11-04T03:06:39Z
+[INFO] Total time:  3.524 s
+[INFO] Finished at: 2026-11-04T03:46:08Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1517,8 +1517,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.286 s
-[INFO] Finished at: 2026-11-04T03:06:45Z
+[INFO] Total time:  3.426 s
+[INFO] Finished at: 2026-11-04T03:46:14Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1533,8 +1533,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.377 s
-[INFO] Finished at: 2026-11-04T03:06:50Z
+[INFO] Total time:  3.151 s
+[INFO] Finished at: 2026-11-04T03:46:19Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1550,8 +1550,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.311 s
-[INFO] Finished at: 2026-11-04T03:06:56Z
+[INFO] Total time:  3.289 s
+[INFO] Finished at: 2026-11-04T03:46:25Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1566,8 +1566,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.267 s
-[INFO] Finished at: 2026-11-04T03:07:01Z
+[INFO] Total time:  3.200 s
+[INFO] Finished at: 2026-11-04T03:46:29Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1583,8 +1583,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.275 s
-[INFO] Finished at: 2026-11-04T03:07:07Z
+[INFO] Total time:  3.460 s
+[INFO] Finished at: 2026-11-04T03:46:36Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1599,8 +1599,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.586 s
-[INFO] Finished at: 2026-11-04T03:07:12Z
+[INFO] Total time:  3.571 s
+[INFO] Finished at: 2026-11-04T03:46:41Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1616,8 +1616,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.378 s
-[INFO] Finished at: 2026-11-04T03:07:18Z
+[INFO] Total time:  3.351 s
+[INFO] Finished at: 2026-11-04T03:46:47Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1632,8 +1632,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.436 s
-[INFO] Finished at: 2026-11-04T03:07:23Z
+[INFO] Total time:  3.510 s
+[INFO] Finished at: 2026-11-04T03:46:52Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1649,8 +1649,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.469 s
-[INFO] Finished at: 2026-11-04T03:07:29Z
+[INFO] Total time:  3.373 s
+[INFO] Finished at: 2026-11-04T03:46:58Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1665,8 +1665,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.481 s
-[INFO] Finished at: 2026-11-04T03:07:34Z
+[INFO] Total time:  3.412 s
+[INFO] Finished at: 2026-11-04T03:47:03Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1682,8 +1682,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.535 s
-[INFO] Finished at: 2026-11-04T03:07:47Z
+[INFO] Total time:  3.441 s
+[INFO] Finished at: 2026-11-04T03:47:17Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1698,8 +1698,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.360 s
-[INFO] Finished at: 2026-11-04T03:07:52Z
+[INFO] Total time:  3.234 s
+[INFO] Finished at: 2026-11-04T03:47:21Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1715,8 +1715,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.452 s
-[INFO] Finished at: 2026-11-04T03:07:57Z
+[INFO] Total time:  3.735 s
+[INFO] Finished at: 2026-11-04T03:47:27Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1731,8 +1731,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.584 s
-[INFO] Finished at: 2026-11-04T03:08:02Z
+[INFO] Total time:  3.671 s
+[INFO] Finished at: 2026-11-04T03:47:32Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1749,7 +1749,7 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
 [INFO] Total time:  3.714 s
-[INFO] Finished at: 2026-11-04T03:08:08Z
+[INFO] Finished at: 2026-11-04T03:47:38Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1764,8 +1764,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.540 s
-[INFO] Finished at: 2026-11-04T03:08:13Z
+[INFO] Total time:  3.635 s
+[INFO] Finished at: 2026-11-04T03:47:43Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1781,8 +1781,8 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.556 s
-[INFO] Finished at: 2026-11-04T03:08:18Z
+[INFO] Total time:  3.624 s
+[INFO] Finished at: 2026-11-04T03:47:48Z
 [INFO] ------------------------------------------------------------------------
 [INFO] Scanning for projects...
 [INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
@@ -1797,6 +1797,6 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.341 s
-[INFO] Finished at: 2026-11-04T03:08:23Z
+[INFO] Total time:  3.286 s
+[INFO] Finished at: 2026-11-04T03:47:53Z
 [INFO] ------------------------------------------------------------------------

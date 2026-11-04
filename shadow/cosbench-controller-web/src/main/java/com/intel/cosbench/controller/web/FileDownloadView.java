@@ -18,24 +18,21 @@ import org.springframework.web.servlet.View;
 final class FileDownloadView implements View {
 
     private final File file;
-    private final String contentType;
     private final String downloadName;
 
-    FileDownloadView(File file, String contentType, String downloadName) {
+    FileDownloadView(File file, String downloadName) {
         this.file = file;
-        this.contentType = contentType;
         this.downloadName = downloadName;
     }
 
     @Override
     public String getContentType() {
-        return contentType;
+        return null;
     }
 
     @Override
     public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        response.setContentType(contentType);
         response.setHeader("Content-Length", Long.toString(file.length()));
         response.setHeader("Content-Disposition", "attachment; filename=\"" + downloadName + "\"");
         try (FileInputStream input = new FileInputStream(file)) {

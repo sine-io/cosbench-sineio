@@ -360,14 +360,14 @@ curl --silent --show-error --fail --max-time 3 --cookie "$web_session_cookies" \
     --dump-header "$report_dir/workload-timeline.csv.headers" \
     --output "$report_dir/workload-timeline.csv" \
     "$controller_url/timeline.csv?wid=$workload_id&sid=$stage_id"
-grep -qi '^Content-Type: text/csv' "$report_dir/workload-timeline.csv.headers"
+grep -Eqi '^Content-Type: text/csv;[[:space:]]*charset=ISO-8859-1' "$report_dir/workload-timeline.csv.headers"
 grep -q '^Timestamp,Op-Count' "$report_dir/workload-timeline.csv"
 grep -q 'Version-Info' "$report_dir/workload-timeline.csv"
 
 curl --silent --show-error --fail --max-time 3 --cookie "$web_session_cookies" \
     --dump-header "$report_dir/workload-log.headers" --output "$report_dir/workload-log.txt" \
     "$controller_url/download-log.do?id=$workload_id"
-grep -qi '^Content-Type: text/plain' "$report_dir/workload-log.headers"
+! grep -qi '^Content-Type:' "$report_dir/workload-log.headers"
 grep -qi '^Content-Disposition: attachment; filename="workload-log.txt"' "$report_dir/workload-log.headers"
 log_length=$(awk 'tolower($1) == "content-length:" { print $2 }' \
     "$report_dir/workload-log.headers" | tr -d '\r')
@@ -376,7 +376,7 @@ log_length=$(awk 'tolower($1) == "content-length:" { print $2 }' \
 curl --silent --show-error --fail --max-time 3 --cookie "$web_session_cookies" \
     --dump-header "$report_dir/workload-config.headers" --output "$report_dir/workload-config.xml" \
     "$controller_url/download-config.do?id=$workload_id"
-grep -qi '^Content-Type: application/xml' "$report_dir/workload-config.headers"
+! grep -qi '^Content-Type:' "$report_dir/workload-config.headers"
 grep -qi '^Content-Disposition: attachment; filename="workload-config.xml"' \
     "$report_dir/workload-config.headers"
 config_length=$(awk 'tolower($1) == "content-length:" { print $2 }' \
@@ -411,6 +411,40 @@ operation_sample=$(grep -E '^cosbench_workload_ops_count[[:space:]]' \
 [[ $operation_sample == *'operation_name="'* && $operation_sample == *'unit="operation"'* ]]
 operation_count=$(sed -E 's/.*}[[:space:]]([-+]?[0-9]+([.][0-9]+)?)([[:space:]]+[0-9]+)?$/\1/' <<< "$operation_sample")
 awk -v value="$operation_count" 'BEGIN { exit !(value > 0) }'
+
+workload_summary="$runtime_dir/controller/archive/$workload_id-controller-http-long/$workload_id-controller-http-long.csv"
+test -s "$workload_summary"
+IFS=, read -r _ _ operation_id operation_name operation_type expected_operations expected_bytes \
+    expected_response_time expected_process_time _ _ _ _ _ _ expected_throughput expected_bandwidth expected_ratio \
+    < <(awk -F, 'NR == 2 { print }' "$workload_summary")
+[[ $operation_id == op1 && $operation_name == read && $operation_type == read ]]
+expected_ratio=${expected_ratio%%%}
+
+assert_metric_matches_summary() {
+    local metric=$1 unit=$2 expected=$3
+    local line actual
+    line=$(awk -v prefix="cosbench_${metric} " \
+        -v workload="workload=\"$workload_id (controller-http-long)\"" \
+        '$0 ~ "^" prefix && index($0, workload) { print; exit }' \
+        "$report_dir/workload-prometheus.txt")
+    [[ $line == *"operation_name=\"${operation_id}:${operation_name}\""* ]]
+    [[ $line == *"operation_type=\"$operation_type\""* ]]
+    [[ $line == *"unit=\"$unit\""* ]]
+    actual=${line##* }
+    awk -v actual="$actual" -v expected="$expected" \
+        'BEGIN { difference = actual - expected; if (difference < 0) difference = -difference; exit !(difference <= 0.02) }'
+}
+
+assert_metric_matches_summary workload_ops_count operation "$expected_operations"
+assert_metric_matches_summary workload_byte_count byte "$expected_bytes"
+assert_metric_matches_summary workload_average_response_time ms "$expected_response_time"
+assert_metric_matches_summary workload_average_transfer_time ms "$(awk \
+    -v response="$expected_response_time" -v process="$expected_process_time" \
+    'BEGIN { printf "%.2f", response - process }')"
+assert_metric_matches_summary workload_average_process_time ms "$expected_process_time"
+assert_metric_matches_summary workload_throughput op/s "$expected_throughput"
+assert_metric_matches_summary workload_bandwidth byte/s "$expected_bandwidth"
+assert_metric_matches_summary workload_success_ratio % "$expected_ratio"
 
 grep -q 'baseline-trigger-ok' "$runtime_dir/controller/archive/$workload_id-controller-http-long/scripts.log"
 grep -q 'controller-http-long' "$runtime_dir/controller/archive/run-history.csv"

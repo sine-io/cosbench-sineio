@@ -21,7 +21,7 @@ public class DownloadConfigController extends WorkloadPageController {
         if (config == null || !config.isFile()) {
             throw new NotFoundException();
         }
-        ModelAndView result = new ModelAndView(new FileDownloadView(config, "application/xml", "workload-config.xml"));
+        ModelAndView result = new ModelAndView(new FileDownloadView(config, "workload-config.xml"));
         result.addObject("cInfo", controller.getControllerInfo());
         return result;
     }
