@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.intel.cosbench.app.driver.DriverMissionLifecycleTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.498 s -- in com.intel.cosbench.app.driver.DriverMissionLifecycleTest

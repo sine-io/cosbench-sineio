@@ -35,6 +35,9 @@ public class DriverApplication {
             if (installation == null) {
                 installation = Path.of(".").toAbsolutePath().normalize();
             }
+            if (config.web().enabled()) {
+                System.setProperty("org.freemarker.loggerLibrary", "SLF4J");
+            }
             var application = new SpringApplication(DriverApplication.class);
             application.setWebApplicationType(config.web().enabled()
                     ? WebApplicationType.SERVLET : WebApplicationType.NONE);

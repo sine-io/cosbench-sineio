@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.intel.cosbench.app.driver.DriverHttpContractTest" time="17.433" tests="13" errors="0" skipped="0" failures="0" flakes="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/workspace/shadow/cosbench-driver-app/target/test-classes:/workspace/shadow/cosbench-driver-app/target/classes:/workspace/shadow/cosbench-sineio/target/classes:/workspace/shadow/cosbench-api/target/classes:/m2/com/amazonaws/aws-java-sdk-s3/1.12.767/aws-java-sdk-s3-1.12.767.jar:/m2/com/amazonaws/aws-java-sdk-kms/1.12.767/aws-java-sdk-kms-1.12.767.jar:/m2/com/amazonaws/aws-java-sdk-core/1.12.767/aws-java-sdk-core-1.12.767.jar:/m2/com/fasterxml/jackson/dataformat/jackson-dataformat-cbor/2.21.4/jackson-dataformat-cbor-2.21.4.jar:/m2/joda-time/joda-time/2.12.7/joda-time-2.12.7.jar:/m2/com/amazonaws/jmespath-java/1.12.767/jmespath-java-1.12.767.jar:/m2/software/amazon/awssdk/s3/2.26.8/s3-2.26.8.jar:/m2/software/amazon/awssdk/aws-xml-protocol/2.26.8/aws-xml-protocol-2.26.8.jar:/m2/software/amazon/awssdk/aws-query-protocol/2.26.8/aws-query-protocol-2.26.8.jar:/m2/software/amazon/awssdk/protocol-core/2.26.8/protocol-core-2.26.8.jar:/m2/software/amazon/awssdk/arns/2.26.8/arns-2.26.8.jar:/m2/software/amazon/awssdk/profiles/2.26.8/profiles-2.26.8.jar:/m2/software/amazon/awssdk/crt-core/2.26.8/crt-core-2.26.8.jar:/m2/software/amazon/awssdk/http-auth/2.26.8/http-auth-2.26.8.jar:/m2/software/amazon/awssdk/identity-spi/2.26.8/identity-spi-2.26.8.jar:/m2/software/amazon/awssdk/http-auth-spi/2.26.8/http-auth-spi-2.26.8.jar:/m2/org/reactivestreams/reactive-streams/1.0.4/reactive-streams-1.0.4.jar:/m2/software/amazon/awssdk/http-auth-aws/2.26.8/http-auth-aws-2.26.8.jar:/m2/software/amazon/awssdk/checksums/2.26.8/checksums-2.26.8.jar:/m2/software/amazon/awssdk/checksums-spi/2.26.8/checksums-spi-2.26.8.jar:/m2/software/amazon/awssdk/retries-spi/2.26.8/retries-spi-2.26.8.jar:/m2/software/amazon/awssdk/sdk-core/2.26.8/sdk-core-2.26.8.jar:/m2/software/amazon/awssdk/retries/2.26.8/retries-2.26.8.jar:/m2/software/amazon/awssdk/auth/2.26.8/auth-2.26.8.jar:/m2/software/amazon/eventstream/eventstream/1.0.1/eventstream-1.0.1.jar:/m2/software/amazon/awssdk/http-client-spi/2.26.8/http-client-spi-2.26.8.jar:/m2/software/amazon/awssdk/regions/2.26.8/regions-2.26.8.jar:/m2/software/amazon/awssdk/annotations/2.26.8/annotations-2.26.8.jar:/m2/software/amazon/awssdk/utils/2.26.8/utils-2.26.8.jar:/m2/software/amazon/awssdk/aws-core/2.26.8/aws-core-2.26.8.jar:/m2/software/amazon/awssdk/metrics-spi/2.26.8/metrics-spi-2.26.8.jar:/m2/software/amazon/awssdk/json-utils/2.26.8/json-utils-2.26.8.jar:/m2/software/amazon/awssdk/third-party-jackson-core/2.26.8/third-party-jackson-core-2.26.8.jar:/m2/software/amazon/awssdk/endpoints-spi/2.26.8/endpoints-spi-2.26.8.jar:/m2/software/amazon/awssdk/netty-nio-client/2.26.8/netty-nio-client-2.26.8.jar:/m2/io/netty/netty-codec-http/4.1.135.Final/netty-codec-http-4.1.135.Final.jar:/m2/io/netty/netty-codec-http2/4.1.135.Final/netty-codec-http2-4.1.135.Final.jar:/m2/io/netty/netty-codec/4.1.135.Final/netty-codec-4.1.135.Final.jar:/m2/io/netty/netty-transport/4.1.135.Final/netty-transport-4.1.135.Final.jar:/m2/io/netty/netty-common/4.1.135.Final/netty-common-4.1.135.Final.jar:/m2/io/netty/netty-buffer/4.1.135.Final/netty-buffer-4.1.135.Final.jar:/m2/io/netty/netty-handler/4.1.135.Final/netty-handler-4.1.135.Final.jar:/m2/io/netty/netty-transport-native-unix-common/4.1.135.Final/netty-transport-native-unix-common-4.1.135.Final.jar:/m2/io/netty/netty-transport-classes-epoll/4.1.135.Final/netty-transport-classes-epoll-4.1.135.Final.jar:/m2/io/netty/netty-resolver/4.1.135.Final/netty-resolver-4.1.135.Final.jar:/m2/software/amazon/awssdk/apache-client/2.26.8/apache-client-2.26.8.jar:/m2/org/apache/httpcomponents/httpclient/4.5.14/httpclient-4.5.14.jar:/m2/org/apache/httpcomponents/httpcore/4.4.16/httpcore-4.4.16.jar:/m2/commons-codec/commons-codec/1.15/commons-codec-1.15.jar:/workspace/shadow/cosbench-s3/target/classes:/workspace/shadow/cosbench-config/target/classes:/workspace/shadow/cosbench-castor/target/classes:/m2/commons-configuration/commons-configuration/1.10/commons-configuration-1.10.jar:/m2/org/codehaus/castor/castor-xml/1.3.3/castor-xml-1.3.3.jar:/m2/org/codehaus/castor/castor-core/1.3.3/castor-core-1.3.3.jar:/m2/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar:/m2/javax/inject/javax.inject/1/javax.inject-1.jar:/m2/org/yaml/snakeyaml/2.4/snakeyaml-2.4.jar:/workspace/shadow/cosbench-driver/target/classes:/workspace/shadow/cosbench-core/target/classes:/m2/org/apache/commons/commons-csv/1.10.0/commons-csv-1.10.0.jar:/workspace/shadow/cosbench-log/target/classes:/workspace/shadow/cosbench-log4j/target/classes:/m2/log4j/log4j/1.2.17/log4j-1.2.17.jar:/m2/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar:/m2/commons-io/commons-io/2.15.1/commons-io-2.15.1.jar:/m2/commons-lang/commons-lang/2.6/commons-lang-2.6.jar:/workspace/shadow/cosbench-driver-web/target/classes:/workspace/shadow/cosbench-http/target/classes:/workspace/shadow/cosbench-core-web/target/classes:/m2/org/springframework/boot/spring-boot-starter-freemarker/3.5.16/spring-boot-starter-freemarker-3.5.16.jar:/m2/org/freemarker/freemarker/2.3.34/freemarker-2.3.34.jar:/m2/org/springframework/spring-context-support/6.2.19/spring-context-support-6.2.19.jar:/m2/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar:/m2/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar:/m2/org/springframework/boot/spring-boot-starter-web/3.5.16/spring-boot-starter-web-3.5.16.jar:/m2/org/springframework/boot/spring-boot-starter/3.5.16/spring-boot-starter-3.5.16.jar:/m2/org/springframework/boot/spring-boot/3.5.16/spring-boot-3.5.16.jar:/m2/org/springframework/boot/spring-boot-autoconfigure/3.5.16/spring-boot-autoconfigure-3.5.16.jar:/m2/org/springframework/boot/spring-boot-starter-logging/3.5.16/spring-boot-starter-logging-3.5.16.jar:/m2/ch/qos/logback/logback-classic/1.5.34/logback-classic-1.5.34.jar:/m2/ch/qos/logback/logback-core/1.5.34/logback-core-1.5.34.jar:/m2/org/apache/logging/log4j/log4j-to-slf4j/2.24.3/log4j-to-slf4j-2.24.3.jar:/m2/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar:/m2/org/slf4j/jul-to-slf4j/2.0.18/jul-to-slf4j-2.0.18.jar:/m2/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/m2/org/springframework/boot/spring-boot-starter-json/3.5.16/spring-boot-starter-json-3.5.16.jar:/m2/com/fasterxml/jackson/core/jackson-databind/2.21.4/jackson-databind-2.21.4.jar:/m2/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/m2/com/fasterxml/jackson/core/jackson-core/2.21.4/jackson-core-2.21.4.jar:/m2/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.21.4/jackson-datatype-jdk8-2.21.4.jar:/m2/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.21.4/jackson-datatype-jsr310-2.21.4.jar:/m2/com/fasterxml/jackson/module/jackson-module-parameter-names/2.21.4/jackson-module-parameter-names-2.21.4.jar:/m2/org/springframework/boot/spring-boot-starter-tomcat/3.5.16/spring-boot-starter-tomcat-3.5.16.jar:/m2/org/apache/tomcat/embed/tomcat-embed-core/10.1.55/tomcat-embed-core-10.1.55.jar:/m2/org/apache/tomcat/embed/tomcat-embed-el/10.1.55/tomcat-embed-el-10.1.55.jar:/m2/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.55/tomcat-embed-websocket-10.1.55.jar:/m2/org/springframework/spring-web/6.2.19/spring-web-6.2.19.jar:/m2/org/springframework/spring-beans/6.2.19/spring-beans-6.2.19.jar:/m2/io/micrometer/micrometer-observation/1.15.12/micrometer-observation-1.15.12.jar:/m2/io/micrometer/micrometer-commons/1.15.12/micrometer-commons-1.15.12.jar:/m2/org/springframework/spring-webmvc/6.2.19/spring-webmvc-6.2.19.jar:/m2/org/springframework/spring-aop/6.2.19/spring-aop-6.2.19.jar:/m2/org/springframework/spring-context/6.2.19/spring-context-6.2.19.jar:/m2/org/springframework/spring-expression/6.2.19/spring-expression-6.2.19.jar:/m2/org/springframework/boot/spring-boot-starter-test/3.5.16/spring-boot-starter-test-3.5.16.jar:/m2/org/springframework/boot/spring-boot-test/3.5.16/spring-boot-test-3.5.16.jar:/m2/org/springframework/boot/spring-boot-test-autoconfigure/3.5.16/spring-boot-test-autoconfigure-3.5.16.jar:/m2/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/m2/jakarta/xml/bind/jakarta.xml.bind-api/4.0.5/jakarta.xml.bind-api-4.0.5.jar:/m2/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/m2/net/minidev/json-smart/2.5.2/json-smart-2.5.2.jar:/m2/net/minidev/accessors-smart/2.5.2/accessors-smart-2.5.2.jar:/m2/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/m2/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/m2/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/m2/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar:/m2/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/m2/org/junit/jupiter/junit-jupiter/5.12.2/junit-jupiter-5.12.2.jar:/m2/org/junit/jupiter/junit-jupiter-api/5.12.2/junit-jupiter-api-5.12.2.jar:/m2/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/m2/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar:/m2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/m2/org/junit/jupiter/junit-jupiter-params/5.12.2/junit-jupiter-params-5.12.2.jar:/m2/org/junit/jupiter/junit-jupiter-engine/5.12.2/junit-jupiter-engine-5.12.2.jar:/m2/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar:/m2/org/mockito/mockito-core/5.17.0/mockito-core-5.17.0.jar:/m2/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/m2/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/m2/org/mockito/mockito-junit-jupiter/5.17.0/mockito-junit-jupiter-5.17.0.jar:/m2/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/m2/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/m2/org/springframework/spring-core/6.2.19/spring-core-6.2.19.jar:/m2/org/springframework/spring-jcl/6.2.19/spring-jcl-6.2.19.jar:/m2/org/springframework/spring-test/6.2.19/spring-test-6.2.19.jar:/m2/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="catalina.useNaming" value="false"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Etc/UTC"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/opt/java/openjdk/lib"/>
+    <property name="sun.java.command" value="/workspace/shadow/cosbench-driver-app/target/surefire/surefirebooter-20261104091522704_3.jar /workspace/shadow/cosbench-driver-app/target/surefire 2026-11-04T09-15-13_509-jvmRun1 surefire-20261104091522704_1tmp surefire_0-20261104091522704_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/workspace/shadow/cosbench-driver-app/target/test-classes:/workspace/shadow/cosbench-driver-app/target/classes:/workspace/shadow/cosbench-sineio/target/classes:/workspace/shadow/cosbench-api/target/classes:/m2/com/amazonaws/aws-java-sdk-s3/1.12.767/aws-java-sdk-s3-1.12.767.jar:/m2/com/amazonaws/aws-java-sdk-kms/1.12.767/aws-java-sdk-kms-1.12.767.jar:/m2/com/amazonaws/aws-java-sdk-core/1.12.767/aws-java-sdk-core-1.12.767.jar:/m2/com/fasterxml/jackson/dataformat/jackson-dataformat-cbor/2.21.4/jackson-dataformat-cbor-2.21.4.jar:/m2/joda-time/joda-time/2.12.7/joda-time-2.12.7.jar:/m2/com/amazonaws/jmespath-java/1.12.767/jmespath-java-1.12.767.jar:/m2/software/amazon/awssdk/s3/2.26.8/s3-2.26.8.jar:/m2/software/amazon/awssdk/aws-xml-protocol/2.26.8/aws-xml-protocol-2.26.8.jar:/m2/software/amazon/awssdk/aws-query-protocol/2.26.8/aws-query-protocol-2.26.8.jar:/m2/software/amazon/awssdk/protocol-core/2.26.8/protocol-core-2.26.8.jar:/m2/software/amazon/awssdk/arns/2.26.8/arns-2.26.8.jar:/m2/software/amazon/awssdk/profiles/2.26.8/profiles-2.26.8.jar:/m2/software/amazon/awssdk/crt-core/2.26.8/crt-core-2.26.8.jar:/m2/software/amazon/awssdk/http-auth/2.26.8/http-auth-2.26.8.jar:/m2/software/amazon/awssdk/identity-spi/2.26.8/identity-spi-2.26.8.jar:/m2/software/amazon/awssdk/http-auth-spi/2.26.8/http-auth-spi-2.26.8.jar:/m2/org/reactivestreams/reactive-streams/1.0.4/reactive-streams-1.0.4.jar:/m2/software/amazon/awssdk/http-auth-aws/2.26.8/http-auth-aws-2.26.8.jar:/m2/software/amazon/awssdk/checksums/2.26.8/checksums-2.26.8.jar:/m2/software/amazon/awssdk/checksums-spi/2.26.8/checksums-spi-2.26.8.jar:/m2/software/amazon/awssdk/retries-spi/2.26.8/retries-spi-2.26.8.jar:/m2/software/amazon/awssdk/sdk-core/2.26.8/sdk-core-2.26.8.jar:/m2/software/amazon/awssdk/retries/2.26.8/retries-2.26.8.jar:/m2/software/amazon/awssdk/auth/2.26.8/auth-2.26.8.jar:/m2/software/amazon/eventstream/eventstream/1.0.1/eventstream-1.0.1.jar:/m2/software/amazon/awssdk/http-client-spi/2.26.8/http-client-spi-2.26.8.jar:/m2/software/amazon/awssdk/regions/2.26.8/regions-2.26.8.jar:/m2/software/amazon/awssdk/annotations/2.26.8/annotations-2.26.8.jar:/m2/software/amazon/awssdk/utils/2.26.8/utils-2.26.8.jar:/m2/software/amazon/awssdk/aws-core/2.26.8/aws-core-2.26.8.jar:/m2/software/amazon/awssdk/metrics-spi/2.26.8/metrics-spi-2.26.8.jar:/m2/software/amazon/awssdk/json-utils/2.26.8/json-utils-2.26.8.jar:/m2/software/amazon/awssdk/third-party-jackson-core/2.26.8/third-party-jackson-core-2.26.8.jar:/m2/software/amazon/awssdk/endpoints-spi/2.26.8/endpoints-spi-2.26.8.jar:/m2/software/amazon/awssdk/netty-nio-client/2.26.8/netty-nio-client-2.26.8.jar:/m2/io/netty/netty-codec-http/4.1.135.Final/netty-codec-http-4.1.135.Final.jar:/m2/io/netty/netty-codec-http2/4.1.135.Final/netty-codec-http2-4.1.135.Final.jar:/m2/io/netty/netty-codec/4.1.135.Final/netty-codec-4.1.135.Final.jar:/m2/io/netty/netty-transport/4.1.135.Final/netty-transport-4.1.135.Final.jar:/m2/io/netty/netty-common/4.1.135.Final/netty-common-4.1.135.Final.jar:/m2/io/netty/netty-buffer/4.1.135.Final/netty-buffer-4.1.135.Final.jar:/m2/io/netty/netty-handler/4.1.135.Final/netty-handler-4.1.135.Final.jar:/m2/io/netty/netty-transport-native-unix-common/4.1.135.Final/netty-transport-native-unix-common-4.1.135.Final.jar:/m2/io/netty/netty-transport-classes-epoll/4.1.135.Final/netty-transport-classes-epoll-4.1.135.Final.jar:/m2/io/netty/netty-resolver/4.1.135.Final/netty-resolver-4.1.135.Final.jar:/m2/software/amazon/awssdk/apache-client/2.26.8/apache-client-2.26.8.jar:/m2/org/apache/httpcomponents/httpclient/4.5.14/httpclient-4.5.14.jar:/m2/org/apache/httpcomponents/httpcore/4.4.16/httpcore-4.4.16.jar:/m2/commons-codec/commons-codec/1.15/commons-codec-1.15.jar:/workspace/shadow/cosbench-s3/target/classes:/workspace/shadow/cosbench-config/target/classes:/workspace/shadow/cosbench-castor/target/classes:/m2/commons-configuration/commons-configuration/1.10/commons-configuration-1.10.jar:/m2/org/codehaus/castor/castor-xml/1.3.3/castor-xml-1.3.3.jar:/m2/org/codehaus/castor/castor-core/1.3.3/castor-core-1.3.3.jar:/m2/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar:/m2/javax/inject/javax.inject/1/javax.inject-1.jar:/m2/org/yaml/snakeyaml/2.4/snakeyaml-2.4.jar:/workspace/shadow/cosbench-driver/target/classes:/workspace/shadow/cosbench-core/target/classes:/m2/org/apache/commons/commons-csv/1.10.0/commons-csv-1.10.0.jar:/workspace/shadow/cosbench-log/target/classes:/workspace/shadow/cosbench-log4j/target/classes:/m2/log4j/log4j/1.2.17/log4j-1.2.17.jar:/m2/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar:/m2/commons-io/commons-io/2.15.1/commons-io-2.15.1.jar:/m2/commons-lang/commons-lang/2.6/commons-lang-2.6.jar:/workspace/shadow/cosbench-driver-web/target/classes:/workspace/shadow/cosbench-http/target/classes:/workspace/shadow/cosbench-core-web/target/classes:/m2/org/springframework/boot/spring-boot-starter-freemarker/3.5.16/spring-boot-starter-freemarker-3.5.16.jar:/m2/org/freemarker/freemarker/2.3.34/freemarker-2.3.34.jar:/m2/org/springframework/spring-context-support/6.2.19/spring-context-support-6.2.19.jar:/m2/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar:/m2/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar:/m2/org/springframework/boot/spring-boot-starter-web/3.5.16/spring-boot-starter-web-3.5.16.jar:/m2/org/springframework/boot/spring-boot-starter/3.5.16/spring-boot-starter-3.5.16.jar:/m2/org/springframework/boot/spring-boot/3.5.16/spring-boot-3.5.16.jar:/m2/org/springframework/boot/spring-boot-autoconfigure/3.5.16/spring-boot-autoconfigure-3.5.16.jar:/m2/org/springframework/boot/spring-boot-starter-logging/3.5.16/spring-boot-starter-logging-3.5.16.jar:/m2/ch/qos/logback/logback-classic/1.5.34/logback-classic-1.5.34.jar:/m2/ch/qos/logback/logback-core/1.5.34/logback-core-1.5.34.jar:/m2/org/apache/logging/log4j/log4j-to-slf4j/2.24.3/log4j-to-slf4j-2.24.3.jar:/m2/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar:/m2/org/slf4j/jul-to-slf4j/2.0.18/jul-to-slf4j-2.0.18.jar:/m2/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/m2/org/springframework/boot/spring-boot-starter-json/3.5.16/spring-boot-starter-json-3.5.16.jar:/m2/com/fasterxml/jackson/core/jackson-databind/2.21.4/jackson-databind-2.21.4.jar:/m2/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/m2/com/fasterxml/jackson/core/jackson-core/2.21.4/jackson-core-2.21.4.jar:/m2/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.21.4/jackson-datatype-jdk8-2.21.4.jar:/m2/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.21.4/jackson-datatype-jsr310-2.21.4.jar:/m2/com/fasterxml/jackson/module/jackson-module-parameter-names/2.21.4/jackson-module-parameter-names-2.21.4.jar:/m2/org/springframework/boot/spring-boot-starter-tomcat/3.5.16/spring-boot-starter-tomcat-3.5.16.jar:/m2/org/apache/tomcat/embed/tomcat-embed-core/10.1.55/tomcat-embed-core-10.1.55.jar:/m2/org/apache/tomcat/embed/tomcat-embed-el/10.1.55/tomcat-embed-el-10.1.55.jar:/m2/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.55/tomcat-embed-websocket-10.1.55.jar:/m2/org/springframework/spring-web/6.2.19/spring-web-6.2.19.jar:/m2/org/springframework/spring-beans/6.2.19/spring-beans-6.2.19.jar:/m2/io/micrometer/micrometer-observation/1.15.12/micrometer-observation-1.15.12.jar:/m2/io/micrometer/micrometer-commons/1.15.12/micrometer-commons-1.15.12.jar:/m2/org/springframework/spring-webmvc/6.2.19/spring-webmvc-6.2.19.jar:/m2/org/springframework/spring-aop/6.2.19/spring-aop-6.2.19.jar:/m2/org/springframework/spring-context/6.2.19/spring-context-6.2.19.jar:/m2/org/springframework/spring-expression/6.2.19/spring-expression-6.2.19.jar:/m2/org/springframework/boot/spring-boot-starter-test/3.5.16/spring-boot-starter-test-3.5.16.jar:/m2/org/springframework/boot/spring-boot-test/3.5.16/spring-boot-test-3.5.16.jar:/m2/org/springframework/boot/spring-boot-test-autoconfigure/3.5.16/spring-boot-test-autoconfigure-3.5.16.jar:/m2/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/m2/jakarta/xml/bind/jakarta.xml.bind-api/4.0.5/jakarta.xml.bind-api-4.0.5.jar:/m2/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/m2/net/minidev/json-smart/2.5.2/json-smart-2.5.2.jar:/m2/net/minidev/accessors-smart/2.5.2/accessors-smart-2.5.2.jar:/m2/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/m2/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/m2/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/m2/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar:/m2/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/m2/org/junit/jupiter/junit-jupiter/5.12.2/junit-jupiter-5.12.2.jar:/m2/org/junit/jupiter/junit-jupiter-api/5.12.2/junit-jupiter-api-5.12.2.jar:/m2/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/m2/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar:/m2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/m2/org/junit/jupiter/junit-jupiter-params/5.12.2/junit-jupiter-params-5.12.2.jar:/m2/org/junit/jupiter/junit-jupiter-engine/5.12.2/junit-jupiter-engine-5.12.2.jar:/m2/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar:/m2/org/mockito/mockito-core/5.17.0/mockito-core-5.17.0.jar:/m2/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/m2/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/m2/org/mockito/mockito-junit-jupiter/5.17.0/mockito-junit-jupiter-5.17.0.jar:/m2/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/m2/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/m2/org/springframework/spring-core/6.2.19/spring-core-6.2.19.jar:/m2/org/springframework/spring-jcl/6.2.19/spring-jcl-6.2.19.jar:/m2/org/springframework/spring-test/6.2.19/spring-test-6.2.19.jar:/m2/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar"/>
+    <property name="test" value="DriverHttpContractTest"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/root"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-08-18"/>
+    <property name="java.home" value="/opt/java/openjdk"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/workspace/shadow/cosbench-driver-app"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="FILE_LOG_CHARSET" value="UTF-8"/>
+    <property name="java.awt.headless" value="true"/>
+    <property name="surefire.real.class.path" value="/workspace/shadow/cosbench-driver-app/target/surefire/surefirebooter-20261104091522704_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="21.0.12.1+1-LTS"/>
+    <property name="user.name" value="root"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="6.8.0-137-generic"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="surefire.failIfNoSpecifiedTests" value="false"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-21.0.12.1+1"/>
+    <property name="localRepository" value="/m2"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="catalina.home" value="/tmp/tomcat.34259.3567871992455571301"/>
+    <property name="java.version" value="21.0.12.1"/>
+    <property name="user.dir" value="/workspace/shadow/cosbench-driver-app/target"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="PID" value="142"/>
+    <property name="failIfNoTests" value="false"/>
+    <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
+    <property name="catalina.base" value="/tmp/tomcat.34259.3567871992455571301"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="21.0.12.1+1-LTS"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="maven.repo.local" value="/m2"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="servesTheDriverOverviewAtTheWelcomeAndIndexRoutes" classname="com.intel.cosbench.app.driver.DriverHttpContractTest" time="0.976">
+    <system-out><![CDATA[
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-04T09:15:24.818Z  INFO 142 --- [           main] c.i.c.app.driver.DriverHttpContractTest  : Starting DriverHttpContractTest using Java 21.0.12.1 with PID 142 (started by root in /workspace/shadow/cosbench-driver-app/target)
+2026-11-04T09:15:24.826Z  INFO 142 --- [           main] c.i.c.app.driver.DriverHttpContractTest  : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T09:15:27.735Z  INFO 142 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 34259 (https)
+2026-11-04T09:15:27.791Z  INFO 142 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-04T09:15:27.795Z  INFO 142 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-04T09:15:27.892Z  INFO 142 --- [           main] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring embedded WebApplicationContext
+2026-11-04T09:15:27.896Z  INFO 142 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3051 ms
+(Log4jLogManager.java:121)
+2026-11-04 09:15:28,086 [main           ] [INFO ] - will append log to console
+2026-11-04T09:15:28.146Z  INFO 142 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-config/target/classes/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-11-04T09:15:28.148Z  INFO 142 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-config/target/classes/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-11-04T09:15:28.148Z  INFO 142 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-config/target/classes/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-11-04T09:15:28.149Z  INFO 142 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-config/target/classes/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-11-04T09:15:28.150Z  INFO 142 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-config/target/classes/com/intel/cosbench/config/castor/work-mapping.xml
+2026-11-04T09:15:28.151Z  INFO 142 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-config/target/classes/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-11-04T09:15:28.151Z  INFO 142 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-config/target/classes/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-11-04T09:15:28.152Z  INFO 142 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from file:/workspace/shadow/cosbench-config/target/classes/com/intel/cosbench/config/castor/workload-mapping.xml
+(COSBAuthAPIService.java:56)
+2026-11-04 09:15:28,468 [main           ] [INFO ] - detected supported auth types: failing, mock
+(COSBStorageAPIService.java:56)
+2026-11-04 09:15:28,471 [main           ] [INFO ] - detected supported storage types: gdas, mock, s3, sio, siov1
+2026-11-04T09:15:29.742Z  INFO 142 --- [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-127.0.0.1-34259], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [Set directly - location unknown] using alias [tomcat] with trust store [null]
+2026-11-04T09:15:29.759Z  INFO 142 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 34259 (https) with context path '/driver'
+2026-11-04T09:15:29.775Z  INFO 142 --- [           main] c.i.c.app.driver.DriverHttpContractTest  : Started DriverHttpContractTest in 5.476 seconds (process running for 7.004)
+2026-11-04T09:15:30.258Z  INFO 142 --- [.1-34259-exec-6] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-04T09:15:30.259Z  INFO 142 --- [.1-34259-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-04T09:15:30.260Z  INFO 142 --- [.1-34259-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+]]></system-out>
+    <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (/m2/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+  </testcase>
+  <testcase name="invalidPageCloseShowsTheLegacyErrorAndLeavesMissionRunning" classname="com.intel.cosbench.app.driver.DriverHttpContractTest" time="1.123">
+    <system-out><![CDATA[(COSBDriverService.java:198)
+2026-11-04 09:15:30,954 [.1-34259-exec-8] [INFO ] - handler=M3A5D793117
+(MissionHandler.java:284)
+2026-11-04 09:15:30,958 [-driver-mission] [INFO ] - mission M3A5D793117 has been authed successfully
+]]></system-out>
+  </testcase>
+  <testcase name="rendersLegacyDriverBadRequestNotFoundWelcomeAndStaticErrorResources" classname="com.intel.cosbench.app.driver.DriverHttpContractTest" time="0.256"/>
+  <testcase name="escapesMissionValuesInDriverPageTemplates" classname="com.intel.cosbench.app.driver.DriverHttpContractTest" time="0.098"/>
+  <testcase name="abortsPageLaunchedMissionAndExposesTheStoppedStateToI" classname="com.intel.cosbench.app.driver.DriverHttpContractTest" time="0.759">
+    <system-out><![CDATA[(COSBDriverService.java:198)
+2026-11-04 09:15:32,345 [.1-34259-exec-6] [INFO ] - handler=M9A5D799FFD
+(MissionHandler.java:284)
+2026-11-04 09:15:32,348 [-driver-mission] [INFO ] - mission M9A5D799FFD has been authed successfully
+]]></system-out>
+  </testcase>
+  <testcase name="pageMissionActionsUseTheLocalDriverAndRemainVisibleThroughICommands" classname="com.intel.cosbench.app.driver.DriverHttpContractTest" time="0.739">
+    <system-out><![CDATA[(COSBDriverService.java:198)
+2026-11-04 09:15:33,137 [.1-34259-exec-5] [INFO ] - handler=MFA5D79AFDE
+(MissionHandler.java:284)
+2026-11-04 09:15:33,138 [-driver-mission] [INFO ] - mission MFA5D79AFDE has been authed successfully
+(MissionHandler.java:351)
+2026-11-04 09:15:33,427 [-driver-mission] [INFO ] - mission MFA5D79AFDE has been executed successfully
+(MissionHandler.java:419)
+2026-11-04 09:15:33,687 [.1-34259-exec-4] [INFO ] - mission MFA5D79AFDE has been closed successfully
+]]></system-out>
+  </testcase>
+  <testcase name="rejectsMissingOrInvalidServiceCredentialsAndPageCookies" classname="com.intel.cosbench.app.driver.DriverHttpContractTest" time="0.176"/>
+  <testcase name="escapesUntrustedExceptionTextInTheDriverInternalErrorPage" classname="com.intel.cosbench.app.driver.DriverHttpContractTest" time="0.048">
+    <system-out><![CDATA[2026-11-04T09:15:34.010Z ERROR 142 --- [1-34259-exec-10] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [/driver] threw exception [Request processing failed: com.intel.cosbench.config.ConfigException: trigger script is outside scripts directory: ../<script>alert(1)</script>.sh] with root cause
+
+com.intel.cosbench.config.ConfigException: trigger script is outside scripts directory: ../<script>alert(1)</script>.sh
+	at com.intel.cosbench.driver.service.TriggerService.resolveScript(TriggerService.java:126) ~[classes/:na]
+	at com.intel.cosbench.driver.service.TriggerService.execute(TriggerService.java:47) ~[classes/:na]
+	at com.intel.cosbench.driver.service.COSBDriverService.trigger(COSBDriverService.java:263) ~[classes/:na]
+	at com.intel.cosbench.driver.web.TriggerController.runTrigger(TriggerController.java:22) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-6.2.19.jar:6.2.19]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191) ~[spring-web-6.2.19.jar:6.2.19]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.19.jar:6.2.19]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991) ~[spring-webmvc-6.2.19.jar:6.2.19]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896) ~[spring-webmvc-6.2.19.jar:6.2.19]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.19.jar:6.2.19]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.19.jar:6.2.19]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.19.jar:6.2.19]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.19.jar:6.2.19]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.2.19.jar:6.2.19]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[tomcat-embed-core-10.1.55.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.19.jar:6.2.19]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.55.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.55.jar:10.1.55]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.19.jar:6.2.19]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.19.jar:6.2.19]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.19.jar:6.2.19]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.19.jar:6.2.19]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.19.jar:6.2.19]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.19.jar:6.2.19]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:492) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:1272) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1797) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+]]></system-out>
+  </testcase>
+  <testcase name="validatesBadInputsAndInvalidMissionTransitions" classname="com.intel.cosbench.app.driver.DriverHttpContractTest" time="1.761">
+    <system-out><![CDATA[(COSBDriverService.java:198)
+2026-11-04 09:15:34,198 [.1-34259-exec-6] [INFO ] - handler=MAA5D79E353
+(MissionHandler.java:284)
+2026-11-04 09:15:34,202 [-driver-mission] [INFO ] - mission MAA5D79E353 has been authed successfully
+]]></system-out>
+  </testcase>
+  <testcase name="enforcesIdentityLimitsAndProtectsConcurrentAndConflictingReplays" classname="com.intel.cosbench.app.driver.DriverHttpContractTest" time="3.086"/>
+  <testcase name="allEightCommandsRunAgainstTheMockDriverAndPreserveResponses" classname="com.intel.cosbench.app.driver.DriverHttpContractTest" time="0.901">
+    <system-out><![CDATA[(COSBDriverService.java:198)
+2026-11-04 09:15:39,072 [.1-34259-exec-7] [INFO ] - handler=MBA5D7B3336
+(MissionHandler.java:284)
+2026-11-04 09:15:39,082 [-driver-mission] [INFO ] - mission MBA5D7B3336 has been authed successfully
+(MissionHandler.java:351)
+2026-11-04 09:15:39,303 [-driver-mission] [INFO ] - mission MBA5D7B3336 has been executed successfully
+(MissionHandler.java:419)
+2026-11-04 09:15:39,541 [.1-34259-exec-4] [INFO ] - mission MBA5D7B3336 has been closed successfully
+]]></system-out>
+  </testcase>
+  <testcase name="providerLoginFailureIsASeparateBusinessResponseAndSlowLoginCanBeReplayed" classname="com.intel.cosbench.app.driver.DriverHttpContractTest" time="1.031">
+    <system-out><![CDATA[(COSBDriverService.java:198)
+2026-11-04 09:15:39,830 [.1-34259-exec-3] [INFO ] - handler=M6A5D7B4028
+(AbstractAgent.java:54)
+2026-11-04 09:15:39,833 [ool-13-thread-1] [ERROR] - unexpected exception
+java.lang.IllegalStateException: provider authentication rejected
+	at com.intel.cosbench.app.driver.FailingAuth.login(FailingAuth.java:8)
+	at com.intel.cosbench.driver.agent.AuthAgent.tryLogin(AuthAgent.java:126)
+	at com.intel.cosbench.driver.agent.AuthAgent.login(AuthAgent.java:90)
+	at com.intel.cosbench.driver.agent.AuthAgent.execute(AuthAgent.java:52)
+	at com.intel.cosbench.driver.agent.AbstractAgent.call(AbstractAgent.java:44)
+	at com.intel.cosbench.driver.agent.AbstractAgent.call(AbstractAgent.java:24)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+(MissionHandler.java:395)
+2026-11-04 09:15:39,834 [-driver-mission] [ERROR] - detected workers [1] have encountered errors
+(MissionHandler.java:276)
+2026-11-04 09:15:39,839 [-driver-mission] [INFO ] - mission M6A5D7B4028 has been terminated
+(COSBDriverService.java:198)
+2026-11-04 09:15:40,104 [1-34259-exec-10] [INFO ] - handler=MCA5D7B73E9
+(MissionHandler.java:284)
+2026-11-04 09:15:40,806 [-driver-mission] [INFO ] - mission MCA5D7B73E9 has been authed successfully
+]]></system-out>
+  </testcase>
+  <testcase name="shutdownRejectsEveryCommand" classname="com.intel.cosbench.app.driver.DriverHttpContractTest" time="0.215">
+    <system-out><![CDATA[2026-11-04T09:15:40.994Z  INFO 142 --- [           main] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+(COSBDriverService.java:318)
+2026-11-04 09:15:40,994 [driver-shutdown] [INFO ] - aborting mission MEA5D7A7B36 during Driver shutdown
+(MissionHandler.java:437)
+2026-11-04 09:15:40,995 [driver-shutdown] [INFO ] - mission MEA5D7A7B36 has been aborted successfully
+(COSBDriverService.java:318)
+2026-11-04 09:15:40,997 [driver-shutdown] [INFO ] - aborting mission MEA5D79656C during Driver shutdown
+(MissionHandler.java:437)
+2026-11-04 09:15:40,998 [driver-shutdown] [INFO ] - mission MEA5D79656C has been aborted successfully
+(COSBDriverService.java:318)
+2026-11-04 09:15:40,998 [driver-shutdown] [INFO ] - aborting mission M1A5D7A7058 during Driver shutdown
+(MissionHandler.java:437)
+2026-11-04 09:15:40,999 [driver-shutdown] [INFO ] - mission M1A5D7A7058 has been aborted successfully
+2026-11-04T09:15:41.001Z  INFO 142 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+(COSBDriverService.java:318)
+2026-11-04 09:15:41,002 [driver-shutdown] [INFO ] - aborting mission MCA5D7A6921 during Driver shutdown
+(MissionHandler.java:437)
+2026-11-04 09:15:41,003 [driver-shutdown] [INFO ] - mission MCA5D7A6921 has been aborted successfully
+(COSBDriverService.java:318)
+2026-11-04 09:15:41,004 [driver-shutdown] [INFO ] - aborting mission MCA5D7B73E9 during Driver shutdown
+(MissionHandler.java:437)
+2026-11-04 09:15:41,005 [driver-shutdown] [INFO ] - mission MCA5D7B73E9 has been aborted successfully
+(COSBDriverService.java:305)
+2026-11-04 09:15:41,007 [driver-shutdown] [INFO ] - Driver stopped: mission executor terminated
+]]></system-out>
+  </testcase>
+</testsuite>

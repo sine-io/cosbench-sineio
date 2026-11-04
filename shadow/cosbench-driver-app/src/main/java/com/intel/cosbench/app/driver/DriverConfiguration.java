@@ -14,6 +14,7 @@ import org.springframework.boot.web.server.Ssl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 import com.intel.cosbench.api.provider.StaticProviderRegistry;
@@ -29,8 +30,10 @@ import com.intel.cosbench.http.LegacyDriverCommandPort;
 import com.intel.cosbench.log.LogFactory;
 import com.intel.cosbench.log.LogLevel;
 import com.intel.cosbench.log.LogManager;
+import com.intel.cosbench.driver.web.DriverWebConfiguration;
 
 @Configuration(proxyBeanMethods = false)
+@Import(DriverWebConfiguration.class)
 public class DriverConfiguration {
     @Bean(destroyMethod = "dispose")
     LogManager systemLogManager(ServiceConfig config, Path installationDirectory) throws IOException {

@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLHandshakeException;
@@ -75,6 +77,173 @@ class DriverHttpContractTest {
         properties.add("server.ssl.key-store-password", DriverHttpContractTest::keyStorePassword);
         properties.add("cosbench.providers.expected.storage", () -> "mock");
         properties.add("cosbench.providers.expected.auth", () -> "mock,failing");
+    }
+
+    @Test
+    @Order(1)
+    void servesTheDriverOverviewAtTheWelcomeAndIndexRoutes() throws Exception {
+        HttpResponse<String> welcome = getWeb("/");
+        HttpResponse<String> index = getWeb("/index.html");
+        HttpResponse<String> submit = getWeb("/submit.html");
+
+        assertThat(welcome.statusCode()).isEqualTo(200);
+        assertThat(index.statusCode()).isEqualTo(200);
+        assertThat(submit.statusCode()).isEqualTo(200);
+        assertThat(welcome.body()).contains("Driver Overview").contains("driver-http-contract-test");
+        assertThat(index.body()).contains("Driver Overview").contains("driver-http-contract-test");
+        assertThat(submit.body()).contains("Mission Submission").contains("submit-mission.do")
+                .contains("name=\"config\"");
+
+        HttpResponse<String> stylesheet = getWeb("/resources/cosbench.css");
+        assertThat(stylesheet.statusCode()).isEqualTo(200);
+        assertThat(stylesheet.headers().firstValue("Content-Type").orElse("")).startsWith("text/css");
+        assertThat(stylesheet.body()).contains("#header");
+        HttpResponse<byte[]> headerImage = getWebBytes("/resources/bg-header.png");
+        assertThat(headerImage.statusCode()).isEqualTo(200);
+        assertThat(headerImage.headers().firstValue("Content-Type").orElse("")).startsWith("image/png");
+        assertThat(headerImage.body()).startsWith(new byte[] {(byte) 0x89, 'P', 'N', 'G'});
+    }
+
+    @Test
+    @Order(1)
+    void pageMissionActionsUseTheLocalDriverAndRemainVisibleThroughICommands() throws Exception {
+        HttpResponse<String> submission = postMission(fixture("mock-noop-mission.xml"));
+        assertThat(submission.statusCode()).isEqualTo(200);
+        assertThat(submission.body()).contains("your mission has been accepted");
+        String missionId = firstMatch(submission.body(), "mission.html\\?id=([A-Z0-9]+)");
+
+        HttpResponse<String> submitted = queryMission(missionId, TOKEN, null);
+        assertThat(submitted.statusCode()).isEqualTo(200);
+        assertThat(json(submitted).path("running").asBoolean()).isFalse();
+
+        HttpResponse<String> login = getWeb("/perform-login.do?id=" + missionId);
+        assertThat(login.statusCode()).isEqualTo(200);
+        assertThat(getWeb("/mission.html?id=" + missionId).body()).contains("authed").contains("launch-mission");
+
+        HttpResponse<String> cookieOnly = queryMission(missionId, null, "JSESSIONID=web-page-session");
+        assertThat(cookieOnly.statusCode()).isEqualTo(401);
+        assertThat(cookieOnly.body()).contains("service authentication failed");
+
+        HttpResponse<String> launch = getWeb("/launch-mission.do?id=" + missionId);
+        assertThat(launch.statusCode()).isEqualTo(200);
+        awaitMissionFinished(missionId, Duration.ofSeconds(15));
+        HttpResponse<String> finished = queryMission(missionId, TOKEN, null);
+        assertThat(finished.statusCode()).isEqualTo(200);
+        assertThat(json(finished).path("running").asBoolean()).isFalse();
+        assertThat(json(finished).path("report").isArray()).isTrue();
+
+        HttpResponse<String> close = getWeb("/close-mission.do?id=" + missionId);
+        assertThat(close.statusCode()).isEqualTo(200);
+        assertThat(close.body()).contains("accomplished");
+        HttpResponse<byte[]> download = getWebBytes("/download-log.do?id=" + missionId);
+        assertThat(download.statusCode()).isEqualTo(200);
+        assertThat(download.headers().firstValue("Content-Type").orElse("")).startsWith("text/plain");
+        assertThat(download.headers().firstValue("Content-Disposition").orElse(""))
+                .contains("attachment; filename=\"mission-log.txt\"");
+        assertThat(download.headers().firstValueAsLong("Content-Length").orElseThrow()).isEqualTo(download.body().length);
+        byte[] expectedLog = driver.getMissionInfo(missionId).getLogManager().getLogAsString()
+                .getBytes(StandardCharsets.UTF_8);
+        assertThat(download.body()).containsExactly(expectedLog);
+
+        HttpResponse<String> workers = getWeb("/workers.html?id=" + missionId);
+        assertThat(workers.statusCode()).isEqualTo(200);
+        assertThat(workers.body()).contains("Workers").contains(missionId);
+
+        HttpResponse<String> trigger = getWeb("/run-trigger.do?command="
+                + java.net.URLEncoder.encode("enableTrigger,baseline-trigger.sh,1", StandardCharsets.UTF_8));
+        assertThat(trigger.statusCode()).isEqualTo(200);
+        assertThat(trigger.body()).contains("baseline-trigger-ok");
+    }
+
+    @Test
+    @Order(1)
+    void escapesMissionValuesInDriverPageTemplates() throws Exception {
+        String missionXml = new String(fixture("mock-noop-mission.xml"), StandardCharsets.UTF_8)
+                .replace("baseline-noop", "&lt;script&gt;alert(1)&lt;/script&gt;");
+        HttpResponse<String> submission = postMission(missionXml.getBytes(StandardCharsets.UTF_8));
+        String missionId = firstMatch(submission.body(), "mission.html\\?id=([A-Z0-9]+)");
+        String escapedName = "&lt;script&gt;alert(1)&lt;/script&gt;";
+
+        List<String> pages = List.of(submission.body(), getWeb("/index.html").body(),
+                getWeb("/mission.html?id=" + missionId).body());
+        for (String page : pages) {
+            assertThat(page).contains(escapedName).doesNotContain("<script>alert(1)</script>");
+        }
+    }
+
+    @Test
+    @Order(1)
+    void abortsPageLaunchedMissionAndExposesTheStoppedStateToI() throws Exception {
+        HttpResponse<String> submission = postMission(fixture("long-mock-mission.xml"));
+        String missionId = firstMatch(submission.body(), "mission.html\\?id=([A-Z0-9]+)");
+
+        assertThat(getWeb("/perform-login.do?id=" + missionId).statusCode()).isEqualTo(200);
+        assertThat(getWeb("/launch-mission.do?id=" + missionId).statusCode()).isEqualTo(200);
+        awaitMissionRunning(missionId, Duration.ofSeconds(10));
+
+        HttpResponse<String> abort = getWeb("/abort-mission.do?id=" + missionId);
+        assertThat(abort.statusCode()).isEqualTo(200);
+        assertThat(abort.body()).contains("aborted");
+
+        HttpResponse<String> query = queryMission(missionId, TOKEN, null);
+        assertThat(query.statusCode()).isEqualTo(200);
+        assertThat(json(query).path("running").asBoolean()).isFalse();
+    }
+
+    @Test
+    @Order(1)
+    void invalidPageCloseShowsTheLegacyErrorAndLeavesMissionRunning() throws Exception {
+        HttpResponse<String> submission = postMission(fixture("long-mock-mission.xml"));
+        String missionId = firstMatch(submission.body(), "mission.html\\?id=([A-Z0-9]+)");
+
+        assertThat(getWeb("/perform-login.do?id=" + missionId).statusCode()).isEqualTo(200);
+        assertThat(getWeb("/launch-mission.do?id=" + missionId).statusCode()).isEqualTo(200);
+        awaitMissionRunning(missionId, Duration.ofSeconds(10));
+
+        HttpResponse<String> invalidClose = getWeb("/close-mission.do?id=" + missionId);
+        assertThat(invalidClose.statusCode()).isEqualTo(200);
+        assertThat(invalidClose.body()).contains("Internal Error").contains("mission should be in the state of finished");
+
+        HttpResponse<String> stillRunning = queryMission(missionId, TOKEN, null);
+        assertThat(stillRunning.statusCode()).isEqualTo(200);
+        assertThat(json(stillRunning).path("running").asBoolean()).isTrue();
+
+        HttpResponse<String> abort = getWeb("/abort-mission.do?id=" + missionId);
+        assertThat(abort.statusCode()).isEqualTo(200);
+        assertThat(abort.body()).contains("aborted");
+        assertThat(json(queryMission(missionId, TOKEN, null)).path("running").asBoolean()).isFalse();
+    }
+
+    @Test
+    @Order(1)
+    void rendersLegacyDriverBadRequestNotFoundWelcomeAndStaticErrorResources() throws Exception {
+        HttpResponse<String> badMission = getWeb("/mission.html");
+        HttpResponse<String> missingMission = getWeb("/mission.html?id=missing-mission");
+        HttpResponse<String> badWorkers = getWeb("/workers.html");
+        HttpResponse<String> missingWorkers = getWeb("/workers.html?id=missing-mission");
+        HttpResponse<String> missingRoute = getWeb("/missing-driver-page.html");
+
+        assertThat(badMission.statusCode()).isEqualTo(200);
+        assertThat(badMission.body()).contains("400 Bad Request");
+        assertThat(missingMission.statusCode()).isEqualTo(200);
+        assertThat(missingMission.body()).contains("404 Not Found");
+        assertThat(badWorkers.body()).contains("400 Bad Request");
+        assertThat(missingWorkers.body()).contains("404 Not Found");
+        assertThat(missingRoute.statusCode()).isEqualTo(404);
+        assertThat(missingRoute.body()).contains("404 Not Found");
+        assertThat(getWeb("/resources/cosbench.css").body()).contains("#header");
+    }
+
+    @Test
+    @Order(1)
+    void escapesUntrustedExceptionTextInTheDriverInternalErrorPage() throws Exception {
+        String command = "enableTrigger,../<script>alert(1)</script>.sh";
+        HttpResponse<String> error = getWeb("/run-trigger.do?command="
+                + java.net.URLEncoder.encode(command, StandardCharsets.UTF_8));
+
+        assertThat(error.statusCode()).isEqualTo(500);
+        assertThat(error.body()).contains("../&lt;script&gt;alert(1)&lt;/script&gt;.sh");
+        assertThat(error.body()).doesNotContain("../<script>alert(1)</script>.sh");
     }
 
     @Test
@@ -404,6 +573,90 @@ class DriverHttpContractTest {
 
     private URI uri(String command) {
         return URI.create("https://127.0.0.1:" + port + "/driver/i/" + command + ".command");
+    }
+
+    private URI webUri(String path) {
+        return URI.create("https://127.0.0.1:" + port + "/driver" + path);
+    }
+
+    private HttpResponse<String> getWeb(String path) throws Exception {
+        return client().send(HttpRequest.newBuilder(webUri(path)).timeout(Duration.ofSeconds(5)).GET().build(),
+                HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+    }
+
+    private HttpResponse<byte[]> getWebBytes(String path) throws Exception {
+        return client().send(HttpRequest.newBuilder(webUri(path)).timeout(Duration.ofSeconds(5)).GET().build(),
+                HttpResponse.BodyHandlers.ofByteArray());
+    }
+
+    private HttpResponse<String> postMission(byte[] mission) throws Exception {
+        String boundary = "cosbench-" + System.nanoTime();
+        byte[] header = ("--" + boundary + "\r\n"
+                + "Content-Disposition: form-data; name=\"config\"; filename=\"mission.xml\"\r\n"
+                + "Content-Type: application/xml\r\n\r\n").getBytes(StandardCharsets.UTF_8);
+        byte[] footer = ("\r\n--" + boundary + "--\r\n").getBytes(StandardCharsets.UTF_8);
+        byte[] body = new byte[header.length + mission.length + footer.length];
+        System.arraycopy(header, 0, body, 0, header.length);
+        System.arraycopy(mission, 0, body, header.length, mission.length);
+        System.arraycopy(footer, 0, body, header.length + mission.length, footer.length);
+        HttpRequest request = HttpRequest.newBuilder(webUri("/submit-mission.do"))
+                .timeout(Duration.ofSeconds(10))
+                .header("Content-Type", "multipart/form-data; boundary=" + boundary)
+                .POST(HttpRequest.BodyPublishers.ofByteArray(body)).build();
+        return client().send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+    }
+
+    private HttpResponse<String> queryMission(String missionId, String token, String cookie) throws Exception {
+        HttpRequest.Builder request = HttpRequest.newBuilder(uri("query"))
+                .timeout(Duration.ofSeconds(5))
+                .header("Content-Type", "application/octet-stream")
+                .POST(HttpRequest.BodyPublishers.ofString(missionId));
+        if (token != null) {
+            request.header("Authorization", "Bearer " + token);
+        }
+        if (cookie != null) {
+            request.header("Cookie", cookie);
+        }
+        return client().send(request.build(), HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+    }
+
+    private void awaitMissionFinished(String missionId, Duration timeout) throws Exception {
+        long deadline = System.nanoTime() + timeout.toNanos();
+        boolean observedActivity = false;
+        while (System.nanoTime() < deadline) {
+            HttpResponse<String> response = queryMission(missionId, TOKEN, null);
+            if (response.statusCode() == 200) {
+                var query = json(response);
+                observedActivity |= query.path("running").asBoolean()
+                        || query.path("report").path(0).path("sampleCount").asInt() > 0;
+                if (observedActivity && !query.path("running").asBoolean()) {
+                    return;
+                }
+            }
+            Thread.sleep(50);
+        }
+        assertThat(observedActivity).as("Driver /i query observes page-launched mission activity").isTrue();
+        assertThat(json(queryMission(missionId, TOKEN, null)).path("running").asBoolean())
+                .as("Driver /i query observes the page-launched mission finishing").isFalse();
+    }
+
+    private void awaitMissionRunning(String missionId, Duration timeout) throws Exception {
+        long deadline = System.nanoTime() + timeout.toNanos();
+        while (System.nanoTime() < deadline) {
+            HttpResponse<String> response = queryMission(missionId, TOKEN, null);
+            if (response.statusCode() == 200 && json(response).path("running").asBoolean()) {
+                return;
+            }
+            Thread.sleep(25);
+        }
+        assertThat(json(queryMission(missionId, TOKEN, null)).path("running").asBoolean())
+                .as("Driver /i query observes the page-launched mission running").isTrue();
+    }
+
+    private static String firstMatch(String value, String expression) {
+        Matcher matcher = Pattern.compile(expression).matcher(value);
+        assertThat(matcher.find()).as("match %s in page response", expression).isTrue();
+        return matcher.group(1);
     }
 
     private static HttpClient client() {
