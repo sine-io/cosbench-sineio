@@ -44,7 +44,7 @@ Unknown keys and unknown schema versions fail before service startup. The loader
 | `logging.level` | enum, default `INFO` | `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`, or `OFF`. |
 | `logging.file` | path, defaults to `paths.logs` (`log/system.log` when omitted) | Explicit `logging.file` wins over `paths.logs`; relative to installation root when relative. |
 | `web.enabled` | boolean, default `true` | Enables the process web boundary. |
-| `web.maxUploadBytes` | integer, default `10485760` | `0..10GiB`. |
+| `web.maxUploadBytes` | integer; Controller default `0`, Driver default `10485760` | `0..10GiB`; `0` disables the upload limit. The Controller default preserves legacy behavior. A positive value sets a per-file limit and permits an additional 1 MiB of multipart request overhead. |
 | `shutdown.gracePeriod` | duration, default `30s` | `1ms..1h`; stop closes admission first, then waits for workers and clients. |
 
 The loader accepts scalar duration values as milliseconds for programmatic callers and uses explicit unit strings in YAML. It does not silently coerce arbitrary strings, duplicate Driver names, invalid URLs, or unknown fields.

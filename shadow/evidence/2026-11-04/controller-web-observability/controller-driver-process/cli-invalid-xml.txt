@@ -1,0 +1,1 @@
+cannot parse the xml configuration from <stream>, due to org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 10; XML document structures must start and end within the same entity.

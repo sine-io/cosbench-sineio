@@ -1,5 +1,5 @@
 [INFO] Scanning for projects...
-[INFO] Loaded 24359 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 24360 auto-discovered prefixes for remote repository central (prefixes-central.txt)
 [INFO] 
 [INFO] ---------< com.intel.cosbench.shadow:cosbench-provider-spike >----------
 [INFO] Building COSBench Provider SPI Coexistence Spike 0.1.0-SNAPSHOT
@@ -41,7 +41,7 @@
 SLF4J(W): No SLF4J providers were found.
 SLF4J(W): Defaulting to no-operation (NOP) logger implementation
 SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.71 s -- in com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.67 s -- in com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -50,6 +50,6 @@ SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  18.447 s
-[INFO] Finished at: 2026-11-04T03:45:36Z
+[INFO] Total time:  18.798 s
+[INFO] Finished at: 2026-11-04T04:50:20Z
 [INFO] ------------------------------------------------------------------------

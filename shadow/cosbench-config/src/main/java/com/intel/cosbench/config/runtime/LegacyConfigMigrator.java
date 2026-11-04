@@ -90,7 +90,7 @@ public final class LegacyConfigMigrator {
         commonValues(root, values, mapped, unmapped);
         Map<String, Object> web = map();
         web.put("enabled", true);
-        web.put("maxUploadBytes", 10L * 1024 * 1024);
+        web.put("maxUploadBytes", 0);
         root.put("web", web);
         return root;
     }

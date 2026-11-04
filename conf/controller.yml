@@ -38,6 +38,6 @@ logging:
   file: log/system.log
 web:
   enabled: true
-  maxUploadBytes: 10485760
+  maxUploadBytes: 0
 shutdown:
   gracePeriod: 15s

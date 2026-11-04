@@ -13,7 +13,7 @@
 <div id="header">
     <div class="content">
         <div id="title"><span class="codename">COSBench</span> - <span>Controller Web Console</span></div>
-        <div id="version"><div>Time: Wed Nov 04 03:49:31 UTC 2026 </div><div>Version: 0.1.0-SNAPSHOT </div></div>
+        <div id="version"><div>Time: Wed Nov 04 04:54:17 UTC 2026 </div><div>Version: 0.1.0-SNAPSHOT </div></div>
     </div> 
 </div> <div id="main">
     <div class="top"><br /></div>
@@ -44,16 +44,16 @@
         <p>
             <span class="grid">
                 <span class="label"><strong>Submitted At</strong>:</span>
-                Nov 4, 2026, 3:48:56 AM
+                Nov 4, 2026, 4:53:42 AM
             </span>
             <span class="grid">
                 <span class="label"><strong>Started At</strong>:</span>
-                    Nov 4, 2026, 3:48:56 AM
+                    Nov 4, 2026, 4:53:42 AM
                 
             </span>
             <span class="grid">
                 <span class="label"><strong>Stopped At</strong>:</span>
-                    Nov 4, 2026, 3:49:30 AM
+                    Nov 4, 2026, 4:54:17 AM
             </span>
         </p>
 
@@ -88,7 +88,7 @@
         </td>
 
         <td>
-                50.03 ms
+                50.04 ms
         </td>
 
         <td>
@@ -358,11 +358,11 @@
                 var yralocalwrite=new Array(); // localwrite
 
                         // bandwidth
-                        bandwidth="1,266.19";
+                        bandwidth="1,263.91";
                         bandwidth=bandwidth.replace(/,/gi,'');
 
                         //resTime
-                        avgResTime="50.05";
+                        avgResTime="50.14";
                         avgResTime=avgResTime.replace(/,/gi,'');
                     
                         //Succ-Ratio
@@ -371,7 +371,7 @@
 
                         // throughput
                         sampletype="read";
-                        throughput="19.78";
+                        throughput="19.75";
                         throughput=throughput.replace(/,/gi,'');
                         // 2023.6.14, sine. add other ops.
                         if(sampletype=="read"){
@@ -455,108 +455,11 @@
                         xvalue.push(i);
                         i++;
                         // bandwidth
-                        bandwidth="1,268.33";
+                        bandwidth="1,268.83";
                         bandwidth=bandwidth.replace(/,/gi,'');
 
                         //resTime
-                        avgResTime="50.02";
-                        avgResTime=avgResTime.replace(/,/gi,'');
-                    
-                        //Succ-Ratio
-                        ratio="1";
-                        ratio=ratio.replace(/,/gi,'');
-
-                        // throughput
-                        sampletype="read";
-                        throughput="19.82";
-                        throughput=throughput.replace(/,/gi,'');
-                        // 2023.6.14, sine. add other ops.
-                        if(sampletype=="read"){
-                            ytputread.push(Math.round(eval(throughput)));
-                            ybandread.push(Math.round(eval(bandwidth/1024)));
-                            yrtimeread.push(Math.round(eval(avgResTime)));
-                            yraread.push(Math.round(eval(ratio*100)));
-                        }else if(sampletype=="write"){
-                            ytputwrite.push(Math.round(eval(throughput)));
-                            ybandwrite.push(Math.round(eval(bandwidth/1024)));
-                            yrtimewrite.push(Math.round(eval(avgResTime)));
-                            yrawrite.push(Math.round(eval(ratio*100)));
-                        }else if(sampletype=="delete"){
-                            ytputdelete.push(Math.round(eval(throughput)));
-                            ybanddelete.push(Math.round(eval(bandwidth/1024)));
-                            yrtimedelete.push(Math.round(eval(avgResTime)));
-                            yradelete.push(Math.round(eval(ratio*100)));
-                        }else if(sampletype=="list"){
-                            ytputlist.push(Math.round(eval(throughput)));
-                            ybandlist.push(Math.round(eval(bandwidth/1024)));
-                            yrtimelist.push(Math.round(eval(avgResTime)));
-                            yralist.push(Math.round(eval(ratio*100)));
-                        }else if(sampletype=="filewrite"){
-                            ytputfilewrite.push(Math.round(eval(throughput)));
-                            ybandfilewrite.push(Math.round(eval(bandwidth/1024)));
-                            yrtimefilewrite.push(Math.round(eval(avgResTime)));
-                            yrafilewrite.push(Math.round(eval(ratio*100)));
-                        }else if(sampletype=="prepare"){
-                            ytputprepare.push(Math.round(eval(throughput)));
-                            ybandprepare.push(Math.round(eval(bandwidth/1024)));
-                            yrtimeprepare.push(Math.round(eval(avgResTime)));
-                            yraprepare.push(Math.round(eval(ratio*100)));
-                        }else if(sampletype=="cleanup"){
-                            ytputcleanup.push(Math.round(eval(throughput)));
-                            ybandcleanup.push(Math.round(eval(bandwidth/1024)));
-                            yrtimecleanup.push(Math.round(eval(avgResTime)));
-                            yracleanup.push(Math.round(eval(ratio*100)));
-                        }else if(sampletype=="init"){
-                            ytputinit.push(Math.round(eval(throughput)));
-                            ybandinit.push(Math.round(eval(bandwidth/1024)));
-                            yrtimeinit.push(Math.round(eval(avgResTime)));
-                            yrainit.push(Math.round(eval(ratio*100)));
-                        }else if(sampletype=="dispose"){
-                            ytputdispose.push(Math.round(eval(throughput)));
-                            ybanddispose.push(Math.round(eval(bandwidth/1024)));
-                            yrtimedispose.push(Math.round(eval(avgResTime)));
-                            yradispose.push(Math.round(eval(ratio*100)));
-                        }else if(sampletype=="restore"){
-                            ytputrestore.push(Math.round(eval(throughput)));
-                            ybandrestore.push(Math.round(eval(bandwidth/1024)));
-                            yrtimerestore.push(Math.round(eval(avgResTime)));
-                            yrarestore.push(Math.round(eval(ratio*100)));
-                        }else if(sampletype=="mwrite"){
-                            ytputmwrite.push(Math.round(eval(throughput)));
-                            ybandmwrite.push(Math.round(eval(bandwidth/1024)));
-                            yrtimemwrite.push(Math.round(eval(avgResTime)));
-                            yramwrite.push(Math.round(eval(ratio*100)));
-                        }else if(sampletype=="head"){
-                            ytputhead.push(Math.round(eval(throughput)));
-                            ybandhead.push(Math.round(eval(bandwidth/1024)));
-                            yrtimehead.push(Math.round(eval(avgResTime)));
-                            yrahead.push(Math.round(eval(ratio*100)));
-                        }else if(sampletype=="mprepare"){
-                            ytputmprepare.push(Math.round(eval(throughput)));
-                            ybandmprepare.push(Math.round(eval(bandwidth/1024)));
-                            yrtimemprepare.push(Math.round(eval(avgResTime)));
-                            yramprepare.push(Math.round(eval(ratio*100)));
-                        }else if(sampletype=="mfilewrite"){
-                            ytputmfilewrite.push(Math.round(eval(throughput)));
-                            ybandmfilewrite.push(Math.round(eval(bandwidth/1024)));
-                            yrtimemfilewrite.push(Math.round(eval(avgResTime)));
-                            yramfilewrite.push(Math.round(eval(ratio*100)));
-                        }else if(sampletype=="localwrite"){
-                            ytputlocalwrite.push(Math.round(eval(throughput)));
-                            ybandlocalwrite.push(Math.round(eval(bandwidth/1024)));
-                            yrtimelocalwrite.push(Math.round(eval(avgResTime)));
-                            yralocalwrite.push(Math.round(eval(ratio*100)));
-                        }
-                    
-                        //xvalue
-                        xvalue.push(i);
-                        i++;
-                        // bandwidth
-                        bandwidth="1,269.09";
-                        bandwidth=bandwidth.replace(/,/gi,'');
-
-                        //resTime
-                        avgResTime="50.02";
+                        avgResTime="50.01";
                         avgResTime=avgResTime.replace(/,/gi,'');
                     
                         //Succ-Ratio
@@ -649,7 +552,7 @@
                         xvalue.push(i);
                         i++;
                         // bandwidth
-                        bandwidth="1,269.59";
+                        bandwidth="1,268.83";
                         bandwidth=bandwidth.replace(/,/gi,'');
 
                         //resTime
@@ -662,7 +565,7 @@
 
                         // throughput
                         sampletype="read";
-                        throughput="19.84";
+                        throughput="19.83";
                         throughput=throughput.replace(/,/gi,'');
                         // 2023.6.14, sine. add other ops.
                         if(sampletype=="read"){
@@ -746,11 +649,11 @@
                         xvalue.push(i);
                         i++;
                         // bandwidth
-                        bandwidth="1,270.6";
+                        bandwidth="1,270.35";
                         bandwidth=bandwidth.replace(/,/gi,'');
 
                         //resTime
-                        avgResTime="50.02";
+                        avgResTime="50";
                         avgResTime=avgResTime.replace(/,/gi,'');
                     
                         //Succ-Ratio
@@ -760,6 +663,103 @@
                         // throughput
                         sampletype="read";
                         throughput="19.85";
+                        throughput=throughput.replace(/,/gi,'');
+                        // 2023.6.14, sine. add other ops.
+                        if(sampletype=="read"){
+                            ytputread.push(Math.round(eval(throughput)));
+                            ybandread.push(Math.round(eval(bandwidth/1024)));
+                            yrtimeread.push(Math.round(eval(avgResTime)));
+                            yraread.push(Math.round(eval(ratio*100)));
+                        }else if(sampletype=="write"){
+                            ytputwrite.push(Math.round(eval(throughput)));
+                            ybandwrite.push(Math.round(eval(bandwidth/1024)));
+                            yrtimewrite.push(Math.round(eval(avgResTime)));
+                            yrawrite.push(Math.round(eval(ratio*100)));
+                        }else if(sampletype=="delete"){
+                            ytputdelete.push(Math.round(eval(throughput)));
+                            ybanddelete.push(Math.round(eval(bandwidth/1024)));
+                            yrtimedelete.push(Math.round(eval(avgResTime)));
+                            yradelete.push(Math.round(eval(ratio*100)));
+                        }else if(sampletype=="list"){
+                            ytputlist.push(Math.round(eval(throughput)));
+                            ybandlist.push(Math.round(eval(bandwidth/1024)));
+                            yrtimelist.push(Math.round(eval(avgResTime)));
+                            yralist.push(Math.round(eval(ratio*100)));
+                        }else if(sampletype=="filewrite"){
+                            ytputfilewrite.push(Math.round(eval(throughput)));
+                            ybandfilewrite.push(Math.round(eval(bandwidth/1024)));
+                            yrtimefilewrite.push(Math.round(eval(avgResTime)));
+                            yrafilewrite.push(Math.round(eval(ratio*100)));
+                        }else if(sampletype=="prepare"){
+                            ytputprepare.push(Math.round(eval(throughput)));
+                            ybandprepare.push(Math.round(eval(bandwidth/1024)));
+                            yrtimeprepare.push(Math.round(eval(avgResTime)));
+                            yraprepare.push(Math.round(eval(ratio*100)));
+                        }else if(sampletype=="cleanup"){
+                            ytputcleanup.push(Math.round(eval(throughput)));
+                            ybandcleanup.push(Math.round(eval(bandwidth/1024)));
+                            yrtimecleanup.push(Math.round(eval(avgResTime)));
+                            yracleanup.push(Math.round(eval(ratio*100)));
+                        }else if(sampletype=="init"){
+                            ytputinit.push(Math.round(eval(throughput)));
+                            ybandinit.push(Math.round(eval(bandwidth/1024)));
+                            yrtimeinit.push(Math.round(eval(avgResTime)));
+                            yrainit.push(Math.round(eval(ratio*100)));
+                        }else if(sampletype=="dispose"){
+                            ytputdispose.push(Math.round(eval(throughput)));
+                            ybanddispose.push(Math.round(eval(bandwidth/1024)));
+                            yrtimedispose.push(Math.round(eval(avgResTime)));
+                            yradispose.push(Math.round(eval(ratio*100)));
+                        }else if(sampletype=="restore"){
+                            ytputrestore.push(Math.round(eval(throughput)));
+                            ybandrestore.push(Math.round(eval(bandwidth/1024)));
+                            yrtimerestore.push(Math.round(eval(avgResTime)));
+                            yrarestore.push(Math.round(eval(ratio*100)));
+                        }else if(sampletype=="mwrite"){
+                            ytputmwrite.push(Math.round(eval(throughput)));
+                            ybandmwrite.push(Math.round(eval(bandwidth/1024)));
+                            yrtimemwrite.push(Math.round(eval(avgResTime)));
+                            yramwrite.push(Math.round(eval(ratio*100)));
+                        }else if(sampletype=="head"){
+                            ytputhead.push(Math.round(eval(throughput)));
+                            ybandhead.push(Math.round(eval(bandwidth/1024)));
+                            yrtimehead.push(Math.round(eval(avgResTime)));
+                            yrahead.push(Math.round(eval(ratio*100)));
+                        }else if(sampletype=="mprepare"){
+                            ytputmprepare.push(Math.round(eval(throughput)));
+                            ybandmprepare.push(Math.round(eval(bandwidth/1024)));
+                            yrtimemprepare.push(Math.round(eval(avgResTime)));
+                            yramprepare.push(Math.round(eval(ratio*100)));
+                        }else if(sampletype=="mfilewrite"){
+                            ytputmfilewrite.push(Math.round(eval(throughput)));
+                            ybandmfilewrite.push(Math.round(eval(bandwidth/1024)));
+                            yrtimemfilewrite.push(Math.round(eval(avgResTime)));
+                            yramfilewrite.push(Math.round(eval(ratio*100)));
+                        }else if(sampletype=="localwrite"){
+                            ytputlocalwrite.push(Math.round(eval(throughput)));
+                            ybandlocalwrite.push(Math.round(eval(bandwidth/1024)));
+                            yrtimelocalwrite.push(Math.round(eval(avgResTime)));
+                            yralocalwrite.push(Math.round(eval(ratio*100)));
+                        }
+                    
+                        //xvalue
+                        xvalue.push(i);
+                        i++;
+                        // bandwidth
+                        bandwidth="1,270.85";
+                        bandwidth=bandwidth.replace(/,/gi,'');
+
+                        //resTime
+                        avgResTime="50.01";
+                        avgResTime=avgResTime.replace(/,/gi,'');
+                    
+                        //Succ-Ratio
+                        ratio="1";
+                        ratio=ratio.replace(/,/gi,'');
+
+                        // throughput
+                        sampletype="read";
+                        throughput="19.86";
                         throughput=throughput.replace(/,/gi,'');
                         // 2023.6.14, sine. add other ops.
                         if(sampletype=="read"){

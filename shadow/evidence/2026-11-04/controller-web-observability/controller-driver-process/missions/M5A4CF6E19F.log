@@ -1,0 +1,36 @@
+2026-11-04 04:27:00,412 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-controller-driver.iYvkjm/driver/missions/M5A4CF6E19F.log
+2026-11-04 04:27:00,414 [DEBUG] [Log4jLogManager] - log level has been set to DEBUG
+2026-11-04 04:27:00,422 [DEBUG] [MockAuth] - using auth config: {delay=0, logging=false, caching=false, token=token}
+2026-11-04 04:27:00,422 [DEBUG] [MockAuth] - mock auth has been initialized
+2026-11-04 04:27:00,426 [DEBUG] [MockStorage] - op profiling data has been initialized
+2026-11-04 04:27:00,426 [DEBUG] [MockStorage] - using storage config: {delay=50, size=64, doStats=false, logging=true, errors=0.0, printing=false}
+2026-11-04 04:27:00,426 [DEBUG] [MockStorage] - mock client has been initialized
+2026-11-04 04:27:00,447 [DEBUG] [AuthAgent] - begin to login, will attempt 1 times
+2026-11-04 04:27:00,447 [DEBUG] [AuthAgent] - input auth context is {delay=0, logging=false, caching=false, token=token} with caching=false
+2026-11-04 04:27:00,449 [DEBUG] [AuthAgent] - worker 1 has been successfully authed
+2026-11-04 04:27:00,663 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:00,713 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:00,764 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:00,814 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:00,865 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:00,876 [ERROR] [AbstractOperator] - java.lang.InterruptedException: sleep interrupted
+com.intel.cosbench.api.storage.StorageInterruptedException: java.lang.InterruptedException: sleep interrupted
+	at com.intel.cosbench.api.mock.MockUtils.sleep(MockUtils.java:33)
+	at com.intel.cosbench.api.mock.MockStorage.getObject(MockStorage.java:107)
+	at com.intel.cosbench.driver.operator.Reader.doRead(Reader.java:87)
+	at com.intel.cosbench.driver.operator.Reader.operate(Reader.java:70)
+	at com.intel.cosbench.driver.operator.AbstractOperator.operate(AbstractOperator.java:75)
+	at com.intel.cosbench.driver.agent.WorkAgent.performOperation(WorkAgent.java:197)
+	at com.intel.cosbench.driver.agent.WorkAgent.doWork(WorkAgent.java:177)
+	at com.intel.cosbench.driver.agent.WorkAgent.execute(WorkAgent.java:134)
+	at com.intel.cosbench.driver.agent.AbstractAgent.call(AbstractAgent.java:44)
+	at com.intel.cosbench.driver.agent.AbstractAgent.call(AbstractAgent.java:24)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep0(Native Method)
+	at java.base/java.lang.Thread.sleep(Thread.java:509)
+	at com.intel.cosbench.api.mock.MockUtils.sleep(MockUtils.java:31)
+	... 13 more

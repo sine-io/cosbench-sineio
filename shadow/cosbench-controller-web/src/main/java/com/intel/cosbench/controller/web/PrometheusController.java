@@ -25,8 +25,16 @@ import com.intel.cosbench.bench.Metrics;
 import com.intel.cosbench.bench.Report;
 import com.intel.cosbench.model.WorkloadInfo;
 import com.intel.cosbench.model.WorkloadState;
+import com.intel.cosbench.service.ControllerService;
+import com.intel.cosbench.web.AbstractController;
 
-public class PrometheusController extends IndexPageController {
+public class PrometheusController extends AbstractController {
+
+    protected ControllerService controller;
+
+    public void setController(ControllerService controller) {
+        this.controller = controller;
+    }
 
     private static final View PROMETHEUS = new PrometheusView();
 

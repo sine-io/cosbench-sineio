@@ -1,0 +1,97 @@
+2026-11-04 04:27:01,567 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-controller-driver.iYvkjm/driver/missions/M4A4CF759A6.log
+2026-11-04 04:27:01,567 [DEBUG] [Log4jLogManager] - log level has been set to DEBUG
+2026-11-04 04:27:01,571 [DEBUG] [MockAuth] - using auth config: {delay=0, logging=false, caching=false, token=token}
+2026-11-04 04:27:01,571 [DEBUG] [MockAuth] - mock auth has been initialized
+2026-11-04 04:27:01,572 [DEBUG] [MockStorage] - op profiling data has been initialized
+2026-11-04 04:27:01,572 [DEBUG] [MockStorage] - using storage config: {delay=50, size=64, doStats=false, logging=true, errors=0.0, printing=false}
+2026-11-04 04:27:01,572 [DEBUG] [MockStorage] - mock client has been initialized
+2026-11-04 04:27:01,584 [DEBUG] [AuthAgent] - begin to login, will attempt 1 times
+2026-11-04 04:27:01,584 [DEBUG] [AuthAgent] - input auth context is {delay=0, logging=false, caching=false, token=token} with caching=false
+2026-11-04 04:27:01,584 [DEBUG] [AuthAgent] - worker 1 has been successfully authed
+2026-11-04 04:27:01,812 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:01,862 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:01,913 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:01,963 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,014 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,064 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,115 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,165 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,215 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,266 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,316 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,366 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,419 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,469 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,519 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,570 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,620 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,670 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,721 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,771 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,822 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,872 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,922 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:02,973 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,023 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,074 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,124 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,174 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,224 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,275 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,325 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,375 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,426 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,476 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,526 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,577 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,627 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,677 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,728 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,778 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,828 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,879 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,929 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:03,980 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,030 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,080 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,130 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,181 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,231 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,281 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,332 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,382 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,433 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,483 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,533 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,584 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,634 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,684 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,735 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,785 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,835 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,886 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,936 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:04,986 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:05,037 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:05,087 [INFO] [NoneStorage] - performing GET(get-object) at /mycontainers1/myobjects1
+2026-11-04 04:27:05,117 [ERROR] [AbstractOperator] - java.lang.InterruptedException: sleep interrupted
+com.intel.cosbench.api.storage.StorageInterruptedException: java.lang.InterruptedException: sleep interrupted
+	at com.intel.cosbench.api.mock.MockUtils.sleep(MockUtils.java:33)
+	at com.intel.cosbench.api.mock.MockStorage.getObject(MockStorage.java:107)
+	at com.intel.cosbench.driver.operator.Reader.doRead(Reader.java:87)
+	at com.intel.cosbench.driver.operator.Reader.operate(Reader.java:70)
+	at com.intel.cosbench.driver.operator.AbstractOperator.operate(AbstractOperator.java:75)
+	at com.intel.cosbench.driver.agent.WorkAgent.performOperation(WorkAgent.java:197)
+	at com.intel.cosbench.driver.agent.WorkAgent.doWork(WorkAgent.java:177)
+	at com.intel.cosbench.driver.agent.WorkAgent.execute(WorkAgent.java:134)
+	at com.intel.cosbench.driver.agent.AbstractAgent.call(AbstractAgent.java:44)
+	at com.intel.cosbench.driver.agent.AbstractAgent.call(AbstractAgent.java:24)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.lang.InterruptedException: sleep interrupted
+	at java.base/java.lang.Thread.sleep0(Native Method)
+	at java.base/java.lang.Thread.sleep(Thread.java:509)
+	at com.intel.cosbench.api.mock.MockUtils.sleep(MockUtils.java:31)
+	... 13 more

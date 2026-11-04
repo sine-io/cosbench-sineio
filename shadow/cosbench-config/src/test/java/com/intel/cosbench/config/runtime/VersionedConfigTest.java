@@ -59,7 +59,6 @@ class VersionedConfigTest {
                   concurrency: 6
                 web:
                   enabled: true
-                  maxUploadBytes: 10485760
                 shutdown:
                   gracePeriod: 15s
                 """, StandardCharsets.UTF_8);
@@ -80,6 +79,7 @@ class VersionedConfigTest {
         assertFalse(loaded.auth().token().toString().contains("token-from-env"));
         assertEquals(15, loaded.shutdown().gracePeriod().toSeconds());
         assertEquals(6, loaded.provider().concurrency());
+        assertEquals(0, loaded.web().maxUploadBytes());
         assertEquals(1, loaded.drivers().size());
         assertEquals("driver1", loaded.drivers().getFirst().name());
     }
@@ -117,6 +117,22 @@ class VersionedConfigTest {
         ConfigValidationException schemaFailure = assertThrows(ConfigValidationException.class,
                 () -> VersionedConfigLoader.load(unsupported, key -> null));
         assertEquals(ConfigProblemCode.UNSUPPORTED_SCHEMA, schemaFailure.code());
+    }
+
+    @Test
+    void usesRoleSpecificUploadDefaults() throws Exception {
+        Path driver = tempDir.resolve("driver-defaults.yml");
+        Files.writeString(driver, """
+                schemaVersion: 1
+                role: driver
+                name: driver1
+                paths:
+                  mission: mission
+                """);
+
+        ServiceConfig loaded = VersionedConfigLoader.load(driver, key -> null);
+
+        assertEquals(10L * 1024 * 1024, loaded.web().maxUploadBytes());
     }
 
     @Test

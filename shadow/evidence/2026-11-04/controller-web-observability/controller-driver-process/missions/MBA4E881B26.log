@@ -1,0 +1,10 @@
+2026-11-04 04:54:22,998 [INFO] [Log4jLogManager] - will append log to file /tmp/cosbench-controller-driver.imCzkE/driver/missions/MBA4E881B26.log
+2026-11-04 04:54:22,999 [DEBUG] [Log4jLogManager] - log level has been set to DEBUG
+2026-11-04 04:54:23,000 [DEBUG] [MockAuth] - using auth config: {delay=0, logging=false, caching=false, token=token}
+2026-11-04 04:54:23,001 [DEBUG] [MockAuth] - mock auth has been initialized
+2026-11-04 04:54:23,001 [DEBUG] [MockStorage] - op profiling data has been initialized
+2026-11-04 04:54:23,002 [DEBUG] [MockStorage] - using storage config: {delay=50, size=64, doStats=false, logging=true, errors=0.0, printing=false}
+2026-11-04 04:54:23,002 [DEBUG] [MockStorage] - mock client has been initialized
+2026-11-04 04:54:23,010 [DEBUG] [AuthAgent] - begin to login, will attempt 1 times
+2026-11-04 04:54:23,010 [DEBUG] [AuthAgent] - input auth context is {delay=0, logging=false, caching=false, token=token} with caching=false
+2026-11-04 04:54:23,010 [DEBUG] [AuthAgent] - worker 1 has been successfully authed

@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="resources/cosbench.css" />
+    <title>Workload Submission</title>
+</head>
+<body>
+<div id="header">
+    <div class="content">
+        <div id="title"><span class="codename">COSBench</span> - <span>Controller Web Console</span></div>
+        <div id="version"><div>Time: Wed Nov 04 04:54:18 UTC 2026 </div><div>Version: 0.1.0-SNAPSHOT </div></div>
+    </div> 
+</div> <div id="main">
+    <div class="top"><br /></div>
+    <div class="content">
+            <h3>Submission Results</h3>
+            <div>
+                <p><span class="success"><strong>Success</strong>: your workload has been accepted!</span><p>
+                <p><a href="workload.html?id=w3">View workload info</a></p>
+                <p>You may continue to submit new workloads via the following form.</p>
+            </div>
+        <h3>Workload Submission</h3>
+        <div>
+            <form name="submit-workload" action="submit-workload.do" method="POST" enctype="multipart/form-data">
+                <label for="config">Workload config:</label>
+                <input name="config" type="file" id="config" style="width:500px" />
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+        <p><a href="index.html">Go back to index</a></p>
+        <h3>Active Workloads</h3>
+        <div>
+            <table class="info-table">
+                <tr>
+                    <th class="id" style="width:5%;">ID</th>
+                    <th>Name</th>
+                    <th>Submitted-At</th>
+                    <th>State</th>
+                    <th style="width:15%;">Link</th>
+                </tr>
+                    <tr class="high-light">
+                    <td>w3</td>
+                    <td>controller-web-actions</td>
+                    <td>Nov 4, 2026, 4:54:18 AM</td>
+                    <td><span class="workload-state-processing state">processing</span></td>
+                    <td><a href="workload.html?id=w3">View details</a></td>
+                    </tr>
+            </table>
+            <p class="warn">There are currently 1 active workloads.</p>
+        </div>
+    </div> 
+    <div class="bottom"><br /></div>
+</div> 
+<div id="footer">
+    <div class="content">
+        <div>
+            <center>
+                <span>Intel Corporation | SineIO (WeChat/Twitter: SineCelia)</span>
+            </center>
+        </div>
+    </div> 
+</div> </body>
+</html>

@@ -1,0 +1,2 @@
+Stage,Interval,Op-Id,Op-Name,Op-Type,Op-Count,Byte-Count,Avg-ResTime,Avg-ProcTime,60%-ResTime,80%-ResTime,90%-ResTime,95%-ResTime,99%-ResTime,100%-ResTime,Throughput,Bandwidth,Succ-Ratio,Status,Detailed Status
+s1-main,5,op1,read,read,594,38016,50.04,50.02,60,60,60,60,60,60,19.83,1269.1,100%,completed,waiting @ 2026-11-04 04:53:42,booting @ 2026-11-04 04:53:43,submitting @ 2026-11-04 04:53:43,authing @ 2026-11-04 04:53:44,launching @ 2026-11-04 04:53:44,running @ 2026-11-04 04:53:44,closing @ 2026-11-04 04:54:14,completed @ 2026-11-04 04:54:14

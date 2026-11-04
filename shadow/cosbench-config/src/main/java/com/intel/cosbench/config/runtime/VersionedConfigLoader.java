@@ -119,7 +119,7 @@ public final class VersionedConfigLoader {
         int concurrency = optionalInteger(root, "concurrency", 1, "concurrency");
         ProviderConfig provider = provider(root.get("provider"), concurrency);
         LoggingConfig logging = logging(root.get("logging"), paths.logs());
-        WebConfig web = web(root.get("web"));
+        WebConfig web = web(root.get("web"), role);
         ShutdownConfig shutdown = shutdown(root.get("shutdown"));
 
         try {
@@ -258,12 +258,13 @@ public final class VersionedConfigLoader {
         }
     }
 
-    private static WebConfig web(Object value) {
+    private static WebConfig web(Object value, ServiceRole role) {
         Map<String, Object> values = optionalMapValue(value, "web");
         checkUnknown(values, WEB_KEYS, "web");
         try {
             return new WebConfig(optionalBoolean(values, "enabled", true, "web.enabled"),
-                    optionalLong(values, "maxUploadBytes", 10L * 1024 * 1024, "web.maxUploadBytes"));
+                    optionalLong(values, "maxUploadBytes",
+                            role == ServiceRole.CONTROLLER ? 0 : 10L * 1024 * 1024, "web.maxUploadBytes"));
         } catch (IllegalArgumentException e) {
             throw validation(ConfigProblemCode.VALUE_OUT_OF_RANGE, e.getMessage(), e);
         }

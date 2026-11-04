@@ -1,0 +1,17 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24360 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-controller-app >----------
+[INFO] Building COSBench Controller Boot Application 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 64 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --- dependency:3.11.0:build-classpath (default-cli) @ cosbench-controller-app ---
+[INFO] Wrote classpath file '/tmp/controller-driver-controller.classpath'.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.638 s
+[INFO] Finished at: 2026-11-04T04:53:34Z
+[INFO] ------------------------------------------------------------------------

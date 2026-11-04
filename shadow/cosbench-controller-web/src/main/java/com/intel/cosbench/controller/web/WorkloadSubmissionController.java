@@ -21,6 +21,7 @@ import java.io.InputStream;
 
 import jakarta.servlet.http.*;
 
+import org.xml.sax.SAXParseException;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.intel.cosbench.config.*;
@@ -28,6 +29,10 @@ import com.intel.cosbench.service.ControllerService;
 import com.intel.cosbench.web.*;
 
 public class WorkloadSubmissionController extends AbstractController {
+
+    private static final String MALFORMED_XML_MESSAGE = "cannot parse the xml configuration from <stream>, "
+            + "due to XML document structures must start and end within the same entity.";
+    private static final String SAX_PROLOG_ERROR = "Content is not allowed in prolog.";
 
     private ControllerService controller;
 
@@ -45,7 +50,7 @@ public class WorkloadSubmissionController extends AbstractController {
             }
             controller.fire(id);
         } catch (ConfigException e) {
-            return createErrResult(e.getMessage());
+            return createErrResult(submissionErrorMessage(e));
         }
         return createSuccResult(id);
     }
@@ -56,6 +61,21 @@ public class WorkloadSubmissionController extends AbstractController {
         result.addObject("error", msg);
         result.addObject("cInfo", controller.getControllerInfo());
         return result;
+    }
+
+    private static String submissionErrorMessage(ConfigException error) {
+        for (Throwable cause = error; cause != null; cause = cause.getCause()) {
+            if (cause instanceof SAXParseException parseError) {
+                String detail = parseError.getMessage();
+                if (SAX_PROLOG_ERROR.equals(detail)) {
+                    return MALFORMED_XML_MESSAGE;
+                }
+                if (detail != null && !detail.isBlank()) {
+                    return "cannot parse the xml configuration from <stream>, due to " + detail;
+                }
+            }
+        }
+        return error.getMessage();
     }
 
     private ModelAndView createSuccResult(String id) {

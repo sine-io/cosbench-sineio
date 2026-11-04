@@ -1,0 +1,7 @@
+Drivers:
+driver1	https://127.0.0.1:19486/driver
+Total: 1 drivers
+
+Active Workloads:
+w3	Wed Nov 04 04:54:18 UTC 2026	PROCESSING	s1-main
+Total: 1 active workloads

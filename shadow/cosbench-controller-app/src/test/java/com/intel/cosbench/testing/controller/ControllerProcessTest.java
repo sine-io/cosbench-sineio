@@ -162,8 +162,20 @@ class ControllerProcessTest {
             assertEquals(200, malformedXml.statusCode(), malformedXml.body());
             assertTrue(malformedXml.body().contains("Workload Submission"), malformedXml.body());
             assertTrue(malformedXml.body().contains("class=\"error\""), malformedXml.body());
+            assertTrue(malformedXml.body().contains(
+                    "cannot parse the xml configuration from <stream>, due to XML document structures must start and end within the same entity."),
+                    malformedXml.body());
             assertFalse(malformedXml.body().contains("your workload has been accepted"), malformedXml.body());
             assertFalse(Files.exists(home.resolve("archive/w1-web-actions/workload-config.xml")));
+            assertNoMultipartTemporaryFiles();
+
+            var mismatchedXml = postMultipart(browser, app, "/submit-workload.do",
+                    "<workload><workflow></workload>".getBytes(StandardCharsets.UTF_8));
+            assertEquals(200, mismatchedXml.statusCode(), mismatchedXml.body());
+            assertTrue(mismatchedXml.body().contains("cannot parse the xml configuration from <stream>,"),
+                    mismatchedXml.body());
+            assertFalse(mismatchedXml.body().contains("XML document structures must start and end"),
+                    mismatchedXml.body());
             assertNoMultipartTemporaryFiles();
 
             var oversizedUpload = postMultipart(browser, app, "/submit-workload.do", new byte[1025]);
@@ -231,6 +243,28 @@ class ControllerProcessTest {
             String prometheusContentType = prometheus.headers().firstValue("Content-Type").orElse("");
             assertTrue(prometheusContentType.startsWith("text/plain"), prometheusContentType);
             assertTrue(prometheusContentType.contains("version=0.0.4"), prometheusContentType);
+        }
+    }
+
+    @Test
+    void largeMalformedUploadUsesLegacySubmitErrorResponseWhenUploadLimitIsUnlimited() throws Exception {
+        try (var app = startWithDefaultWebConfiguration("/controller", "5s")) {
+            HttpClient browser = HttpClient.newBuilder()
+                    .cookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ALL))
+                    .connectTimeout(Duration.ofSeconds(1)).build();
+            assertEquals(302, postForm(browser, app, "/j_security_check",
+                    "j_username=anonymous&j_password=cosbench").statusCode());
+
+            var response = postMultipart(browser, app, "/submit-workload.do", new byte[11 * 1024 * 1024],
+                    Duration.ofSeconds(30));
+            assertEquals(200, response.statusCode(), response.body());
+            assertEquals("text/html;charset=UTF-8", response.headers().firstValue("Content-Type").orElse(""));
+            assertTrue(response.body().contains("<title>Workload Submission</title>"), response.body());
+            assertTrue(response.body().contains("<span class=\"error\"><strong>Note</strong>:"), response.body());
+            assertTrue(response.body().contains(
+                    "cannot parse the xml configuration from <stream>, due to XML document structures"),
+                    response.body());
+            assertNoMultipartTemporaryFiles();
         }
     }
 
@@ -577,8 +611,14 @@ class ControllerProcessTest {
                 contextPath, maxUploadBytes, sessionTimeout);
     }
 
+    private RunningApp startWithDefaultWebConfiguration(String contextPath, String sessionTimeout)
+            throws Exception {
+        return start("5s", "INFO", "log/system.log", null, "1h",
+                contextPath, null, sessionTimeout);
+    }
+
     private RunningApp start(String gracePeriod, String loggingLevel, String pathLogs, String loggingFile,
-            String workloadTimeout, String contextPath, long maxUploadBytes, String sessionTimeout) throws Exception {
+            String workloadTimeout, String contextPath, Long maxUploadBytes, String sessionTimeout) throws Exception {
         int port;
         try (var socket = new ServerSocket(0)) {
             port = socket.getLocalPort();
@@ -598,7 +638,7 @@ class ControllerProcessTest {
                   level: "%s"
                   %s
                 web:
-                  maxUploadBytes: %d
+                  %s
                 http:
                   timeouts:
                     command: 1s
@@ -607,7 +647,8 @@ class ControllerProcessTest {
                   gracePeriod: %s
                 """.formatted(port, contextPath, pathLogs, loggingLevel,
                         loggingFile == null ? "" : "file: \"" + loggingFile + "\"",
-                        maxUploadBytes, workloadTimeout, gracePeriod));
+                        maxUploadBytes == null ? "" : "maxUploadBytes: " + maxUploadBytes,
+                        workloadTimeout, gracePeriod));
         List<String> command = new ArrayList<>(List.of(
                 Path.of(System.getProperty("java.home"), "bin", "java").toString(),
                 "--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED",
@@ -654,6 +695,11 @@ class ControllerProcessTest {
 
     private HttpResponse<String> postMultipart(HttpClient client, RunningApp app, String path, byte[] content)
             throws Exception {
+        return postMultipart(client, app, path, content, Duration.ofSeconds(5));
+    }
+
+    private HttpResponse<String> postMultipart(HttpClient client, RunningApp app, String path, byte[] content,
+            Duration timeout) throws Exception {
         String boundary = "cosbench-" + UUID.randomUUID();
         ByteArrayOutputStream body = new ByteArrayOutputStream();
         body.write(("--" + boundary + "\r\nContent-Disposition: form-data; name=\"config\"; filename=\"workload.xml\"\r\n"
@@ -661,7 +707,7 @@ class ControllerProcessTest {
         body.write(content);
         body.write(("\r\n--" + boundary + "--\r\n").getBytes(StandardCharsets.UTF_8));
         return client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + app.port + app.contextPath + path))
-                .timeout(Duration.ofSeconds(5)).header("Content-Type", "multipart/form-data; boundary=" + boundary)
+                .timeout(timeout).header("Content-Type", "multipart/form-data; boundary=" + boundary)
                 .POST(HttpRequest.BodyPublishers.ofByteArray(body.toByteArray())).build(),
                 HttpResponse.BodyHandlers.ofString());
     }

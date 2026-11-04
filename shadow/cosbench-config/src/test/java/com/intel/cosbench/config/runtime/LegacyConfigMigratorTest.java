@@ -53,6 +53,7 @@ class LegacyConfigMigratorTest {
         assertEquals("Controller", convertedController.name());
         assertEquals(Path.of("archive"), convertedController.paths().archive());
         assertEquals("/controller", convertedController.listen().contextPath());
+        assertEquals(0, convertedController.web().maxUploadBytes());
         assertEquals("http://127.0.0.1:18088/driver", convertedController.drivers().getFirst().url());
 
         Path driver = tempDir.resolve("driver.conf");
@@ -75,6 +76,7 @@ class LegacyConfigMigratorTest {
         assertEquals(ServiceRole.DRIVER, convertedDriver.role());
         assertEquals(Path.of("log/mission"), convertedDriver.paths().mission());
         assertEquals(18088, convertedDriver.listen().port());
+        assertEquals(10L * 1024 * 1024, convertedDriver.web().maxUploadBytes());
         assertNotNull(driverResult.destinationSha256());
     }
 

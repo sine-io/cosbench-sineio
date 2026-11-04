@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="refresh" content="60">
+    <link rel="stylesheet" type="text/css" href="resources/cosbench.css" />
+    <title>Performance Matrix</title>
+</head>
+<body>
+<div id="header">
+    <div class="content">
+        <div id="title"><span class="codename">COSBench</span> - <span>Controller Web Console</span></div>
+        <div id="version"><div>Time: Wed Nov 04 04:54:19 UTC 2026 </div><div>Version: 0.1.0-SNAPSHOT </div></div>
+    </div> 
+</div> <div id="main">
+    <div class="top"><br /></div>
+    <div class="content">
+        <p>
+            <a href="index.html">index</a> ->
+            <span>matrix</span>
+        </p>
+        
+        <h2>Performance Matrix</h2>
+        <h3>Filters</h3>
+        <div class="form">
+            <form name="perf-matrix" action="matrix.html" method="GET" onreset="window.location.href='matrix.html?type=histo&ops=read&ops=write&ops=delete&metrics=rt&rthisto=_95rt&metrics=t&metrics=succ'">
+                <input name="type" type="hidden" value="histo">
+                <span class="label">Operations:</span>
+                <span class="checkbox"><input name="ops" type="checkbox" value="read"
+                    checked="true" /></span> Read
+                <span class="checkbox"><input name="ops" type="checkbox" value="write"
+                    checked="true" /></span> Write
+                <span class="checkbox"><input name="ops" type="checkbox" value="delete"
+                    checked="true" /></span> Delete
+                <span class="checkbox"><input name="ops" type="checkbox" value="list"
+                    checked="true" /></span> List
+                <span class="checkbox"><input name="ops" type="checkbox" value="filewrite"
+                    checked="true" /></span> FileWrite
+                <span class="checkbox"><input name="ops" type="checkbox" value="head"
+                    checked="true" /></span> Head
+                <span class="checkbox"><input name="ops" type="checkbox" value="restore"
+                    checked="true" /></span> Restore
+                <span class="checkbox"><input name="ops" type="checkbox" value="mwrite"
+                    checked="true" /></span> MWrite
+                <span class="checkbox"><input name="ops" type="checkbox" value="init"
+                    checked="true" /></span> Init
+                <span class="checkbox"><input name="ops" type="checkbox" value="prepare"
+                    checked="true" /></span> Prepare
+                <span class="checkbox"><input name="ops" type="checkbox" value="mprepare"
+                    checked="true" /></span> MPrepare
+                <span class="checkbox"><input name="ops" type="checkbox" value="cleanup"
+                    checked="true" /></span> Cleanup
+                <span class="checkbox"><input name="ops" type="checkbox" value="dispose"
+                    checked="true" /></span> Dispose
+                <span class="checkbox"><input name="ops" type="checkbox" value="mfilewrite"
+                    checked="true" /></span> MFileWrite
+                <span class="checkbox"><input name="ops" type="checkbox" value="localwrite"
+                    checked="true" /></span> LocalWrite
+                <br /><br />
+                <span class="label">General Metrics:</span>
+                <span class="checkbox"><input name="metrics" type="checkbox" value="oc"
+                    checked="true" /></span> Op Count
+                <span class="checkbox"><input name="metrics" type="checkbox" value="bc"
+                    checked="true" /></span> Byte Count
+                <span class="checkbox"><input name="metrics" type="checkbox" value="rt"
+                    checked="true" /></span> Avg ResTime
+                <span class="checkbox"><input name="metrics" type="checkbox" value="pt"
+                    checked="true" /></span> Avg ProcTime
+                <span class="checkbox"><input name="metrics" type="checkbox" value="t"
+                    checked="true" /></span> Throughput
+                <span class="checkbox"><input name="metrics" type="checkbox" value="bw"
+                    checked="true" /></span> Bandwidth
+                <span class="checkbox"><input name="metrics" type="checkbox" value="succ"
+                    checked="true" /></span> Success Ratio
+                <br /><br />
+                <span class="label">ResTime (RT):</span>
+                <span class="checkbox"><input name="rthisto" type="checkbox" value="_60rt"
+                     /></span> 60% RT
+                <span class="checkbox"><input name="rthisto" type="checkbox" value="_80rt"
+                     /></span> 80% RT
+                <span class="checkbox"><input name="rthisto" type="checkbox" value="_90rt"
+                     /></span> 90% RT
+                <span class="checkbox"><input name="rthisto" type="checkbox" value="_95rt"
+                     /></span> 95% RT
+                <span class="checkbox"><input name="rthisto" type="checkbox" value="_99rt"
+                     /></span> 99% RT
+                <span class="checkbox"><input name="rthisto" type="checkbox" value="_100rt"
+                     /></span> 100% RT
+                <br /><br />
+                <span class="label">Others:</span>
+                <span class="checkbox"><input name="others" type="checkbox" value="cfg"
+                     /></span> Config Info
+                <br /><br />
+                <input type="submit" value="Filter">
+                <input type="reset" value="Reset"/>
+            </form>
+        </div>
+
+        <h3>Metrics</h3>
+
+        <table class="info-table">
+            <tr>
+                <th class="id">ID</th>
+                <th>Op-Type</th>
+                <th>Op-Count</th>
+                <th>Byte-Count</th>
+                <th>Avg-ResTime</th>
+                
+                
+                
+                
+                
+                
+                <th>Avg-ProcTime</th>
+                <th>Throughput</th>
+                <th>Bandwidth</th>
+                <th>Succ-Ratio</th>
+                
+                <th style="width:15%;">Link</th>
+            </tr>
+
+                            <tr>
+                                <td>w2-s1-abort-stage-1</td>
+                                <td>read</td>
+                                    <td>
+                                            4 ops
+                                    </td>
+
+                                    <td>
+                                            256 B
+                                    </td>
+
+                                    <td>
+                                            50 ms
+                                    </td>
+
+
+
+
+
+
+
+                                    <td>
+                                            50 ms
+                                    </td>
+
+                                    <td>19.8 op/s</td>
+
+                                    <td>
+                                                1.27 KB/S
+                                    </td>
+
+                                    <td>
+                                            100%
+                                    </td>
+
+                                <td><a href="stage.html?wid=w2&sid=s1-abort-stage">view details</a></td>
+                            </tr>
+        </table>
+
+        <p> 
+            'Read,Write,Delete' are selected as default.  
+            <a href="matrix.html?type=histo&ops=read&ops=write&ops=delete&metrics=rt&rthisto=_95rt&others=cfg">| Show RT only </a>
+            <a href="matrix.html?type=histo&ops=read&ops=write&ops=delete&metrics=t&others=cfg">| Show T only </a>
+            <a href="matrix.html?type=histo&ops=read&ops=write&ops=delete&metrics=bw&others=cfg">| Show BW only |</a>
+        </p>
+        
+        <p><a href="index.html">Go back to index</a></p>
+    </div> 
+    <div class="bottom"><br /></div>
+</div> 
+<div id="footer">
+    <div class="content">
+        <div>
+            <center>
+                <span>Intel Corporation | SineIO (WeChat/Twitter: SineCelia)</span>
+            </center>
+        </div>
+    </div> 
+</div> </body>
+</html>

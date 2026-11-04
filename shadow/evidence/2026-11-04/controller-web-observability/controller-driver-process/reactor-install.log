@@ -1,0 +1,707 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24360 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] cosbench-scheme3-shadow                                            [pom]
+[INFO] COSBench Log4j Runtime Resources                                   [jar]
+[INFO] COSBench Castor Runtime Resources                                  [jar]
+[INFO] COSBench Logging API and Log4j Adapter                             [jar]
+[INFO] COSBench Config Shadow                                             [jar]
+[INFO] COSBench Storage and Auth SPI                                      [jar]
+[INFO] COSBench SineIO Production Providers                               [jar]
+[INFO] COSBench Legacy S3 Production Provider                             [jar]
+[INFO] COSBench Core Model Protocol and Services                          [jar]
+[INFO] COSBench Web Compatibility Support                                 [jar]
+[INFO] COSBench Driver Mission Service                                    [jar]
+[INFO] COSBench HTTP Client Utility                                       [jar]
+[INFO] COSBench authenticated Driver HTTP adapter                         [jar]
+[INFO] COSBench Driver Boot Application                                   [jar]
+[INFO] COSBench Controller Business Services                              [jar]
+[INFO] COSBench Controller Web Pages and CLI                              [jar]
+[INFO] COSBench Controller Boot Application                               [jar]
+[INFO] COSBench Runtime Lifecycle Shadow                                  [jar]
+[INFO] COSBench Provider SPI Coexistence Spike                            [jar]
+[INFO] COSBench Controller Web Jakarta Spike                              [jar]
+[INFO] COSBench authenticated Driver HTTP spike                           [jar]
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-scheme3-shadow >----------
+[INFO] Building cosbench-scheme3-shadow 0.1.0-SNAPSHOT                   [1/21]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-scheme3-shadow ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-scheme3-shadow ---
+[INFO] Installing /workspace/shadow/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-scheme3-shadow/0.1.0-SNAPSHOT/cosbench-scheme3-shadow-0.1.0-SNAPSHOT.pom
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-log4j-shadow >-----------
+[INFO] Building COSBench Log4j Runtime Resources 0.1.0-SNAPSHOT          [2/21]
+[INFO]   from cosbench-log4j/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 64 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-log4j-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-log4j-shadow ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-log4j-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-log4j-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-log4j/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-log4j-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-log4j-shadow ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-log4j-shadow ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-log4j-shadow ---
+[INFO] Installing /workspace/shadow/cosbench-log4j/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-log4j-shadow/0.1.0-SNAPSHOT/cosbench-log4j-shadow-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-log4j/target/cosbench-log4j-shadow-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-log4j-shadow/0.1.0-SNAPSHOT/cosbench-log4j-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-castor-shadow >----------
+[INFO] Building COSBench Castor Runtime Resources 0.1.0-SNAPSHOT         [3/21]
+[INFO]   from cosbench-castor/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-castor-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-castor-shadow ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-castor-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-castor-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-castor/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-castor-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-castor-shadow ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-castor-shadow ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-castor-shadow ---
+[INFO] Installing /workspace/shadow/cosbench-castor/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-castor-shadow/0.1.0-SNAPSHOT/cosbench-castor-shadow-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-castor/target/cosbench-castor-shadow-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-castor-shadow/0.1.0-SNAPSHOT/cosbench-castor-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-log-shadow >------------
+[INFO] Building COSBench Logging API and Log4j Adapter 0.1.0-SNAPSHOT    [4/21]
+[INFO]   from cosbench-log/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-log-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-log-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-log/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-log-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-log-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-log/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-log-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-log-shadow ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-log-shadow ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-log-shadow ---
+[INFO] Installing /workspace/shadow/cosbench-log/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-log-shadow/0.1.0-SNAPSHOT/cosbench-log-shadow-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-log/target/cosbench-log-shadow-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-log-shadow/0.1.0-SNAPSHOT/cosbench-log-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-config-shadow >----------
+[INFO] Building COSBench Config Shadow 0.1.0-SNAPSHOT                    [5/21]
+[INFO]   from cosbench-config/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-config-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-config-shadow ---
+[INFO] Copying 8 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-config-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-config-shadow ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-config-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-config-shadow ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-config-shadow ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-config-shadow ---
+[INFO] Installing /workspace/shadow/cosbench-config/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-config-shadow/0.1.0-SNAPSHOT/cosbench-config-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-api-shadow >------------
+[INFO] Building COSBench Storage and Auth SPI 0.1.0-SNAPSHOT             [6/21]
+[INFO]   from cosbench-api/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-api-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-api-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-api/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-api-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-api-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-api/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-api-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-api-shadow ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-api-shadow ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-api-shadow ---
+[INFO] Installing /workspace/shadow/cosbench-api/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-api-shadow/0.1.0-SNAPSHOT/cosbench-api-shadow-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-api/target/cosbench-api-shadow-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-api-shadow/0.1.0-SNAPSHOT/cosbench-api-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] -------------< com.intel.cosbench.shadow:cosbench-sineio >--------------
+[INFO] Building COSBench SineIO Production Providers 0.1.0-SNAPSHOT      [7/21]
+[INFO]   from cosbench-sineio/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-sineio ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-sineio ---
+[INFO] Copying 5 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-sineio ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-sineio ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-sineio/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-sineio ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-sineio ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-sineio ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-sineio ---
+[INFO] Installing /workspace/shadow/cosbench-sineio/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-sineio/0.1.0-SNAPSHOT/cosbench-sineio-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-sineio/target/cosbench-sineio-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-sineio/0.1.0-SNAPSHOT/cosbench-sineio-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ---------------< com.intel.cosbench.shadow:cosbench-s3 >----------------
+[INFO] Building COSBench Legacy S3 Production Provider 0.1.0-SNAPSHOT    [8/21]
+[INFO]   from cosbench-s3/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-s3 ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-s3 ---
+[INFO] Copying 4 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-s3 ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-s3 ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-s3/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-s3 ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-s3 ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-s3 ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-s3 ---
+[INFO] Installing /workspace/shadow/cosbench-s3/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-s3/0.1.0-SNAPSHOT/cosbench-s3-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-s3/target/cosbench-s3-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-s3/0.1.0-SNAPSHOT/cosbench-s3-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-core-shadow >-----------
+[INFO] Building COSBench Core Model Protocol and Services 0.1.0-SNAPSHOT [9/21]
+[INFO]   from cosbench-core/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-core-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-core-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-core/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-core-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-core-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-core/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-core-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-core-shadow ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-core-shadow ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-core-shadow ---
+[INFO] Installing /workspace/shadow/cosbench-core/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-core-shadow/0.1.0-SNAPSHOT/cosbench-core-shadow-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-core/target/cosbench-core-shadow-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-core-shadow/0.1.0-SNAPSHOT/cosbench-core-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-core-web-shadow >---------
+[INFO] Building COSBench Web Compatibility Support 0.1.0-SNAPSHOT       [10/21]
+[INFO]   from cosbench-core-web/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-core-web-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-core-web-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-core-web/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-core-web-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-core-web-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-core-web/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-core-web-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-core-web-shadow ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-core-web-shadow ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-core-web-shadow ---
+[INFO] Installing /workspace/shadow/cosbench-core-web/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-core-web-shadow/0.1.0-SNAPSHOT/cosbench-core-web-shadow-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-core-web/target/cosbench-core-web-shadow-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-core-web-shadow/0.1.0-SNAPSHOT/cosbench-core-web-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ----------< com.intel.cosbench.shadow:cosbench-driver-shadow >----------
+[INFO] Building COSBench Driver Mission Service 0.1.0-SNAPSHOT          [11/21]
+[INFO]   from cosbench-driver/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-driver-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-driver-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-driver/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-driver-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-driver-shadow ---
+[INFO] Copying 0 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-driver-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-driver-shadow ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-driver-shadow ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-driver-shadow ---
+[INFO] Installing /workspace/shadow/cosbench-driver/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-driver-shadow/0.1.0-SNAPSHOT/cosbench-driver-shadow-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-driver/target/cosbench-driver-shadow-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-driver-shadow/0.1.0-SNAPSHOT/cosbench-driver-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-http-shadow >-----------
+[INFO] Building COSBench HTTP Client Utility 0.1.0-SNAPSHOT             [12/21]
+[INFO]   from cosbench-http/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-http-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-http-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-http/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-http-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-http-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-http/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-http-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-http-shadow ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-http-shadow ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-http-shadow ---
+[INFO] Installing /workspace/shadow/cosbench-http/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-http-shadow/0.1.0-SNAPSHOT/cosbench-http-shadow-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-http/target/cosbench-http-shadow-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-http-shadow/0.1.0-SNAPSHOT/cosbench-http-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-driver-web >------------
+[INFO] Building COSBench authenticated Driver HTTP adapter 0.1.0-SNAPSHOT [13/21]
+[INFO]   from cosbench-driver-web/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-driver-web ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-driver-web ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-driver-web/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-driver-web ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-driver-web ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-driver-web/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-driver-web ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-driver-web ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-driver-web ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-driver-web ---
+[INFO] Installing /workspace/shadow/cosbench-driver-web/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-driver-web/0.1.0-SNAPSHOT/cosbench-driver-web-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-driver-web/target/cosbench-driver-web-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-driver-web/0.1.0-SNAPSHOT/cosbench-driver-web-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-driver-app >------------
+[INFO] Building COSBench Driver Boot Application 0.1.0-SNAPSHOT         [14/21]
+[INFO]   from cosbench-driver-app/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-driver-app ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-driver-app ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-driver-app/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-driver-app ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-driver-app ---
+[INFO] Copying 15 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-driver-app ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-driver-app ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-driver-app ---
+[INFO] Building jar: /workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.16:repackage (default) @ cosbench-driver-app ---
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] Replacing main artifact /workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar.original
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-driver-app ---
+[INFO] Installing /workspace/shadow/cosbench-driver-app/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-driver-app/0.1.0-SNAPSHOT/cosbench-driver-app-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-driver-app/0.1.0-SNAPSHOT/cosbench-driver-app-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --------< com.intel.cosbench.shadow:cosbench-controller-shadow >--------
+[INFO] Building COSBench Controller Business Services 0.1.0-SNAPSHOT    [15/21]
+[INFO]   from cosbench-controller/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-controller-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-controller-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-controller/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-controller-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-controller-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-controller/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-controller-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-controller-shadow ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-controller-shadow ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-controller-shadow ---
+[INFO] Installing /workspace/shadow/cosbench-controller/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-controller-shadow/0.1.0-SNAPSHOT/cosbench-controller-shadow-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-controller/target/cosbench-controller-shadow-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-controller-shadow/0.1.0-SNAPSHOT/cosbench-controller-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ------< com.intel.cosbench.shadow:cosbench-controller-web-shadow >------
+[INFO] Building COSBench Controller Web Pages and CLI 0.1.0-SNAPSHOT    [16/21]
+[INFO]   from cosbench-controller-web/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-controller-web-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-controller-web-shadow ---
+[INFO] Copying 31 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-controller-web-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-controller-web-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-controller-web/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-controller-web-shadow ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-controller-web-shadow ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-controller-web-shadow ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-controller-web-shadow ---
+[INFO] Installing /workspace/shadow/cosbench-controller-web/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-controller-web-shadow/0.1.0-SNAPSHOT/cosbench-controller-web-shadow-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-controller-web/target/cosbench-controller-web-shadow-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-controller-web-shadow/0.1.0-SNAPSHOT/cosbench-controller-web-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-controller-app >----------
+[INFO] Building COSBench Controller Boot Application 0.1.0-SNAPSHOT     [17/21]
+[INFO]   from cosbench-controller-app/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-controller-app ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-controller-app ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-controller-app/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-controller-app ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-controller-app ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-controller-app/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-controller-app ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-controller-app ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-controller-app ---
+[INFO] Building jar: /workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.16:repackage (default) @ cosbench-controller-app ---
+[INFO] Replacing main artifact /workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar.original
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-controller-app ---
+[INFO] Installing /workspace/shadow/cosbench-controller-app/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-controller-app/0.1.0-SNAPSHOT/cosbench-controller-app-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-controller-app/0.1.0-SNAPSHOT/cosbench-controller-app-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-runtime-shadow >----------
+[INFO] Building COSBench Runtime Lifecycle Shadow 0.1.0-SNAPSHOT        [18/21]
+[INFO]   from cosbench-runtime/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-runtime-shadow ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-runtime-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-runtime/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-runtime-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-runtime-shadow ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-runtime/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-runtime-shadow ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-runtime-shadow ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-runtime-shadow ---
+[INFO] Building jar: /workspace/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.16:repackage (default) @ cosbench-runtime-shadow ---
+[INFO] Replacing main artifact /workspace/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /workspace/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar.original
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-runtime-shadow ---
+[INFO] Installing /workspace/shadow/cosbench-runtime/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-runtime-shadow/0.1.0-SNAPSHOT/cosbench-runtime-shadow-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-runtime-shadow/0.1.0-SNAPSHOT/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ---------< com.intel.cosbench.shadow:cosbench-provider-spike >----------
+[INFO] Building COSBench Provider SPI Coexistence Spike 0.1.0-SNAPSHOT  [19/21]
+[INFO]   from cosbench-provider-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-provider-spike ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-provider-spike ---
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-provider-spike ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] 
+[INFO] --- build-helper:3.6.1:add-test-source (test-only-mock-provider-sources) @ cosbench-provider-spike ---
+[INFO] Test Source directory: /workspace/shadow/cosbench-provider-spike/../../dev/cosbench-mock/src added.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-provider-spike ---
+[INFO] Copying 3 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-provider-spike ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 11 source files with javac [debug release 21] to target/test-classes
+[INFO] /workspace/dev/cosbench-mock/src/com/intel/cosbench/api/mock/MockUtils.java: /workspace/shadow/cosbench-provider-spike/../../dev/cosbench-mock/src/com/intel/cosbench/api/mock/MockUtils.java uses or overrides a deprecated API.
+[INFO] /workspace/dev/cosbench-mock/src/com/intel/cosbench/api/mock/MockUtils.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-provider-spike ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-provider-spike ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-provider-spike ---
+[INFO] Installing /workspace/shadow/cosbench-provider-spike/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-provider-spike/0.1.0-SNAPSHOT/cosbench-provider-spike-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-provider-spike/target/cosbench-provider-spike-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-provider-spike/0.1.0-SNAPSHOT/cosbench-provider-spike-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ------------< com.intel.cosbench.shadow:cosbench-web-spike >------------
+[INFO] Building COSBench Controller Web Jakarta Spike 0.1.0-SNAPSHOT    [20/21]
+[INFO]   from cosbench-web-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-web-spike ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-web-spike ---
+[INFO] Copying 21 resources from ../../dev/cosbench-controller-web/WEB-INF/freemarker to target/classes/templates
+[INFO] Copying 8 resources from ../../dev/cosbench-controller-web/resources to target/classes/static/resources
+[INFO] Copying 2 resources from ../../dev/cosbench-controller-web to target/classes/static
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-web-spike ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-web-spike ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] Copying 1 resource from ../../.scratch/scheme3-migration/baseline/fixtures to target/test-classes/baseline
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-web-spike ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-web-spike ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-web-spike ---
+[INFO] Building jar: /workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.16:repackage (default) @ cosbench-web-spike ---
+[INFO] Replacing main artifact /workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar.original
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-web-spike ---
+[INFO] Installing /workspace/shadow/cosbench-web-spike/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-web-spike/0.1.0-SNAPSHOT/cosbench-web-spike-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-web-spike/0.1.0-SNAPSHOT/cosbench-web-spike-0.1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] -----------< com.intel.cosbench.shadow:cosbench-http-spike >------------
+[INFO] Building COSBench authenticated Driver HTTP spike 0.1.0-SNAPSHOT [21/21]
+[INFO]   from cosbench-http-spike/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-java-21-toolchain) @ cosbench-http-spike ---
+[INFO] Rule 2: org.apache.maven.enforcer.rules.property.RequireProperty passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.DependencyConvergence passed
+[INFO] 
+[INFO] --- build-helper:3.6.1:add-source (legacy-driver-api-sources) @ cosbench-http-spike ---
+[INFO] Source directory: /workspace/shadow/cosbench-http-spike/../../dev/cosbench-driver/src added.
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cosbench-http-spike ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-http-spike/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ cosbench-http-spike ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- build-helper:3.6.1:add-test-source (legacy-driver-test-sources) @ cosbench-http-spike ---
+[INFO] Test Source directory: /workspace/shadow/cosbench-http-spike/../../dev/cosbench-mock/src added.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cosbench-http-spike ---
+[INFO] skip non existing resourceDirectory /workspace/shadow/cosbench-http-spike/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ cosbench-http-spike ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ cosbench-http-spike ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ cosbench-http-spike ---
+[INFO] 
+[INFO] --- install:3.2.0:install (default-install) @ cosbench-http-spike ---
+[INFO] Installing /workspace/shadow/cosbench-http-spike/pom.xml to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-http-spike/0.1.0-SNAPSHOT/cosbench-http-spike-0.1.0-SNAPSHOT.pom
+[INFO] Installing /workspace/shadow/cosbench-http-spike/target/cosbench-http-spike-0.1.0-SNAPSHOT.jar to /tmp/maven-repository/com/intel/cosbench/shadow/cosbench-http-spike/0.1.0-SNAPSHOT/cosbench-http-spike-0.1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for cosbench-scheme3-shadow 0.1.0-SNAPSHOT:
+[INFO] 
+[INFO] cosbench-scheme3-shadow ............................ SUCCESS [  1.156 s]
+[INFO] COSBench Log4j Runtime Resources ................... SUCCESS [  3.521 s]
+[INFO] COSBench Castor Runtime Resources .................. SUCCESS [  0.054 s]
+[INFO] COSBench Logging API and Log4j Adapter ............. SUCCESS [  0.290 s]
+[INFO] COSBench Config Shadow ............................. SUCCESS [  0.429 s]
+[INFO] COSBench Storage and Auth SPI ...................... SUCCESS [  0.078 s]
+[INFO] COSBench SineIO Production Providers ............... SUCCESS [  1.787 s]
+[INFO] COSBench Legacy S3 Production Provider ............. SUCCESS [  0.074 s]
+[INFO] COSBench Core Model Protocol and Services .......... SUCCESS [  0.260 s]
+[INFO] COSBench Web Compatibility Support ................. SUCCESS [  0.714 s]
+[INFO] COSBench Driver Mission Service .................... SUCCESS [  0.099 s]
+[INFO] COSBench HTTP Client Utility ....................... SUCCESS [  0.087 s]
+[INFO] COSBench authenticated Driver HTTP adapter ......... SUCCESS [  0.127 s]
+[INFO] COSBench Driver Boot Application ................... SUCCESS [  2.600 s]
+[INFO] COSBench Controller Business Services .............. SUCCESS [  0.074 s]
+[INFO] COSBench Controller Web Pages and CLI .............. SUCCESS [  0.283 s]
+[INFO] COSBench Controller Boot Application ............... SUCCESS [  0.372 s]
+[INFO] COSBench Runtime Lifecycle Shadow .................. SUCCESS [  0.208 s]
+[INFO] COSBench Provider SPI Coexistence Spike ............ SUCCESS [  2.201 s]
+[INFO] COSBench Controller Web Jakarta Spike .............. SUCCESS [  0.503 s]
+[INFO] COSBench authenticated Driver HTTP spike ........... SUCCESS [  0.310 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  18.466 s
+[INFO] Finished at: 2026-11-04T04:53:22Z
+[INFO] ------------------------------------------------------------------------

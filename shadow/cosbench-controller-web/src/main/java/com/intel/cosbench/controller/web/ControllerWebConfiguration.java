@@ -53,6 +53,9 @@ public class ControllerWebConfiguration {
     MultipartConfigElement controllerMultipartConfig(ServiceConfig config) {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         long maxUploadBytes = config.web().maxUploadBytes();
+        if (maxUploadBytes == 0) {
+            return new MultipartConfigElement("", -1, -1, 0);
+        }
         factory.setMaxFileSize(DataSize.ofBytes(maxUploadBytes));
         factory.setMaxRequestSize(DataSize.ofBytes(maxUploadBytes + 1024 * 1024));
         return factory.createMultipartConfig();
