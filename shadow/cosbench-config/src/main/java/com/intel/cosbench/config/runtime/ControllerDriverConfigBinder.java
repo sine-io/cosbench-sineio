@@ -54,6 +54,10 @@ public final class ControllerDriverConfigBinder {
                 throw new IllegalArgumentException("Driver instance config must configure auth.token and TLS keyStore: "
                         + driverPath);
             }
+            if (!controller.auth().token().value().equals(driver.auth().token().value())) {
+                throw new IllegalArgumentException("Controller service token does not match Driver config: "
+                        + driverPath);
+            }
             String url;
             try {
                 url = new URI("https", null, driver.listen().host(), driver.listen().port(),

@@ -107,4 +107,41 @@ class ControllerDriverConfigBinderTest {
                         key -> "test-token"));
         assertEquals("operator-owned: true\n", Files.readString(output));
     }
+
+    @Test
+    void refusesToBindDriverWithDifferentResolvedServiceToken() throws Exception {
+        Path controllerTemplate = tempDir.resolve("controller-template.yml");
+        Files.writeString(controllerTemplate, """
+                schemaVersion: 1
+                role: controller
+                name: controller
+                paths: {}
+                auth:
+                  token:
+                    env: COSBENCH_CONTROLLER_TOKEN
+                  tls:
+                    enabled: true
+                    trustStore: conf/trust.p12
+                """);
+        Path drivers = tempDir.resolve("drivers");
+        Files.createDirectories(drivers);
+        Files.writeString(drivers.resolve("driver-1.yml"), """
+                schemaVersion: 1
+                role: driver
+                name: driver1
+                listen:
+                  port: 18088
+                paths: {}
+                auth:
+                  token:
+                    env: COSBENCH_DRIVER_TOKEN
+                  tls:
+                    enabled: true
+                    keyStore: conf/server.p12
+                """);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> ControllerDriverConfigBinder.bind(controllerTemplate, drivers, 1, tempDir.resolve("out.yml"),
+                        key -> key.equals("COSBENCH_CONTROLLER_TOKEN") ? "controller-token" : "driver-token"));
+    }
 }
