@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-repo_root=$(cd -- "$script_dir/.." && pwd)
-jar=${COSBENCH_RUNTIME_JAR:-$repo_root/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar}
-config=${COSBENCH_CONFIG:-$repo_root/conf/controller.yml}
-pid_file=${COSBENCH_PID_FILE:-$repo_root/run/controller.pid}
-[[ -f "$jar" ]] || { printf 'runtime jar is missing: %s\nRun the Java 21 shadow build first.\n' "$jar" >&2; exit 2; }
-exec java ${JAVA_OPTS:-} -jar "$jar" --role=controller --cosbench.config="$config" --cosbench.pid-file="$pid_file" "$@"
+exec "$script_dir/cosbench-launch" controller "$@"

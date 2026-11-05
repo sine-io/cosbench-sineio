@@ -1,0 +1,39 @@
+schemaVersion: 1
+role: controller
+name: Controller
+listen:
+  host: 127.0.0.1
+  port: 19088
+  contextPath: /controller
+paths:
+  workspace: workspace
+  archive: archive
+  logs: log/system.log
+auth:
+  token:
+    env: COSBENCH_SERVICE_TOKEN
+  tls:
+    enabled: true
+    trustStore: conf/dev-trust.p12
+http:
+  pool:
+    maxConnections: 24
+    maxPerRoute: 8
+    idleTimeout: 45s
+  timeouts:
+    connect: 2s
+    read: 30s
+    command: 60s
+    workload: 1h
+  retries:
+    maxAttempts: 3
+    backoff: 250ms
+concurrency: 2
+logging:
+  level: INFO
+  file: log/system.log
+web:
+  enabled: true
+  maxUploadBytes: 10485760
+shutdown:
+  gracePeriod: 15s

@@ -1,0 +1,30 @@
+schemaVersion: 1
+role: driver
+name: driver1
+listen:
+  host: 127.0.0.1
+  port: 18088
+  contextPath: /driver
+paths:
+  workspace: workspace
+  archive: archive
+  mission: log/mission
+  logs: log/system.log
+auth:
+  token:
+    env: COSBENCH_SERVICE_TOKEN
+  tls:
+    enabled: true
+    keyStore: conf/dev-server.p12
+concurrency: 2
+provider:
+  name: mock
+  concurrency: 2
+logging:
+  level: INFO
+  file: log/system.log
+web:
+  enabled: true
+  maxUploadBytes: 10485760
+shutdown:
+  gracePeriod: 15s

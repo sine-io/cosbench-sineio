@@ -3,6 +3,7 @@ package com.intel.cosbench.config.runtime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.charset.StandardCharsets;
@@ -51,8 +52,23 @@ class LegacyConfigMigratorTest {
                 java.util.Arrays.toString(Files.readAllBytes(controller)));
         ServiceConfig convertedController = VersionedConfigLoader.load(controllerYaml, key -> null);
         assertEquals("Controller", convertedController.name());
+        assertEquals(Path.of("workspace"), convertedController.paths().workspace());
         assertEquals(Path.of("archive"), convertedController.paths().archive());
         assertEquals("/controller", convertedController.listen().contextPath());
+        assertEquals(19088, convertedController.listen().port());
+        assertEquals(1, convertedController.concurrency());
+        assertEquals(1, convertedController.provider().concurrency());
+        assertEquals("mock", convertedController.provider().name());
+        assertEquals("INFO", convertedController.logging().level());
+        assertEquals(Path.of("log/system.log"), convertedController.logging().file());
+        assertEquals(32, convertedController.http().pool().maxConnections());
+        assertEquals(8, convertedController.http().pool().maxPerRoute());
+        assertEquals(java.time.Duration.ofSeconds(30), convertedController.http().pool().idleTimeout());
+        assertEquals(1, convertedController.http().retries().maxAttempts());
+        assertEquals(java.time.Duration.ofSeconds(30), convertedController.shutdown().gracePeriod());
+        assertNull(convertedController.auth().token());
+        assertFalse(convertedController.auth().tls().enabled());
+        assertTrue(convertedController.web().enabled());
         assertEquals(0, convertedController.web().maxUploadBytes());
         assertEquals("http://127.0.0.1:18088/driver", convertedController.drivers().getFirst().url());
 
@@ -74,8 +90,21 @@ class LegacyConfigMigratorTest {
         assertTrue(driverResult.unmapped().isEmpty());
         ServiceConfig convertedDriver = VersionedConfigLoader.load(driverYaml, key -> null);
         assertEquals(ServiceRole.DRIVER, convertedDriver.role());
+        assertEquals("driver1", convertedDriver.name());
+        assertEquals(Path.of("workspace"), convertedDriver.paths().workspace());
+        assertEquals(Path.of("archive"), convertedDriver.paths().archive());
         assertEquals(Path.of("log/mission"), convertedDriver.paths().mission());
         assertEquals(18088, convertedDriver.listen().port());
+        assertEquals("INFO", convertedDriver.logging().level());
+        assertEquals(Path.of("log/system.log"), convertedDriver.logging().file());
+        assertEquals(1, convertedDriver.concurrency());
+        assertEquals("mock", convertedDriver.provider().name());
+        assertEquals(32, convertedDriver.http().pool().maxConnections());
+        assertEquals(1, convertedDriver.http().retries().maxAttempts());
+        assertEquals(30, convertedDriver.shutdown().gracePeriod().toSeconds());
+        assertNull(convertedDriver.auth().token());
+        assertFalse(convertedDriver.auth().tls().enabled());
+        assertTrue(convertedDriver.web().enabled());
         assertEquals(10L * 1024 * 1024, convertedDriver.web().maxUploadBytes());
         assertNotNull(driverResult.destinationSha256());
     }
@@ -144,5 +173,47 @@ class LegacyConfigMigratorTest {
 
         assertFalse(result.success());
         assertTrue(result.unmapped().stream().anyMatch(value -> value.contains("driver2")));
+    }
+
+    @Test
+    void refusesSourceAndReportPathCollisionsWithoutChangingSourceBytes() throws Exception {
+        Path source = tempDir.resolve("controller.conf");
+        Files.writeString(source, """
+                [controller]
+                drivers = 0
+                name = Controller
+                """);
+        byte[] original = Files.readAllBytes(source);
+
+        MigrationReport sourceCollision = LegacyConfigMigrator.convert(source, tempDir.resolve("first.yml"), source);
+
+        assertFalse(sourceCollision.success());
+        assertTrue(sourceCollision.diagnostics().contains("report_path_collision"));
+        assertTrue(java.util.Arrays.equals(original, Files.readAllBytes(source)));
+
+        Path destination = tempDir.resolve("destination.yml");
+        MigrationReport destinationCollision = LegacyConfigMigrator.convert(source, destination, destination);
+
+        assertFalse(destinationCollision.success());
+        assertTrue(destinationCollision.diagnostics().contains("report_path_collision"));
+        assertFalse(Files.exists(destination));
+        assertTrue(java.util.Arrays.equals(original, Files.readAllBytes(source)));
+    }
+
+    @Test
+    void excludesInvalidLegacyValuesFromMigrationDiagnostics() throws Exception {
+        Path source = tempDir.resolve("controller-with-invalid-value.conf");
+        Files.writeString(source, """
+                [controller]
+                drivers = 0
+                concurrency = secret-looking-value
+                """);
+        Path report = tempDir.resolve("safe-report.json");
+
+        MigrationReport result = LegacyConfigMigrator.convert(source, tempDir.resolve("invalid.yml"), report);
+
+        assertFalse(result.success());
+        assertTrue(result.unmapped().stream().anyMatch(value -> value.contains("concurrency")));
+        assertFalse(Files.readString(report).contains("secret-looking-value"));
     }
 }

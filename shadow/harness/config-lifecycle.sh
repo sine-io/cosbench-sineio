@@ -32,10 +32,10 @@ cp "$repo/shadow/fixtures/archive/legacy/workload-001.log" "$controller_root/arc
 source_checksum=$(sha256sum "$controller_root/legacy-controller.conf" | awk '{print $1}')
 archive_checksum=$(sha256sum "$controller_root/archive/legacy/workload-001.xml" | awk '{print $1}')
 
-COSBENCH_RUNTIME_JAR="$runtime_jar" "$repo/bin/cosbench-config-migrate" \
+"$repo/bin/cosbench-config-migrate" \
     "$controller_root/legacy-controller.conf" "$controller_root/conf/controller.yml" "$report/controller-migration.json" \
     >"$report/controller-migration.log" 2>&1
-COSBENCH_RUNTIME_JAR="$runtime_jar" "$repo/bin/cosbench-config-migrate" \
+"$repo/bin/cosbench-config-migrate" \
     "$driver_root/legacy-driver.conf" "$driver_root/conf/driver.yml" "$report/driver-migration.json" \
     >"$report/driver-migration.log" 2>&1
 

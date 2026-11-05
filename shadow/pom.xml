@@ -27,6 +27,7 @@
     <module>cosbench-controller-web</module>
     <module>cosbench-controller-app</module>
     <module>cosbench-runtime</module>
+    <module>cosbench-operator-cli</module>
     <module>cosbench-provider-spike</module>
     <module>cosbench-web-spike</module>
     <module>cosbench-http-spike</module>

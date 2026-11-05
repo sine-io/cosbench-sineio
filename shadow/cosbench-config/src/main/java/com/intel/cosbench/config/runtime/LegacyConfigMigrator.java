@@ -3,7 +3,9 @@ package com.intel.cosbench.config.runtime;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -29,10 +31,20 @@ public final class LegacyConfigMigrator {
         List<String> diagnostics = new ArrayList<>();
         String role = "unknown";
         String destinationHash = null;
+        Path reportTarget = reportPath;
+        if (samePath(source, reportPath) || samePath(destination, reportPath)) {
+            diagnostics.add("report_path_collision");
+            reportTarget = null;
+        }
+        if (samePath(source, destination)) {
+            diagnostics.add("source_destination_collision");
+            return finish(source, destination, reportTarget, role, sourceHash, destinationHash, mapped, unmapped,
+                    diagnostics, false);
+        }
         try {
             if (source == null || !Files.isRegularFile(source)) {
                 diagnostics.add(ConfigProblemCode.EXPLICIT_FILE_MISSING.name().toLowerCase(Locale.ROOT));
-                return finish(source, destination, reportPath, role, sourceHash, destinationHash, mapped, unmapped,
+                return finish(source, destination, reportTarget, role, sourceHash, destinationHash, mapped, unmapped,
                         diagnostics, false);
             }
             byte[] sourceBytes = Files.readAllBytes(source);
@@ -54,14 +66,18 @@ public final class LegacyConfigMigrator {
             if (destination != null && Files.exists(destination)) {
                 diagnostics.add(ConfigProblemCode.DESTINATION_EXISTS.name().toLowerCase(Locale.ROOT));
             } else if (unmapped.isEmpty() && diagnostics.isEmpty()) {
-                writeYaml(destination, result);
                 try {
-                    VersionedConfigLoader.load(destination, ignored -> null);
-                    destinationHash = sha256(Files.readAllBytes(destination));
-                } catch (ConfigLoadException e) {
-                    Files.deleteIfExists(destination);
-                    diagnostics.add("generated_config_invalid: "
-                            + e.code().name().toLowerCase(Locale.ROOT) + ": " + safeMessage(e));
+                    writeYaml(destination, result);
+                    try {
+                        VersionedConfigLoader.load(destination, ignored -> null);
+                        destinationHash = sha256(Files.readAllBytes(destination));
+                    } catch (ConfigLoadException e) {
+                        Files.deleteIfExists(destination);
+                        diagnostics.add("generated_config_invalid: "
+                                + e.code().name().toLowerCase(Locale.ROOT) + ": " + safeMessage(e));
+                    }
+                } catch (FileAlreadyExistsException e) {
+                    diagnostics.add(ConfigProblemCode.DESTINATION_EXISTS.name().toLowerCase(Locale.ROOT));
                 }
             }
         } catch (IOException | RuntimeException e) {
@@ -72,7 +88,7 @@ public final class LegacyConfigMigrator {
         }
         boolean success = !role.equals("unknown") && unmapped.isEmpty() && diagnostics.isEmpty()
                 && destinationHash != null;
-        return finish(source, destination, reportPath, role, sourceHash, destinationHash, mapped, unmapped,
+        return finish(source, destination, reportTarget, role, sourceHash, destinationHash, mapped, unmapped,
                 diagnostics, success);
     }
 
@@ -183,10 +199,10 @@ public final class LegacyConfigMigrator {
             List<String> mapped, List<String> unmapped, List<String> diagnostics) {
         int count = integerValue(controller, "drivers", 0, mapped, unmapped);
         if (count < 0) {
-            unmapped.add("controller.drivers=" + count + " (expected non-negative integer)");
+            unmapped.add("controller.drivers (expected non-negative integer)");
             count = 0;
         } else if (count > 10000) {
-            unmapped.add("controller.drivers=" + count + " (maximum supported count is 10000)");
+            unmapped.add("controller.drivers (maximum supported count is 10000)");
             count = 0;
         }
         List<Map<String, Object>> drivers = new ArrayList<>();
@@ -277,7 +293,7 @@ public final class LegacyConfigMigrator {
             mapped.add(key + " -> " + key);
             return Integer.parseInt(value.trim());
         } catch (NumberFormatException e) {
-            unmapped.add(key + "=" + value + " (expected integer)");
+            unmapped.add(key + " (expected integer)");
             return fallback;
         }
     }
@@ -308,7 +324,7 @@ public final class LegacyConfigMigrator {
             int port = uri.getPort() < 0 ? defaultPort : uri.getPort();
             return new Endpoint(host, port, path.isBlank() ? "/" : path);
         } catch (IllegalArgumentException e) {
-            unmapped.add(field + "=" + raw + " (invalid URL)");
+            unmapped.add(field + " (invalid URL)");
             return new Endpoint("127.0.0.1", defaultPort, defaultContext);
         }
     }
@@ -347,7 +363,25 @@ public final class LegacyConfigMigrator {
         options.setPrettyFlow(false);
         options.setIndent(2);
         options.setDefaultScalarStyle(DumperOptions.ScalarStyle.PLAIN);
-        Files.writeString(destination, new Yaml(options).dump(result), StandardCharsets.UTF_8);
+        Files.writeString(destination, new Yaml(options).dump(result), StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
+    }
+
+    private static boolean samePath(Path left, Path right) {
+        if (left == null || right == null) {
+            return false;
+        }
+        Path normalizedLeft = left.toAbsolutePath().normalize();
+        Path normalizedRight = right.toAbsolutePath().normalize();
+        if (normalizedLeft.equals(normalizedRight)) {
+            return true;
+        }
+        try {
+            return Files.exists(normalizedLeft) && Files.exists(normalizedRight)
+                    && Files.isSameFile(normalizedLeft, normalizedRight);
+        } catch (IOException ignored) {
+            return false;
+        }
     }
 
     private static String reportJson(MigrationReport result) {

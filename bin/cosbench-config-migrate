@@ -1,8 +1,31 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-repo_root=$(cd -- "$script_dir/.." && pwd)
-jar=${COSBENCH_RUNTIME_JAR:-$repo_root/shadow/cosbench-runtime/target/cosbench-runtime-shadow-0.1.0-SNAPSHOT.jar}
-[[ $# -eq 3 ]] || { printf 'usage: %s SOURCE_INI DESTINATION_YAML REPORT_JSON\n' "$(basename "$0")" >&2; exit 2; }
-[[ -f "$jar" ]] || { printf 'runtime jar is missing: %s\nRun the Java 21 shadow build first.\n' "$jar" >&2; exit 2; }
-exec java ${JAVA_OPTS:-} -jar "$jar" --migrate "$@"
+install_root=$(cd -- "$script_dir/.." && pwd)
+jar=${COSBENCH_OPERATOR_CLI_JAR:-$install_root/lib/cosbench-operator-cli.jar}
+development_jar="$install_root/shadow/cosbench-operator-cli/target/cosbench-operator-cli-0.1.0-SNAPSHOT.jar"
+if [[ ! -f $jar && -f $development_jar ]]; then
+    jar=$development_jar
+fi
+
+if (($# == 1)) && [[ $1 == -h || $1 == --help ]]; then
+    cat <<EOF
+Usage: $(basename "$0") --source LEGACY_INI --destination VERSIONED_YML [--report REPORT_JSON]
+       $(basename "$0") LEGACY_INI VERSIONED_YML REPORT_JSON
+Exit codes: 0 success, 1 conversion failure/unknown legacy values, 2 usage error.
+EOF
+    exit 0
+fi
+
+if (($# == 0)); then
+    printf 'configuration migration arguments are required; use --help for usage\n' >&2
+    exit 2
+fi
+[[ -f $jar ]] || { printf 'operator CLI jar is missing: %s\nRun the Java 21 shadow build first.\n' "$jar" >&2; exit 2; }
+java_bin=${JAVA:-java}
+command -v "$java_bin" >/dev/null 2>&1 || { printf 'Java 21 is required; executable not found: %s\n' "$java_bin" >&2; exit 2; }
+java_options=()
+if [[ -n ${JAVA_OPTS:-} ]]; then
+    read -r -a java_options <<< "$JAVA_OPTS"
+fi
+exec "$java_bin" "${java_options[@]}" -jar "$jar" migrate "$@"

@@ -1,0 +1,170 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+usage() {
+    local command_name=$1
+    cat <<EOF
+Usage: $command_name [--config FILE | --cosbench.config=FILE] [--pid-file FILE] [application options]
+
+Start the $command_name Spring Boot process in the foreground. COSBENCH_CONFIG and
+COSBENCH_PID_FILE provide the default config and PID file paths.
+  --config FILE            Select a versioned YAML configuration file
+  --cosbench.config=FILE   Select the configuration file (Spring property form)
+  --pid-file FILE          Write and own this process PID file
+EOF
+    if [[ $2 == driver ]]; then
+        cat <<EOF
+  --instance ID   Select conf/driver-ID.yml and run/driver-ID.pid (numeric ID recommended)
+EOF
+    fi
+    cat <<'EOF'
+  -h, --help      Show this help
+Exit codes: 0 help, 1 configuration/start failure, 2 usage or missing artifact.
+EOF
+}
+
+die() {
+    local status=$1
+    shift
+    printf 'Error: %s\n' "$*" >&2
+    exit "$status"
+}
+
+role=${1:?}
+shift
+case "$role" in
+    controller|driver) ;;
+    *) die 2 "unsupported service role: $role" ;;
+esac
+command_name="cosbench-$role"
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+install_root=$(cd -- "$script_dir/.." && pwd)
+case "$role" in
+    controller)
+        default_jar="$install_root/lib/cosbench-controller.jar"
+        development_jar="$install_root/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar"
+        ;;
+    driver)
+        default_jar="$install_root/lib/cosbench-driver.jar"
+        development_jar="$install_root/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar"
+        ;;
+esac
+jar_variable="COSBENCH_${role^^}_JAR"
+jar=${!jar_variable:-${COSBENCH_RUNTIME_JAR:-$default_jar}}
+if [[ ! -f $jar && -f $development_jar ]]; then
+    jar=$development_jar
+fi
+operator_jar=${COSBENCH_OPERATOR_CLI_JAR:-$install_root/lib/cosbench-operator-cli.jar}
+development_operator_jar="$install_root/shadow/cosbench-operator-cli/target/cosbench-operator-cli-0.1.0-SNAPSHOT.jar"
+if [[ ! -f $operator_jar && -f $development_operator_jar ]]; then
+    operator_jar=$development_operator_jar
+fi
+
+config=${COSBENCH_CONFIG:-$install_root/conf/$role.yml}
+pid_file=${COSBENCH_PID_FILE:-$install_root/run/$role.pid}
+instance=
+explicit_config=0
+explicit_pid=0
+application_args=()
+
+while (($# > 0)); do
+    case "$1" in
+        -h|--help)
+            usage "$command_name" "$role"
+            exit 0
+            ;;
+        --config)
+            (($# >= 2)) || die 2 '--config requires a path'
+            config=$2
+            explicit_config=1
+            shift
+            ;;
+        --config=*)
+            config=${1#*=}
+            explicit_config=1
+            ;;
+        --cosbench.config)
+            (($# >= 2)) || die 2 '--cosbench.config requires a path'
+            config=$2
+            explicit_config=1
+            shift
+            ;;
+        --cosbench.config=*)
+            config=${1#*=}
+            explicit_config=1
+            ;;
+        --pid-file)
+            (($# >= 2)) || die 2 '--pid-file requires a path'
+            pid_file=$2
+            explicit_pid=1
+            shift
+            ;;
+        --pid-file=*)
+            pid_file=${1#*=}
+            explicit_pid=1
+            ;;
+        --instance)
+            (($# >= 2)) || die 2 '--instance requires an ID'
+            instance=$2
+            shift
+            ;;
+        --instance=*)
+            instance=${1#*=}
+            ;;
+        *)
+            application_args+=("$1")
+            ;;
+    esac
+    shift
+done
+
+if [[ -n $instance ]]; then
+    [[ $role == driver ]] || die 2 '--instance is only supported by cosbench-driver'
+    [[ $instance =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]] || die 2 '--instance contains unsupported characters'
+    if ((explicit_config == 0)) && [[ -z ${COSBENCH_CONFIG:-} ]]; then
+        config="$install_root/conf/driver-$instance.yml"
+    fi
+    if ((explicit_pid == 0)) && [[ -z ${COSBENCH_PID_FILE:-} ]]; then
+        pid_file="$install_root/run/driver-$instance.pid"
+    fi
+fi
+[[ -n $config ]] || die 2 'configuration path must not be empty'
+[[ -n $pid_file ]] || die 2 'PID file path must not be empty'
+[[ ! -L $pid_file ]] || die 1 "PID file path must not be a symbolic link: $pid_file"
+config=$(realpath -m -- "$config")
+pid_file=$(realpath -m -- "$pid_file")
+
+if [[ -e $pid_file || -L $pid_file ]]; then
+    [[ ! -L $pid_file && -f $pid_file ]] || die 1 "PID path is not a regular file: $pid_file"
+    read -r existing_pid < "$pid_file" || existing_pid=
+    [[ $existing_pid =~ ^[1-9][0-9]*$ ]] || die 1 "invalid PID file contents: $pid_file"
+    if kill -0 "$existing_pid" 2>/dev/null; then
+        process_args=$(ps -p "$existing_pid" -o args= 2>/dev/null || true)
+        if [[ " $process_args " == *" --role=$role "* \
+                && " $process_args " == *" --cosbench.pid-file=$pid_file "* ]]; then
+            die 1 "$role is already running with PID $existing_pid"
+        fi
+        die 1 "PID file $pid_file points to a different process (PID $existing_pid)"
+    fi
+    rm -- "$pid_file"
+fi
+
+[[ -f $jar ]] || die 2 "application jar is missing: $jar"
+[[ -f $operator_jar ]] || die 2 "operator CLI jar is missing: $operator_jar"
+java_bin=${JAVA:-java}
+command -v "$java_bin" >/dev/null 2>&1 || die 2 "Java 21 is required; executable not found: $java_bin"
+"$java_bin" -jar "$operator_jar" inspect --config "$config" --role "$role" --check-port >/dev/null || exit $?
+if [[ $(dirname -- "$pid_file") != . ]]; then
+    mkdir -p -- "$(dirname -- "$pid_file")"
+fi
+if ! (umask 022; set -o noclobber; printf '%s\n' "$$" > "$pid_file") 2>/dev/null; then
+    die 1 "PID file was created by another process: $pid_file"
+fi
+
+java_options=()
+if [[ -n ${JAVA_OPTS:-} ]]; then
+    read -r -a java_options <<< "$JAVA_OPTS"
+fi
+exec "$java_bin" "${java_options[@]}" -jar "$jar" \
+    "--role=$role" "--cosbench.config=$config" "--cosbench.pid-file=$pid_file" \
+    "${application_args[@]}"

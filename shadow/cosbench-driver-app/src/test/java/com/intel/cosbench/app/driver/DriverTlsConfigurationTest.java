@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.nio.file.Path;
+
 import com.intel.cosbench.config.runtime.AuthConfig;
 import com.intel.cosbench.config.runtime.ServiceConfig;
 import com.intel.cosbench.config.runtime.TlsConfig;
@@ -17,7 +19,7 @@ class DriverTlsConfigurationTest {
         ServiceConfig config = mock(ServiceConfig.class);
         when(config.auth()).thenReturn(new AuthConfig(null, new TlsConfig(false, null, null)));
 
-        assertThatThrownBy(() -> new DriverConfiguration().driverServer(config, new MockEnvironment())
+        assertThatThrownBy(() -> new DriverConfiguration().driverServer(config, Path.of("."), new MockEnvironment())
                 .customize(new TomcatServletWebServerFactory()))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Driver HTTP requires TLS");

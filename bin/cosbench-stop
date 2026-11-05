@@ -1,36 +1,172 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
+
+usage() {
+    cat <<EOF
+Usage: $(basename "$0") [controller|driver|all] [options]
+
+Options:
+  --pid-dir DIR        PID directory (default: COSBENCH_PID_DIR or ./run)
+  --pid-file FILE      Stop exactly one instance using FILE
+  --instance ID        Select run/driver-ID.pid (requires driver)
+  --timeout SECONDS    Graceful wait before reporting a timeout (default: 30)
+  -h, --help           Show this help
+Exit codes: 0 stopped/not running, 1 invalid PID ownership, 2 usage error, 124 stop timeout.
+EOF
+}
+
+die() {
+    local status=$1
+    shift
+    printf 'Error: %s\n' "$*" >&2
+    exit "$status"
+}
+
 script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-repo_root=$(cd -- "$script_dir/.." && pwd)
-pid_dir=${COSBENCH_PID_DIR:-$repo_root/run}
-grace=${COSBENCH_STOP_TIMEOUT_SECONDS:-30}
-[[ "$grace" =~ ^[0-9]+$ ]] || { printf 'COSBENCH_STOP_TIMEOUT_SECONDS must be a non-negative integer\n' >&2; exit 2; }
-usage() { printf 'usage: %s [controller|driver|all]\n' "$(basename "$0")" >&2; }
-service=${1:-all}
-case "$service" in controller|driver) services=("$service");; all) services=(controller driver);; *) usage; exit 2;; esac
-status=0
-for name in "${services[@]}"; do
-    pid_file="$pid_dir/$name.pid"
-    if [[ ! -f "$pid_file" ]]; then
-        continue
+install_root=$(cd -- "$script_dir/.." && pwd)
+pid_dir=${COSBENCH_PID_DIR:-$install_root/run}
+timeout_seconds=${COSBENCH_STOP_TIMEOUT_SECONDS:-30}
+service=all
+pid_file=
+instance=
+service_seen=0
+
+while (($# > 0)); do
+    case "$1" in
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        --pid-dir)
+            (($# >= 2)) || die 2 '--pid-dir requires a path'
+            pid_dir=$2
+            shift
+            ;;
+        --pid-dir=*) pid_dir=${1#*=} ;;
+        --pid-file)
+            (($# >= 2)) || die 2 '--pid-file requires a path'
+            pid_file=$2
+            shift
+            ;;
+        --pid-file=*) pid_file=${1#*=} ;;
+        --instance)
+            (($# >= 2)) || die 2 '--instance requires an ID'
+            instance=$2
+            shift
+            ;;
+        --instance=*) instance=${1#*=} ;;
+        --timeout)
+            (($# >= 2)) || die 2 '--timeout requires seconds'
+            timeout_seconds=$2
+            shift
+            ;;
+        --timeout=*) timeout_seconds=${1#*=} ;;
+        controller|driver|all)
+            ((service_seen == 0)) || die 2 'service was specified more than once'
+            service=$1
+            service_seen=1
+            ;;
+        *) die 2 "unknown argument: $1" ;;
+    esac
+    shift
+done
+
+[[ $timeout_seconds =~ ^[0-9]+$ ]] || die 2 '--timeout must be a non-negative integer'
+[[ -n $pid_dir ]] || die 2 '--pid-dir must not be empty'
+[[ -z $instance || $instance =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]] || die 2 '--instance contains unsupported characters'
+[[ -z $instance || $service == driver ]] || die 2 '--instance is only supported with driver'
+[[ -z $pid_file || $service != all ]] || die 2 '--pid-file requires controller or driver'
+[[ -z $pid_file || -z $instance ]] || die 2 '--pid-file and --instance cannot be combined'
+
+pid_files=()
+pid_path() {
+    [[ ! -L $1 ]] || die 1 "Refusing symbolic link PID file: $1"
+    realpath -m -- "$1"
+}
+
+if [[ -n $pid_file ]]; then
+    pid_files+=("$(pid_path "$pid_file")")
+elif [[ -n $instance ]]; then
+    pid_files+=("$(pid_path "$pid_dir/driver-$instance.pid")")
+else
+    case "$service" in
+        controller) pid_files+=("$(pid_path "$pid_dir/controller.pid")") ;;
+        driver)
+            pid_files+=("$(pid_path "$pid_dir/driver.pid")")
+            shopt -s nullglob
+            for file in "$pid_dir"/driver-*.pid; do
+                pid_files+=("$(pid_path "$file")")
+            done
+            ;;
+        all)
+            pid_files+=("$(pid_path "$pid_dir/controller.pid")" "$(pid_path "$pid_dir/driver.pid")")
+            shopt -s nullglob
+            for file in "$pid_dir"/driver-*.pid; do
+                pid_files+=("$(pid_path "$file")")
+            done
+            ;;
+    esac
+fi
+
+stop_one() {
+    local file=$1 role_hint=${2:-} role pid process_args deadline
+    [[ -e $file || -L $file ]] || return 0
+    [[ ! -L $file && -f $file ]] || { printf 'Refusing non-regular PID file: %s\n' "$file" >&2; return 1; }
+    role=$role_hint
+    if [[ -z $role ]]; then
+        case "$(basename -- "$file")" in
+            controller.pid) role=controller ;;
+            driver*.pid) role=driver ;;
+            *) printf 'Cannot determine service role from PID filename: %s\n' "$file" >&2; return 1 ;;
+        esac
     fi
-    pid=$(tr -d '[:space:]' < "$pid_file")
-    if [[ ! "$pid" =~ ^[0-9]+$ ]] || ! kill -0 "$pid" 2>/dev/null; then
-        rm -f "$pid_file"
-        continue
+    IFS= read -r pid < "$file" || pid=
+    if [[ ! $pid =~ ^[1-9][0-9]*$ ]]; then
+        printf 'Invalid PID file contents: %s\n' "$file" >&2
+        return 1
     fi
-    kill -TERM "$pid" || status=1
-    deadline=$((SECONDS + grace))
+    if ! kill -0 "$pid" 2>/dev/null; then
+        if ps -p "$pid" -o pid= >/dev/null 2>&1; then
+            printf 'Cannot signal PID %s from %s\n' "$pid" "$file" >&2
+            return 1
+        fi
+        rm -- "$file"
+        printf 'Removed stale %s PID file (PID %s).\n' "$role" "$pid"
+        return 0
+    fi
+    process_args=$(ps -p "$pid" -o args= 2>/dev/null || true)
+    if [[ " $process_args " != *" --role=$role "* \
+            || " $process_args " != *" --cosbench.pid-file=$file "* ]]; then
+        printf 'Refusing to signal PID %s: it is not the %s process recorded by %s\n' "$pid" "$role" "$file" >&2
+        return 1
+    fi
+    if ! kill -TERM "$pid" 2>/dev/null; then
+        printf 'Could not send TERM to %s PID %s\n' "$role" "$pid" >&2
+        return 1
+    fi
+    deadline=$((SECONDS + timeout_seconds))
     while kill -0 "$pid" 2>/dev/null; do
         if ((SECONDS >= deadline)); then
-            printf '%s did not stop within %ss (pid %s)\n' "$name" "$grace" "$pid" >&2
-            status=124
-            break
+            printf '%s PID %s did not stop within %ss\n' "$role" "$pid" "$timeout_seconds" >&2
+            return 124
         fi
         sleep 0.2
     done
-    if ! kill -0 "$pid" 2>/dev/null; then
-        rm -f "$pid_file"
+    rm -f -- "$file"
+    printf 'Stopped %s PID %s.\n' "$role" "$pid"
+}
+
+status=0
+declare -A seen=()
+for file in "${pid_files[@]}"; do
+    [[ -n ${seen[$file]:-} ]] && continue
+    seen[$file]=1
+    result=0
+    role_hint=
+    [[ -z $pid_file ]] || role_hint=$service
+    stop_one "$file" "$role_hint" || result=$?
+    if ((result != 0)); then
+        if ((result == 124)); then status=124; elif ((status == 0)); then status=1; fi
     fi
 done
 exit "$status"

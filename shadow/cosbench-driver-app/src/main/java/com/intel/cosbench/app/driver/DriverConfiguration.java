@@ -2,6 +2,7 @@ package com.intel.cosbench.app.driver;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -85,7 +86,7 @@ public class DriverConfiguration {
 
     @Bean
     WebServerFactoryCustomizer<TomcatServletWebServerFactory> driverServer(ServiceConfig config,
-            Environment environment) {
+            Path installationDirectory, Environment environment) {
         return factory -> {
             if (!config.auth().tls().enabled()) {
                 throw new IllegalArgumentException("Driver HTTP requires TLS: set auth.tls.enabled to true");
@@ -106,12 +107,17 @@ public class DriverConfiguration {
                 ssl = new Ssl();
             }
             ssl.setEnabled(true);
-            ssl.setKeyStore(keyStore);
+            ssl.setKeyStore(resolveKeyStore(keyStore, installationDirectory));
             ssl.setKeyStorePassword(environment.getProperty("server.ssl.key-store-password"));
             ssl.setKeyStoreType(environment.getProperty("server.ssl.key-store-type", "PKCS12"));
             ssl.setKeyPassword(environment.getProperty("server.ssl.key-password"));
             factory.setSsl(ssl);
         };
+    }
+
+    private static String resolveKeyStore(String configured, Path installationDirectory) {
+        Path path = configured.startsWith("file:") ? Path.of(URI.create(configured)) : Path.of(configured);
+        return (path.isAbsolute() ? path : installationDirectory.resolve(path)).normalize().toString();
     }
 
     @Bean
