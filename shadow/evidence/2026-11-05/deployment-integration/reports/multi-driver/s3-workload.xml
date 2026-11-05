@@ -1,0 +1,48 @@
+<workload name="integration-multi-driver-s3">
+  <auth type="none"/>
+  <storage type="s3" config="endpoint=http://minio:9000;accesskey=&lt;REDACTED&gt;;secretkey=&lt;REDACTED&gt;;timeout=3000;path_style_access=true"/>
+  <workflow>
+    <workstage name="init"><work type="init" workers="1" interval="1" config="cprefix=cb19-s3-1793861892054802274-;containers=r(1,1)"/></workstage>
+    <workstage name="write-obj">
+      <work name="write" workers="2" totalOps="2" interval="1">
+        <operation type="write" ratio="100" config="cprefix=cb19-s3-1793861892054802274-;containers=c(1);oprefix=obj;objects=c(1);sizes=c(64)B;content=zero"/>
+      </work>
+    </workstage>
+    <workstage name="read-obj">
+      <work name="read" workers="2" totalOps="2" interval="1">
+        <operation type="read" ratio="100" config="cprefix=cb19-s3-1793861892054802274-;containers=c(1);oprefix=obj;objects=c(1);sizes=c(64)B;content=zero"/>
+      </work>
+    </workstage>
+    <workstage name="list-obj">
+      <work name="list" workers="2" totalOps="2" interval="1">
+        <operation type="list" ratio="100" config="cprefix=cb19-s3-1793861892054802274-;containers=c(1);oprefix=obj;objects=c(1);sizes=c(64)B;content=zero"/>
+      </work>
+    </workstage>
+    <workstage name="head-obj">
+      <work name="head" workers="2" totalOps="2" interval="1">
+        <operation type="head" ratio="100" config="cprefix=cb19-s3-1793861892054802274-;containers=c(1);oprefix=obj;objects=c(1);sizes=c(64)B;content=zero"/>
+      </work>
+    </workstage>
+    <workstage name="mwrite-multi">
+      <work name="mwrite" workers="2" totalOps="2" interval="1">
+        <operation type="mwrite" ratio="100" config="cprefix=cb19-s3-1793861892054802274-;containers=c(1);oprefix=multi;objects=c(1);sizes=c(5242917)B;content=zero"/>
+      </work>
+    </workstage>
+    <workstage name="read-multi">
+      <work name="read" workers="2" totalOps="2" interval="1">
+        <operation type="read" ratio="100" config="cprefix=cb19-s3-1793861892054802274-;containers=c(1);oprefix=multi;objects=c(1);sizes=c(64)B;content=zero"/>
+      </work>
+    </workstage>
+    <workstage name="delete-obj">
+      <work name="delete" workers="2" totalOps="2" interval="1">
+        <operation type="delete" ratio="100" config="cprefix=cb19-s3-1793861892054802274-;containers=c(1);oprefix=obj;objects=c(1);sizes=c(64)B;content=zero"/>
+      </work>
+    </workstage>
+    <workstage name="delete-multi">
+      <work name="delete" workers="2" totalOps="2" interval="1">
+        <operation type="delete" ratio="100" config="cprefix=cb19-s3-1793861892054802274-;containers=c(1);oprefix=multi;objects=c(1);sizes=c(64)B;content=zero"/>
+      </work>
+    </workstage>
+    <workstage name="dispose"><work type="dispose" workers="1" interval="1" config="cprefix=cb19-s3-1793861892054802274-;containers=r(1,1)"/></workstage>
+  </workflow>
+</workload>

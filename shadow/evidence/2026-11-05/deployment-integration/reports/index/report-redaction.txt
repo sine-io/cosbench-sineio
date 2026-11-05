@@ -1,0 +1,4 @@
+status=passed
+text_files_scanned=1428
+redacted_files=10
+credential_values=4

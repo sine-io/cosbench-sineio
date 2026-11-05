@@ -1,0 +1,5 @@
+factory	workload	write	read	list	head	mwrite	delete	success_ratio	close
+sio	w5	2	4	2	2	2	4	100	no-active-missions
+siov1	w6	2	4	2	2	2	4	100	no-active-missions
+gdas	w7	2	4	2	2	2	4	100	no-active-missions
+s3	w8	2	4	2	2	2	4	100	no-active-missions

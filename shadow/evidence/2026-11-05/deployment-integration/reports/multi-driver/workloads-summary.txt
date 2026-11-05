@@ -1,0 +1,4 @@
+status=passed
+classpath=production-shared
+providers=sio,siov1,gdas,s3
+workload=init,write,read,list,head,mwrite,read,delete,dispose

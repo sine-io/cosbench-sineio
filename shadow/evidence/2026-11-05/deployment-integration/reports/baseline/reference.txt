@@ -1,0 +1,7 @@
+status=consumed
+replay=.scratch/scheme3-migration/baseline/replay.sh
+legacy_release=0.6.0.2-sineio
+legacy_source=cd18daf2f6f97f97409f4709d00bbd7389676d6
+release_sha256=1421f48a55673e42edd73c7b09a610b2b71ef94c70d46db3fb74dd3c34d22a06
+current_replays=config-lifecycle.sh,http-contract.sh,controller-driver-process.sh
+acceptance=consumption-only;baseline-open-items-remain-with-original-owners

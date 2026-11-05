@@ -1,0 +1,2 @@
+PID                 PPID                COMMAND
+323743              323719              java --add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -jar /opt/cosbench/lib/cosbench-controller.jar --role=controller --cosbench.config=/opt/cosbench/conf/controller.yml --cosbench.pid-file=/run/cosbench/controller.pid

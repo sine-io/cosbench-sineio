@@ -1,0 +1,186 @@
+driver-1  | 
+driver-1  |   .   ____          _            __ _ _
+driver-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+driver-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+driver-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+driver-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+driver-1  |  =========|_|==============|___/=/_/_/_/
+driver-1  | 
+driver-1  |  :: Spring Boot ::               (v3.5.16)
+driver-1  | 
+driver-1  | 2026-11-05T06:51:51.543Z  INFO 1 --- [           main] c.i.c.app.driver.DriverApplication       : Starting DriverApplication using Java 21.0.12.1 with PID 1 (/opt/cosbench/lib/cosbench-driver.jar started by root in /var/lib/cosbench)
+driver-1  | 2026-11-05T06:51:51.549Z  INFO 1 --- [           main] c.i.c.app.driver.DriverApplication       : No active profile set, falling back to 1 default profile: "default"
+driver-1  | 2026-11-05T06:51:53.470Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 18088 (https)
+driver-1  | 2026-11-05T06:51:53.498Z  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+driver-1  | 2026-11-05T06:51:53.498Z  INFO 1 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+driver-1  | 2026-11-05T06:51:53.543Z  INFO 1 --- [           main] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring embedded WebApplicationContext
+driver-1  | 2026-11-05T06:51:53.543Z  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1864 ms
+driver-1  | (Log4jLogManager.java:121)
+driver-1  | 2026-11-05 06:51:53,690 [main           ] [INFO ] - will append log to console
+driver-1  | 2026-11-05T06:51:53.716Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-driver.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+driver-1  | 2026-11-05T06:51:53.717Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-driver.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+driver-1  | 2026-11-05T06:51:53.717Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-driver.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+driver-1  | 2026-11-05T06:51:53.718Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-driver.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+driver-1  | 2026-11-05T06:51:53.718Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-driver.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+driver-1  | 2026-11-05T06:51:53.718Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-driver.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+driver-1  | 2026-11-05T06:51:53.718Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-driver.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+driver-1  | 2026-11-05T06:51:53.718Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-driver.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+driver-1  | (COSBAuthAPIService.java:56)
+driver-1  | 2026-11-05 06:51:53,922 [main           ] [INFO ] - detected supported auth types: none
+driver-1  | (COSBStorageAPIService.java:56)
+driver-1  | 2026-11-05 06:51:53,924 [main           ] [INFO ] - detected supported storage types: gdas, s3, sio, siov1
+driver-1  | 2026-11-05T06:51:55.151Z  INFO 1 --- [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-0.0.0.0-18088], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [Set directly - location unknown] using alias [tomcat] with trust store [null]
+driver-1  | 2026-11-05T06:51:55.164Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 18088 (https) with context path '/driver'
+driver-1  | 2026-11-05T06:51:55.179Z  INFO 1 --- [           main] c.i.c.app.driver.DriverApplication       : Started DriverApplication in 4.453 seconds (process running for 5.311)
+driver-1  | 2026-11-05T06:51:56.796Z  INFO 1 --- [.0-18088-exec-6] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+driver-1  | 2026-11-05T06:51:56.796Z  INFO 1 --- [.0-18088-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+driver-1  | 2026-11-05T06:51:56.797Z  INFO 1 --- [.0-18088-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+driver-1  | (COSBDriverService.java:198)
+driver-1  | 2026-11-05 06:52:08,039 [.0-18088-exec-8] [INFO ] - handler=M6AA7AA68D0
+driver-1  | (MissionHandler.java:284)
+driver-1  | 2026-11-05 06:52:08,042 [-driver-mission] [INFO ] - mission M6AA7AA68D0 has been authed successfully
+driver-1  | (AbstractOperator.java:171)
+driver-1  | 2026-11-05 06:52:08,691 [pool-3-thread-1] [ERROR] - isUnauthorizedException, error is: [Ljava.lang.StackTraceElement;@33869f15
+driver-1  | (AbstractOperator.java:129)
+driver-1  | 2026-11-05 06:52:08,692 [pool-3-thread-1] [ERROR] - errorStatisticsHandle, error is: [Ljava.lang.StackTraceElement;@2698809e
+driver-1  | (MissionHandler.java:395)
+driver-1  | 2026-11-05 06:52:08,699 [-driver-mission] [ERROR] - detected workers [1] have encountered errors
+driver-1  | (MissionHandler.java:343)
+driver-1  | 2026-11-05 06:52:08,701 [-driver-mission] [INFO ] - mission M6AA7AA68D0 has been terminated
+controller-1  | 
+controller-1  |   .   ____          _            __ _ _
+controller-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+controller-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+controller-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+controller-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+controller-1  |  =========|_|==============|___/=/_/_/_/
+controller-1  | 
+controller-1  |  :: Spring Boot ::               (v3.5.16)
+controller-1  | 
+controller-1  | 2026-11-05T06:51:42.803Z  INFO 1 --- [           main] c.i.c.a.c.ControllerApplication          : Starting ControllerApplication using Java 21.0.12.1 with PID 1 (/opt/cosbench/lib/cosbench-controller.jar started by root in /var/lib/cosbench)
+controller-1  | 2026-11-05T06:51:42.808Z  INFO 1 --- [           main] c.i.c.a.c.ControllerApplication          : No active profile set, falling back to 1 default profile: "default"
+controller-1  | 2026-11-05T06:51:44.623Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19088 (http)
+controller-1  | 2026-11-05T06:51:44.644Z  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+controller-1  | 2026-11-05T06:51:44.644Z  INFO 1 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+controller-1  | 2026-11-05T06:51:44.676Z  INFO 1 --- [           main] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring embedded WebApplicationContext
+controller-1  | 2026-11-05T06:51:44.676Z  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1739 ms
+controller-1  | (Log4jLogManager.java:121)
+controller-1  | 2026-11-05 06:51:44,773 [main           ] [INFO ] - will append log to console
+controller-1  | 2026-11-05T06:51:44.797Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+controller-1  | 2026-11-05T06:51:44.798Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+controller-1  | 2026-11-05T06:51:44.799Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+controller-1  | 2026-11-05T06:51:44.799Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+controller-1  | 2026-11-05T06:51:44.799Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+controller-1  | 2026-11-05T06:51:44.799Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+controller-1  | 2026-11-05T06:51:44.799Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+controller-1  | 2026-11-05T06:51:44.799Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+controller-1  | (SimpleWorkloadArchiver.java:61)
+controller-1  | 2026-11-05 06:51:45,003 [main           ] [INFO ] - using /var/lib/cosbench/archive for storing workload archives
+controller-1  | (SimpleWorkloadLoader.java:63)
+controller-1  | 2026-11-05 06:51:45,004 [main           ] [INFO ] - loading workload archives from /var/lib/cosbench/archive
+controller-1  | (PingDriverRunner.java:90)
+controller-1  | 2026-11-05 06:51:45,017 [r-driver-pinger] [INFO ] - begin to sleep for 20 seconds.
+controller-1  | 2026-11-05T06:51:45.284Z  INFO 1 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name controllerWebUsers
+controller-1  | 2026-11-05T06:51:45.419Z  INFO 1 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+controller-1  | 2026-11-05T06:51:45.850Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 19088 (http) with context path '/controller'
+controller-1  | 2026-11-05T06:51:45.867Z  INFO 1 --- [           main] c.i.c.a.c.ControllerApplication          : Started ControllerApplication in 3.889 seconds (process running for 4.716)
+controller-1  | 2026-11-05T06:51:47.911Z  INFO 1 --- [.0-19088-exec-1] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+controller-1  | 2026-11-05T06:51:47.912Z  INFO 1 --- [.0-19088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+controller-1  | 2026-11-05T06:51:47.913Z  INFO 1 --- [.0-19088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+controller-1  | (COSBControllerService.java:461)
+controller-1  | 2026-11-05 06:51:48,868 [roller-shutdown] [INFO ] - Controller stopped: executor terminated, heartbeat terminated
+controller-1  | 2026-11-05T06:51:48.870Z  INFO 1 --- [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+controller-1  | 2026-11-05T06:51:48.880Z  INFO 1 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+controller-1  | 
+controller-1  |   .   ____          _            __ _ _
+controller-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+controller-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+controller-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+controller-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+controller-1  |  =========|_|==============|___/=/_/_/_/
+controller-1  | 
+controller-1  |  :: Spring Boot ::               (v3.5.16)
+controller-1  | 
+controller-1  | 2026-11-05T06:51:59.922Z  INFO 1 --- [           main] c.i.c.a.c.ControllerApplication          : Starting ControllerApplication using Java 21.0.12.1 with PID 1 (/opt/cosbench/lib/cosbench-controller.jar started by root in /var/lib/cosbench)
+controller-1  | 2026-11-05T06:51:59.933Z  INFO 1 --- [           main] c.i.c.a.c.ControllerApplication          : No active profile set, falling back to 1 default profile: "default"
+controller-1  | 2026-11-05T06:52:01.564Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 19088 (http)
+controller-1  | 2026-11-05T06:52:01.579Z  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+controller-1  | 2026-11-05T06:52:01.580Z  INFO 1 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+controller-1  | 2026-11-05T06:52:01.613Z  INFO 1 --- [           main] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring embedded WebApplicationContext
+controller-1  | 2026-11-05T06:52:01.614Z  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1560 ms
+controller-1  | (Log4jLogManager.java:121)
+controller-1  | 2026-11-05 06:52:01,753 [main           ] [INFO ] - will append log to console
+controller-1  | 2026-11-05T06:52:02.047Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+controller-1  | 2026-11-05T06:52:02.047Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+controller-1  | 2026-11-05T06:52:02.048Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+controller-1  | 2026-11-05T06:52:02.048Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+controller-1  | 2026-11-05T06:52:02.048Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+controller-1  | 2026-11-05T06:52:02.048Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+controller-1  | 2026-11-05T06:52:02.048Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+controller-1  | 2026-11-05T06:52:02.048Z  INFO 1 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:nested:/opt/cosbench/lib/cosbench-controller.jar/!BOOT-INF/lib/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+controller-1  | (SimpleWorkloadArchiver.java:61)
+controller-1  | 2026-11-05 06:52:02,260 [main           ] [INFO ] - using /var/lib/cosbench/archive for storing workload archives
+controller-1  | (SimpleWorkloadLoader.java:63)
+controller-1  | 2026-11-05 06:52:02,261 [main           ] [INFO ] - loading workload archives from /var/lib/cosbench/archive
+controller-1  | (PingDriverRunner.java:106)
+controller-1  | 2026-11-05 06:52:02,267 [r-driver-pinger] [INFO ] - Trying to ping driver driver at https://driver:18088/driver with ip=driver, port=18088...
+controller-1  | (PingDriverRunner.java:124)
+controller-1  | 2026-11-05 06:52:02,283 [r-driver-pinger] [INFO ] - The driver driver at https://driver:18088/driver is reachable
+controller-1  | (PingDriverRunner.java:90)
+controller-1  | 2026-11-05 06:52:02,284 [r-driver-pinger] [INFO ] - begin to sleep for 20 seconds.
+controller-1  | 2026-11-05T06:52:02.538Z  INFO 1 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name controllerWebUsers
+controller-1  | 2026-11-05T06:52:02.764Z  INFO 1 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+controller-1  | 2026-11-05T06:52:03.179Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 19088 (http) with context path '/controller'
+controller-1  | 2026-11-05T06:52:03.207Z  INFO 1 --- [           main] c.i.c.a.c.ControllerApplication          : Started ControllerApplication in 3.943 seconds (process running for 4.831)
+controller-1  | 2026-11-05T06:52:05.121Z  INFO 1 --- [.0-19088-exec-1] o.a.c.c.C.[.[localhost].[/controller]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+controller-1  | 2026-11-05T06:52:05.122Z  INFO 1 --- [.0-19088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+controller-1  | 2026-11-05T06:52:05.123Z  INFO 1 --- [.0-19088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+controller-1  | (WorkloadProcessor.java:138)
+controller-1  | 2026-11-05 06:52:06,656 [pool-2-thread-1] [INFO ] - begin to process workload w1
+controller-1  | (WorkloadProcessor.java:220)
+controller-1  | 2026-11-05 06:52:06,657 [pool-2-thread-1] [INFO ] - begin to run stage s1-init
+controller-1  | (WorkloadProcessor.java:222)
+controller-1  | 2026-11-05 06:52:06,657 [pool-2-thread-1] [INFO ] - ============================================
+controller-1  | (WorkloadProcessor.java:223)
+controller-1  | 2026-11-05 06:52:06,657 [pool-2-thread-1] [INFO ] - START WORK: init
+controller-1  | (AbstractCommandTasklet.java:62)
+controller-1  | 2026-11-05 06:52:07,296 [pool-4-thread-1] [INFO ] - time drift between controller and driver-driver is 124 mSec
+controller-1  | (StageRunner.java:202)
+controller-1  | 2026-11-05 06:52:07,297 [pool-3-thread-1] [INFO ] - successfully booted all tasks in stage s1-init
+controller-1  | (StageRunner.java:211)
+controller-1  | 2026-11-05 06:52:08,035 [pool-3-thread-1] [INFO ] - successfully submitted all tasks in stage s1-init
+controller-1  | (StageRunner.java:220)
+controller-1  | 2026-11-05 06:52:08,245 [pool-3-thread-1] [INFO ] - successfully authenticated all tasks in stage s1-init
+controller-1  | (StageRunner.java:233)
+controller-1  | 2026-11-05 06:52:08,459 [pool-3-thread-1] [INFO ] - successfully launched all tasks in stage s1-init
+controller-1  | (StageRunner.java:251)
+controller-1  | 2026-11-05 06:52:09,497 [pool-3-thread-1] [INFO ] - successfully queried all tasks in stage s1-init
+controller-1  | (AbstractHttpTasklet.java:57)
+controller-1  | 2026-11-05 06:52:09,510 [pool-4-thread-1] [ERROR] - fail to POST Driver command close to https://driver:18088/driver/i/close.command
+controller-1  | com.intel.cosbench.http.DriverCommandException: {"code":409,"succ":false,"error":"no mission handler"}
+controller-1  | 	at com.intel.cosbench.http.AuthenticatedDriverClient.execute(AuthenticatedDriverClient.java:127)
+controller-1  | 	at com.intel.cosbench.http.AuthenticatedDriverClient.execute(AuthenticatedDriverClient.java:78)
+controller-1  | 	at com.intel.cosbench.app.controller.ControllerConfiguration$2.lambda$client$0(ControllerConfiguration.java:98)
+controller-1  | 	at com.intel.cosbench.controller.tasklet.AbstractHttpTasklet.issueHttpRequest(AbstractHttpTasklet.java:45)
+controller-1  | 	at com.intel.cosbench.controller.tasklet.AbstractCommandTasklet.issueCommand(AbstractCommandTasklet.java:71)
+controller-1  | 	at com.intel.cosbench.controller.tasklet.Closer.execute(Closer.java:43)
+controller-1  | 	at com.intel.cosbench.controller.tasklet.AbstractTasklet.call(AbstractTasklet.java:47)
+controller-1  | 	at com.intel.cosbench.controller.tasklet.AbstractTasklet.call(AbstractTasklet.java:27)
+controller-1  | 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+controller-1  | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+controller-1  | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+controller-1  | 	at java.base/java.lang.Thread.run(Thread.java:1583)
+controller-1  | (StageRunner.java:318)
+controller-1  | 2026-11-05 06:52:09,514 [pool-3-thread-1] [ERROR] - detected tasks [t1] have encountered errors
+controller-1  | (StageRunner.java:265)
+controller-1  | 2026-11-05 06:52:09,514 [pool-3-thread-1] [INFO ] - begin to terminate stage s1-init
+controller-1  | (StageRunner.java:273)
+controller-1  | 2026-11-05 06:52:09,547 [pool-3-thread-1] [INFO ] - stage s1-init has been terminated
+controller-1  | (WorkloadProcessor.java:288)
+controller-1  | 2026-11-05 06:52:11,960 [pool-2-thread-1] [ERROR] - detected stage s1-init encountered error
+controller-1  | (WorkloadProcessor.java:309)
+controller-1  | 2026-11-05 06:52:11,960 [pool-2-thread-1] [INFO ] - begin to terminate workload w1
+controller-1  | (SimpleWorkloadArchiver.java:79)
+controller-1  | 2026-11-05 06:52:12,145 [pool-2-thread-1] [INFO ] - workload w1 has been successfully archived
+controller-1  | (WorkloadProcessor.java:315)
+controller-1  | 2026-11-05 06:52:12,146 [pool-2-thread-1] [INFO ] - successfully terminated workload w1

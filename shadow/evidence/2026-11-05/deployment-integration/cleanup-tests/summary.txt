@@ -1,0 +1,6 @@
+status=passed
+unavailable_endpoint=rejected
+failed_attempt=logs-and-state-retained
+interrupted_workload=exit-143
+containers=removed
+retry_preconditions=minio-restored,fresh-application-mounts

@@ -1,0 +1,13 @@
+status=passed
+migration=non-destructive
+start_failure=clean
+stale_pid=removed
+duplicate_start=refused
+port_conflict=refused
+multiple_drivers=connected
+instance_paths=isolated
+specified_instance_stop=isolated
+busy_and_idle_stop=passed
+dev_start_stop_restart=passed
+repeated_stop=passed
+unrelated_pid=refused

@@ -1,0 +1,13 @@
+status=passed
+processes=separate-controller-and-driver
+transport=https-bearer-service-token
+workload=submit-login-launch-query-trigger-close
+page-session=expired-while-workload-processing
+long-running-state=processing-then-finished-after-session-expiry
+archive=workload-log-and-trigger-output-present
+cancel=controller-issued-driver-abort;driver-mission=ABORTED
+web=authenticated-login-pages-submit-query-cancel-and-history-resubmit
+web-order=queued-reordered;running-reorder-rejected
+cli=index-submit-config-workload-cancel
+multipart=invalid-xml-rejected;oversized-rejected;archive-unchanged;temps-cleaned
+token=absent-from-logs-and-archive

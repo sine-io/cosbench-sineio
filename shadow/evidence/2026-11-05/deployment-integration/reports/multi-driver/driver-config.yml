@@ -1,0 +1,22 @@
+schemaVersion: 1
+role: driver
+name: driver
+listen:
+  host: 0.0.0.0
+  port: 18088
+  contextPath: /driver
+paths:
+  workspace: /var/lib/cosbench/workspace
+  archive: /var/lib/cosbench/archive
+  mission: /var/lib/cosbench/mission
+  logs: /var/lib/cosbench/log/system.log
+auth:
+  token:
+    file: /run/secrets/http_service_token
+  tls:
+    enabled: true
+    keyStore: file:/run/secrets/http_test_keystore
+logging:
+  level: INFO
+shutdown:
+  gracePeriod: 10s

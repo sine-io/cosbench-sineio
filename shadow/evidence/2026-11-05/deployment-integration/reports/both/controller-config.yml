@@ -1,0 +1,30 @@
+schemaVersion: 1
+role: controller
+name: integration-controller
+listen:
+  host: 0.0.0.0
+  port: 19088
+  contextPath: /controller
+paths:
+  workspace: /var/lib/cosbench/workspace
+  archive: /var/lib/cosbench/archive
+  logs: /var/lib/cosbench/log/system.log
+auth:
+  token:
+    file: /run/secrets/http_service_token
+  tls:
+    enabled: true
+    trustStore: file:/run/secrets/http_test_truststore
+http:
+  timeouts:
+    connect: 2s
+    read: 5s
+    command: 10s
+    workload: 5m
+logging:
+  level: INFO
+shutdown:
+  gracePeriod: 10s
+drivers:
+  - name: driver
+    url: https://driver:18088/driver
