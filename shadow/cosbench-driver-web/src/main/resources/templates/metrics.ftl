@@ -76,10 +76,18 @@
           ${procTime?string("0.##")} ms
         </#if>
       </td>
-      <td>${mInfo.throughput?string("0.##")} op/s</td>
+      <td>
+        <#if mInfo.throughput?is_infinite || mInfo.throughput?is_nan>
+          N/A
+        <#else>
+          ${mInfo.throughput?string("0.##")} op/s
+        </#if>
+      </td>
       <td>
         <#assign bw = mInfo.bandwidth >
-        <#if (bw > 1000) >
+        <#if bw?is_infinite || bw?is_nan>
+          N/A
+        <#elseif (bw > 1000) >
           <#assign bw = bw / 1000 >
           <#if (bw > 1000) >
             <#assign bw = bw / 1000 >
