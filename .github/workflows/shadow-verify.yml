@@ -22,7 +22,7 @@ jobs:
       - name: Check out clean source
         uses: actions/checkout@v7
 
-      - name: Verify migrated reactor and prerequisite replays in Java 21 Docker
+      - name: Verify reactor, deployment matrix and all Providers in Java 21 Docker
         run: bash ci/verify-shadow.sh "$RUNNER_TEMP/cosbench-shadow"
 
       - name: Retain build, test, audit and Docker cleanup reports

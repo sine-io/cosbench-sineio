@@ -79,6 +79,8 @@ interrupt() {
     trap '' INT TERM
     if [[ -n $active_docker_pid ]]; then
         kill -TERM "$active_docker_pid" 2>/dev/null || true
+        wait "$active_docker_pid" 2>/dev/null || true
+        active_docker_pid=
     fi
     exit "$1"
 }
@@ -112,8 +114,9 @@ cleanup() {
     certificate_containers_left=$(sudo docker ps --all --quiet --filter "label=cosbench.scheme3.run=$project_name" 2>/dev/null) || cleanup_status=1
     [[ -z $certificate_containers_left ]] || cleanup_status=1
 
+    sudo python3 "$harness_dir/deployment/redact-reports.py" "$report_dir" "$secret_dir" || cleanup_status=1
     if [[ -n ${secret_dir:-} && -d $secret_dir ]]; then
-        find "$secret_dir" -mindepth 1 -delete || cleanup_status=1
+        sudo find "$secret_dir" -mindepth 1 -delete || cleanup_status=1
         rmdir "$secret_dir" || cleanup_status=1
     fi
 
@@ -122,6 +125,14 @@ cleanup() {
         > "$report_dir/cleanup-status.txt"
     if ((run_status == 0 && cleanup_status != 0)); then
         run_status=1
+    fi
+    if [[ ${COSBENCH_VERIFY_INTEGRATION:-0} == 1 ]]; then
+        python3 "$harness_dir/deployment/summarize.py" "$report_dir" "$run_status" || run_status=1
+    fi
+    if ((run_status != 0)); then
+        printf 'status=failed\nexit_status=%s\n' "$run_status" > "$report_dir/run-summary.txt"
+        # Evidence-index failures are part of the final result as well.
+        sed -i "s/^run_status=.*/run_status=$run_status/" "$report_dir/cleanup-status.txt"
     fi
     exit "$run_status"
 }
@@ -133,11 +144,13 @@ trap 'interrupt 143' TERM
 umask 077
 printf '%s\n' 'MINIO_ROOT_USER=cosbench-test-user' 'MINIO_ROOT_PASSWORD=cosbench-test-password' > "$minio_env"
 printf '%s\n' 'COSBENCH_HTTP_SERVICE_TOKEN=cosbench-test-service-token' > "$secret_dir/http-service-token.env"
+printf '%s' 'cosbench-test-service-token' > "$secret_dir/http-service-token"
 printf '%s' 'cosbench-test-user' > "$secret_dir/minio-root-user"
 printf '%s' 'cosbench-test-password' > "$secret_dir/minio-root-password"
 printf '%s' 'cosbench-test-keystore-password' > "$secret_dir/http-test-password"
 chmod 600 "$minio_env"
 chmod 644 "$secret_dir/minio-root-user" "$secret_dir/minio-root-password" "$secret_dir/http-test-password"
+chmod 644 "$secret_dir/http-service-token"
 chmod 600 "$secret_dir/http-service-token.env"
 
 cat > "$compose_env" <<EOF
@@ -155,7 +168,7 @@ run_docker run --rm --name "${certificate_containers[0]}" --label "cosbench.sche
     -v "$secret_dir:/tmp/secrets" --entrypoint /opt/java/openjdk/bin/keytool "$MAVEN_IMAGE" \
     -genkeypair -alias cosbench-test -keyalg RSA -keysize 2048 -validity 365 \
     -dname 'CN=cosbench-scheme3-test,OU=Tests,O=COSBench' \
-    -ext 'SAN=dns:localhost,dns:minio,dns:driver,dns:controller,dns:toxiproxy,ip:127.0.0.1' \
+    -ext 'SAN=dns:localhost,dns:minio,dns:driver,dns:driver2,dns:controller,dns:toxiproxy,ip:127.0.0.1' \
     -storetype PKCS12 -keystore /tmp/secrets/http-test.p12 \
     -storepass cosbench-test-keystore-password -keypass cosbench-test-keystore-password \
     > "$report_dir/certificate-generation.log" 2>&1
@@ -209,6 +222,29 @@ if ((${#custom_command[@]} > 0)); then
         cat "$report_dir/custom-test.log"
         exit 1
     }
+fi
+
+if [[ ${COSBENCH_VERIFY_INTEGRATION:-0} == 1 ]]; then
+    /bin/bash "$harness_dir/deployment-cleanup-tests.sh" "$report_dir" "$compose_env" "$project_name" \
+        > "$report_dir/deployment-cleanup-tests.log" 2>&1 &
+    active_docker_pid=$!
+    integration_status=0
+    wait "$active_docker_pid" || integration_status=$?
+    active_docker_pid=
+    if ((integration_status != 0)); then
+        exit 1
+    fi
+    /bin/bash "$harness_dir/deployment-integration.sh" "$report_dir" "$compose_env" "$project_name" \
+        > "$report_dir/deployment-integration.log" 2>&1 &
+    active_docker_pid=$!
+    integration_status=0
+    wait "$active_docker_pid" || integration_status=$?
+    active_docker_pid=
+    if ((integration_status != 0)); then
+            sudo python3 "$harness_dir/deployment/redact-reports.py" "$report_dir" "$secret_dir"
+            cat "$report_dir/deployment-integration.log"
+            exit 1
+    fi
 fi
 
 printf 'status=passed\nproject=%s\nminio=http://127.0.0.1:%s\ntoxiproxy_admin=http://127.0.0.1:%s\ntoxiproxy_proxy_port=%s\n' \

@@ -38,3 +38,13 @@ The production `cosbench-sineio` module has its own SPI/MinIO/configuration/erro
 The Driver HTTP checks exercise all eight commands on the production Boot listener with generated TLS material and the local Mock providers. They compare the baseline response fixtures, test service authentication separately from provider login, and cover failure, concurrent, late and lost-response replays. The Controller/Driver process replay starts two independent Java processes, completes a 12-second Mock workload over authenticated HTTPS, runs its trigger, archives its state and checks both process logs and archive data for token leakage. The Controller HTTP tests also cover response loss, bounded retries, connection reuse and idle client reaping. Reports include `driver-http-targeted-tests.log`, `http-contract-summary.txt`, `controller-driver-process/summary.txt`, `driver-process/summary.txt`, and the complete test reports under `tests/`.
 
 The final continuous check runs `operator-commands.sh` against the packaged Controller and Driver JARs. It covers the four stable shell commands, migration checksum and no-overwrite behavior, config-generation idempotency and secret-reference retention, multiple TLS Driver instances, Controller connectivity, duplicate/start-failure/port-conflict behavior, stale and unrelated PID handling, isolated stop, and busy/idle TERM shutdown. See the operator [command runbook](../operator-commands.md) and [#18 replay evidence](../evidence/2026-11-05/operator-commands/README.md).
+
+The complete CI entry then runs `deployment-cleanup-tests.sh` and
+`deployment-integration.sh`: unavailable storage and interrupted-workload
+cleanup, followed by Controller-only, Driver-only, both and multi-Driver Docker
+deployments using the packaged applications. All four production factories run
+through the Controller CLI on the production classpath, with operation/byte
+counts, TLS/secrets/mounts, isolated stop and restart checks. See the
+[INT-01 runbook](../deployment-integration.md). The root reports
+`integration-acceptance.tsv` and `integration-summary.txt` join the applicable
+stable IDs, concrete commands, reports and final Docker cleanup result.

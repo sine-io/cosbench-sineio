@@ -467,6 +467,60 @@ class ControllerProcessTest {
     }
 
     @Test
+    void cliAcceptsSupportedS3HeadAndMultipartButStillRejectsRestore() throws Exception {
+        try (var app = start()) {
+            String xml = """
+                    <workload name="s3-supported-operations">
+                      <auth type="none"/><storage type="s3"/>
+                      <workflow><workstage name="operations"><work name="s3-operations" workers="1" totalOps="2">
+                        <operation type="head" ratio="50" config="containers=c(1);objects=c(1)"/>
+                        <operation type="mwrite" ratio="50" config="containers=c(1);objects=c(1);sizes=c(64)B"/>
+                      </work></workstage></workflow>
+                    </workload>
+                    """;
+            var accepted = postMultipart(http, app,
+                    "/cli/submit.action?username=anonymous&password=cosbench", xml.getBytes(StandardCharsets.UTF_8));
+            assertEquals(200, accepted.statusCode(), accepted.body());
+            assertTrue(accepted.body().contains("Accepted with ID:"), accepted.body());
+            var unsupported = postMultipart(http, app,
+                    "/cli/submit.action?username=anonymous&password=cosbench",
+                    xml.replace("type=\"head\"", "type=\"restore\"").getBytes(StandardCharsets.UTF_8));
+            assertEquals(200, unsupported.statusCode(), unsupported.body());
+            assertFalse(unsupported.body().contains("Accepted with ID:"), unsupported.body());
+            assertTrue(unsupported.body().contains("storage type"), unsupported.body());
+        }
+    }
+
+    @Test
+    void archivedPrometheusProcessTimeRetainsFractionalTransferTime() throws Exception {
+        try (var app = start()) {
+            assertEquals(200, submit(app, 1, true).statusCode());
+            awaitArchived(app, "w1");
+        }
+        // A captured #18 report: response=50.09 ms, processing=50.05 ms.
+        // Read the archive through the real loader and HTTP exporter after restart.
+        Files.writeString(home.resolve("archive/w1-local-delay/w1-local-delay.csv"), """
+                Stage,Interval,Op-Id,Op-Name,Op-Type,Op-Count,Byte-Count,Avg-ResTime,Avg-ProcTime,60%-ResTime,80%-ResTime,90%-ResTime,95%-ResTime,99%-ResTime,100%-ResTime,Throughput,Bandwidth,Succ-Ratio,Status
+                s1-delay,5,op1,read,read,10,640,50.09,50.05,60,60,60,60,60,70,19.8,1267.18,100%,completed
+                """);
+        try (var app = start()) {
+            assertEquals(200, request(app, "/_probe/archive").statusCode());
+            var browser = HttpClient.newBuilder()
+                    .cookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ALL)).build();
+            assertEquals(302, postForm(browser, app, "/j_security_check",
+                    "j_username=anonymous&j_password=cosbench").statusCode());
+            assertEquals(200, request(browser, app, "/workload.html?id=w1").statusCode());
+            var response = request(http, app, "/prometheus");
+            assertEquals(200, response.statusCode(), response.body());
+            var sample = response.body().lines()
+                    .filter(line -> line.startsWith("cosbench_workload_average_process_time "))
+                    .findFirst().orElseThrow(() -> new AssertionError(response.body()));
+            assertEquals(50.05, Double.parseDouble(sample.substring(sample.lastIndexOf(' ') + 1)), 0.001,
+                    response.body());
+        }
+    }
+
+    @Test
     void restartReadsExistingArchiveAndContinuesWorkloadIdsWithoutRewritingHistory() throws Exception {
         try (var first = start()) {
             assertEquals(200, submit(first, 1, true).statusCode());
@@ -653,6 +707,8 @@ class ControllerProcessTest {
                 Path.of(System.getProperty("java.home"), "bin", "java").toString(),
                 "--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED",
                 "-Djava.io.tmpdir=" + multipartTemp,
+                "-Dprometheus.export.workloads.archived=true",
+                "-Dprometheus.export.timeout=0",
                 "-cp", System.getProperty("java.class.path"),
                 "com.intel.cosbench.app.controller.ControllerApplication",
                 "--cosbench.config=" + conf,

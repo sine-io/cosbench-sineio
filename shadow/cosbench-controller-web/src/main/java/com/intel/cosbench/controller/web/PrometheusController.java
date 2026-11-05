@@ -141,7 +141,7 @@ public class PrometheusController extends AbstractController {
                 printMetric(writer, 0, (float) metrics.getAvgResTime(), "workload_average_response_time", labels);
                 printMetric(writer, 0, (float) metrics.getAvgXferTime(), "workload_average_transfer_time", labels);
                 printMetric(writer, 0,
-                        (float) metrics.getAvgResTime() - (long) metrics.getAvgXferTime(),
+                        (float) (metrics.getAvgResTime() - metrics.getAvgXferTime()),
                         "workload_average_process_time", labels);
                 labels.put("unit", "op/s");
                 printMetric(writer, 0, (float) metrics.getThroughput(), "workload_throughput", labels);

@@ -444,7 +444,8 @@ public class Work implements Iterable<Operation> {
             if (opType.equals("mwrite") || opType.equals("head") ||
                     opType.equals("restore") || opType.equals("mfilewrite") ||
                     opType.equals("localwrite")) {
-                if (storageType.equals("sio") || storageType.equals("siov1") || storageType.equals("gdas")) {
+                if (storageType.equals("sio") || storageType.equals("siov1") || storageType.equals("gdas")
+                        || (storageType.equals("s3") && (opType.equals("mwrite") || opType.equals("head")))) {
                     // do nothing.
                 } else {
                     throw new ConfigException(

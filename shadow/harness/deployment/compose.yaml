@@ -1,0 +1,66 @@
+x-app: &app
+  image: ${MAVEN_IMAGE:?}
+  platform: linux/amd64
+  working_dir: /var/lib/cosbench
+  entrypoint: [/bin/bash, /opt/cosbench/start-app.sh]
+  stop_grace_period: 20s
+  tmpfs:
+    - /run/cosbench:mode=0755
+  secrets:
+    - http_test_certificate
+    - http_test_keystore
+    - http_test_truststore
+    - http_test_keystore_password
+    - http_service_token
+
+x-driver: &driver
+  <<: *app
+  command: [driver]
+  healthcheck:
+    test: [CMD-SHELL, 'curl -fsS --cacert /run/secrets/http_test_certificate https://localhost:18088/driver/health | grep -q ''"accepting":true''']
+    interval: 2s
+    timeout: 3s
+    retries: 40
+    start_period: 5s
+
+services:
+  controller:
+    <<: *app
+    command: [controller]
+    volumes:
+      - ${COSBENCH_REPO_ROOT}/bin:/opt/cosbench/bin:ro
+      - ${COSBENCH_REPO_ROOT}/shadow/harness/deployment/start-app.sh:/opt/cosbench/start-app.sh:ro
+      - ${COSBENCH_REPO_ROOT}/shadow/cosbench-controller-app/target/cosbench-controller-app-0.1.0-SNAPSHOT.jar:/opt/cosbench/lib/cosbench-controller.jar:ro
+      - ${COSBENCH_REPO_ROOT}/shadow/cosbench-operator-cli/target/cosbench-operator-cli-0.1.0-SNAPSHOT.jar:/opt/cosbench/lib/cosbench-operator-cli.jar:ro
+      - ${COSBENCH_DEPLOYMENT_DIR}/conf/controller.yml:/opt/cosbench/conf/controller.yml:ro
+      - ${COSBENCH_DEPLOYMENT_DIR}/controller:/var/lib/cosbench
+    healthcheck:
+      test: [CMD-SHELL, 'curl -fsS http://localhost:19088/controller/health | grep -q ''"accepting":true''']
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 5s
+
+  driver:
+    <<: *driver
+    volumes:
+      - ${COSBENCH_REPO_ROOT}/bin:/opt/cosbench/bin:ro
+      - ${COSBENCH_REPO_ROOT}/shadow/harness/deployment/start-app.sh:/opt/cosbench/start-app.sh:ro
+      - ${COSBENCH_REPO_ROOT}/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar:/opt/cosbench/lib/cosbench-driver.jar:ro
+      - ${COSBENCH_REPO_ROOT}/shadow/cosbench-operator-cli/target/cosbench-operator-cli-0.1.0-SNAPSHOT.jar:/opt/cosbench/lib/cosbench-operator-cli.jar:ro
+      - ${COSBENCH_DEPLOYMENT_DIR}/conf/driver.yml:/opt/cosbench/conf/driver.yml:ro
+      - ${COSBENCH_DEPLOYMENT_DIR}/driver:/var/lib/cosbench
+
+  driver2:
+    <<: *driver
+    volumes:
+      - ${COSBENCH_REPO_ROOT}/bin:/opt/cosbench/bin:ro
+      - ${COSBENCH_REPO_ROOT}/shadow/harness/deployment/start-app.sh:/opt/cosbench/start-app.sh:ro
+      - ${COSBENCH_REPO_ROOT}/shadow/cosbench-driver-app/target/cosbench-driver-app-0.1.0-SNAPSHOT.jar:/opt/cosbench/lib/cosbench-driver.jar:ro
+      - ${COSBENCH_REPO_ROOT}/shadow/cosbench-operator-cli/target/cosbench-operator-cli-0.1.0-SNAPSHOT.jar:/opt/cosbench/lib/cosbench-operator-cli.jar:ro
+      - ${COSBENCH_DEPLOYMENT_DIR}/conf/driver2.yml:/opt/cosbench/conf/driver.yml:ro
+      - ${COSBENCH_DEPLOYMENT_DIR}/driver2:/var/lib/cosbench
+
+secrets:
+  http_service_token:
+    file: ${COSBENCH_SECRET_DIR}/http-service-token
