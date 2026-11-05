@@ -58,7 +58,8 @@ XML
 </workload>
 XML
     # Keep the exact fixture shape without exporting storage credentials.
-    sed -E 's/(accesskey|secretkey)=[^;"<]*/\1=<REDACTED>/g' "$workload" > "$report/$factory-workload.xml"
+    sed -E 's/(accesskey|secretkey)=[^;"<]*/\1=\&lt;REDACTED\&gt;/g' \
+        "$workload" > "$report/$factory-workload.xml"
     curl -fsS --max-time 10 -F "config=@$workload;type=application/xml" \
         "$cli/submit.action?$credentials" > "$report/$factory-submit.txt"
     id=$(sed -nE 's/^Accepted with ID: (w[0-9]+).*$/\1/p' "$report/$factory-submit.txt")
