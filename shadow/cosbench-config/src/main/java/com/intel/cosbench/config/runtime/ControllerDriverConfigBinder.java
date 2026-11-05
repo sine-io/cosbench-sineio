@@ -36,6 +36,11 @@ public final class ControllerDriverConfigBinder {
         if (controller.role() != ServiceRole.CONTROLLER) {
             throw new IllegalArgumentException("Controller template must have role: controller");
         }
+        if (controller.auth().token() == null || !controller.auth().tls().enabled()
+                || controller.auth().tls().trustStore() == null) {
+            throw new IllegalArgumentException(
+                    "Controller template must configure auth.token, auth.tls.enabled, and auth.tls.trustStore");
+        }
 
         List<Map<String, Object>> driverEntries = new ArrayList<>(count);
         for (int index = 1; index <= count; index++) {
@@ -44,9 +49,18 @@ public final class ControllerDriverConfigBinder {
             if (driver.role() != ServiceRole.DRIVER) {
                 throw new IllegalArgumentException("Driver instance config must have role: driver: " + driverPath);
             }
-            String scheme = driver.auth().tls().enabled() ? "https" : "http";
-            String url = URI.create(scheme + "://" + driver.listen().host() + ":" + driver.listen().port()
-                    + driver.listen().contextPath()).toString();
+            if (driver.auth().token() == null || !driver.auth().tls().enabled()
+                    || driver.auth().tls().keyStore() == null) {
+                throw new IllegalArgumentException("Driver instance config must configure auth.token and TLS keyStore: "
+                        + driverPath);
+            }
+            String url;
+            try {
+                url = new URI("https", null, driver.listen().host(), driver.listen().port(),
+                        driver.listen().contextPath(), null, null).toString();
+            } catch (java.net.URISyntaxException e) {
+                throw new IllegalArgumentException("invalid Driver listen address: " + driver.listen().host(), e);
+            }
             Map<String, Object> entry = new LinkedHashMap<>();
             entry.put("name", driver.name());
             entry.put("url", url);

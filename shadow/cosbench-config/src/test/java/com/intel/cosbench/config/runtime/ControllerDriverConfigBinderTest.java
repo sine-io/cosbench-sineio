@@ -71,7 +71,18 @@ class ControllerDriverConfigBinderTest {
     @Test
     void refusesToReplaceAnExistingControllerConfig() throws Exception {
         Path controllerTemplate = tempDir.resolve("controller-template.yml");
-        Files.writeString(controllerTemplate, "schemaVersion: 1\nrole: controller\nname: controller\npaths: {}\n");
+        Files.writeString(controllerTemplate, """
+                schemaVersion: 1
+                role: controller
+                name: controller
+                paths: {}
+                auth:
+                  token:
+                    env: COSBENCH_SERVICE_TOKEN
+                  tls:
+                    enabled: true
+                    trustStore: conf/trust.p12
+                """);
         Path driverDirectory = tempDir.resolve("conf");
         Files.createDirectories(driverDirectory);
         Files.writeString(driverDirectory.resolve("driver-1.yml"), """
@@ -82,6 +93,8 @@ class ControllerDriverConfigBinderTest {
                   port: 18088
                 paths: {}
                 auth:
+                  token:
+                    env: COSBENCH_SERVICE_TOKEN
                   tls:
                     enabled: true
                     keyStore: conf/server.p12
@@ -90,7 +103,8 @@ class ControllerDriverConfigBinderTest {
         Files.writeString(output, "operator-owned: true\n");
 
         assertThrows(IllegalStateException.class,
-                () -> ControllerDriverConfigBinder.bind(controllerTemplate, driverDirectory, 1, output, key -> null));
+                () -> ControllerDriverConfigBinder.bind(controllerTemplate, driverDirectory, 1, output,
+                        key -> "test-token"));
         assertEquals("operator-owned: true\n", Files.readString(output));
     }
 }

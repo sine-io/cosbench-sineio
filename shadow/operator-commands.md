@@ -53,16 +53,26 @@ exits `124` and retains its PID file for diagnosis.
 bin/cosbench-config-migrate \
   --source release/conf/controller.conf \
   --destination conf/controller.yml \
-  --report run/controller-migration.json
+  --report run/controller-migration.json \
+  --service-token-env COSBENCH_SERVICE_TOKEN \
+  --controller-trust-store /run/secrets/cosbench-controller-truststore.p12
 ```
 
 The legacy positional form remains supported:
 `bin/cosbench-config-migrate SOURCE_INI DESTINATION_YAML REPORT_JSON`. The
 converter writes only a new destination, records source/destination checksums,
-and reports unknown or invalid fields without copying their values. It never
-edits the INI source or replaces an existing YAML destination. Success exits
-`0`, a conversion or I/O failure exits `1`, and a usage or missing-artifact
-error exits `2`.
+and reports unknown or invalid fields without copying their values. Driver
+configurations receive a reference to `COSBENCH_SERVICE_TOKEN` and the default
+`/run/secrets/cosbench-driver-keystore.p12`; Controller configurations with
+Drivers receive the same token reference, a trust store reference, and HTTPS
+Driver URLs. Override those references with `--service-token-env`,
+`--driver-key-store`, and `--controller-trust-store` when the installation
+uses different protected locations. The referenced secret values and
+certificate contents are never read or written by the converter. The operator
+must provision the token and stores before starting the converted services.
+The converter never edits the INI source or replaces an existing YAML
+destination. Success exits `0`, a conversion or I/O failure exits `1`, and a
+usage or missing-artifact error exits `2`.
 
 Legacy controller `drivers` and `[driverN]` endpoints are mapped into the
 Controller list. To create separate Driver processes from a versioned Driver

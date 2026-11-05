@@ -22,7 +22,28 @@ replay_status=0
 processes_remaining=none
 ```
 
-The complete verification command was:
+The follow-up replay after review fixes used converted Controller and Driver
+INI configurations as the templates for a two-Driver setup. The converter
+added only secret references and HTTPS endpoints; the test supplied the token
+and certificate stores from the Docker harness secrets, then started both
+Drivers and their Controller. The config lifecycle and operator replays both
+passed, including archive reads after restart:
+
+```text
+config-lifecycle=passed
+controller_migration=passed
+driver_migration=passed
+archive_read_after_restart=passed
+operator_commands=passed
+multiple_drivers=connected
+dev_start_stop_restart=passed
+run_status=0
+cleanup_status=0
+```
+
+The follow-up report is `/tmp/cosbench-scheme3-18-secure-migration-20261105`.
+
+The initial complete verification command was:
 
 ```sh
 bash ci/verify-shadow.sh /tmp/cosbench-scheme3-18-final

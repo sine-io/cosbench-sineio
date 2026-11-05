@@ -8,6 +8,7 @@ controller_root="$work/controller"
 driver_root="$work/driver"
 pid_dir="$work/pids"
 mkdir -p "$controller_root/conf" "$controller_root/archive/legacy" "$driver_root/conf" "$driver_root/archive" "$pid_dir"
+export COSBENCH_SERVICE_TOKEN=${COSBENCH_HTTP_SERVICE_TOKEN:-config-lifecycle-test-token}
 
 cleanup() {
     set +e

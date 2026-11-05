@@ -26,18 +26,22 @@ class OperatorCliTest {
         Path report = tempDir.resolve("migration.json");
         Files.writeString(source, """
                 [controller]
-                drivers = 0
+                drivers = 1
                 name = controller
                 archive_dir = archive
                 workspace_dir = workspace
                 log_file = log/controller.log
                 concurrency = 2
+                [driver1]
+                name = driver1
+                url = http://127.0.0.1:18088/driver
                 """);
         ByteArrayOutputStream stdout = new ByteArrayOutputStream();
         ByteArrayOutputStream stderr = new ByteArrayOutputStream();
 
         int status = OperatorCli.run(new String[] { "migrate", "--source", source.toString(), "--destination",
-                destination.toString(), "--report", report.toString() },
+                destination.toString(), "--report", report.toString(), "--service-token-env", "COSBENCH_TEST_TOKEN",
+                "--controller-trust-store", "/secrets/controller-trust.p12" },
                 new PrintStream(stdout), new PrintStream(stderr));
 
         assertEquals(0, status);
@@ -45,6 +49,9 @@ class OperatorCliTest {
         assertTrue(stdout.toString().contains("source_sha256="));
         assertTrue(Files.exists(destination));
         assertTrue(Files.exists(report));
+        assertTrue(Files.readString(destination).contains("env: COSBENCH_TEST_TOKEN"));
+        assertTrue(Files.readString(destination).contains("trustStore: /secrets/controller-trust.p12"));
+        assertTrue(Files.readString(destination).contains("https://127.0.0.1:18088/driver"));
         assertTrue(stderr.toString().isEmpty());
     }
 

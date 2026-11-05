@@ -83,19 +83,27 @@ class DriverInstanceConfigGeneratorTest {
                 listen:
                   port: 65535
                 paths: {}
+                auth:
+                  token:
+                    env: COSBENCH_SERVICE_TOKEN
+                  tls:
+                    enabled: true
+                    keyStore: conf/server.p12
                 """);
 
         assertThrows(IllegalArgumentException.class,
-                () -> DriverInstanceConfigGenerator.generate(source, tempDir.resolve("bad-count"), 0, key -> null));
+                () -> DriverInstanceConfigGenerator.generate(source, tempDir.resolve("bad-count"), 0,
+                        key -> "test-token"));
         assertThrows(IllegalArgumentException.class,
-                () -> DriverInstanceConfigGenerator.generate(source, tempDir.resolve("overflow"), 2, key -> null));
+                () -> DriverInstanceConfigGenerator.generate(source, tempDir.resolve("overflow"), 2,
+                        key -> "test-token"));
 
         Path conflictingOutput = tempDir.resolve("conflict");
         Files.createDirectories(conflictingOutput);
         Path existing = conflictingOutput.resolve("driver-1.yml");
         Files.writeString(existing, "operator-owned: true\n");
         assertThrows(IllegalStateException.class,
-                () -> DriverInstanceConfigGenerator.generate(source, conflictingOutput, 1, key -> null));
+                () -> DriverInstanceConfigGenerator.generate(source, conflictingOutput, 1, key -> "test-token"));
         assertEquals("operator-owned: true\n", Files.readString(existing));
         assertFalse(Files.exists(conflictingOutput.resolve("driver-2.yml")));
     }
@@ -113,6 +121,9 @@ class DriverInstanceConfigGeneratorTest {
                 auth:
                   token:
                     file: /run/secrets/cosbench-token
+                  tls:
+                    enabled: true
+                    keyStore: /run/secrets/cosbench-driver.p12
                 """);
 
         Path generated = DriverInstanceConfigGenerator.generate(source, tempDir.resolve("conf"), 1,
@@ -123,5 +134,69 @@ class DriverInstanceConfigGeneratorTest {
 
         assertEquals("/run/secrets/cosbench-token", token.get("file"));
         assertFalse(Files.readString(generated).contains("resolved-secret"));
+    }
+
+    @Test
+    void usesPathsLogsWhenLoggingFileIsOmittedAndRequiresDriverSecuritySettings() throws Exception {
+        Path source = tempDir.resolve("driver-with-custom-log.yml");
+        Files.writeString(source, """
+                schemaVersion: 1
+                role: driver
+                name: runner
+                listen:
+                  port: 18100
+                paths:
+                  logs: custom/logs/driver.log
+                auth:
+                  token:
+                    env: COSBENCH_SERVICE_TOKEN
+                  tls:
+                    enabled: true
+                    keyStore: conf/server.p12
+                """);
+
+        Path generated = DriverInstanceConfigGenerator.generate(source, tempDir.resolve("custom-conf"), 1,
+                key -> "test-token").getFirst();
+        ServiceConfig config = VersionedConfigLoader.load(generated, key -> "test-token");
+
+        assertEquals(Path.of("custom/logs/runner-1/driver.log"), config.paths().logs());
+        assertEquals(config.paths().logs(), config.logging().file());
+
+        Path insecure = tempDir.resolve("insecure-driver.yml");
+        Files.writeString(insecure, """
+                schemaVersion: 1
+                role: driver
+                name: runner
+                listen:
+                  port: 18100
+                paths: {}
+                auth:
+                  token:
+                    env: COSBENCH_SERVICE_TOKEN
+                  tls:
+                    enabled: false
+                """);
+        assertThrows(IllegalArgumentException.class,
+                () -> DriverInstanceConfigGenerator.generate(insecure, tempDir.resolve("insecure-conf"), 1,
+                        key -> "test-token"));
+
+        Path missingKeyStore = tempDir.resolve("driver-without-key-store.yml");
+        Files.writeString(missingKeyStore, """
+                schemaVersion: 1
+                role: driver
+                name: runner
+                listen:
+                  port: 18100
+                paths: {}
+                auth:
+                  token:
+                    env: COSBENCH_SERVICE_TOKEN
+                  tls:
+                    enabled: true
+                    trustStore: conf/trust.p12
+                """);
+        assertThrows(IllegalArgumentException.class,
+                () -> DriverInstanceConfigGenerator.generate(missingKeyStore, tempDir.resolve("no-keystore-conf"), 1,
+                        key -> "test-token"));
     }
 }

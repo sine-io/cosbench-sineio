@@ -11,7 +11,11 @@ fi
 if (($# == 1)) && [[ $1 == -h || $1 == --help ]]; then
     cat <<EOF
 Usage: $(basename "$0") --source LEGACY_INI --destination VERSIONED_YML [--report REPORT_JSON]
+       [--service-token-env NAME] [--driver-key-store PATH] [--controller-trust-store PATH]
        $(basename "$0") LEGACY_INI VERSIONED_YML REPORT_JSON
+Driver configs receive a token environment reference and TLS keyStore.
+Controllers with Drivers receive the token and TLS trustStore references.
+Default secret paths are under /run/secrets; supply protected paths when needed.
 Exit codes: 0 success, 1 conversion failure/unknown legacy values, 2 usage error.
 EOF
     exit 0

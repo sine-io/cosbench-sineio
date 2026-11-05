@@ -36,6 +36,12 @@ public final class DriverInstanceConfigGenerator {
         if (base.role() != ServiceRole.DRIVER) {
             throw new IllegalArgumentException("Driver instance template must have role: driver");
         }
+        if (base.auth().token() == null) {
+            throw new IllegalArgumentException("Driver instance template must configure auth.token");
+        }
+        if (!base.auth().tls().enabled() || base.auth().tls().keyStore() == null) {
+            throw new IllegalArgumentException("Driver instance template must configure auth.tls.enabled and auth.tls.keyStore");
+        }
         long lastPort = (long) base.listen().port() + count - 1;
         if (lastPort > 65535) {
             throw new IllegalArgumentException("driver instance ports exceed 65535");
@@ -58,7 +64,8 @@ public final class DriverInstanceConfigGenerator {
             listen.put("port", base.listen().port() + index - 1);
             Map<String, Object> paths = nestedMap(config, "paths");
             String mission = textValue(paths.get("mission"), "log/mission");
-            String logFile = textValue(nestedMap(config, "logging").get("file"), "log/system.log");
+            String logFile = textValue(nestedMap(config, "logging").get("file"),
+                    textValue(paths.get("logs"), "log/system.log"));
             String instanceLog = instanceLogPath(logFile, instanceName);
             paths.put("mission", Path.of(mission).resolve(instanceName).toString());
             paths.put("logs", instanceLog);

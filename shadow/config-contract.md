@@ -67,7 +67,7 @@ The migration command consumes the existing INI boundary and writes a new file o
 | `[controller] drivers` and `[driverN] name/url` | `drivers[]` | Count and each endpoint are checked. |
 | `concurrency` | `concurrency` | Integer validated by the new loader. |
 
-The report records source and destination SHA-256 values, mapped fields, unmapped values, diagnostics, and a boolean success result. An unknown legacy key receives `legacy_unmapped`; no YAML is emitted. An existing destination receives `destination_exists`; it is never overwritten. The original INI checksum is checked by the lifecycle replay before and after conversion.
+The report records source and destination SHA-256 values, mapped fields, unmapped values, diagnostics, and a boolean success result. Driver output includes an `auth.token.env` reference and TLS `keyStore`; Controller output with Driver endpoints includes the token reference, TLS `trustStore`, and HTTPS endpoints. The defaults are `COSBENCH_SERVICE_TOKEN` and `/run/secrets/cosbench-driver-keystore.p12` or `/run/secrets/cosbench-controller-truststore.p12`; the command accepts overrides for each reference. Operators provision the referenced token and stores before startup. The converter does not read or serialize secret values. An unknown legacy key receives `legacy_unmapped`; no YAML is emitted. An existing destination receives `destination_exists`; it is never overwritten. The original INI checksum is checked by the lifecycle replay before and after conversion.
 
 ## Commands and process behavior
 

@@ -3,7 +3,6 @@ package com.intel.cosbench.config.runtime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.charset.StandardCharsets;
@@ -50,7 +49,7 @@ class LegacyConfigMigratorTest {
         assertTrue(Files.exists(controllerReport));
         assertEquals(java.util.Arrays.toString(sourceBefore),
                 java.util.Arrays.toString(Files.readAllBytes(controller)));
-        ServiceConfig convertedController = VersionedConfigLoader.load(controllerYaml, key -> null);
+        ServiceConfig convertedController = VersionedConfigLoader.load(controllerYaml, key -> "test-token");
         assertEquals("Controller", convertedController.name());
         assertEquals(Path.of("workspace"), convertedController.paths().workspace());
         assertEquals(Path.of("archive"), convertedController.paths().archive());
@@ -66,11 +65,13 @@ class LegacyConfigMigratorTest {
         assertEquals(java.time.Duration.ofSeconds(30), convertedController.http().pool().idleTimeout());
         assertEquals(1, convertedController.http().retries().maxAttempts());
         assertEquals(java.time.Duration.ofSeconds(30), convertedController.shutdown().gracePeriod());
-        assertNull(convertedController.auth().token());
-        assertFalse(convertedController.auth().tls().enabled());
+        assertEquals("COSBENCH_SERVICE_TOKEN", convertedController.auth().token().env());
+        assertTrue(convertedController.auth().tls().enabled());
+        assertEquals(MigrationSecuritySettings.DEFAULT_CONTROLLER_TRUST_STORE,
+                convertedController.auth().tls().trustStore());
         assertTrue(convertedController.web().enabled());
         assertEquals(0, convertedController.web().maxUploadBytes());
-        assertEquals("http://127.0.0.1:18088/driver", convertedController.drivers().getFirst().url());
+        assertEquals("https://127.0.0.1:18088/driver", convertedController.drivers().getFirst().url());
 
         Path driver = tempDir.resolve("driver.conf");
         Files.writeString(driver, """
@@ -88,7 +89,7 @@ class LegacyConfigMigratorTest {
 
         assertEquals("driver", driverResult.role());
         assertTrue(driverResult.unmapped().isEmpty());
-        ServiceConfig convertedDriver = VersionedConfigLoader.load(driverYaml, key -> null);
+        ServiceConfig convertedDriver = VersionedConfigLoader.load(driverYaml, key -> "test-token");
         assertEquals(ServiceRole.DRIVER, convertedDriver.role());
         assertEquals("driver1", convertedDriver.name());
         assertEquals(Path.of("workspace"), convertedDriver.paths().workspace());
@@ -102,8 +103,9 @@ class LegacyConfigMigratorTest {
         assertEquals(32, convertedDriver.http().pool().maxConnections());
         assertEquals(1, convertedDriver.http().retries().maxAttempts());
         assertEquals(30, convertedDriver.shutdown().gracePeriod().toSeconds());
-        assertNull(convertedDriver.auth().token());
-        assertFalse(convertedDriver.auth().tls().enabled());
+        assertEquals("COSBENCH_SERVICE_TOKEN", convertedDriver.auth().token().env());
+        assertTrue(convertedDriver.auth().tls().enabled());
+        assertEquals(MigrationSecuritySettings.DEFAULT_DRIVER_KEY_STORE, convertedDriver.auth().tls().keyStore());
         assertTrue(convertedDriver.web().enabled());
         assertEquals(10L * 1024 * 1024, convertedDriver.web().maxUploadBytes());
         assertNotNull(driverResult.destinationSha256());
@@ -215,5 +217,26 @@ class LegacyConfigMigratorTest {
         assertFalse(result.success());
         assertTrue(result.unmapped().stream().anyMatch(value -> value.contains("concurrency")));
         assertFalse(Files.readString(report).contains("secret-looking-value"));
+    }
+
+    @Test
+    void refusesCredentialBearingDriverUrlsWithoutCopyingCredentials() throws Exception {
+        Path source = tempDir.resolve("controller-with-credentials.conf");
+        Files.writeString(source, """
+                [controller]
+                drivers = 1
+                [driver1]
+                name = driver1
+                url = http://user:password@127.0.0.1:18088/driver
+                """);
+        Path destination = tempDir.resolve("credential-bearing.yml");
+        Path report = tempDir.resolve("credential-bearing.json");
+
+        MigrationReport result = LegacyConfigMigrator.convert(source, destination, report);
+
+        assertFalse(result.success());
+        assertTrue(result.unmapped().stream().anyMatch(value -> value.contains("driver1.url")));
+        assertFalse(Files.exists(destination));
+        assertFalse(Files.readString(report).contains("password"));
     }
 }

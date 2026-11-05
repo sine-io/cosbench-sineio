@@ -25,6 +25,12 @@ public final class LegacyConfigMigrator {
     }
 
     public static MigrationReport convert(Path source, Path destination, Path reportPath) {
+        return convert(source, destination, reportPath, MigrationSecuritySettings.defaults());
+    }
+
+    public static MigrationReport convert(Path source, Path destination, Path reportPath,
+            MigrationSecuritySettings security) {
+        MigrationSecuritySettings securitySettings = security == null ? MigrationSecuritySettings.defaults() : security;
         String sourceHash = null;
         List<String> mapped = new ArrayList<>();
         List<String> unmapped = new ArrayList<>();
@@ -60,8 +66,8 @@ public final class LegacyConfigMigrator {
             }
             validateSections(ini, role, unmapped);
             Map<String, Object> result = role.equals("controller")
-                    ? controller(ini, mapped, unmapped, diagnostics)
-                    : role.equals("driver") ? driver(ini, mapped, unmapped, diagnostics) : Map.of();
+                    ? controller(ini, securitySettings, mapped, unmapped, diagnostics)
+                    : role.equals("driver") ? driver(ini, securitySettings, mapped, unmapped, diagnostics) : Map.of();
 
             if (destination != null && Files.exists(destination)) {
                 diagnostics.add(ConfigProblemCode.DESTINATION_EXISTS.name().toLowerCase(Locale.ROOT));
@@ -69,7 +75,7 @@ public final class LegacyConfigMigrator {
                 try {
                     writeYaml(destination, result);
                     try {
-                        VersionedConfigLoader.load(destination, ignored -> null);
+                        VersionedConfigLoader.load(destination, ignored -> "migration-validation-token");
                         destinationHash = sha256(Files.readAllBytes(destination));
                     } catch (ConfigLoadException e) {
                         Files.deleteIfExists(destination);
@@ -92,8 +98,8 @@ public final class LegacyConfigMigrator {
                 diagnostics, success);
     }
 
-    private static Map<String, Object> controller(IniDocument ini, List<String> mapped, List<String> unmapped,
-            List<String> diagnostics) {
+    private static Map<String, Object> controller(IniDocument ini, MigrationSecuritySettings security,
+            List<String> mapped, List<String> unmapped, List<String> diagnostics) {
         Map<String, String> values = ini.section("controller");
         Endpoint endpoint = endpoint(values.get("url"), 19088, "/controller", "controller.url", mapped, unmapped);
         Map<String, Object> root = base("controller", values.getOrDefault("name", "Controller"), endpoint, mapped);
@@ -102,8 +108,12 @@ public final class LegacyConfigMigrator {
         paths.put("archive", pathValue(values, "archive_dir", "archive", mapped));
         paths.put("logs", pathValue(values, "log_file", "log/system.log", mapped));
         root.put("paths", paths);
-        root.put("drivers", controllerDrivers(ini, values, mapped, unmapped, diagnostics));
+        List<Map<String, Object>> drivers = controllerDrivers(ini, values, mapped, unmapped, diagnostics);
+        root.put("drivers", drivers);
         commonValues(root, values, mapped, unmapped);
+        if (!drivers.isEmpty()) {
+            addServiceAuth(root, security.serviceTokenEnv(), null, security.controllerTrustStore(), mapped);
+        }
         Map<String, Object> web = map();
         web.put("enabled", true);
         web.put("maxUploadBytes", 0);
@@ -111,8 +121,8 @@ public final class LegacyConfigMigrator {
         return root;
     }
 
-    private static Map<String, Object> driver(IniDocument ini, List<String> mapped, List<String> unmapped,
-            List<String> diagnostics) {
+    private static Map<String, Object> driver(IniDocument ini, MigrationSecuritySettings security,
+            List<String> mapped, List<String> unmapped, List<String> diagnostics) {
         Map<String, String> values = ini.section("driver");
         Endpoint endpoint = endpoint(values.get("url"), 18088, "/driver", "driver.url", mapped, unmapped);
         Map<String, Object> root = base("driver", values.getOrDefault("name", "driver1"), endpoint, mapped);
@@ -124,6 +134,7 @@ public final class LegacyConfigMigrator {
         root.put("paths", paths);
         root.put("drivers", List.of());
         commonValues(root, values, mapped, unmapped);
+        addServiceAuth(root, security.serviceTokenEnv(), security.driverKeyStore(), null, mapped);
         Map<String, Object> web = map();
         web.put("enabled", true);
         web.put("maxUploadBytes", 10L * 1024 * 1024);
@@ -159,11 +170,6 @@ public final class LegacyConfigMigrator {
         Map<String, Object> provider = map();
         provider.put("name", "mock");
         root.put("provider", provider);
-        Map<String, Object> auth = map();
-        Map<String, Object> tls = map();
-        tls.put("enabled", false);
-        auth.put("tls", tls);
-        root.put("auth", auth);
         Map<String, Object> http = map();
         Map<String, Object> pool = map();
         pool.put("maxConnections", 32);
@@ -195,6 +201,27 @@ public final class LegacyConfigMigrator {
         }
     }
 
+    private static void addServiceAuth(Map<String, Object> root, String tokenEnvironment, String keyStore,
+            String trustStore, List<String> mapped) {
+        Map<String, Object> auth = map();
+        Map<String, Object> token = map();
+        token.put("env", tokenEnvironment);
+        auth.put("token", token);
+        Map<String, Object> tls = map();
+        tls.put("enabled", true);
+        if (keyStore != null) {
+            tls.put("keyStore", keyStore);
+            mapped.add("runtime TLS keyStore reference -> auth.tls.keyStore");
+        }
+        if (trustStore != null) {
+            tls.put("trustStore", trustStore);
+            mapped.add("runtime TLS trustStore reference -> auth.tls.trustStore");
+        }
+        auth.put("tls", tls);
+        root.put("auth", auth);
+        mapped.add("runtime service token reference -> auth.token.env");
+    }
+
     private static List<Map<String, Object>> controllerDrivers(IniDocument ini, Map<String, String> controller,
             List<String> mapped, List<String> unmapped, List<String> diagnostics) {
         int count = integerValue(controller, "drivers", 0, mapped, unmapped);
@@ -214,14 +241,18 @@ public final class LegacyConfigMigrator {
                 continue;
             }
             String name = values.get("name");
-            String url = values.get("url");
+            String rawUrl = values.get("url");
             if (name == null || name.isBlank()) {
                 unmapped.add(sectionName + ".name");
             }
-            if (url == null || url.isBlank()) {
+            if (rawUrl == null || rawUrl.isBlank()) {
                 unmapped.add(sectionName + ".url");
             }
-            if (name == null || name.isBlank() || url == null || url.isBlank()) {
+            if (name == null || name.isBlank() || rawUrl == null || rawUrl.isBlank()) {
+                continue;
+            }
+            String url = secureDriverUrl(rawUrl, sectionName + ".url", unmapped);
+            if (url == null) {
                 continue;
             }
             Map<String, Object> item = map();
@@ -229,7 +260,7 @@ public final class LegacyConfigMigrator {
             item.put("url", url);
             drivers.add(item);
             mapped.add(sectionName + ".name -> drivers[].name");
-            mapped.add(sectionName + ".url -> drivers[].url");
+            mapped.add(sectionName + ".url -> drivers[].url (HTTPS)");
             for (String key : values.keySet()) {
                 if (!key.equals("name") && !key.equals("url")) {
                     unmapped.add(sectionName + "." + key);
@@ -250,6 +281,26 @@ public final class LegacyConfigMigrator {
             }
         }
         return drivers;
+    }
+
+    private static String secureDriverUrl(String raw, String field, List<String> unmapped) {
+        try {
+            java.net.URI uri = java.net.URI.create(raw.trim());
+            if (uri.getHost() == null || uri.getScheme() == null
+                    || (!uri.getScheme().equalsIgnoreCase("http") && !uri.getScheme().equalsIgnoreCase("https"))
+                    || uri.getRawUserInfo() != null || uri.getRawQuery() != null || uri.getRawFragment() != null) {
+                throw new IllegalArgumentException("unsupported endpoint");
+            }
+            String path = uri.getPath();
+            if (path == null || path.isBlank()) {
+                path = "/driver";
+            }
+            int port = uri.getPort() < 0 ? 18088 : uri.getPort();
+            return new java.net.URI("https", null, uri.getHost(), port, path, null, null).toASCIIString();
+        } catch (java.net.URISyntaxException | IllegalArgumentException e) {
+            unmapped.add(field + " (invalid or credential-bearing endpoint)");
+            return null;
+        }
     }
 
     private static void validateSections(IniDocument ini, String role, List<String> unmapped) {

@@ -13,6 +13,7 @@ mkdir -p "$runtime/scripts"
 cp "$repo/.scratch/scheme3-migration/baseline/fixtures/trigger-noop.sh" "$runtime/scripts/baseline-trigger.sh"
 chmod +x "$runtime/scripts/baseline-trigger.sh"
 export COSBENCH_SERVICE_TOKEN=${COSBENCH_HTTP_SERVICE_TOKEN:-operator-command-test-token}
+export COSBENCH_TLS_STORE_PASSWORD_FILE=$COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE
 driver_store_password=$(<"$COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE")
 
 cleanup() {
@@ -61,87 +62,57 @@ expect_status 1 "$repo/bin/cosbench-driver" --config "$runtime/missing-driver.ym
 legacy_source="$runtime/controller.conf"
 legacy_yaml="$runtime/controller-migrated.yml"
 legacy_report="$runtime/controller-migration.json"
-cp "$repo/.scratch/scheme3-migration/baseline/fixtures/controller.conf" "$legacy_source"
+driver_legacy_source="$runtime/driver.conf"
+driver_template="$runtime/driver-migrated.yml"
+cat > "$legacy_source" <<'INI'
+[controller]
+drivers = 1
+log_level = INFO
+log_file = log/controller.log
+archive_dir = archive
+workspace_dir = workspace
+name = command-test-controller
+url = http://127.0.0.1:19510/controller/index.html
+concurrency = 1
+
+[driver1]
+name = driver1
+url = http://127.0.0.1:19511/driver
+INI
+cat > "$driver_legacy_source" <<'INI'
+[driver]
+name = driver1
+url = http://127.0.0.1:19511/driver
+workspace_dir = workspace
+archive_dir = archive
+mission_dir = log/mission
+log_file = log/system.log
+log_level = INFO
+INI
 source_checksum=$(sha256sum "$legacy_source" | awk '{print $1}')
+driver_source_checksum=$(sha256sum "$driver_legacy_source" | awk '{print $1}')
+security_options=(--service-token-env COSBENCH_SERVICE_TOKEN
+    --driver-key-store "$COSBENCH_HTTP_TEST_KEYSTORE_FILE"
+    --controller-trust-store "$COSBENCH_HTTP_TEST_TRUSTSTORE_FILE")
 "$repo/bin/cosbench-config-migrate" --source "$legacy_source" --destination "$legacy_yaml" \
-    --report "$legacy_report" > "$report/migration-success.txt"
+    --report "$legacy_report" "${security_options[@]}" > "$report/migration-success.txt"
 grep -q '"success": true' "$legacy_report"
 [[ $(sha256sum "$legacy_source" | awk '{print $1}') == "$source_checksum" ]]
+"$repo/bin/cosbench-config-migrate" --source "$driver_legacy_source" --destination "$driver_template" \
+    --report "$runtime/driver-migration.json" "${security_options[@]}" > "$report/driver-migration-success.txt"
+grep -q '"success": true' "$runtime/driver-migration.json"
+[[ $(sha256sum "$driver_legacy_source" | awk '{print $1}') == "$driver_source_checksum" ]]
 expect_status 1 "$repo/bin/cosbench-config-migrate" --source "$legacy_source" \
-    --destination "$legacy_yaml" --report "$runtime/second-report.json"
+    --destination "$legacy_yaml" --report "$runtime/second-report.json" "${security_options[@]}"
 
-cat > "$runtime/driver-template.yml" <<YAML
-schemaVersion: 1
-role: driver
-name: driver1
-listen:
-  host: 127.0.0.1
-  port: 19511
-  contextPath: /driver
-paths:
-  workspace: workspace
-  archive: archive
-  mission: log/mission
-  logs: log/system.log
-auth:
-  token:
-    env: COSBENCH_SERVICE_TOKEN
-  tls:
-    enabled: true
-    keyStore: file:${COSBENCH_HTTP_TEST_KEYSTORE_FILE:-/run/secrets/http_test_keystore}
-provider:
-  name: mock
-logging:
-  level: INFO
-  file: log/system.log
-shutdown:
-  gracePeriod: 10s
-YAML
-"$JAVA_HOME/bin/java" -jar "$operator_jar" expand-drivers --config "$runtime/driver-template.yml" \
+"$JAVA_HOME/bin/java" -jar "$operator_jar" expand-drivers --config "$driver_template" \
     --output-dir "$runtime/conf" --count 2 > "$report/driver-configs.txt"
-"$JAVA_HOME/bin/java" -jar "$operator_jar" expand-drivers --config "$runtime/driver-template.yml" \
+"$JAVA_HOME/bin/java" -jar "$operator_jar" expand-drivers --config "$driver_template" \
     --output-dir "$runtime/conf" --count 2 > "$report/driver-configs-repeat.txt"
-cat > "$runtime/controller-template.yml" <<YAML
-schemaVersion: 1
-role: controller
-name: command-test-controller
-listen:
-  host: 127.0.0.1
-  port: 19510
-  contextPath: /controller
-paths:
-  workspace: workspace
-  archive: archive
-  logs: log/controller.log
-auth:
-  token:
-    env: COSBENCH_SERVICE_TOKEN
-  tls:
-    enabled: true
-    trustStore: file:${COSBENCH_HTTP_TEST_TRUSTSTORE_FILE:-/run/secrets/http_test_truststore}
-http:
-  pool:
-    maxConnections: 8
-    maxPerRoute: 4
-    idleTimeout: 5s
-  timeouts:
-    connect: 2s
-    read: 5s
-    command: 10s
-    workload: 1m
-  retries:
-    maxAttempts: 2
-    backoff: 100ms
-logging:
-  level: INFO
-  file: log/controller.log
-shutdown:
-  gracePeriod: 10s
-YAML
-"$JAVA_HOME/bin/java" -jar "$operator_jar" bind-controller --config "$runtime/controller-template.yml" \
+"$JAVA_HOME/bin/java" -jar "$operator_jar" bind-controller --config "$legacy_yaml" \
     --drivers-dir "$runtime/conf" --count 2 --output "$runtime/conf/controller.yml" \
     > "$report/controller-config.txt"
-"$JAVA_HOME/bin/java" -jar "$operator_jar" bind-controller --config "$runtime/controller-template.yml" \
+"$JAVA_HOME/bin/java" -jar "$operator_jar" bind-controller --config "$legacy_yaml" \
     --drivers-dir "$runtime/conf" --count 2 --output "$runtime/conf/controller.yml" \
     > "$report/controller-config-repeat.txt"
 grep -q 'https://127.0.0.1:19511/driver' "$runtime/conf/controller.yml"
