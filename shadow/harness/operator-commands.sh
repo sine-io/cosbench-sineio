@@ -14,6 +14,8 @@ cp "$repo/.scratch/scheme3-migration/baseline/fixtures/trigger-noop.sh" "$runtim
 chmod +x "$runtime/scripts/baseline-trigger.sh"
 export COSBENCH_SERVICE_TOKEN=${COSBENCH_HTTP_SERVICE_TOKEN:-operator-command-test-token}
 export COSBENCH_TLS_STORE_PASSWORD_FILE=$COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE
+# Castor 1.3.3 uses this JDK serializer while archiving a stopped workload.
+export JAVA_OPTS="${JAVA_OPTS:+$JAVA_OPTS }--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED"
 driver_store_password=$(<"$COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE")
 
 cleanup() {
