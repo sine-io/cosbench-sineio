@@ -1,4 +1,5 @@
 ID	Command	Reports
+BASE-01	deployment-integration.sh;config-lifecycle.sh;http-contract.sh;controller-driver-process.sh	deployment-integration/baseline/reference.txt;deployment-integration/baseline/README.md;deployment-integration/baseline/scenarios.md;deployment-integration/baseline/observations.md;deployment-integration/baseline/inputs.sha256;deployment-integration/baseline/source-commit.txt;config-lifecycle.log;http-contract-summary.txt;controller-driver-process/summary.txt
 BUILD-01	container-build.sh	build.log;toolchain.txt;ci/reactor.tsv
 ENV-01	run.sh	minio-smoke.log;toxiproxy-controls.log;test-certificate.txt
 GATE-CFG	config-lifecycle.sh	config-lifecycle.log

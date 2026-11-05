@@ -504,11 +504,11 @@ class ControllerProcessTest {
                 s1-delay,5,op1,read,read,10,640,50.09,50.05,60,60,60,60,60,70,19.8,1267.18,100%,completed
                 """);
         try (var app = start()) {
-            assertEquals(200, request(app, "/_probe/archive").statusCode());
             var browser = HttpClient.newBuilder()
                     .cookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ALL)).build();
             assertEquals(302, postForm(browser, app, "/j_security_check",
                     "j_username=anonymous&j_password=cosbench").statusCode());
+            assertEquals(200, request(browser, app, "/index.html?loadArch=true").statusCode());
             assertEquals(200, request(browser, app, "/workload.html?id=w1").statusCode());
             var response = request(http, app, "/prometheus");
             assertEquals(200, response.statusCode(), response.body());

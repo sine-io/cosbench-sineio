@@ -115,13 +115,17 @@ cleanup() {
     [[ -z $certificate_containers_left ]] || cleanup_status=1
 
     sudo python3 "$harness_dir/deployment/redact-reports.py" "$report_dir" "$secret_dir" || cleanup_status=1
-    if [[ -n ${secret_dir:-} && -d $secret_dir ]]; then
+    retained_runtime=none
+    if [[ $cleanup_status == 0 && -n ${secret_dir:-} && -d $secret_dir ]]; then
         sudo find "$secret_dir" -mindepth 1 -delete || cleanup_status=1
         rmdir "$secret_dir" || cleanup_status=1
+    elif [[ -d $secret_dir ]]; then
+        chmod 700 "$secret_dir"
+        retained_runtime=$secret_dir
     fi
 
-    printf 'run_status=%s\ncleanup_status=%s\ncontainers_remaining=%s\nnetworks_remaining=%s\nvolumes_remaining=%s\ncertificate_containers_remaining=%s\n' \
-        "$run_status" "$cleanup_status" "${containers_left:-none}" "${networks_left:-none}" "${volumes_left:-none}" "${certificate_containers_left:-none}" \
+    printf 'run_status=%s\ncleanup_status=%s\ncontainers_remaining=%s\nnetworks_remaining=%s\nvolumes_remaining=%s\ncertificate_containers_remaining=%s\nretained_runtime=%s\n' \
+        "$run_status" "$cleanup_status" "${containers_left:-none}" "${networks_left:-none}" "${volumes_left:-none}" "${certificate_containers_left:-none}" "$retained_runtime" \
         > "$report_dir/cleanup-status.txt"
     if ((run_status == 0 && cleanup_status != 0)); then
         run_status=1

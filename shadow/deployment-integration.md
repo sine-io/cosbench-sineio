@@ -73,6 +73,10 @@ backend.
 INT-01 to concrete commands and report paths. `integration-summary.txt` is
 successful only after the complete run, Docker cleanup and required evidence
 checks pass. Incomplete and failed runs remain visibly unsuccessful.
+The BASE-01 row records consumption of the frozen legacy release, scenario and
+observation documents, fixture checksums and their source revision alongside
+the current configuration/HTTP/workload replays. It does not close the baseline
+ticket's recorded external acceptance items.
 
 The deployment report includes image digests, application SHA-256 values,
 source commit/diff fingerprint, scenario configurations and their SHA-256
@@ -88,3 +92,6 @@ Compose project is removed. Only the project-scoped containers, network,
 ephemeral MinIO test volume and private temporary credentials/data are removed.
 Reports and shared images/resources are retained. The next invocation starts
 with a fresh Maven repository, certificate, network and test data.
+If Docker cleanup cannot confirm that all dependencies have been removed, the
+private runtime directory is retained with mode 0700 and its path is recorded
+in `cleanup-status.txt`.

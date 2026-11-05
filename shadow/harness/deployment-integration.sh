@@ -8,9 +8,13 @@ project=${3:?Expected harness Compose project}
 harness_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 source "$harness_dir/versions.env"
 source "$compose_env"
+report="$report_root/deployment-integration"
+if [[ -e $report ]]; then
+    printf 'Deployment report directory already exists: %s\n' "$report" >&2
+    exit 2
+fi
 runtime=$(mktemp -d "$COSBENCH_SECRET_DIR/deployment.XXXXXX")
 attempt_id=${runtime##*/}
-report="$report_root/deployment-integration"
 mkdir -p "$runtime/conf" "$report"
 printf 'COSBENCH_DEPLOYMENT_DIR="%s"\nCOSBENCH_REPORT_DIR="%s"\n' "$runtime" "$report_root" > "$runtime/compose.env"
 compose_args=(--ansi never --progress plain --project-name "$project"
@@ -172,6 +176,14 @@ cp "$harness_dir/versions.env" "$report/versions.env"
 git -C "$COSBENCH_REPO_ROOT" rev-parse HEAD > "$report/source-commit.txt"
 git -C "$COSBENCH_REPO_ROOT" diff --binary HEAD -- shadow bin ci .github/workflows/shadow-verify.yml \
     | sha256sum > "$report/source-diff.sha256"
+baseline="$COSBENCH_REPO_ROOT/.scratch/scheme3-migration/baseline"
+mkdir -p "$report/baseline"
+cp "$baseline/README.md" "$baseline/scenarios.md" "$baseline/observations.md" "$report/baseline/"
+find "$baseline" -type f -print0 | sort -z | xargs -0 sha256sum > "$report/baseline/inputs.sha256"
+git -C "$COSBENCH_REPO_ROOT" log -1 --format=%H -- .scratch/scheme3-migration/baseline \
+    > "$report/baseline/source-commit.txt"
+printf 'status=consumed\nreplay=.scratch/scheme3-migration/baseline/replay.sh\nlegacy_release=0.6.0.2-sineio\nlegacy_source=cd18daf2f6f97f97409f4709d00bbd7389676d6\nrelease_sha256=1421f48a55673e42edd73c7b09a610b2b71ef94c70d46db3fb74dd3c34d22a06\ncurrent_replays=config-lifecycle.sh,http-contract.sh,controller-driver-process.sh\nacceptance=consumption-only;baseline-open-items-remain-with-original-owners\n' \
+    > "$report/baseline/reference.txt"
 
 configure_controller 0
 run_compose up --detach --wait --wait-timeout 100 controller
@@ -224,7 +236,7 @@ compose exec -T controller /bin/bash -c '
     set -Eeuo pipefail
     curl -fsS -c /tmp/integration-cookies --data "j_username=anonymous&j_password=cosbench" \
         http://localhost:19088/controller/j_security_check >/dev/null
-    curl -fsS -b /tmp/integration-cookies "http://localhost:19088/controller/index.html?type=arch"
+    curl -fsS -b /tmp/integration-cookies "http://localhost:19088/controller/index.html?loadArch=true"
     rm /tmp/integration-cookies
 ' > "$report/restart/history.html"
 grep -q 'integration-both-sio' "$report/restart/history.html"
