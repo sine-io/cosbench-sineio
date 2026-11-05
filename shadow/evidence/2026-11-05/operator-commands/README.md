@@ -43,6 +43,11 @@ cleanup_status=0
 
 The follow-up report is `/tmp/cosbench-scheme3-18-secure-migration-20261105`.
 
+The Controller binder compares the resolved service token used by the
+Controller with each generated Driver configuration and rejects a mismatch;
+`ControllerDriverConfigBinderTest` covers the rejection without including
+either token value in diagnostics.
+
 The initial complete verification command was:
 
 ```sh
