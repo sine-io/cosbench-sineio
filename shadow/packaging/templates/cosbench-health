@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+role=${COSBENCH_ROLE:-driver}
+case "$role" in
+    controller) default_url=http://127.0.0.1:19088/controller/health ;;
+    driver) default_url=https://127.0.0.1:18088/driver/health ;;
+    *) printf 'Unsupported COSBENCH_ROLE: %s\n' "$role" >&2; exit 2 ;;
+esac
+url=${COSBENCH_HEALTH_URL:-$default_url}
+curl_args=(--fail --silent --show-error --max-time "${COSBENCH_HEALTH_TIMEOUT:-3}")
+if [[ -n ${COSBENCH_HEALTH_CERTIFICATE:-} ]]; then
+    curl_args+=(--cacert "$COSBENCH_HEALTH_CERTIFICATE")
+elif [[ $url == https://* ]]; then
+    curl_args+=(--insecure)
+fi
+curl "${curl_args[@]}" "$url" | grep -q '"accepting":true'

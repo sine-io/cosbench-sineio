@@ -1,0 +1,41 @@
+# Production Driver template. Keep the token and key store outside this file.
+schemaVersion: 1
+role: driver
+name: driver1
+listen:
+  host: 0.0.0.0
+  port: 18088
+  contextPath: /driver
+paths:
+  workspace: workspace
+  archive: archive
+  mission: mission
+  logs: log/system.log
+auth:
+  token:
+    env: COSBENCH_SERVICE_TOKEN
+  tls:
+    enabled: true
+    keyStore: file:/run/secrets/cosbench-keystore.p12
+http:
+  pool:
+    maxConnections: 24
+    maxPerRoute: 8
+    idleTimeout: 45s
+  timeouts:
+    connect: 2s
+    read: 30s
+    command: 60s
+    workload: 1h
+  retries:
+    maxAttempts: 3
+    backoff: 250ms
+concurrency: 2
+logging:
+  level: INFO
+  file: log/system.log
+web:
+  enabled: true
+  maxUploadBytes: 10485760
+shutdown:
+  gracePeriod: 30s

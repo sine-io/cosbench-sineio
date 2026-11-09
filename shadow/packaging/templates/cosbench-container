@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+role=${COSBENCH_ROLE:-${1:-}}
+if [[ $# -gt 0 ]] && [[ ${1:-} == controller || ${1:-} == driver ]]; then
+    shift
+fi
+case "$role" in
+    controller|driver)
+        export COSBENCH_ROLE="$role"
+        exec "/opt/cosbench/bin/cosbench-$role" "$@"
+        ;;
+    *)
+        printf 'Set COSBENCH_ROLE=controller or COSBENCH_ROLE=driver.\n' >&2
+        exit 2
+        ;;
+esac

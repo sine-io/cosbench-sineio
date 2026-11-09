@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Render the ${SINEIO_*} placeholders before submitting this workload. -->
+<workload name="sio-smoke" description="Small SineIO production-package smoke">
+  <storage type="sio" config="endpoint=${SINEIO_ENDPOINT};accesskey=${SINEIO_ACCESS_KEY};secretkey=${SINEIO_SECRET_KEY};aws_region=us-east-1;path_style_access=true;timeout=30000" />
+  <workflow>
+    <workstage name="init">
+      <work type="init" workers="1" config="cprefix=cosbench-smoke;containers=c(1)" />
+    </workstage>
+    <workstage name="main">
+      <work name="main" workers="1" totalOps="10">
+        <operation type="write" ratio="50" config="cprefix=cosbench-smoke;containers=c(1);objects=u(1,5);sizes=c(64)KB" />
+        <operation type="read" ratio="50" config="cprefix=cosbench-smoke;containers=c(1);objects=u(1,5)" />
+      </work>
+    </workstage>
+    <workstage name="cleanup">
+      <work type="cleanup" workers="1" config="containers=c(1);objects=r(1,5)" />
+    </workstage>
+    <workstage name="dispose">
+      <work type="dispose" workers="1" config="containers=c(1)" />
+    </workstage>
+  </workflow>
+</workload>

@@ -1,0 +1,34 @@
+ARG JAVA_RUNTIME_IMAGE=eclipse-temurin:21-jre-jammy@sha256:1eac8b8fee11ca7d6725a48bc5d41992ed1561504ebae25490d2d062847e8269
+FROM ${JAVA_RUNTIME_IMAGE}
+
+ARG COSBENCH_VERSION=unknown
+ENV COSBENCH_VERSION=${COSBENCH_VERSION}
+ENV COSBENCH_HOME=/opt/cosbench
+ENV COSBENCH_ROLE=driver
+ENV COSBENCH_HEALTH_TIMEOUT=3
+
+LABEL org.opencontainers.image.title="COSBench Java 21 production" \
+      org.opencontainers.image.description="Controller and Driver production runtime" \
+      org.opencontainers.image.version="${COSBENCH_VERSION}"
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+        bash ca-certificates curl procps \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --system --gid 10001 cosbench \
+    && useradd --system --uid 10001 --gid 10001 --home-dir /opt/cosbench --shell /usr/sbin/nologin cosbench
+
+WORKDIR /opt/cosbench
+COPY . /opt/cosbench/
+RUN mkdir -p /opt/cosbench/run /var/lib/cosbench /run/secrets \
+    && chmod 0755 /opt/cosbench/bin/* \
+    && chown -R cosbench:cosbench /opt/cosbench /var/lib/cosbench
+
+VOLUME ["/var/lib/cosbench", "/run/secrets"]
+EXPOSE 18088 19088
+USER 10001:10001
+
+HEALTHCHECK --interval=10s --timeout=5s --start-period=20s --retries=6 \
+    CMD ["/opt/cosbench/bin/cosbench-health"]
+ENTRYPOINT ["/opt/cosbench/bin/cosbench-container"]
+CMD ["driver"]

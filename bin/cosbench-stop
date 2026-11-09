@@ -144,6 +144,14 @@ stop_one() {
         printf 'Could not send TERM to %s PID %s\n' "$role" "$pid" >&2
         return 1
     fi
+    # A service launched as container PID 1 terminates the container as soon
+    # as it receives TERM, so the exec'ed stop command cannot wait for it.
+    # Process ownership was checked above; remove only that owned PID file.
+    if [[ $pid == 1 ]]; then
+        rm -f -- "$file"
+        printf 'Stopped %s PID %s.\n' "$role" "$pid"
+        return 0
+    fi
     deadline=$((SECONDS + timeout_seconds))
     while kill -0 "$pid" 2>/dev/null; do
         if ((SECONDS >= deadline)); then

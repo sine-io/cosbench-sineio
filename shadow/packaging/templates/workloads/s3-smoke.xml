@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Render the ${S3_*} placeholders before submitting this workload. -->
+<workload name="s3-smoke" description="Small S3 production-package smoke">
+  <storage type="s3" config="endpoint=${S3_ENDPOINT};accesskey=${S3_ACCESS_KEY};secretkey=${S3_SECRET_KEY};path_style_access=true;timeout=30000" />
+  <workflow>
+    <workstage name="init">
+      <work type="init" workers="1" config="cprefix=cosbench-smoke;containers=c(1)" />
+    </workstage>
+    <workstage name="main">
+      <work name="main" workers="1" totalOps="10">
+        <operation type="write" ratio="50" config="cprefix=cosbench-smoke;containers=c(1);objects=u(1,5);sizes=c(64)KB" />
+        <operation type="read" ratio="50" config="cprefix=cosbench-smoke;containers=c(1);objects=u(1,5)" />
+      </work>
+    </workstage>
+    <workstage name="cleanup">
+      <work type="cleanup" workers="1" config="containers=c(1);objects=r(1,5)" />
+    </workstage>
+    <workstage name="dispose">
+      <work type="dispose" workers="1" config="containers=c(1)" />
+    </workstage>
+  </workflow>
+</workload>

@@ -25,11 +25,23 @@ jobs:
       - name: Verify reactor, deployment matrix and all Providers in Java 21 Docker
         run: bash ci/verify-shadow.sh "$RUNNER_TEMP/cosbench-shadow"
 
+      - name: Build and verify the Java 21 production package and images
+        run: bash shadow/packaging/ci-package.sh "$RUNNER_TEMP/cosbench-production-package"
+
       - name: Retain build, test, audit and Docker cleanup reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: shadow-gates-${{ github.run_id }}-${{ github.run_attempt }}
           path: ${{ runner.temp }}/cosbench-shadow
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Retain production package verification reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shadow-production-package-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/cosbench-production-package
           if-no-files-found: error
           retention-days: 14

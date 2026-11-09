@@ -1,0 +1,16 @@
+ARG MAVEN_IMAGE=maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d
+FROM ${MAVEN_IMAGE}
+
+ENV COSBENCH_DEV_HOME=/workspace
+ENV MAVEN_OPTS=-Djava.awt.headless=true
+WORKDIR /workspace
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+        bash ca-certificates curl git procps \
+    && rm -rf /var/lib/apt/lists/*
+
+# This context is deliberately the repository root. It contains the source,
+# Maven reactor, Docker/MinIO harness and test-only providers for development.
+COPY . /workspace/
+CMD ["bash"]

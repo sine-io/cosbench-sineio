@@ -1,0 +1,41 @@
+# Production Controller template. Keep the token and trust store outside this file.
+schemaVersion: 1
+role: controller
+name: Controller
+listen:
+  host: 0.0.0.0
+  port: 19088
+  contextPath: /controller
+paths:
+  workspace: workspace
+  archive: archive
+  logs: log/system.log
+auth:
+  token:
+    env: COSBENCH_SERVICE_TOKEN
+  tls:
+    enabled: true
+    trustStore: file:/run/secrets/cosbench-truststore.p12
+drivers: []
+http:
+  pool:
+    maxConnections: 24
+    maxPerRoute: 8
+    idleTimeout: 45s
+  timeouts:
+    connect: 2s
+    read: 30s
+    command: 60s
+    workload: 1h
+  retries:
+    maxAttempts: 3
+    backoff: 250ms
+concurrency: 2
+logging:
+  level: INFO
+  file: log/system.log
+web:
+  enabled: true
+  maxUploadBytes: 0
+shutdown:
+  gracePeriod: 30s

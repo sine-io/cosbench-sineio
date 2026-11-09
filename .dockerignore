@@ -1,0 +1,10 @@
+.git
+.scratch
+out
+log
+**/target
+**/log
+**/node_modules
+release
+dist
+*.tar.gz
