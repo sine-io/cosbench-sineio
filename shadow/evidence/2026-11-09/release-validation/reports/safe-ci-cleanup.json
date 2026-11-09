@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "containers_remaining": [],
+  "networks_remaining": [],
+  "retained_volumes": [
+    "cosbench-scheme3-02-1794203156-211969_minio-data"
+  ],
+  "removed_containers": [
+    "cosbench-rel22-ci-volume-keeper"
+  ],
+  "retained_runtime": "/tmp/cosbench-scheme3-02.wDzFPL",
+  "reason": "Retained runtime contains workload archives, mission logs and configuration; keep it protected for diagnosis. Data-volume retention intentionally differs from legacy CI cleanup policy.",
+  "raw_ci_exit": 1,
+  "raw_ci_cleanup_status": 1,
+  "commands": [
+    {
+      "command": [
+        "sudo",
+        "docker",
+        "ps",
+        "-aq",
+        "--filter",
+        "label=com.docker.compose.project=cosbench-scheme3-02-1794203156-211969"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "sudo",
+        "docker",
+        "network",
+        "ls",
+        "-q",
+        "--filter",
+        "label=com.docker.compose.project=cosbench-scheme3-02-1794203156-211969"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "sudo",
+        "docker",
+        "inspect",
+        "cosbench-rel22-ci-volume-keeper"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "sudo",
+        "docker",
+        "rm",
+        "cosbench-rel22-ci-volume-keeper"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "sudo",
+        "docker",
+        "volume",
+        "inspect",
+        "cosbench-scheme3-02-1794203156-211969_minio-data"
+      ],
+      "exit": 0
+    }
+  ]
+}

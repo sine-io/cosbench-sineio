@@ -1,3 +1,7 @@
+Java 21 builds and Docker development use [BUILD-java21.md](BUILD-java21.md).
+The instructions below describe the previous legacy OSGi distribution and
+are retained for rebuilding rollback artifacts. The root build switches in #23.
+
 Directory structure
 -------------------
   

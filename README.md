@@ -5,7 +5,9 @@ COSBench is a benchmarking tool to measure the performance of Cloud Object Stora
 emerging technology that is different from traditional file systems (e.g., NFS) or block device systems (e.g., iSCSI).
 Amazon S3 and Openstack* swift are well-known object storage solutions.
 
-COSBench now supports SineIO*, OpenStack* Swift, Amazon* S3, OpenIO*, Amplidata v2.3, 2.5 and 3.1, Scality*, Ceph, CDMI, Google* Cloud Storage, Aliyun OSS as well as custom adaptors.
+The Java 21 migration candidate supports SineIO `sio`, `siov1`, `gdas`, and Amazon S3 `s3`. Controller and Driver run as separate processes using schema-1 YAML and the `bin/cosbench-controller`, `bin/cosbench-driver`, `bin/cosbench-stop`, and `bin/cosbench-config-migrate` commands. See [Java 21 build/development](BUILD-java21.md), [installation](shadow/packaging/templates/docs/production-install.md), [release notes](RELEASE-NOTES-java21.md), and [release acceptance/rollback](docs/release-rollback.md).
+
+Other Providers (Swift, OpenIO, Amplidata, Scality, Ceph, CDMI, GCS, OSS, ECS and Manta) run only in the previous complete legacy distribution. Mock is test-only. Provider discovery is static: changing factories requires rebuilding the package and restarting Driver. Jackson 1.x, Castor and SDK major upgrades are deferred.
 
 ## Announcement
 
@@ -17,10 +19,12 @@ Because of [In Maintenance Mode as of July 31, 2024](https://github.com/aws/aws-
 
 LTS
 ----------------------------------------
-- AWS SDK version will be updated monthly for SineIO if needed.
+- The migration keeps the tested AWS SDK v1 `1.12.767` / v2 `2.26.8` closure. Further dependency upgrades are separate work.
 
 COSBench Storages Comparision
 ----------------------------------------
+
+The table below describes the legacy distribution. Current migrated behavior and supported operations are documented in the [SineIO](shadow/sineio-providers.md) and [S3](shadow/s3-provider.md) guides.
 
 > 1. SineIO is S3 storage and hardware can be 'fullstack' (NVMe, SSD, HDD, Tape, Disc, etc.)
 > 2. sio and siov1: Usage, please refer to conf/sio-config-sample.xml
@@ -81,7 +85,9 @@ c) Additional libraries used with COSBench have their own licensing; refer to 3r
 Distribution Packages
 ---------------------
 
-SineIO binary distributions are published on the [GitHub Releases page](https://github.com/sine-io/cosbench-sineio/releases). Each `*-sineio` release contains `cosbench-<version>-sineio.tar.gz` and its `.sha256` checksum. See [DISTRIBUTIONS.md](DISTRIBUTIONS.md) for package details and [BUILD-sineio.md](BUILD-sineio.md) for the complete build and release procedure.
+Build the Java 21 archive and separate production/development images using [BUILD-java21.md](BUILD-java21.md). The production archive includes executable applications, YAML, commands, supported Provider examples, licenses and checksums. The candidate is subject to [release acceptance](docs/release-rollback.md); root-build switching remains #23.
+
+Previous SineIO binary distributions are published on the [GitHub Releases page](https://github.com/sine-io/cosbench-sineio/releases). Each legacy `*-sineio` release contains `cosbench-<version>-sineio.tar.gz` and its `.sha256` checksum. See [DISTRIBUTIONS.md](DISTRIBUTIONS.md) for legacy package details and [BUILD-sineio.md](BUILD-sineio.md) for their build procedure.
 
 The same tagged release workflow publishes Docker images to [GitHub Container Registry](https://github.com/orgs/sine-io/packages). See [ci/docker/README.md](ci/docker/README.md) for image tags and usage.
 
@@ -89,7 +95,7 @@ The same tagged release workflow publishes Docker images to [GitHub Container Re
 Installation & Usage
 --------------------
 
-Please refer to "COSBenchUserGuide.pdf" for details.
+For Java 21, use the [production installation guide](shadow/packaging/templates/docs/production-install.md) and [operator commands](shadow/operator-commands.md). The PDF and telnet/ncat requirements below apply to the legacy distribution.
 
 > :star2:**Version more than or equal to  0.4.7.9: should install telnet**
 >
@@ -98,12 +104,12 @@ Please refer to "COSBenchUserGuide.pdf" for details.
 
 Adaptor Development
 -------------------
-If needed, adaptors can be developed for new storage services; please refer to "COSBenchAdaptorDevGuide.pdf" for details.
+For Java 21, use the [Provider SPI guide](shadow/provider-spi.md). "COSBenchAdaptorDevGuide.pdf" describes legacy OSGi adapters.
 
 
 Build
 -----
-If a build from source code is needed, please refer to [BUILD.md](BUILD.md) for details. For the SineIO Tycho build and GitHub Release workflow, see [BUILD-sineio.md](BUILD-sineio.md).
+Use [BUILD-java21.md](BUILD-java21.md) for Java 21 Docker builds and development. [BUILD.md](BUILD.md) and [BUILD-sineio.md](BUILD-sineio.md) retain the legacy Eclipse/Tycho instructions for rollback and older releases.
 
 
 Resources

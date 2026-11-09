@@ -1,0 +1,43 @@
+schemaVersion: 1
+role: driver
+name: 127.0.0.1:18088
+listen:
+  host: 127.0.0.1
+  port: 18088
+  contextPath: /driver
+paths:
+  workspace: workspace
+  archive: archive
+  mission: log/mission
+  logs: log/driver_1.log
+drivers: []
+concurrency: 1
+logging:
+  level: INFO
+  file: log/driver_1.log
+provider:
+  name: mock
+http:
+  pool:
+    maxConnections: 32
+    maxPerRoute: 8
+    idleTimeout: 30s
+  timeouts:
+    connect: 2s
+    read: 30s
+    command: 60s
+    workload: 1h
+  retries:
+    maxAttempts: 1
+    backoff: 0ms
+shutdown:
+  gracePeriod: 30s
+auth:
+  token:
+    env: COSBENCH_SERVICE_TOKEN
+  tls:
+    enabled: true
+    keyStore: /run/secrets/keystore.p12
+web:
+  enabled: true
+  maxUploadBytes: 10485760

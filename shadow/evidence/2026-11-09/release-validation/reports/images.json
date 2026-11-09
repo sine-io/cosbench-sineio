@@ -1,0 +1,34 @@
+{
+  "production": {
+    "Id": "sha256:c463db58ea91ee8cc8fa976d119ec6df387a0c475074495cdc8c16704de0365a",
+    "Size": 247788957,
+    "Architecture": "amd64",
+    "Os": "linux",
+    "runtime": {
+      "User": "10001:10001",
+      "Entrypoint": [
+        "/opt/cosbench/bin/cosbench-container"
+      ],
+      "Labels": {
+        "org.opencontainers.image.description": "Controller and Driver production runtime",
+        "org.opencontainers.image.title": "COSBench Java 21 production",
+        "org.opencontainers.image.version": "0.6.0.2"
+      }
+    }
+  },
+  "legacy": {
+    "Id": "sha256:2c77a75280ff0199e806504b70c08346374c45befe5690a6715e6898445eb02c",
+    "Size": 233923151,
+    "Architecture": "amd64",
+    "Os": "linux",
+    "runtime": {
+      "User": null,
+      "Entrypoint": [
+        "/__cacert_entrypoint.sh"
+      ],
+      "Labels": {
+        "org.opencontainers.image.version": "22.04"
+      }
+    }
+  }
+}

@@ -1,0 +1,289 @@
+{
+  "suites": 35,
+  "tests": 179,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "suite_details": [
+    {
+      "module": "cosbench-config",
+      "suite": "com.intel.cosbench.config.castor.CastorMappingsPackagingTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-config",
+      "suite": "com.intel.cosbench.config.castor.LegacyXmlContractTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-config",
+      "suite": "com.intel.cosbench.config.runtime.ControllerDriverConfigBinderTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-config",
+      "suite": "com.intel.cosbench.config.runtime.DriverInstanceConfigGeneratorTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-config",
+      "suite": "com.intel.cosbench.config.runtime.LegacyConfigMigratorTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-config",
+      "suite": "com.intel.cosbench.config.runtime.VersionedConfigTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-controller-app",
+      "suite": "com.intel.cosbench.testing.controller.ControllerProcessTest",
+      "tests": 28,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-core",
+      "suite": "com.intel.cosbench.protocol.DriverResponseSerializationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-driver-app",
+      "suite": "com.intel.cosbench.app.driver.DriverHttpContractTest",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-driver-app",
+      "suite": "com.intel.cosbench.app.driver.DriverMissionLifecycleTest",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-driver-app",
+      "suite": "com.intel.cosbench.app.driver.DriverPerformanceProfileTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-driver-app",
+      "suite": "com.intel.cosbench.app.driver.DriverTlsConfigurationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-driver-app",
+      "suite": "com.intel.cosbench.app.driver.SineioDriverMissionTest",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-http",
+      "suite": "com.intel.cosbench.client.http.HttpClientUtilContractTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-http-spike",
+      "suite": "com.intel.cosbench.http.AuthenticatedDriverClientTest",
+      "tests": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-http-spike",
+      "suite": "com.intel.cosbench.http.DriverCommandControllerTest",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-http-spike",
+      "suite": "com.intel.cosbench.http.DriverHttpContractTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-http-spike",
+      "suite": "com.intel.cosbench.http.IdempotencyStoreTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-http-spike",
+      "suite": "com.intel.cosbench.http.LegacyDriverCommandPortTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-http-spike",
+      "suite": "com.intel.cosbench.http.RequestFingerprintTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-http-spike",
+      "suite": "com.intel.cosbench.http.real.RealDriverHttpContractTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-log",
+      "suite": "com.intel.cosbench.log.LoggingContractTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-operator-cli",
+      "suite": "com.intel.cosbench.operator.OperatorCliTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-provider-spike",
+      "suite": "com.intel.cosbench.shadow.provider.ProviderMinioSmokeTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-provider-spike",
+      "suite": "com.intel.cosbench.shadow.provider.ServiceLoaderDiscoveryTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-provider-spike",
+      "suite": "com.intel.cosbench.shadow.provider.StaticProviderRegistryTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-runtime",
+      "suite": "com.intel.cosbench.runtime.RuntimeHealthControllerTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-runtime",
+      "suite": "com.intel.cosbench.runtime.ServiceRuntimeTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-s3",
+      "suite": "com.intel.cosbench.provider.s3.S3HttpContractTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-s3",
+      "suite": "com.intel.cosbench.provider.s3.S3MinioTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-s3",
+      "suite": "com.intel.cosbench.provider.s3.S3ProviderTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-sineio",
+      "suite": "com.intel.cosbench.provider.sineio.SineioHttpContractTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-sineio",
+      "suite": "com.intel.cosbench.provider.sineio.SineioMinioTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-sineio",
+      "suite": "com.intel.cosbench.provider.sineio.SineioProviderTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cosbench-web-spike",
+      "suite": "com.intel.cosbench.shadow.web.ControllerWebSpikeTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ]
+}

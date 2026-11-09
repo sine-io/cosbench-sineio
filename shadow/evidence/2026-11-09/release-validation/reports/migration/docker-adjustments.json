@@ -1,0 +1,7 @@
+{
+  "listen.host": "0.0.0.0 for bridge network",
+  "driver_url": "https://driver:18088/driver",
+  "token": "protected service.env; no YAML secret",
+  "original_ini": "unchanged",
+  "original_conversion": "*-converted.yml"
+}

@@ -236,6 +236,9 @@ required_files=(
     workloads/sio-smoke.xml
     docs/production-install.md
     docs/packaging.md
+    docs/release-rollback.md
+    docs/release-notes.md
+    docs/provider-spi.md
     licenses/COSBench-LICENSE.txt
     licenses/COSBench-NOTICE.txt
     licenses/3rd-party-licenses.pdf

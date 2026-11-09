@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "deployments": [
+    "controller-only",
+    "driver-only",
+    "both",
+    "multi-driver"
+  ],
+  "artifacts": [
+    "archive",
+    "image"
+  ],
+  "providers": [
+    "sio",
+    "siov1",
+    "gdas",
+    "s3"
+  ],
+  "old_data_and_rollback": "passed",
+  "cleanup": "passed"
+}

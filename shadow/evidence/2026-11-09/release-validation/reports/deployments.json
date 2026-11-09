@@ -1,0 +1,926 @@
+[
+  {
+    "artifact": "archive",
+    "deployment": "both",
+    "role": "controller",
+    "health": {
+      "accepting": true,
+      "activeWorkloads": 0,
+      "name": "Controller",
+      "status": "UP",
+      "role": "controller"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:14:00.005613268Z",
+      "FinishedAt": "2026-11-09T06:17:13.304883522Z",
+      "stop_ms": 1649
+    }
+  },
+  {
+    "artifact": "archive",
+    "deployment": "both",
+    "role": "driver",
+    "health": {
+      "status": "UP",
+      "activeMissions": 0,
+      "name": "driver1",
+      "accepting": true,
+      "role": "driver"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:13:53.119526025Z",
+      "FinishedAt": "2026-11-09T06:17:31.669536477Z",
+      "stop_ms": 17469
+    }
+  },
+  {
+    "artifact": "archive",
+    "deployment": "controller-only",
+    "role": "controller",
+    "health": {
+      "activeWorkloads": 0,
+      "accepting": true,
+      "role": "controller",
+      "status": "UP",
+      "name": "Controller"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:13:37.003566282Z",
+      "FinishedAt": "2026-11-09T06:13:44.942985763Z",
+      "stop_ms": 428
+    }
+  },
+  {
+    "artifact": "archive",
+    "deployment": "driver-only",
+    "role": "driver",
+    "health": {
+      "role": "driver",
+      "accepting": true,
+      "name": "driver1",
+      "activeMissions": 0,
+      "status": "UP"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:13:45.431764209Z",
+      "FinishedAt": "2026-11-09T06:13:52.493544118Z",
+      "stop_ms": 396
+    }
+  },
+  {
+    "artifact": "archive",
+    "deployment": "multi-driver",
+    "role": "controller",
+    "health": {
+      "accepting": true,
+      "role": "controller",
+      "status": "UP",
+      "name": "Controller",
+      "activeWorkloads": 0
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:18:09.364679736Z",
+      "FinishedAt": "2026-11-09T06:21:32.810287312Z",
+      "stop_ms": 693
+    }
+  },
+  {
+    "artifact": "archive",
+    "deployment": "multi-driver",
+    "role": "driver",
+    "health": {
+      "name": "driver1",
+      "activeMissions": 0,
+      "status": "UP",
+      "role": "driver",
+      "accepting": true
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:17:33.433457531Z",
+      "FinishedAt": "2026-11-09T06:21:33.500488684Z",
+      "stop_ms": 440
+    }
+  },
+  {
+    "artifact": "archive",
+    "deployment": "multi-driver",
+    "role": "driver2",
+    "health": {
+      "role": "driver",
+      "accepting": true,
+      "name": "driver1",
+      "activeMissions": 0,
+      "status": "UP"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:17:50.95721209Z",
+      "FinishedAt": "2026-11-09T06:21:34.212287215Z",
+      "stop_ms": 465
+    }
+  },
+  {
+    "artifact": "archive",
+    "deployment": "restart",
+    "role": "controller",
+    "health": {
+      "status": "UP",
+      "role": "controller",
+      "accepting": true,
+      "activeWorkloads": 0,
+      "name": "Controller"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:21:46.720268372Z",
+      "FinishedAt": "2026-11-09T06:21:52.894196397Z",
+      "stop_ms": 312
+    }
+  },
+  {
+    "artifact": "archive",
+    "deployment": "restart",
+    "role": "driver",
+    "health": {
+      "role": "driver",
+      "accepting": true,
+      "name": "driver1",
+      "activeMissions": 0,
+      "status": "UP"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:21:34.70888491Z",
+      "FinishedAt": "2026-11-09T06:21:53.325649385Z",
+      "stop_ms": 318
+    }
+  },
+  {
+    "artifact": "archive",
+    "deployment": "restart",
+    "role": "driver2",
+    "health": {
+      "accepting": true,
+      "role": "driver",
+      "status": "UP",
+      "activeMissions": 0,
+      "name": "driver1"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:21:41.004909085Z",
+      "FinishedAt": "2026-11-09T06:21:53.694068947Z",
+      "stop_ms": 291
+    }
+  },
+  {
+    "artifact": "image",
+    "deployment": "after-restart",
+    "role": "controller",
+    "health": {
+      "status": "UP",
+      "role": "controller",
+      "accepting": true,
+      "activeWorkloads": 0,
+      "name": "Controller"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:29:32.202014963Z",
+      "FinishedAt": "2026-11-09T06:29:38.48218699Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-09T14:29:37.339281982+08:00",
+            "End": "2026-11-09T14:29:37.588976806+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      },
+      "stop_ms": 310
+    }
+  },
+  {
+    "artifact": "image",
+    "deployment": "after-restart",
+    "role": "driver",
+    "health": {
+      "role": "driver",
+      "accepting": true,
+      "name": "127.0.0.1:18088",
+      "activeMissions": 0,
+      "status": "UP"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:29:26.552495489Z",
+      "FinishedAt": "2026-11-09T06:29:38.857821665Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-09T14:29:31.685587985+08:00",
+            "End": "2026-11-09T14:29:32.059183496+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      },
+      "stop_ms": 284
+    }
+  },
+  {
+    "artifact": "image",
+    "deployment": "before-restart",
+    "role": "controller",
+    "health": {
+      "status": "UP",
+      "role": "controller",
+      "accepting": true,
+      "activeWorkloads": 0,
+      "name": "Controller"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:29:19.44104915Z",
+      "FinishedAt": "2026-11-09T06:29:25.951801673Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-09T14:29:24.573129682+08:00",
+            "End": "2026-11-09T14:29:24.90965634+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      },
+      "stop_ms": 263
+    }
+  },
+  {
+    "artifact": "image",
+    "deployment": "before-restart",
+    "role": "driver",
+    "health": {
+      "role": "driver",
+      "accepting": true,
+      "name": "127.0.0.1:18088",
+      "activeMissions": 0,
+      "status": "UP"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:29:13.255812722Z",
+      "FinishedAt": "2026-11-09T06:29:26.281198929Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-09T14:29:18.400347893+08:00",
+            "End": "2026-11-09T14:29:18.568037633+08:00",
+            "ExitCode": 1,
+            "Output": "curl: (7) Failed to connect to 127.0.0.1 port 18088 after 0 ms: Connection refused\n"
+          },
+          {
+            "Start": "2026-11-09T14:29:23.5713384+08:00",
+            "End": "2026-11-09T14:29:23.814244064+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      },
+      "stop_ms": 258
+    }
+  },
+  {
+    "artifact": "image",
+    "deployment": "both",
+    "role": "controller",
+    "health": {
+      "status": "UP",
+      "name": "Controller",
+      "activeWorkloads": 0,
+      "accepting": true,
+      "role": "controller"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:22:12.154431258Z",
+      "FinishedAt": "2026-11-09T06:25:03.573992571Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-09T14:24:17.992523879+08:00",
+            "End": "2026-11-09T14:24:18.045872777+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:24:28.046785414+08:00",
+            "End": "2026-11-09T14:24:28.11383271+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:24:38.115186047+08:00",
+            "End": "2026-11-09T14:24:38.169545024+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:24:48.170415613+08:00",
+            "End": "2026-11-09T14:24:48.22159011+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:24:58.225271085+08:00",
+            "End": "2026-11-09T14:24:58.353226468+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      },
+      "stop_ms": 404
+    }
+  },
+  {
+    "artifact": "image",
+    "deployment": "both",
+    "role": "driver",
+    "health": {
+      "activeMissions": 0,
+      "status": "UP",
+      "role": "driver",
+      "accepting": true,
+      "name": "driver1"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:22:06.803264281Z",
+      "FinishedAt": "2026-11-09T06:25:19.223669805Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 1,
+        "Log": [
+          {
+            "Start": "2026-11-09T14:24:33.205922099+08:00",
+            "End": "2026-11-09T14:24:33.271888672+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:24:43.273335886+08:00",
+            "End": "2026-11-09T14:24:43.335547095+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:24:53.336950515+08:00",
+            "End": "2026-11-09T14:24:53.400427915+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:25:03.403306915+08:00",
+            "End": "2026-11-09T14:25:03.536665202+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:25:13.538056125+08:00",
+            "End": "2026-11-09T14:25:13.59021276+08:00",
+            "ExitCode": 1,
+            "Output": "curl: (7) Failed to connect to 127.0.0.1 port 18088 after 0 ms: Connection refused\n"
+          }
+        ]
+      },
+      "stop_ms": 15290
+    }
+  },
+  {
+    "artifact": "image",
+    "deployment": "controller-only",
+    "role": "controller",
+    "health": {
+      "role": "controller",
+      "accepting": true,
+      "activeWorkloads": 0,
+      "name": "Controller",
+      "status": "UP"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:21:54.001693025Z",
+      "FinishedAt": "2026-11-09T06:22:00.115157429Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-09T14:21:59.195190502+08:00",
+            "End": "2026-11-09T14:21:59.337516087+08:00",
+            "ExitCode": 1,
+            "Output": "curl: (7) Failed to connect to 127.0.0.1 port 19088 after 0 ms: Connection refused\n"
+          }
+        ]
+      },
+      "stop_ms": 302
+    }
+  },
+  {
+    "artifact": "image",
+    "deployment": "driver-only",
+    "role": "driver",
+    "health": {
+      "status": "UP",
+      "activeMissions": 0,
+      "name": "driver1",
+      "accepting": true,
+      "role": "driver"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:22:00.41218924Z",
+      "FinishedAt": "2026-11-09T06:22:06.493567244Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-09T14:22:05.566185178+08:00",
+            "End": "2026-11-09T14:22:06.256373377+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      },
+      "stop_ms": 329
+    }
+  },
+  {
+    "artifact": "image",
+    "deployment": "multi-driver",
+    "role": "controller",
+    "health": {
+      "status": "UP",
+      "name": "Controller",
+      "activeWorkloads": 0,
+      "accepting": true,
+      "role": "controller"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:25:31.629868476Z",
+      "FinishedAt": "2026-11-09T06:28:22.998766681Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-09T14:27:32.81702638+08:00",
+            "End": "2026-11-09T14:27:32.87333797+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:27:42.874190714+08:00",
+            "End": "2026-11-09T14:27:42.93663448+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:27:52.937574468+08:00",
+            "End": "2026-11-09T14:27:52.990682933+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:28:02.992101114+08:00",
+            "End": "2026-11-09T14:28:03.055431518+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:28:13.055983699+08:00",
+            "End": "2026-11-09T14:28:13.143352573+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      },
+      "stop_ms": 497
+    }
+  },
+  {
+    "artifact": "image",
+    "deployment": "multi-driver",
+    "role": "driver",
+    "health": {
+      "role": "driver",
+      "accepting": true,
+      "name": "driver1",
+      "activeMissions": 0,
+      "status": "UP"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:25:19.515962703Z",
+      "FinishedAt": "2026-11-09T06:28:23.54082204Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-09T14:27:41.115747736+08:00",
+            "End": "2026-11-09T14:27:41.192180278+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:27:51.192731886+08:00",
+            "End": "2026-11-09T14:27:51.256109678+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:28:01.257129049+08:00",
+            "End": "2026-11-09T14:28:01.331779978+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:28:11.333157804+08:00",
+            "End": "2026-11-09T14:28:11.424811028+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:28:21.42610723+08:00",
+            "End": "2026-11-09T14:28:21.492590465+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      },
+      "stop_ms": 356
+    }
+  },
+  {
+    "artifact": "image",
+    "deployment": "multi-driver",
+    "role": "driver2",
+    "health": {
+      "name": "driver1",
+      "activeMissions": 0,
+      "status": "UP",
+      "role": "driver",
+      "accepting": true
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:25:25.741137952Z",
+      "FinishedAt": "2026-11-09T06:28:24.065512813Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-09T14:27:42.641547938+08:00",
+            "End": "2026-11-09T14:27:42.706012786+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:27:52.706928778+08:00",
+            "End": "2026-11-09T14:27:52.776473603+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:28:02.777915819+08:00",
+            "End": "2026-11-09T14:28:02.845777066+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:28:12.846886305+08:00",
+            "End": "2026-11-09T14:28:12.915445005+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-11-09T14:28:22.916659926+08:00",
+            "End": "2026-11-09T14:28:23.000670713+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      },
+      "stop_ms": 304
+    }
+  },
+  {
+    "artifact": "image",
+    "deployment": "restart",
+    "role": "controller",
+    "health": {
+      "status": "UP",
+      "role": "controller",
+      "accepting": true,
+      "activeWorkloads": 0,
+      "name": "Controller"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:28:36.306809147Z",
+      "FinishedAt": "2026-11-09T06:28:42.697565759Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-09T14:28:41.464227152+08:00",
+            "End": "2026-11-09T14:28:41.782138031+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      },
+      "stop_ms": 284
+    }
+  },
+  {
+    "artifact": "image",
+    "deployment": "restart",
+    "role": "driver",
+    "health": {
+      "role": "driver",
+      "accepting": true,
+      "name": "driver1",
+      "activeMissions": 0,
+      "status": "UP"
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:28:24.512010814Z",
+      "FinishedAt": "2026-11-09T06:28:43.068782123Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-09T14:28:29.691541455+08:00",
+            "End": "2026-11-09T14:28:29.788969803+08:00",
+            "ExitCode": 1,
+            "Output": "curl: (7) Failed to connect to 127.0.0.1 port 18088 after 0 ms: Connection refused\n"
+          },
+          {
+            "Start": "2026-11-09T14:28:34.7922595+08:00",
+            "End": "2026-11-09T14:28:34.993336917+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      },
+      "stop_ms": 282
+    }
+  },
+  {
+    "artifact": "image",
+    "deployment": "restart",
+    "role": "driver2",
+    "health": {
+      "name": "driver1",
+      "activeMissions": 0,
+      "status": "UP",
+      "role": "driver",
+      "accepting": true
+    },
+    "exit": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-11-09T06:28:30.882490481Z",
+      "FinishedAt": "2026-11-09T06:28:43.427891803Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-09T14:28:36.030279182+08:00",
+            "End": "2026-11-09T14:28:36.19890903+08:00",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      },
+      "stop_ms": 287
+    }
+  }
+]

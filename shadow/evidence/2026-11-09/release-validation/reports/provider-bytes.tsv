@@ -1,0 +1,17 @@
+artifact	deployment	factory	write_bytes	read_bytes	mwrite_bytes
+archive	both	sio	128	10485962	10485834
+archive	both	siov1	128	10485962	10485834
+archive	both	gdas	128	10485962	10485834
+archive	both	s3	128	10485962	10485834
+archive	multi-driver	sio	128	10485962	10485834
+archive	multi-driver	siov1	128	10485962	10485834
+archive	multi-driver	gdas	128	10485962	10485834
+archive	multi-driver	s3	128	10485962	10485834
+image	both	sio	128	10485962	10485834
+image	both	siov1	128	10485962	10485834
+image	both	gdas	128	10485962	10485834
+image	both	s3	128	10485962	10485834
+image	multi-driver	sio	128	10485962	10485834
+image	multi-driver	siov1	128	10485962	10485834
+image	multi-driver	gdas	128	10485962	10485834
+image	multi-driver	s3	128	10485962	10485834

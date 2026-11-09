@@ -1,0 +1,20 @@
+{
+  "controller": {
+    "sha256": "8c3e0b21176f9a6f6b3d2903ee66a7ef7c99167cf0db0316eb06ed3747aedd83",
+    "bytes": 33304093,
+    "integration": "identical",
+    "performance": "not-profiled"
+  },
+  "driver": {
+    "sha256": "adfa693b4f57030272cd8bdc60ac315679f7c80fbe1aa2481f36d5fbb9573bc2",
+    "bytes": 44893074,
+    "integration": "identical",
+    "performance": "identical"
+  },
+  "operator-cli": {
+    "sha256": "897c2305dca69cb16aaa55f21fb1f78bec5a9e3325029f0f20cee3e621adb4d7",
+    "bytes": 3886279,
+    "integration": "identical",
+    "performance": "not-profiled"
+  }
+}

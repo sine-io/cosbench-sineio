@@ -1,0 +1,6 @@
+Stopping cosbench controller ...
+Successfully stopped cosbench controller.
+
+======================================================
+
+cat: ip-port.list: No such file or directory

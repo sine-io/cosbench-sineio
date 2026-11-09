@@ -269,6 +269,27 @@ cp -- "$script_dir/templates/workloads/"*.xml "$package_dir/workloads/"
 cp -- "$script_dir/templates/docs/production-install.md" "$package_dir/docs/production-install.md"
 cp -- "$script_dir/README.md" "$package_dir/docs/packaging.md"
 
+# Ship the operator handover with the binary. Rewrite source-tree links to the
+# corresponding documents in the distribution's flat docs directory.
+copy_release_document() {
+    local source=$1 destination=$2
+    sed \
+        -e 's|(../shadow/packaging/templates/docs/production-install.md)|(production-install.md)|g' \
+        -e 's|(shadow/packaging/templates/docs/production-install.md)|(production-install.md)|g' \
+        -e 's|(../BUILD-java21.md)|(build-java21.md)|g' \
+        -e 's|(BUILD-java21.md)|(build-java21.md)|g' \
+        -e 's|(docs/release-rollback.md)|(release-rollback.md)|g' \
+        -e 's|(shadow/provider-spi.md)|(provider-spi.md)|g' \
+        -e 's|\[old build\](BUILD-sineio.md)|old build in the source repository|g' \
+        "$repo_root/$source" > "$package_dir/docs/$destination"
+}
+copy_release_document docs/release-rollback.md release-rollback.md
+copy_release_document RELEASE-NOTES-java21.md release-notes.md
+copy_release_document BUILD-java21.md build-java21.md
+for document in provider-spi sineio-providers s3-provider ci-policy config-contract operator-commands; do
+    copy_release_document "shadow/$document.md" "$document.md"
+done
+
 cp -- "$repo_root/LICENSE" "$package_dir/licenses/COSBench-LICENSE.txt"
 cp -- "$repo_root/NOTICE" "$package_dir/licenses/COSBench-NOTICE.txt"
 cp -- "$repo_root/3rd-party-licenses.pdf" "$package_dir/licenses/3rd-party-licenses.pdf"

@@ -35,3 +35,19 @@ The production Dockerfile receives only the staging directory as its build
 context. It uses a Java 21 JRE, a non-root `cosbench` user and a role-aware
 healthcheck. The development Dockerfile is deliberately separate and copies
 the source tree, Maven reactor, test harness and MinIO Compose files.
+
+Full release acceptance is separate from the package smoke:
+
+```sh
+python3 shadow/packaging/validate-release.py \
+  --archive out/cosbench-production/cosbench-0.6.0.2-java21.tar.gz \
+  --legacy-archive /protected/rollback/cosbench-0.6.0.2-sineio.tar.gz \
+  --report out/release-acceptance-NEW
+```
+
+This checks the extracted archive and actual production image, four deployment
+combinations, all four MinIO Providers, old-data conversion/restart and rollback
+to the pinned complete Java 8 distribution. It rejects application JARs that
+differ from fixed #19/#20 evidence. See the repository's
+`docs/release-rollback.md`. Reports, data copies and rollback archives remain;
+only this run's containers, network, image tags and generated secrets are removed.

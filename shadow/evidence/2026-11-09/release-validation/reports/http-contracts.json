@@ -1,0 +1,124 @@
+{
+  "archive": {
+    "summary": {
+      "status": "passed",
+      "commands": [
+        "ping",
+        "submit",
+        "login",
+        "launch",
+        "query",
+        "close",
+        "abort",
+        "trigger"
+      ],
+      "storage": "production-s3",
+      "auth": "TLS/Bearer",
+      "idempotent_submit": true,
+      "object_sha256": "f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b",
+      "samples": 10,
+      "bytes": 640
+    },
+    "web-cli-summary": {
+      "status": "passed",
+      "cli": [
+        "index",
+        "submit",
+        "config",
+        "workload",
+        "cancel"
+      ],
+      "controller_pages": "pages,stage,timeline,CSV,downloads,Prometheus",
+      "driver_pages": "pages,workers,mission,download"
+    },
+    "busy-stop": {
+      "mission": "M8BEF41D8A1",
+      "running_before_stop": true
+    },
+    "close": {
+      "code": 200,
+      "succ": true,
+      "state": "ACCOMPLISHED",
+      "errorStatistics": {},
+      "report": [
+        {
+          "name": "none.write.write.write",
+          "opType": "write",
+          "sampleType": "write",
+          "opName": "write",
+          "opId": "none",
+          "sampleCount": 10,
+          "totalSampleCount": 10,
+          "byteCount": 640,
+          "workerCount": 1,
+          "ratio": 1.0
+        }
+      ],
+      "raw_response": {
+        "path": "out/release-validation-22/accepted/archive/http-contract/close-879763762d77476fb391245cbe958ac9.json",
+        "sha256": "5036f2337367a35b0eb5745c21d73f029c1ad467495b3f1d124e036829b65bcf"
+      }
+    }
+  },
+  "image": {
+    "summary": {
+      "status": "passed",
+      "commands": [
+        "ping",
+        "submit",
+        "login",
+        "launch",
+        "query",
+        "close",
+        "abort",
+        "trigger"
+      ],
+      "storage": "production-s3",
+      "auth": "TLS/Bearer",
+      "idempotent_submit": true,
+      "object_sha256": "f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b",
+      "samples": 10,
+      "bytes": 640
+    },
+    "web-cli-summary": {
+      "status": "passed",
+      "cli": [
+        "index",
+        "submit",
+        "config",
+        "workload",
+        "cancel"
+      ],
+      "controller_pages": "pages,stage,timeline,CSV,downloads,Prometheus",
+      "driver_pages": "pages,workers,mission,download"
+    },
+    "busy-stop": {
+      "mission": "MCBEFB4C103",
+      "running_before_stop": true
+    },
+    "close": {
+      "code": 200,
+      "succ": true,
+      "state": "ACCOMPLISHED",
+      "errorStatistics": {},
+      "report": [
+        {
+          "name": "none.write.write.write",
+          "opType": "write",
+          "sampleType": "write",
+          "opName": "write",
+          "opId": "none",
+          "sampleCount": 10,
+          "totalSampleCount": 10,
+          "byteCount": 640,
+          "workerCount": 1,
+          "ratio": 1.0
+        }
+      ],
+      "raw_response": {
+        "path": "out/release-validation-22/accepted/image/http-contract/close-8ef9c1f18b034388a257505b4fe0f968.json",
+        "sha256": "c33af0c752daa7bf796b38c7de45c8da75fddff0f0b43464e1be8c48680eb26f"
+      }
+    }
+  }
+}

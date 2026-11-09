@@ -1,0 +1,7 @@
+package_dir=/tmp/cosbench-packaging-test.LKlBIO/first/cosbench-0.6.0.2-java21
+archive=/tmp/cosbench-packaging-test.LKlBIO/first/cosbench-0.6.0.2-java21.tar.gz
+checksum=/tmp/cosbench-packaging-test.LKlBIO/first/cosbench-0.6.0.2-java21.tar.gz.sha256
+package_dir=/tmp/cosbench-packaging-test.LKlBIO/second/cosbench-0.6.0.2-java21
+archive=/tmp/cosbench-packaging-test.LKlBIO/second/cosbench-0.6.0.2-java21.tar.gz
+checksum=/tmp/cosbench-packaging-test.LKlBIO/second/cosbench-0.6.0.2-java21.tar.gz.sha256
+packaging test passed: /home/ubuntu/cosbench-sineio

@@ -1,0 +1,31 @@
+{
+  "start-stop-03": {
+    "scope": "actual archive/image Controller/Driver start/stop",
+    "cleanup": {
+      "run_status": 0,
+      "resources_remaining": [],
+      "data_and_reports": "retained",
+      "shared_resources": "untouched"
+    }
+  },
+  "forms-smoke-09": {
+    "scope": "actual image pages/CLI/eight commands/live mission stop",
+    "cleanup": {
+      "run_status": 0,
+      "resources_remaining": [],
+      "data_and_reports": "retained",
+      "shared_resources": "untouched",
+      "retained_runtime": null
+    }
+  },
+  "legacy-final": {
+    "scope": "actual old-data conversion/restart/complete-package rollback",
+    "cleanup": {
+      "run_status": 0,
+      "resources_remaining": [],
+      "data_and_reports": "retained",
+      "shared_resources": "untouched",
+      "retained_runtime": null
+    }
+  }
+}

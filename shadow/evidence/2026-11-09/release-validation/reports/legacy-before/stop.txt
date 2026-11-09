@@ -1,0 +1,9 @@
+Stopping cosbench controller ...
+Successfully stopped cosbench controller.
+
+======================================================
+
+127.0.0.1:18088
+18088
+Stopping cosbench driver ...
+Successfully stopped cosbench driver.

@@ -1,0 +1,38 @@
+# application-artifacts.txt
+production_image=not_yet_owned_by_ticket_20;see_ticket_21
+profile_workload=one_worker_mock_read_64_bytes_total_ops_25000_delay_0_errors_0
+runtime=DriverApplication_using_Maven_test_classpath_and_test_only_instrumented_Mock_provider
+warmup_runs=1
+measured_runs=3
+driver_jar_sha256=adfa693b4f57030272cd8bdc60ac315679f7c80fbe1aa2481f36d5fbb9573bc2
+driver_jar_bytes=44893074
+
+# performance-summary.txt
+measured_runs=3
+throughput_mean_ops_per_second=44208.75
+throughput_min_ops_per_second=41459.37
+throughput_max_ops_per_second=46040.52
+throughput_population_cv_percent=4.48
+throughput_range_over_mean_percent=10.36
+elapsed_mean_ms=1005.67
+elapsed_min_ms=923.00
+elapsed_max_ms=1116.00
+elapsed_population_cv_percent=8.07
+
+# lifecycle.txt
+driver_startup_ms=6255
+driver_stop_ms=402
+term_exit_code=143
+http_port_released=true
+driver_process_alive_after_stop=false
+mission_log_bytes=10300576
+system_log_bytes=2008
+provider_http_pool=not_applicable_mock_provider
+controller_process=not_included_driver_only_profile
+
+# run-summary.txt
+status=profile-recorded
+warmup_runs=1
+measured_runs=3
+gc_reset_before=each_measured_run
+legacy_comparison=not_performed_by_scope

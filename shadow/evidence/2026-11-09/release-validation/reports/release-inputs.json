@@ -1,0 +1,21 @@
+{
+  "acceptance": "REL-01",
+  "integration": {
+    "ticket": 19,
+    "record": "shadow/evidence/2026-11-05/deployment-integration/reports/artifacts.sha256",
+    "status": "passed"
+  },
+  "performance": {
+    "ticket": 20,
+    "record": "shadow/evidence/2026-11-09/release-validation/inputs/performance-profile.txt",
+    "status": "profile-recorded",
+    "driver_sha256": "adfa693b4f57030272cd8bdc60ac315679f7c80fbe1aa2481f36d5fbb9573bc2",
+    "measured_runs": 3,
+    "legacy_comparison": false
+  },
+  "applications": {
+    "controller": "8c3e0b21176f9a6f6b3d2903ee66a7ef7c99167cf0db0316eb06ed3747aedd83",
+    "driver": "adfa693b4f57030272cd8bdc60ac315679f7c80fbe1aa2481f36d5fbb9573bc2",
+    "operator-cli": "897c2305dca69cb16aaa55f21fb1f78bec5a9e3325029f0f20cee3e621adb4d7"
+  }
+}

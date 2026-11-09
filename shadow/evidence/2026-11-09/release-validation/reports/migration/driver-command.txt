@@ -1,0 +1,7 @@
+migration=passed
+role=driver
+source_sha256=6f31035cc6239546cfba68920f6e2d3e81d8cb2009bb6eb1dcc55111ba62fc7e
+destination_sha256=f338f752d8451815656944fc20bdb959101f65314c9e9dc193a280b61b3428fb
+mapped=8
+unmapped=0
+report=/var/lib/cosbench/conf/migration.json

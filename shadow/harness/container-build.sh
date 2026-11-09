@@ -13,6 +13,9 @@ runtime_thin_jar=/workspace/shadow/cosbench-runtime/target/cosbench-runtime-shad
 s3_jar=/workspace/shadow/cosbench-s3/target/cosbench-s3-0.1.0-SNAPSHOT.jar
 
 mkdir -p "$maven_repo" "$audit_jars" "$runtime_audit_jars" "$provider_audit_jars" "$s3_audit_jars" /reports
+# Optional local performance-profile tests need an output directory even when
+# included in the full reactor. The controlled #20 profile remains separate.
+export COSBENCH_PERFORMANCE_REPORT_DIR=${COSBENCH_PERFORMANCE_REPORT_DIR:-/reports/performance-profile}
 retain_test_reports() {
     local build_status=$?
     mkdir -p /reports/tests

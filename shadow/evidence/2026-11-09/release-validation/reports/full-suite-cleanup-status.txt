@@ -1,0 +1,7 @@
+run_status=1
+cleanup_status=1
+containers_remaining=none
+networks_remaining=none
+volumes_remaining=cosbench-scheme3-02-1794203156-211969_minio-data
+certificate_containers_remaining=none
+retained_runtime=/tmp/cosbench-scheme3-02.wDzFPL

@@ -1,0 +1,535 @@
+$ sudo docker run --label cosbench.release=cosbench-rel22-0adce1bb30da --name cosbench-rel22-0adce1bb30da-probe-dced7e --rm --user 1000:1001 -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/secrets --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d -c 'set -e
+keytool -genkeypair -alias release -keyalg RSA -validity 2 -dname CN=localhost   -ext SAN=dns:localhost,dns:driver,dns:driver2,ip:127.0.0.1   -storetype PKCS12 -keystore /secrets/keystore.p12   -storepass:file /secrets/password -keypass:file /secrets/password
+keytool -exportcert -rfc -alias release -keystore /secrets/keystore.p12   -storepass:file /secrets/password -file /secrets/certificate.crt
+cp /secrets/keystore.p12 /secrets/truststore.p12
+chmod 644 /secrets/*
+'
+exit=0
+$ sudo docker network create --label cosbench.release=cosbench-rel22-0adce1bb30da cosbench-rel22-0adce1bb30da
+exit=0
+$ sudo docker build -t cosbench-rel22-0adce1bb30da:production --build-arg COSBENCH_VERSION=0.6.0.2 -f /home/ubuntu/cosbench-sineio/shadow/packaging/Dockerfile.production /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/installation/cosbench-0.6.0.2-java21
+exit=0
+$ sudo docker image inspect cosbench-rel22-0adce1bb30da:production
+exit=0
+$ sudo docker run --label cosbench.release=cosbench-rel22-0adce1bb30da -d --name cosbench-rel22-0adce1bb30da-minio --network cosbench-rel22-0adce1bb30da --network-alias minio --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/minio.env --tmpfs /certs -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/minio-data:/bitnami/minio/data bitnamilegacy/minio@sha256:aa1752895e6d2b420e394d55241d5b2c948960715db0a50bb648f430e447e645
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-minio curl -fsS http://127.0.0.1:9000/minio/health/ready
+exit=7
+$ sudo docker exec cosbench-rel22-0adce1bb30da-minio curl -fsS http://127.0.0.1:9000/minio/health/ready
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-controller --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias controller --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::19088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/controller:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/controller/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=controller -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/installation/cosbench-0.6.0.2-java21:/opt/cosbench:ro --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d /opt/cosbench/bin/cosbench-controller --config /var/lib/cosbench/conf/controller.yml --pid-file /var/lib/cosbench/run/controller.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-controller /opt/cosbench/bin/cosbench-stop controller --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-driver --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias driver --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/driver:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/driver/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=driver -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/tls.env -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/installation/cosbench-0.6.0.2-java21:/opt/cosbench:ro --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d /opt/cosbench/bin/cosbench-driver --config /var/lib/cosbench/conf/driver.yml --pid-file /var/lib/cosbench/run/driver.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver /opt/cosbench/bin/cosbench-stop driver --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-driver --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias driver --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/driver:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/driver/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=driver -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/tls.env -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/installation/cosbench-0.6.0.2-java21:/opt/cosbench:ro --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d /opt/cosbench/bin/cosbench-driver --config /var/lib/cosbench/conf/driver.yml --pid-file /var/lib/cosbench/run/driver.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-controller --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias controller --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::19088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/controller:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/controller/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=controller -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/installation/cosbench-0.6.0.2-java21:/opt/cosbench:ro --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d /opt/cosbench/bin/cosbench-controller --config /var/lib/cosbench/conf/controller.yml --pid-file /var/lib/cosbench/run/controller.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker run --label cosbench.release=cosbench-rel22-0adce1bb30da --name cosbench-rel22-0adce1bb30da-probe-16ee79 --rm --network cosbench-rel22-0adce1bb30da -v /home/ubuntu/cosbench-sineio/shadow/harness/deployment/workloads.sh:/probe.sh:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive:/reports -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -e COSBENCH_MINIO_ENDPOINT=http://minio:9000 -e COSBENCH_MINIO_ACCESS_KEY_FILE=/run/secrets/minio-user -e COSBENCH_MINIO_SECRET_KEY_FILE=/run/secrets/minio-password -e COSBENCH_HTTP_TEST_CERT_FILE=/run/secrets/certificate.crt --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d /probe.sh both 1
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-minio bash -c 'set -e
+mc alias set release http://localhost:9000 "$MINIO_ROOT_USER" "$MINIO_ROOT_PASSWORD" >/dev/null
+mc mb --ignore-existing release/rel22-http1 >/dev/null
+'
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-minio bash -c 'set -o pipefail; mc cat release/rel22-http1/obj1 | sha256sum'
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-controller /opt/cosbench/bin/cosbench-stop controller --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver /opt/cosbench/bin/cosbench-stop driver --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-driver --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias driver --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/driver:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/driver/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=driver -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/tls.env -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/installation/cosbench-0.6.0.2-java21:/opt/cosbench:ro --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d /opt/cosbench/bin/cosbench-driver --config /var/lib/cosbench/conf/driver.yml --pid-file /var/lib/cosbench/run/driver.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-driver2 --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias driver2 --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/driver2:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/driver2/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=driver -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/tls.env -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/installation/cosbench-0.6.0.2-java21:/opt/cosbench:ro --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d /opt/cosbench/bin/cosbench-driver --config /var/lib/cosbench/conf/driver.yml --pid-file /var/lib/cosbench/run/driver.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-controller --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias controller --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::19088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/controller:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/controller/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=controller -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/installation/cosbench-0.6.0.2-java21:/opt/cosbench:ro --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d /opt/cosbench/bin/cosbench-controller --config /var/lib/cosbench/conf/controller.yml --pid-file /var/lib/cosbench/run/controller.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker run --label cosbench.release=cosbench-rel22-0adce1bb30da --name cosbench-rel22-0adce1bb30da-probe-7ca5f9 --rm --network cosbench-rel22-0adce1bb30da -v /home/ubuntu/cosbench-sineio/shadow/harness/deployment/workloads.sh:/probe.sh:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive:/reports -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -e COSBENCH_MINIO_ENDPOINT=http://minio:9000 -e COSBENCH_MINIO_ACCESS_KEY_FILE=/run/secrets/minio-user -e COSBENCH_MINIO_SECRET_KEY_FILE=/run/secrets/minio-password -e COSBENCH_HTTP_TEST_CERT_FILE=/run/secrets/certificate.crt --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d /probe.sh multi-driver 2
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-controller /opt/cosbench/bin/cosbench-stop controller --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver /opt/cosbench/bin/cosbench-stop driver --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver2 /opt/cosbench/bin/cosbench-stop driver --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-driver --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias driver --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/driver:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/driver/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=driver -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/tls.env -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/installation/cosbench-0.6.0.2-java21:/opt/cosbench:ro --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d /opt/cosbench/bin/cosbench-driver --config /var/lib/cosbench/conf/driver.yml --pid-file /var/lib/cosbench/run/driver.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-driver2 --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias driver2 --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/driver2:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/driver2/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=driver -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/tls.env -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/installation/cosbench-0.6.0.2-java21:/opt/cosbench:ro --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d /opt/cosbench/bin/cosbench-driver --config /var/lib/cosbench/conf/driver.yml --pid-file /var/lib/cosbench/run/driver.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-controller --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias controller --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::19088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/controller:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/archive-data/controller/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=controller -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/installation/cosbench-0.6.0.2-java21:/opt/cosbench:ro --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d /opt/cosbench/bin/cosbench-controller --config /var/lib/cosbench/conf/controller.yml --pid-file /var/lib/cosbench/run/controller.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-controller /opt/cosbench/bin/cosbench-stop controller --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver /opt/cosbench/bin/cosbench-stop driver --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver2 /opt/cosbench/bin/cosbench-stop driver --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-controller --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias controller --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::19088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/controller:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/controller/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=controller -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench cosbench-rel22-0adce1bb30da:production controller --config /var/lib/cosbench/conf/controller.yml --pid-file /var/lib/cosbench/run/controller.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-controller /opt/cosbench/bin/cosbench-stop controller --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-driver --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias driver --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/driver:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/driver/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=driver -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/tls.env cosbench-rel22-0adce1bb30da:production driver --config /var/lib/cosbench/conf/driver.yml --pid-file /var/lib/cosbench/run/driver.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver /opt/cosbench/bin/cosbench-stop driver --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-driver --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias driver --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/driver:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/driver/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=driver -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/tls.env cosbench-rel22-0adce1bb30da:production driver --config /var/lib/cosbench/conf/driver.yml --pid-file /var/lib/cosbench/run/driver.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-controller --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias controller --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::19088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/controller:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/controller/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=controller -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench cosbench-rel22-0adce1bb30da:production controller --config /var/lib/cosbench/conf/controller.yml --pid-file /var/lib/cosbench/run/controller.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker run --label cosbench.release=cosbench-rel22-0adce1bb30da --name cosbench-rel22-0adce1bb30da-probe-767865 --rm --network cosbench-rel22-0adce1bb30da -v /home/ubuntu/cosbench-sineio/shadow/harness/deployment/workloads.sh:/probe.sh:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image:/reports -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -e COSBENCH_MINIO_ENDPOINT=http://minio:9000 -e COSBENCH_MINIO_ACCESS_KEY_FILE=/run/secrets/minio-user -e COSBENCH_MINIO_SECRET_KEY_FILE=/run/secrets/minio-password -e COSBENCH_HTTP_TEST_CERT_FILE=/run/secrets/certificate.crt --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d /probe.sh both 1
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-minio bash -c 'set -e
+mc alias set release http://localhost:9000 "$MINIO_ROOT_USER" "$MINIO_ROOT_PASSWORD" >/dev/null
+mc mb --ignore-existing release/rel22-http1 >/dev/null
+'
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-minio bash -c 'set -o pipefail; mc cat release/rel22-http1/obj1 | sha256sum'
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-controller /opt/cosbench/bin/cosbench-stop controller --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver /opt/cosbench/bin/cosbench-stop driver --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-driver --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias driver --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/driver:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/driver/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=driver -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/tls.env cosbench-rel22-0adce1bb30da:production driver --config /var/lib/cosbench/conf/driver.yml --pid-file /var/lib/cosbench/run/driver.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-driver2 --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias driver2 --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/driver2:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/driver2/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=driver -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/tls.env cosbench-rel22-0adce1bb30da:production driver --config /var/lib/cosbench/conf/driver.yml --pid-file /var/lib/cosbench/run/driver.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-controller --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias controller --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::19088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/controller:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/controller/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=controller -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench cosbench-rel22-0adce1bb30da:production controller --config /var/lib/cosbench/conf/controller.yml --pid-file /var/lib/cosbench/run/controller.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker run --label cosbench.release=cosbench-rel22-0adce1bb30da --name cosbench-rel22-0adce1bb30da-probe-d726a6 --rm --network cosbench-rel22-0adce1bb30da -v /home/ubuntu/cosbench-sineio/shadow/harness/deployment/workloads.sh:/probe.sh:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image:/reports -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -e COSBENCH_MINIO_ENDPOINT=http://minio:9000 -e COSBENCH_MINIO_ACCESS_KEY_FILE=/run/secrets/minio-user -e COSBENCH_MINIO_SECRET_KEY_FILE=/run/secrets/minio-password -e COSBENCH_HTTP_TEST_CERT_FILE=/run/secrets/certificate.crt --entrypoint bash maven:3.10.0-eclipse-temurin-21@sha256:d2230484f42a845db4a2ae5c4b4b2ba474636bc9c17233917f95ddf2110ab06d /probe.sh multi-driver 2
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-controller /opt/cosbench/bin/cosbench-stop controller --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver /opt/cosbench/bin/cosbench-stop driver --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver2 /opt/cosbench/bin/cosbench-stop driver --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-driver --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias driver --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/driver:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/driver/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=driver -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/tls.env cosbench-rel22-0adce1bb30da:production driver --config /var/lib/cosbench/conf/driver.yml --pid-file /var/lib/cosbench/run/driver.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-driver2 --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias driver2 --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/driver2:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/driver2/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=driver -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/tls.env cosbench-rel22-0adce1bb30da:production driver --config /var/lib/cosbench/conf/driver.yml --pid-file /var/lib/cosbench/run/driver.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-controller --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias controller --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::19088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/controller:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/image-data/controller/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=controller -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench cosbench-rel22-0adce1bb30da:production controller --config /var/lib/cosbench/conf/controller.yml --pid-file /var/lib/cosbench/run/controller.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-controller /opt/cosbench/bin/cosbench-stop controller --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver /opt/cosbench/bin/cosbench-stop driver --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver2 /opt/cosbench/bin/cosbench-stop driver --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-driver2
+exit=0
+$ sudo docker build --build-arg VERSION=0.6.0.2 -t cosbench-rel22-0adce1bb30da:legacy /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/rollback
+exit=0
+$ sudo docker image inspect cosbench-rel22-0adce1bb30da:legacy
+exit=0
+$ sudo docker run --label cosbench.release=cosbench-rel22-0adce1bb30da -di --name cosbench-rel22-0adce1bb30da-legacy --network cosbench-rel22-0adce1bb30da --cpus=2 --memory=1536m --pids-limit=512 -p 127.0.0.1::19088 -p 127.0.0.1::18088 --entrypoint bash cosbench-rel22-0adce1bb30da:legacy -c 'bash /cosbench/start-cosbench.sh'
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-legacy
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-legacy bash -c 'mkdir -p workspace; printf '"'"'preserved legacy workspace\n'"'"' > workspace/rel22.txt'
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-legacy bash stop-all.sh
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-legacy bash -c 'ps -eo args | grep '"'"'[j]ava.*[o]sgi'"'"' || true'
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-legacy
+exit=0
+$ sudo docker cp cosbench-rel22-0adce1bb30da-legacy:/cosbench/conf /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/legacy-original/conf
+exit=0
+$ sudo docker cp cosbench-rel22-0adce1bb30da-legacy:/cosbench/archive /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/legacy-original/archive
+exit=0
+$ sudo docker cp cosbench-rel22-0adce1bb30da-legacy:/cosbench/log /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/legacy-original/log
+exit=0
+$ sudo docker cp cosbench-rel22-0adce1bb30da-legacy:/cosbench/workspace /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/legacy-original/workspace
+exit=0
+$ sudo docker cp cosbench-rel22-0adce1bb30da-legacy:/cosbench/start /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/legacy-original/start
+exit=0
+$ sudo docker cp cosbench-rel22-0adce1bb30da-legacy:/cosbench/stop /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/legacy-original/stop
+exit=0
+$ sudo docker rm -f cosbench-rel22-0adce1bb30da-legacy
+exit=0
+$ sudo docker run --label cosbench.release=cosbench-rel22-0adce1bb30da --name cosbench-rel22-0adce1bb30da-probe-32e385 --rm --user 1000:1001 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/migration-data/controller:/var/lib/cosbench -e COSBENCH_ROLE=controller --entrypoint /opt/cosbench/bin/cosbench-config-migrate cosbench-rel22-0adce1bb30da:production --source /var/lib/cosbench/conf/controller.conf --destination /var/lib/cosbench/conf/controller.yml --report /var/lib/cosbench/conf/migration.json --driver-key-store /run/secrets/keystore.p12 --controller-trust-store /run/secrets/truststore.p12
+exit=0
+$ sudo docker run --label cosbench.release=cosbench-rel22-0adce1bb30da --name cosbench-rel22-0adce1bb30da-probe-70f195 --rm --user 1000:1001 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/migration-data/driver:/var/lib/cosbench -e COSBENCH_ROLE=driver --entrypoint /opt/cosbench/bin/cosbench-config-migrate cosbench-rel22-0adce1bb30da:production --source /var/lib/cosbench/conf/driver.conf --destination /var/lib/cosbench/conf/driver.yml --report /var/lib/cosbench/conf/migration.json --driver-key-store /run/secrets/keystore.p12 --controller-trust-store /run/secrets/truststore.p12
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-driver --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias driver --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/migration-data/driver:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/migration-data/driver/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=driver -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/tls.env cosbench-rel22-0adce1bb30da:production driver --config /var/lib/cosbench/conf/driver.yml --pid-file /var/lib/cosbench/run/driver.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-controller --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias controller --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::19088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/migration-data/controller:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/migration-data/controller/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=controller -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench cosbench-rel22-0adce1bb30da:production controller --config /var/lib/cosbench/conf/controller.yml --pid-file /var/lib/cosbench/run/controller.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver sha256sum /var/lib/cosbench/log/mission/M5BEFEDA381.log
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-controller /opt/cosbench/bin/cosbench-stop controller --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver /opt/cosbench/bin/cosbench-stop driver --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-driver --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias driver --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/migration-data/driver:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/migration-data/driver/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=driver -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/tls.env cosbench-rel22-0adce1bb30da:production driver --config /var/lib/cosbench/conf/driver.yml --pid-file /var/lib/cosbench/run/driver.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker run -d --name cosbench-rel22-0adce1bb30da-controller --label cosbench.release=cosbench-rel22-0adce1bb30da --network cosbench-rel22-0adce1bb30da --network-alias controller --cpus=2 --memory=1g --pids-limit=512 --user 1000:1001 -p 127.0.0.1::19088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/migration-data/controller:/var/lib/cosbench -v /tmp/cosbench-rel22-0adce1bb30da-cq8npht5:/run/secrets:ro -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/migration-data/controller/conf:/var/lib/cosbench/conf:ro -e COSBENCH_ROLE=controller -e COSBENCH_TLS_STORE_PASSWORD_FILE=/run/secrets/password --env-file /tmp/cosbench-rel22-0adce1bb30da-cq8npht5/service.env -e JAVA_OPTS=--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED -w /var/lib/cosbench cosbench-rel22-0adce1bb30da:production controller --config /var/lib/cosbench/conf/controller.yml --pid-file /var/lib/cosbench/run/controller.pid
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver sha256sum /var/lib/cosbench/log/mission/M5BEFEDA381.log
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-controller /opt/cosbench/bin/cosbench-stop controller --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-controller
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-driver /opt/cosbench/bin/cosbench-stop driver --pid-dir /var/lib/cosbench/run --timeout 40
+exit=0
+$ sudo docker wait cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker rm cosbench-rel22-0adce1bb30da-driver
+exit=0
+$ sudo docker run --label cosbench.release=cosbench-rel22-0adce1bb30da -di --name cosbench-rel22-0adce1bb30da-rollback --network cosbench-rel22-0adce1bb30da --cpus=2 --memory=1536m --pids-limit=512 -p 127.0.0.1::19088 -p 127.0.0.1::18088 -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/legacy-original/conf:/cosbench/conf -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/legacy-original/archive:/cosbench/archive -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/legacy-original/log:/cosbench/log -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/legacy-original/workspace:/cosbench/workspace -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/legacy-original/start:/cosbench/start -v /home/ubuntu/cosbench-sineio/out/release-validation-22/accepted/legacy-original/stop:/cosbench/stop --entrypoint bash cosbench-rel22-0adce1bb30da:legacy -c 'set -e
+VERSION=$(cat VERSION)
+bundles="cosbench-log_${VERSION} cosbench-tomcat_${VERSION} cosbench-config_${VERSION} cosbench-http_${VERSION} cosbench-core_${VERSION} cosbench-core-web_${VERSION} cosbench-api_${VERSION} cosbench-mock_${VERSION} cosbench-driver_${VERSION} cosbench-driver-web_${VERSION}"
+bash cosbench-start.sh driver "$bundles" 18089
+bash start-controller.sh
+exec bash
+'
+exit=0
+$ sudo docker inspect cosbench-rel22-0adce1bb30da-rollback
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-rollback bash stop-all.sh
+exit=0
+$ sudo docker exec cosbench-rel22-0adce1bb30da-rollback bash -c 'ps -eo args | grep '"'"'[j]ava.*[o]sgi'"'"' || true'
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-rollback
+exit=0
+$ sudo docker rm -f cosbench-rel22-0adce1bb30da-rollback
+exit=0
+$ sudo docker ps -aq --filter 'name=^/cosbench-rel22-0adce1bb30da-minio$'
+exit=0
+$ sudo docker logs cosbench-rel22-0adce1bb30da-minio
+exit=0
+$ sudo docker rm -f cosbench-rel22-0adce1bb30da-minio
+exit=0
+$ sudo docker ps -aq --filter 'name=^/cosbench-rel22-0adce1bb30da-minio$'
+exit=0
+$ sudo docker network ls -q --filter 'name=^cosbench-rel22-0adce1bb30da$' --filter label=cosbench.release=cosbench-rel22-0adce1bb30da
+exit=0
+$ sudo docker network rm cosbench-rel22-0adce1bb30da
+exit=0
+$ sudo docker network ls -q --filter 'name=^cosbench-rel22-0adce1bb30da$'
+exit=0
+$ sudo docker image ls -q cosbench-rel22-0adce1bb30da:production
+exit=0
+$ sudo docker image rm cosbench-rel22-0adce1bb30da:production
+exit=0
+$ sudo docker image ls -q cosbench-rel22-0adce1bb30da:production
+exit=0
+$ sudo docker image ls -q cosbench-rel22-0adce1bb30da:legacy
+exit=0
+$ sudo docker image rm cosbench-rel22-0adce1bb30da:legacy
+exit=0
+$ sudo docker image ls -q cosbench-rel22-0adce1bb30da:legacy
+exit=0

@@ -1,6 +1,10 @@
 # SineIO build and GitHub Release
 
-This document covers the SineIO Tycho distribution. The older Eclipse workflow in [BUILD.md](BUILD.md) remains useful for general COSBench development; Eclipse **4.27.0** with **JDK 1.8** is a known working setup. Manta remains on its separate build path and is not part of the Tycho SineIO release.
+Java 21 builds, schema-1 YAML and new commands are documented in
+[BUILD-java21.md](BUILD-java21.md). This document covers only the previous
+SineIO Tycho distribution and its rollback rebuild. The Eclipse workflow in
+[BUILD.md](BUILD.md) is also legacy; Eclipse **4.27.0** with **JDK 1.8** is a
+known working setup. Manta remains on its separate legacy build path.
 
 ## What the workflows do
 

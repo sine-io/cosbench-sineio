@@ -12,9 +12,11 @@ workloads, images, logs or source control.
 
 Driver TLS requires a PKCS12 key store at the configured `keyStore` path. The
 Controller trusts Driver certificates through its `trustStore`. Mount both
-stores read-only, or use another protected absolute path. The password is read
-from `SERVER_SSL_KEY_STORE_PASSWORD` or
-`COSBENCH_TLS_STORE_PASSWORD_FILE`.
+stores read-only, or use another protected absolute path. Driver requires
+`SERVER_SSL_KEY_STORE_PASSWORD` (and optionally `SERVER_SSL_KEY_PASSWORD`).
+Controller's outgoing client reads `COSBENCH_TLS_STORE_PASSWORD_FILE` or
+`COSBENCH_TLS_STORE_PASSWORD`; do not share Driver's `SERVER_SSL_*` variables
+with Controller because they also configure its inbound Boot server.
 
 Set `drivers` in `controller.yml` to the HTTPS URLs of the Driver instances.
 The default empty list is useful for validating a Controller-only install and

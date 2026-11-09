@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "archive_sha256": "f901fa096366294b8e1b5628d27185f50873ce2b1364ff47f32bd76962cafec3",
+  "archive_bytes": 73804100,
+  "rebuild_sha256": "f901fa096366294b8e1b5628d27185f50873ce2b1364ff47f32bd76962cafec3",
+  "rebuild_byte_identical": true,
+  "packaging_contract_test": "passed",
+  "final_archive_scan": "passed",
+  "process_probes": "complete archive/image matrix in this report",
+  "dependency_gate": "21 modules; complete executable JAR hashes unchanged"
+}

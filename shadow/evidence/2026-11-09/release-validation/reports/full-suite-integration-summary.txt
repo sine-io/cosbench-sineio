@@ -1,0 +1,4 @@
+status=failed
+run_status=1
+acceptance_ids=20
+missing_reports=0

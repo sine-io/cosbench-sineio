@@ -1,0 +1,7 @@
+status=passed
+archive=/home/ubuntu/cosbench-sineio/out/release-validation-22/candidate-final/cosbench-0.6.0.2-java21.tar.gz
+package=/tmp/cosbench-production-verify.tRKtDE/archive/cosbench-0.6.0.2-java21
+images=0
+process_probe=0
+rebuild=0
+dependency_audit=0

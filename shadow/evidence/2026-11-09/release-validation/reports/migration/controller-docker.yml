@@ -1,0 +1,44 @@
+schemaVersion: 1
+role: controller
+name: Controller
+listen:
+  host: 0.0.0.0
+  port: 19088
+  contextPath: /controller
+paths:
+  workspace: workspace
+  archive: archive
+  logs: log/system.log
+drivers:
+- name: driver1
+  url: https://driver:18088/driver
+concurrency: 1
+logging:
+  level: INFO
+  file: log/system.log
+provider:
+  name: mock
+http:
+  pool:
+    maxConnections: 32
+    maxPerRoute: 8
+    idleTimeout: 30s
+  timeouts:
+    connect: 2s
+    read: 30s
+    command: 60s
+    workload: 1h
+  retries:
+    maxAttempts: 1
+    backoff: 0ms
+shutdown:
+  gracePeriod: 30s
+auth:
+  token:
+    env: COSBENCH_SERVICE_TOKEN
+  tls:
+    enabled: true
+    trustStore: /run/secrets/truststore.p12
+web:
+  enabled: true
+  maxUploadBytes: 0

@@ -1,0 +1,7 @@
+migration=passed
+role=controller
+source_sha256=2db9a23276ce729b8bab1ad525d7959684cabb04bf219a5e8dc2e8d0c93d5d6a
+destination_sha256=c13b5bda0fb64366dbc227818d50ec28dad855981a5829f4f7e40b46219854a6
+mapped=11
+unmapped=0
+report=/var/lib/cosbench/conf/migration.json

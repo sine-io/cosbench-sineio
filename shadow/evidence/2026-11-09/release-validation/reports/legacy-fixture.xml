@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workload name="rel22-legacy-fixture" description="Fixed Mock workload for the legacy baseline">
+  <auth type="mock" config="delay=0;errors=0" />
+  <storage type="mock" config="size=64;delay=0;errors=0" />
+  <workflow>
+    <workstage name="main">
+      <work name="read" workers="1" totalOps="10">
+        <operation type="read" ratio="100" config="containers=c(1);objects=c(1)" />
+      </work>
+    </workstage>
+  </workflow>
+</workload>
