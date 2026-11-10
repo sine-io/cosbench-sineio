@@ -2,7 +2,7 @@
 
 The continuous entry is `bash ci/verify-shadow.sh EMPTY_REPORT_DIR`. It runs this harness plus the packaged Controller/Driver, active SineIO mission TERM, Web and authenticated HTTP replays and the positive/negative audit fixtures. The default build runs blocking gates for every effective reactor module, including convergence, dependency admission, SHA-256/licenses, production/test boundaries, resources, duplicate classes and `jdeps`. See [`ci-policy.md`](../ci-policy.md) for the extension contract and legacy build entry.
 
-`run.sh` creates an isolated Compose project for each run. It mounts the repository read/write only into the Java 21 Maven container, uses a fresh tmpfs Maven repository, starts a test-only MinIO server and Toxiproxy, and accepts an optional test command in the Java 21 container. MinIO data is held in a project-scoped named volume that `down --volumes` removes.
+`run.sh` creates an isolated Compose project for each run. It mounts the repository read/write only into the Java 21 Maven container, uses a fresh tmpfs Maven repository, starts a test-only MinIO server and Toxiproxy, and accepts an optional test command in the Java 21 container. MinIO data remains in a project-scoped named volume after each run; cleanup removes only the run containers and network.
 
 ```sh
 shadow/harness/run.sh /tmp/cosbench-scheme3-02-run

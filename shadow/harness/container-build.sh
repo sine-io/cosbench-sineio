@@ -28,21 +28,21 @@ retain_test_reports() {
 }
 trap retain_test_reports EXIT
 mvn --version > /reports/toolchain.txt
-mvn -B -ntp -C -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml clean verify \
+mvn -B -ntp -C -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml clean verify \
     > /reports/build.log 2>&1 || {
         cat /reports/build.log
         exit 1
     }
 cat /reports/build.log
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml \
     -DskipTests install > /reports/shared-module-install.log 2>&1 || {
         cat /reports/shared-module-install.log
         exit 1
     }
 /bin/bash /workspace/shadow/harness/audit/gates.sh /reports/ci "$maven_repo" \
     > /reports/ci-gates.log 2>&1 || { cat /reports/ci-gates.log; exit 1; }
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
-    -pl cosbench-provider-spike -Dtest=ProviderMinioSmokeTest test \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml \
+    -pl shadow/cosbench-provider-spike -Dtest=ProviderMinioSmokeTest test \
     > /reports/provider-minio-test.log 2>&1 || {
         cat /reports/provider-minio-test.log
         exit 1
@@ -56,11 +56,11 @@ while IFS=: read -r module artifact; do
     dependency_dir="$shared_module_audit_root/$module"
     mkdir -p "$dependency_dir"
     test -s "$module_jar_path"
-    mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
-        -pl "$module" -Dscope=test -DoutputFile="/reports/$module-dependency-tree.txt" \
+    mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml \
+        -pl "shadow/$module" -Dscope=test -DoutputFile="/reports/$module-dependency-tree.txt" \
         org.apache.maven.plugins:maven-dependency-plugin:3.11.0:tree
-    mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
-        -pl "$module" -DincludeScope=test -DoutputDirectory="$dependency_dir" \
+    mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml \
+        -pl "shadow/$module" -DincludeScope=test -DoutputDirectory="$dependency_dir" \
         org.apache.maven.plugins:maven-dependency-plugin:3.11.0:copy-dependencies
     jar tf "$module_jar_path" > "/reports/$module-jar-contents.txt"
     sha256sum "$module_jar_path" > "/reports/$module-artifact.sha256"
@@ -87,32 +87,32 @@ grep -q 'BOOT-INF/lib/spring-boot-' /reports/runtime-jar-contents.txt
 printf 'runtime_jar=%s\nruntime_jar_status=present\nexecutable_launcher=present\n' "$runtime_jar" \
     > /reports/runtime-artifact.txt
 
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
-    -pl cosbench-runtime -am -DskipTests install > /reports/runtime-install.log 2>&1
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml \
+    -pl shadow/cosbench-runtime -am -DskipTests install > /reports/runtime-install.log 2>&1
 
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
-    -pl cosbench-config -Dscope=test -DoutputFile=/reports/dependency-tree.txt \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml \
+    -pl shadow/cosbench-config -Dscope=test -DoutputFile=/reports/dependency-tree.txt \
     org.apache.maven.plugins:maven-dependency-plugin:3.11.0:tree
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
-    -pl cosbench-config -DincludeScope=test -DoutputDirectory="$audit_jars" \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml \
+    -pl shadow/cosbench-config -DincludeScope=test -DoutputDirectory="$audit_jars" \
     org.apache.maven.plugins:maven-dependency-plugin:3.11.0:copy-dependencies
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
-    -pl cosbench-runtime -Dscope=test -DoutputFile=/reports/runtime-dependency-tree.txt \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml \
+    -pl shadow/cosbench-runtime -Dscope=test -DoutputFile=/reports/runtime-dependency-tree.txt \
     org.apache.maven.plugins:maven-dependency-plugin:3.11.0:tree
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
-    -pl cosbench-runtime -DincludeScope=test -DoutputDirectory="$runtime_audit_jars" \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml \
+    -pl shadow/cosbench-runtime -DincludeScope=test -DoutputDirectory="$runtime_audit_jars" \
     org.apache.maven.plugins:maven-dependency-plugin:3.11.0:copy-dependencies
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
-    -pl cosbench-provider-spike -Dscope=test -DoutputFile=/reports/provider-dependency-tree.txt \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml \
+    -pl shadow/cosbench-provider-spike -Dscope=test -DoutputFile=/reports/provider-dependency-tree.txt \
     org.apache.maven.plugins:maven-dependency-plugin:3.11.0:tree
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
-    -pl cosbench-provider-spike -DincludeScope=test -DoutputDirectory="$provider_audit_jars" \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml \
+    -pl shadow/cosbench-provider-spike -DincludeScope=test -DoutputDirectory="$provider_audit_jars" \
     org.apache.maven.plugins:maven-dependency-plugin:3.11.0:copy-dependencies
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
-    -pl cosbench-s3 -Dscope=test -DoutputFile=/reports/s3-dependency-tree.txt \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml \
+    -pl shadow/cosbench-s3 -Dscope=test -DoutputFile=/reports/s3-dependency-tree.txt \
     org.apache.maven.plugins:maven-dependency-plugin:3.11.0:tree
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
-    -pl cosbench-s3 -DincludeScope=test -DoutputDirectory="$s3_audit_jars" \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml \
+    -pl shadow/cosbench-s3 -DincludeScope=test -DoutputDirectory="$s3_audit_jars" \
     org.apache.maven.plugins:maven-dependency-plugin:3.11.0:copy-dependencies
 
 jar tf "$module_jar" > /reports/jar-contents.txt

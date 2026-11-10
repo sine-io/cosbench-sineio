@@ -13,13 +13,22 @@ import org.w3c.dom.Element;
 
 /** Dependency admission uses reviewed coordinates, SHA-256 values and SPDX licenses. */
 public final class BuildAudit {
+    private static final Map<String, String> REQUIRED_BUILD_PLUGINS = Map.of(
+            "spring-boot-maven-plugin", "3.5.16",
+            "maven-enforcer-plugin", "3.6.3",
+            "maven-clean-plugin", "3.5.0",
+            "maven-resources-plugin", "3.5.0",
+            "maven-compiler-plugin", "3.16.0",
+            "maven-surefire-plugin", "3.6.1",
+            "maven-jar-plugin", "3.4.2",
+            "maven-dependency-plugin", "3.11.0");
     private static final Set<String> LICENSES = Set.of("Apache-2.0", "MIT", "MIT-0", "BSD-2-Clause", "BSD-3-Clause",
             "EPL-1.0", "EPL-2.0", "CC0-1.0",
             "LicenseRef-Castor-1.3.3 AND Apache-2.0",
             "CDDL-1.0 OR GPL-2.0-only WITH Classpath-exception-2.0",
             "EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0");
 
-    record Dependency(String coordinate, String scope, Path file) {}
+    record Dependency(String coordinate, String scope, Path file, boolean testJar) {}
 
     public static void main(String[] args) throws Exception {
         if (args.length == 5 && args[0].equals("dependencies")) {
@@ -63,9 +72,19 @@ public final class BuildAudit {
     private static void modules(Path pom) throws Exception {
         Element root = xml(pom);
         List<Element> projects = root.getTagName().equals("projects") ? children(root, "project") : List.of(root);
+        Element policyOwner = projects.getFirst();
+        String policyOwnerArtifact = value(policyOwner, "artifactId");
+        List<Element> ownerPlugins = children(child(child(policyOwner, "build"), "plugins"), "plugin");
         var pinnedPlugins = new LinkedHashMap<String, String>();
-        for (Element plugin : children(child(child(projects.getFirst(), "build"), "plugins"), "plugin")) {
-            pinnedPlugins.put(value(plugin, "artifactId"), value(plugin, "version"));
+        for (var required : REQUIRED_BUILD_PLUGINS.entrySet()) {
+            Element plugin = ownerPlugins.stream()
+                    .filter(item -> value(item, "artifactId").equals(required.getKey()))
+                    .findFirst().orElseThrow(() -> new IllegalStateException(
+                            "Missing required pinned plugin in " + policyOwnerArtifact + ": " + required.getKey()));
+            if (!value(plugin, "version").equals(required.getValue())) {
+                throw new IllegalStateException("Unexpected pinned plugin version in " + policyOwnerArtifact + ": " + required.getKey());
+            }
+            pinnedPlugins.put(required.getKey(), required.getValue());
         }
         int count = 0;
         for (Element project : projects) {
@@ -78,34 +97,41 @@ public final class BuildAudit {
                     throw new IllegalStateException("Disabled verification in " + artifact + ": " + skip);
                 }
             }
+            String packaging = value(project, "packaging");
             var plugins = children(child(child(project, "build"), "plugins"), "plugin");
-            for (var pin : pinnedPlugins.entrySet()) {
-                Element plugin = plugins.stream().filter(item -> value(item, "artifactId").equals(pin.getKey()))
-                        .findFirst().orElseThrow(() -> new IllegalStateException("Missing pinned plugin in " + artifact));
-                if (!value(plugin, "version").equals(pin.getValue())) {
-                    throw new IllegalStateException("Overridden plugin version in " + artifact + ": " + pin.getKey());
-                }
-                Element configuration = child(plugin, "configuration");
-                verificationEnabled(configuration, artifact, pin.getKey(), "plugin");
-                for (Element execution : children(child(plugin, "executions"), "execution")) {
-                    verificationEnabled(child(execution, "configuration"), artifact, pin.getKey(), "verification execution");
-                }
-                if (pin.getKey().equals("maven-compiler-plugin") && !value(configuration, "release").equals("21")) {
-                    throw new IllegalStateException("Overridden compiler release in " + artifact);
-                }
-                if (pin.getKey().equals("maven-enforcer-plugin")) {
-                    boolean convergence = children(child(plugin, "executions"), "execution").stream()
-                            .filter(execution -> value(execution, "phase").equals("validate"))
-                            .filter(execution -> children(child(execution, "goals"), "goal").stream()
-                                    .anyMatch(goal -> goal.getTextContent().trim().equals("enforce")))
-                            .map(execution -> child(child(execution, "configuration"), "rules"))
-                            .anyMatch(rules -> List.of("requireJavaVersion", "requireMavenVersion", "requireProperty", "dependencyConvergence")
-                                    .stream().allMatch(rule -> child(rules, rule) != null));
-                    if (!convergence) throw new IllegalStateException("Missing convergence policy in " + artifact);
+            boolean rootAggregator = packaging.equals("pom") && artifact.equals("cosbench-build")
+                    && value(project, "groupId").equals("com.intel.cosbench")
+                    && child(project, "parent") == null
+                    && !children(child(project, "modules"), "module").isEmpty();
+            if (!rootAggregator) {
+                for (var pin : pinnedPlugins.entrySet()) {
+                    Element plugin = plugins.stream().filter(item -> value(item, "artifactId").equals(pin.getKey()))
+                            .findFirst().orElseThrow(() -> new IllegalStateException("Missing pinned plugin in " + artifact));
+                    if (!value(plugin, "version").equals(pin.getValue())) {
+                        throw new IllegalStateException("Overridden plugin version in " + artifact + ": " + pin.getKey());
+                    }
+                    Element configuration = child(plugin, "configuration");
+                    verificationEnabled(configuration, artifact, pin.getKey(), "plugin");
+                    for (Element execution : children(child(plugin, "executions"), "execution")) {
+                        verificationEnabled(child(execution, "configuration"), artifact, pin.getKey(), "verification execution");
+                    }
+                    if (pin.getKey().equals("maven-compiler-plugin") && !value(configuration, "release").equals("21")) {
+                        throw new IllegalStateException("Overridden compiler release in " + artifact);
+                    }
+                    if (pin.getKey().equals("maven-enforcer-plugin")) {
+                        boolean convergence = children(child(plugin, "executions"), "execution").stream()
+                                .filter(execution -> value(execution, "phase").equals("validate"))
+                                .filter(execution -> children(child(execution, "goals"), "goal").stream()
+                                        .anyMatch(goal -> goal.getTextContent().trim().equals("enforce")))
+                                .map(execution -> child(child(execution, "configuration"), "rules"))
+                                .anyMatch(rules -> List.of("requireJavaVersion", "requireMavenVersion", "requireProperty", "dependencyConvergence")
+                                        .stream().allMatch(rule -> child(rules, rule) != null));
+                        if (!convergence) throw new IllegalStateException("Missing convergence policy in " + artifact);
+                    }
                 }
             }
-            if (value(project, "packaging").equals("pom")) continue;
-            if (!Set.of("", "jar").contains(value(project, "packaging"))) {
+            if (packaging.equals("pom")) continue;
+            if (!Set.of("", "jar").contains(packaging)) {
                 throw new IllegalStateException("Unaudited packaging in " + artifact);
             }
             Element build = child(project, "build");
@@ -195,11 +221,15 @@ public final class BuildAudit {
             line = line.trim();
             if (line.isEmpty() || line.startsWith("The following") || line.equals("none")) continue;
             String[] parts = line.split(" -- module ", 2)[0].trim().split(":");
-            if (parts.length < 6 || parts.length > 7 || !parts[2].equals("jar")) {
+            if (parts.length < 6 || parts.length > 7 || !(parts[2].equals("jar") || parts[2].equals("test-jar"))) {
                 throw new IllegalStateException("Unsupported dependency record: " + line);
             }
-            result.add(new Dependency(String.join(":", java.util.Arrays.copyOf(parts, parts.length - 2)),
-                    parts[parts.length - 2], Path.of(parts[parts.length - 1])));
+            boolean testJar = parts[2].equals("test-jar");
+            String coordinate = testJar
+                    ? String.join(":", parts[0], parts[1], "jar", parts[3], parts[4])
+                    : String.join(":", java.util.Arrays.copyOf(parts, parts.length - 2));
+            result.add(new Dependency(coordinate, parts[parts.length - 2],
+                    Path.of(parts[parts.length - 1]), testJar));
         }
         return result;
     }
@@ -240,7 +270,7 @@ public final class BuildAudit {
             if (!Set.of("compile", "runtime", "test").contains(dependency.scope())) {
                 throw new IllegalStateException("Unsupported dependency scope: " + dependency);
             }
-            if (lower.matches(".*(org\\.osgi|org\\.eclipse\\.(osgi|equinox|tycho)|springframework\\.osgi|spring-osgi|spring-dm|:cosbench-mock|:cosbench-tomcat|:p2-|:legacy).*")) {
+            if (lower.matches(".*(org\\.osgi|org\\.eclipse\\.(osgi|equinox|tycho)|springframework\\.osgi|spring-osgi|spring-dm|:cosbench-mock(?:[:]|$)|:cosbench-tomcat|:p2-|:legacy).*")) {
                 throw new IllegalStateException("Forbidden dependency: " + coordinate);
             }
             if (!test && (lower.startsWith("javax.servlet:") || lower.contains(":tomcat") && !lower.contains(":10.1."))) {
@@ -251,7 +281,18 @@ public final class BuildAudit {
             }
             String checksum = sha256(dependency.file());
             String license;
-            if (modules.containsKey(coordinate)) {
+            if (dependency.testJar()) {
+                String[] fields = coordinate.split(":");
+                String baseCoordinate = String.join(":", fields[0], fields[1], "jar", fields[4]);
+                Path baseArtifact = modules.get(baseCoordinate);
+                if (baseArtifact == null) throw new IllegalStateException("Test JAR is not a reactor artifact: " + coordinate);
+                String baseName = baseArtifact.getFileName().toString();
+                Path reactorTestJar = baseArtifact.resolveSibling(baseName.substring(0, baseName.length() - 4) + "-tests.jar");
+                if (!Files.isRegularFile(reactorTestJar) || !checksum.equals(sha256(reactorTestJar))) {
+                    throw new IllegalStateException("Reactor test artifact mismatch: " + coordinate);
+                }
+                license = "Apache-2.0 (reactor test artifact)";
+            } else if (modules.containsKey(coordinate)) {
                 if (!checksum.equals(sha256(modules.get(coordinate)))) {
                     throw new IllegalStateException("Reactor artifact mismatch: " + coordinate);
                 }

@@ -7,16 +7,18 @@ http_dir=$report_dir/web-http
 fixture_dir=$report_dir/web-fixtures
 artifact=/workspace/shadow/cosbench-web-spike/target/cosbench-web-spike-0.1.0-SNAPSHOT.jar
 controller_fixture=/workspace/shadow/cosbench-web-spike/src/test/resources/web-spike-controller.yml
-workload_fixture=/workspace/.scratch/scheme3-migration/baseline/fixtures/mock-noop.xml
+workload_fixture=/workspace/shadow/cosbench-web-spike/src/test/resources/baseline/mock-noop.xml
+web_unpack_dir=$(mktemp -d /tmp/cosbench-web-unpack.XXXXXX)
 mkdir -p "$http_dir" "$fixture_dir"
+trap 'rm -rf -- "$web_unpack_dir"' EXIT
 
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml \
-    -pl cosbench-web-spike -am -DskipTests install \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml \
+    -pl shadow/cosbench-web-spike -am -DskipTests install \
     > "$report_dir/web-install.log" 2>&1 || {
         cat "$report_dir/web-install.log"
         exit 1
     }
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/shadow/pom.xml -pl cosbench-web-spike \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f /workspace/pom.xml -pl shadow/cosbench-web-spike \
     -Dscope=test -DoutputFile=$report_dir/web-dependency-tree.txt \
     org.apache.maven.plugins:maven-dependency-plugin:3.11.0:tree \
     > $report_dir/web-dependency-tree-command.log 2>&1 || {
@@ -29,8 +31,13 @@ sha256sum "$artifact" > $report_dir/web-artifact.sha256
 stat -c 'artifact=%n\nsize_bytes=%s' "$artifact" > $report_dir/web-artifact.txt
 jar tf "$artifact" > $report_dir/web-artifact-contents.txt
 grep -q 'BOOT-INF/lib/spring-boot-' $report_dir/web-artifact-contents.txt
-grep -q 'BOOT-INF/classes/templates/logon.ftl' $report_dir/web-artifact-contents.txt
-grep -q 'BOOT-INF/classes/static/resources/cosbench.css' $report_dir/web-artifact-contents.txt
+grep -q 'BOOT-INF/lib/cosbench-controller-web-shadow-0.1.0-SNAPSHOT.jar' $report_dir/web-artifact-contents.txt
+(cd "$web_unpack_dir" && jar xf "$artifact" BOOT-INF/lib/cosbench-controller-web-shadow-0.1.0-SNAPSHOT.jar)
+jar tf "$web_unpack_dir/BOOT-INF/lib/cosbench-controller-web-shadow-0.1.0-SNAPSHOT.jar" \
+    > "$report_dir/controller-web-contents.txt"
+grep -q 'static/resources/cosbench.css' "$report_dir/controller-web-contents.txt"
+grep -q 'templates/logon.ftl' "$report_dir/controller-web-contents.txt"
+grep -q 'templates/index.ftl' "$report_dir/controller-web-contents.txt"
 cp "$controller_fixture" $fixture_dir/controller.yml
 cp "$workload_fixture" $fixture_dir/mock-noop.xml
 printf '%s\n' \
@@ -62,9 +69,11 @@ cleanup() {
         app_pid=
     fi
     rm -rf -- "$runtime_dir" || process_cleanup_status=1
+    rm -rf -- "$web_unpack_dir" || process_cleanup_status=1
     if [[ -d "$runtime_dir" ]]; then runtime_removed=no; else runtime_removed=yes; fi
-    printf 'script_status=%s\nprocess_cleanup_status=%s\ntemporary_runtime_removed=%s\n' \
-        "$run_status" "$process_cleanup_status" "$runtime_removed" \
+    if [[ -d "$web_unpack_dir" ]]; then artifact_unpack_removed=no; else artifact_unpack_removed=yes; fi
+    printf 'script_status=%s\nprocess_cleanup_status=%s\ntemporary_runtime_removed=%s\nartifact_unpack_removed=%s\n' \
+        "$run_status" "$process_cleanup_status" "$runtime_removed" "$artifact_unpack_removed" \
         > $report_dir/web-process-cleanup-status.txt
     if ((run_status == 0 && process_cleanup_status != 0)); then exit 1; fi
     exit "$run_status"
@@ -145,9 +154,9 @@ compare_static() {
         "$(sha256sum "$http_dir/$name.body" | awk '{print $1}')" \
         >> "$report_dir/web-static-baseline-comparison.txt"
 }
-compare_static css /workspace/dev/cosbench-controller-web/resources/cosbench.css
-compare_static javascript /workspace/dev/cosbench-controller-web/resources/build/dist/echarts.js
-compare_static image /workspace/dev/cosbench-controller-web/resources/bg-header.png
+compare_static css /workspace/shadow/cosbench-web-spike/src/test/resources/baseline/legacy-web/resources/cosbench.css
+compare_static javascript /workspace/shadow/cosbench-web-spike/src/test/resources/baseline/legacy-web/resources/build/dist/echarts.js
+compare_static image /workspace/shadow/cosbench-web-spike/src/test/resources/baseline/legacy-web/resources/bg-header.png
 
 capture login -c "$cookie_jar" -b "$cookie_jar" \
     --data-urlencode j_username=anonymous --data-urlencode j_password=cosbench \

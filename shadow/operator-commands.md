@@ -51,7 +51,7 @@ exits `124` and retains its PID file for diagnosis.
 
 ```sh
 bin/cosbench-config-migrate \
-  --source release/conf/controller.conf \
+  --source legacy/osgi/release/conf/controller.conf \
   --destination conf/controller.yml \
   --report run/controller-migration.json \
   --service-token-env COSBENCH_SERVICE_TOKEN \
@@ -109,5 +109,6 @@ script uses `out/cosbench-dev`.
 process checks, including `shadow/harness/operator-commands.sh`. The operator
 replay checks migration checksums, error and repeat behavior, stale and
 unrelated PID handling, duplicate starts, port conflicts, two connected Driver
-instances, isolated stop, and busy/idle Controller shutdown. Docker resources
-created by the harness are removed on every exit path.
+instances, isolated stop, and busy/idle Controller shutdown. The harness removes
+its containers and network on every exit path; the named MinIO data volume is
+retained.

@@ -121,11 +121,22 @@ cat > "$work_dir/effective-pom.xml" <<EOF
   <properties><maven.compiler.release>21</maven.compiler.release></properties>
   <build><directory>$work_dir</directory><finalName>good</finalName>
     <outputDirectory>$work_dir/resources</outputDirectory><testOutputDirectory>$work_dir/empty</testOutputDirectory>
-    <plugins><plugin><artifactId>maven-enforcer-plugin</artifactId><version>3.6.3</version>
-      <executions><execution><phase>validate</phase><goals><goal>enforce</goal></goals>
-        <configuration><rules><requireJavaVersion/><requireMavenVersion/><requireProperty/><dependencyConvergence/></rules></configuration>
-      </execution></executions>
-    </plugin></plugins>
+    <plugins>
+      <plugin><artifactId>spring-boot-maven-plugin</artifactId><version>3.5.16</version></plugin>
+      <plugin><artifactId>maven-enforcer-plugin</artifactId><version>3.6.3</version>
+        <executions><execution><phase>validate</phase><goals><goal>enforce</goal></goals>
+          <configuration><rules><requireJavaVersion/><requireMavenVersion/><requireProperty/><dependencyConvergence/></rules></configuration>
+        </execution></executions>
+      </plugin>
+      <plugin><artifactId>maven-clean-plugin</artifactId><version>3.5.0</version></plugin>
+      <plugin><artifactId>maven-resources-plugin</artifactId><version>3.5.0</version></plugin>
+      <plugin><artifactId>maven-compiler-plugin</artifactId><version>3.16.0</version>
+        <configuration><release>21</release></configuration>
+      </plugin>
+      <plugin><artifactId>maven-surefire-plugin</artifactId><version>3.6.1</version></plugin>
+      <plugin><artifactId>maven-jar-plugin</artifactId><version>3.4.2</version></plugin>
+      <plugin><artifactId>maven-dependency-plugin</artifactId><version>3.11.0</version></plugin>
+    </plugins>
   </build>
 </project>
 EOF
@@ -134,6 +145,72 @@ sed 's@</rules>@</rules><skip>true</skip>@' "$work_dir/effective-pom.xml" > "$wo
 reject skipped-execution 'Disabled verification execution' java "$audit_dir/BuildAudit.java" modules "$work_dir/skipped-execution.xml"
 sed 's@</rules>@</rules><fail>false</fail>@' "$work_dir/effective-pom.xml" > "$work_dir/nonblocking-execution.xml"
 reject nonblocking-execution 'Nonblocking Enforcer execution' java "$audit_dir/BuildAudit.java" modules "$work_dir/nonblocking-execution.xml"
+
+write_policy_project() {
+    local artifact=$1 packaging=$2 missing_plugin=${3:-}
+    cat >> "$work_dir/policy-projects.xml" <<EOF
+  <project><groupId>com.intel.cosbench</groupId><artifactId>$artifact</artifactId><version>1</version>
+    <packaging>$packaging</packaging><properties><maven.compiler.release>21</maven.compiler.release></properties>
+EOF
+    if [[ $artifact != cosbench-build ]]; then
+        cat >> "$work_dir/policy-projects.xml" <<'EOF'
+    <build><directory>target</directory><finalName>fixture</finalName>
+      <outputDirectory>target/classes</outputDirectory><testOutputDirectory>target/test-classes</testOutputDirectory>
+      <plugins>
+EOF
+        while IFS=: read -r plugin version; do
+            [[ $plugin == "$missing_plugin" ]] && continue
+            cat >> "$work_dir/policy-projects.xml" <<EOF
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>$plugin</artifactId><version>$version</version>
+EOF
+            if [[ $plugin == maven-compiler-plugin ]]; then
+                printf '%s\n' '          <configuration><release>21</release></configuration>' \
+                    >> "$work_dir/policy-projects.xml"
+            elif [[ $plugin == maven-enforcer-plugin ]]; then
+                cat >> "$work_dir/policy-projects.xml" <<'EOF'
+          <executions><execution><phase>validate</phase><goals><goal>enforce</goal></goals>
+            <configuration><rules><requireJavaVersion/><requireMavenVersion/><requireProperty/><dependencyConvergence/></rules><fail>true</fail></configuration>
+          </execution></executions>
+EOF
+            fi
+            printf '%s\n' '        </plugin>' >> "$work_dir/policy-projects.xml"
+        done <<'EOF'
+spring-boot-maven-plugin:3.5.16
+maven-enforcer-plugin:3.6.3
+maven-clean-plugin:3.5.0
+maven-resources-plugin:3.5.0
+maven-compiler-plugin:3.16.0
+maven-surefire-plugin:3.6.1
+maven-jar-plugin:3.4.2
+maven-dependency-plugin:3.11.0
+EOF
+        cat >> "$work_dir/policy-projects.xml" <<'EOF'
+      </plugins>
+    </build>
+EOF
+    fi
+    if [[ $artifact == cosbench-build ]]; then
+        cat >> "$work_dir/policy-projects.xml" <<'EOF'
+    <modules><module>shadow</module></modules>
+EOF
+    fi
+    printf '%s\n' '  </project>' >> "$work_dir/policy-projects.xml"
+}
+
+write_policy_fixture() {
+    local missing_plugin=${1:-}
+    printf '%s\n' '<projects>' > "$work_dir/policy-projects.xml"
+    write_policy_project cosbench-scheme3-shadow pom "$missing_plugin"
+    write_policy_project audit-module jar
+    write_policy_project cosbench-build pom
+    printf '%s\n' '</projects>' >> "$work_dir/policy-projects.xml"
+}
+
+write_policy_fixture
+accept root-aggregator-policy-exemption java "$audit_dir/BuildAudit.java" modules "$work_dir/policy-projects.xml"
+write_policy_fixture maven-clean-plugin
+reject missing-parent-plugin 'Missing required pinned plugin in cosbench-scheme3-shadow: maven-clean-plugin' \
+    java "$audit_dir/BuildAudit.java" modules "$work_dir/policy-projects.xml"
 
 mkdir -p "$work_dir/license-repo/example/fixture/1"
 cat > "$work_dir/license-repo/example/fixture/1/fixture-1.pom" <<'EOF'

@@ -2,7 +2,8 @@
 
 The migrated distribution supports `sio`, `siov1`, `gdas` and `s3`. Controller
 and Driver are separate Spring Boot processes using schema-1 YAML. The active
-migration reactor is `shadow/pom.xml`; switching the root build is ticket #23.
+root Maven reactor delegates to `shadow/pom.xml`; legacy OSGi inputs are archived
+under `legacy/osgi/` and are not part of the active build.
 The [old build](BUILD-sineio.md) is retained for previous releases only.
 
 Build in the pinned Docker toolchain from the repository root:
@@ -10,7 +11,7 @@ Build in the pinned Docker toolchain from the repository root:
 ```sh
 source shadow/harness/versions.env
 sudo docker run --rm -v "$PWD:/workspace" -w /workspace "$MAVEN_IMAGE" \
-  mvn -B -ntp -f shadow/pom.xml -DskipTests package
+  mvn -B -ntp -f pom.xml clean verify
 bash shadow/packaging/build-production.sh --output-dir out/java21-release
 bash shadow/packaging/verify-production.sh \
   --archive out/java21-release/cosbench-0.6.0.2-java21.tar.gz \
@@ -40,7 +41,7 @@ sudo docker run --rm -it --name cosbench-java21-dev \
 Inside that container:
 
 ```sh
-mvn -B -ntp -f shadow/pom.xml -DskipTests package
+mvn -B -ntp -f pom.xml -DskipTests package
 export JAVA_OPTS='--add-exports=java.xml/com.sun.org.apache.xml.internal.serialize=ALL-UNNAMED'
 bash dev/cosbench-dev.sh start --drivers 1 --no-build
 # Inspect Controller on http://127.0.0.1:19088/controller/index.html.

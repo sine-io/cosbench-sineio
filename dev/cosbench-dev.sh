@@ -104,7 +104,7 @@ build_shadow() {
         -v "$ROOT:/workspace" \
         -v "$maven_repository:/maven-repository" \
         -w /workspace "$image" \
-        mvn -B -ntp -Dmaven.repo.local=/maven-repository -f shadow/pom.xml -DskipTests package
+        mvn -B -ntp -Dmaven.repo.local=/maven-repository -f pom.xml -DskipTests package
 }
 
 operator_jar="$ROOT/shadow/cosbench-operator-cli/target/cosbench-operator-cli-0.1.0-SNAPSHOT.jar"

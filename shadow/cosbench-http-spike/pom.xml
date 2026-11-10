@@ -30,6 +30,18 @@
     </dependency>
     <dependency>
       <groupId>com.intel.cosbench.shadow</groupId>
+      <artifactId>cosbench-driver-shadow</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.intel.cosbench.shadow</groupId>
+      <artifactId>cosbench-mock-test-support</artifactId>
+      <version>${project.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.intel.cosbench.shadow</groupId>
       <artifactId>cosbench-api-shadow</artifactId>
       <version>${project.version}</version>
       <exclusions>
@@ -117,33 +129,6 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>3.6.1</version>
-        <executions>
-          <execution>
-            <id>legacy-driver-api-sources</id>
-            <phase>generate-sources</phase>
-            <goals><goal>add-source</goal></goals>
-            <configuration>
-              <sources>
-                <source>${project.basedir}/../../dev/cosbench-driver/src</source>
-              </sources>
-            </configuration>
-          </execution>
-          <execution>
-            <id>legacy-driver-test-sources</id>
-            <phase>generate-test-sources</phase>
-            <goals><goal>add-test-source</goal></goals>
-            <configuration>
-              <sources>
-                <source>${project.basedir}/../../dev/cosbench-mock/src</source>
-              </sources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
@@ -164,7 +149,6 @@
           </includes>
           <testIncludes>
             <testInclude>com/intel/cosbench/http/**/*.java</testInclude>
-            <testInclude>com/intel/cosbench/api/mock/**/*.java</testInclude>
           </testIncludes>
         </configuration>
       </plugin>

@@ -1,0 +1,1 @@
+This artifact has no production classes. Mock implementations are published only in the test-jar classifier.

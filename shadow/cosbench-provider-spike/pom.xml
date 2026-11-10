@@ -30,6 +30,13 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
+      <groupId>com.intel.cosbench.shadow</groupId>
+      <artifactId>cosbench-mock-test-support</artifactId>
+      <version>${project.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
@@ -39,30 +46,10 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>3.6.1</version>
-        <executions>
-          <execution>
-            <id>test-only-mock-provider-sources</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>add-test-source</goal>
-            </goals>
-            <configuration>
-              <sources>
-                <source>${project.basedir}/../../dev/cosbench-mock/src</source>
-              </sources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <testIncludes>
-            <testInclude>com/intel/cosbench/api/mock/**/*.java</testInclude>
             <testInclude>com/intel/cosbench/shadow/provider/**/*.java</testInclude>
           </testIncludes>
         </configuration>

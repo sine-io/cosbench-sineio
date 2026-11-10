@@ -1,6 +1,12 @@
 Java 21 builds and Docker development use [BUILD-java21.md](BUILD-java21.md).
-The instructions below describe the previous legacy OSGi distribution and
-are retained for rebuilding rollback artifacts. The root build switches in #23.
+The instructions below describe the original OSGi distribution at tag
+`0.6.0.2-sineio`. They apply only in a detached checkout of that tag; the
+current root reactor builds the Java 21 Maven project.
+
+```sh
+git worktree add --detach /tmp/cosbench-legacy-0.6.0.2 0.6.0.2-sineio
+cd /tmp/cosbench-legacy-0.6.0.2
+```
 
 Directory structure
 -------------------

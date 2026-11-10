@@ -93,14 +93,14 @@ cleanup() {
 
     if [[ $project_started == 1 ]]; then
         compose logs --no-color > "$report_dir/docker-compose.log" 2>&1
-        if ! compose down --volumes --remove-orphans --timeout 10 > "$report_dir/docker-cleanup.log" 2>&1; then
+        if ! compose down --remove-orphans --timeout 10 > "$report_dir/docker-cleanup.log" 2>&1; then
             cleanup_status=1
         fi
 
         containers_left=$(sudo docker ps --all --quiet --filter "label=com.docker.compose.project=$project_name" 2>/dev/null) || cleanup_status=1
         networks_left=$(sudo docker network ls -q --filter "label=com.docker.compose.project=$project_name" 2>/dev/null) || cleanup_status=1
         volumes_left=$(sudo docker volume ls -q --filter "label=com.docker.compose.project=$project_name" 2>/dev/null) || cleanup_status=1
-        if [[ -n $containers_left || -n $networks_left || -n $volumes_left ]]; then
+        if [[ -n $containers_left || -n $networks_left ]]; then
             cleanup_status=1
         fi
     fi
@@ -124,8 +124,8 @@ cleanup() {
         retained_runtime=$secret_dir
     fi
 
-    printf 'run_status=%s\ncleanup_status=%s\ncontainers_remaining=%s\nnetworks_remaining=%s\nvolumes_remaining=%s\ncertificate_containers_remaining=%s\nretained_runtime=%s\n' \
-        "$run_status" "$cleanup_status" "${containers_left:-none}" "${networks_left:-none}" "${volumes_left:-none}" "${certificate_containers_left:-none}" "$retained_runtime" \
+    printf 'run_status=%s\ncleanup_status=%s\ncontainers_remaining=%s\nnetworks_remaining=%s\nvolumes_remaining=%s\nvolumes_retained=%s\ncertificate_containers_remaining=%s\nretained_runtime=%s\n' \
+        "$run_status" "$cleanup_status" "${containers_left:-none}" "${networks_left:-none}" "${volumes_left:-none}" "${volumes_left:-none}" "${certificate_containers_left:-none}" "$retained_runtime" \
         > "$report_dir/cleanup-status.txt"
     if ((run_status == 0 && cleanup_status != 0)); then
         run_status=1

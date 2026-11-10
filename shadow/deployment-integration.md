@@ -88,10 +88,10 @@ and archived workload configurations. Configuration fingerprints identify the
 original input; redacted XML/configurations are diagnostic copies.
 
 Success, failure and signals stop the current attempt before the enclosing
-Compose project is removed. Only the project-scoped containers, network,
-ephemeral MinIO test volume and private temporary credentials/data are removed.
-Reports and shared images/resources are retained. The next invocation starts
-with a fresh Maven repository, certificate, network and test data.
+Compose project is removed. Project-scoped containers and the network, plus
+private temporary credentials/data, are removed. The project-scoped MinIO data
+volume and reports are retained. The next invocation starts with a fresh Maven
+repository, certificate, network and Compose project.
 If Docker cleanup cannot confirm that all dependencies have been removed, the
 private runtime directory is retained with mode 0700 and its path is recorded
 in `cleanup-status.txt`.

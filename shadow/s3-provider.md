@@ -16,7 +16,7 @@ The provider retains the legacy semicolon-separated keys and defaults:
 | `proxyhost` | empty | HTTP proxy host when both proxy fields are set |
 | `proxyport` | empty | HTTP proxy port when both proxy fields are set |
 
-S3 has no `aws_region` setting in its legacy constants or [sample workload](../release/conf/config-samples/s3-config-sample.xml). The old provider overrides the AWS SDK v1 signer with `S3SignerType`; the SineIO-only `aws_region` option is therefore not applicable to this provider. Unknown keys remain accepted by the existing key/value configuration contract.
+S3 has no `aws_region` setting in its legacy constants or [sample workload](../legacy/osgi/release/conf/config-samples/s3-config-sample.xml). The old provider overrides the AWS SDK v1 signer with `S3SignerType`; the SineIO-only `aws_region` option is therefore not applicable to this provider. Unknown keys remain accepted by the existing key/value configuration contract.
 
 The adapter keeps the AWS SDK for Java v1 API, static credential behavior, endpoint override, `S3SignerType`, and path-style setting. The shared migrated runtime resolves v1 `1.12.767`, already used by SineIO and selected by the #04 shared-classpath verification; the old S3 bundle carried v1 `1.10.76`. This preserves one v1 implementation on the tested shared classpath and does not migrate S3 to SDK v2. Both versions' dependency provenance and checksums are captured by the CI reports.
 

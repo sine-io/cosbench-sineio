@@ -72,14 +72,14 @@ test_password=$(<"$COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE")
 export COSBENCH_HTTP_SERVICE_TOKEN
 export COSBENCH_TLS_STORE_PASSWORD_FILE="$COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE"
 
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/shadow/pom.xml" \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/pom.xml" \
     -DskipTests install > "$report_dir/reactor-install.log" 2>&1
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/shadow/pom.xml" \
-    -pl cosbench-driver-app -DincludeScope=test -Dmdep.outputFile=/tmp/controller-driver-driver.classpath \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/pom.xml" \
+    -pl shadow/cosbench-driver-app -DincludeScope=test -Dmdep.outputFile=/tmp/controller-driver-driver.classpath \
     org.apache.maven.plugins:maven-dependency-plugin:3.11.0:build-classpath \
     > "$report_dir/driver-classpath.log" 2>&1
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/shadow/pom.xml" \
-    -pl cosbench-controller-app -DincludeScope=test -Dmdep.outputFile=/tmp/controller-driver-controller.classpath \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/pom.xml" \
+    -pl shadow/cosbench-controller-app -DincludeScope=test -Dmdep.outputFile=/tmp/controller-driver-controller.classpath \
     org.apache.maven.plugins:maven-dependency-plugin:3.11.0:build-classpath \
     > "$report_dir/controller-classpath.log" 2>&1
 

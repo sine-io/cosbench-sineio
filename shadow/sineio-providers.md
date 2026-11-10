@@ -40,4 +40,4 @@ HTTP 400/403/404/409/500/503, invalid MinIO credentials, connection refusal and 
 bash ci/verify-shadow.sh /tmp/cosbench-sineio-11
 ```
 
-This runs the full reactor once, dependency/artifact gates and process replays with pinned Java 21/Maven/MinIO images. `tests/cosbench-sineio/`, `tests/cosbench-driver-app/`, `ci/cosbench-sineio/`, `ci/cosbench-driver-app/` and `sineio-driver-process/` hold the results. The harness removes its containers, networks, volumes and temporary secrets on success, failure and interruption.
+This runs the full reactor once, dependency/artifact gates and process replays with pinned Java 21/Maven/MinIO images. `tests/cosbench-sineio/`, `tests/cosbench-driver-app/`, `ci/cosbench-sineio/`, `ci/cosbench-driver-app/` and `sineio-driver-process/` hold the results. The harness removes its containers, networks and temporary secrets on success, failure and interruption; it retains the project-scoped MinIO data volume.

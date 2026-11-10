@@ -25,5 +25,7 @@ mission registry and HTTP idempotency results do not recover across restarts.
 The release acceptance record is under
 `shadow/evidence/2026-11-09/release-validation/`. It describes generated
 previous-release data, not customer historical data. Vendor archive backend
-checks retain their previously agreed manual scope. Root-build switching and
-final removal of active OSGi/Tycho/P2 metadata belong to #23.
+checks retain their previously agreed manual scope. Ticket #23 moves the
+active build to the root Maven entry and archives the old OSGi/Tycho/P2 tree;
+Scheme 3 remains unaccepted while the real historical baseline inputs owned by
+#01 are unavailable. No Java 21 release tag is created by this migration step.

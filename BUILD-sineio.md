@@ -2,15 +2,23 @@
 
 Java 21 builds, schema-1 YAML and new commands are documented in
 [BUILD-java21.md](BUILD-java21.md). This document covers only the previous
-SineIO Tycho distribution and its rollback rebuild. The Eclipse workflow in
-[BUILD.md](BUILD.md) is also legacy; Eclipse **4.27.0** with **JDK 1.8** is a
+SineIO Tycho distribution and its rollback rebuild. The original source is
+available at tag `0.6.0.2-sineio`; use a detached worktree before running the
+legacy commands below. For example, from the current repository root:
+
+```sh
+git worktree add --detach /tmp/cosbench-legacy-0.6.0.2 0.6.0.2-sineio
+cd /tmp/cosbench-legacy-0.6.0.2
+```
+
+The Eclipse workflow in [BUILD.md](BUILD.md) is also legacy; Eclipse **4.27.0** with **JDK 1.8** is a
 known working setup. Manta remains on its separate legacy build path.
 
 ## What the workflows do
 
-The `Tycho verification` workflow ([`.github/workflows/tycho-verify.yml`](.github/workflows/tycho-verify.yml)) runs on branch pushes and pull requests. It builds and checks the 30 non-Manta OSGi bundles, but does not publish a release.
+The `Tycho verification` workflow ([`legacy/osgi/github/workflows/tycho-verify.yml`](legacy/osgi/github/workflows/tycho-verify.yml)) is retained as historical configuration. It built and checked the 30 non-Manta OSGi bundles, but it is not an active workflow.
 
-The `SineIO release` workflow ([`.github/workflows/sineio-release.yml`](.github/workflows/sineio-release.yml)) runs when a tag matching `<version>-sineio` is pushed. It builds the distribution once, shares the archive between jobs, publishes the Ubuntu, Alpine, and Rocky Linux 8 images to GHCR, and then creates a GitHub Release with the archive and checksum attached. The individual bundle JARs are packaged inside the distribution archive rather than uploaded as separate release assets:
+The archived `SineIO release` workflow ([`legacy/osgi/github/workflows/sineio-release.yml`](legacy/osgi/github/workflows/sineio-release.yml)) documents the previous tag-triggered release. It is not an active publisher. The individual bundle JARs were packaged inside the distribution archive rather than uploaded as separate release assets:
 
 - `cosbench-<version>-sineio.tar.gz`
 - `cosbench-<version>-sineio.tar.gz.sha256`
@@ -19,7 +27,7 @@ The build uses the repository's pinned Maven Docker image on `linux/amd64`; Dock
 
 ## Prepare and validate a release
 
-Choose a new version that has not already been released. Synchronize the version in `VERSION`, the root Maven POM, the 30 Tycho module POMs, and their bundle manifests:
+In the detached legacy worktree, choose a new version that has not already been released. Synchronize the version in `VERSION`, the legacy root Maven POM, the 30 Tycho module POMs, and their bundle manifests:
 
 ```sh
 RELEASE_VERSION=0.6.0.3

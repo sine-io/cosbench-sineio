@@ -2,7 +2,8 @@
 set -Eeuo pipefail
 
 harness_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
-shadow_dir=$(cd -- "$harness_dir/.." && pwd)
+repo_dir=$(cd -- "$harness_dir/../.." && pwd)
+shadow_dir="$repo_dir/shadow"
 report_dir=${1:-/reports/ci}
 maven_repo=${2:-/tmp/maven-repository}
 mkdir -p "$report_dir"
@@ -11,7 +12,7 @@ work_dir=$(mktemp -d)
 trap 'rm -rf -- "$work_dir"' EXIT
 javac --release 21 -Xlint:all -Werror -d "$work_dir/tools" "$harness_dir/audit/"*.java
 audit=(java -cp "$work_dir/tools" BuildAudit)
-maven=(mvn -B -ntp -C "-Dmaven.repo.local=$maven_repo" -f "$shadow_dir/pom.xml")
+maven=(mvn -B -ntp -C "-Dmaven.repo.local=$maven_repo" -f "$repo_dir/pom.xml")
 
 "${maven[@]}" validate \
     org.apache.maven.plugins:maven-help-plugin:3.5.1:effective-pom "-Doutput=$report_dir/effective-pom.xml" \
@@ -54,7 +55,7 @@ while IFS=$'\t' read -r coordinate artifact target classes test_classes module; 
         jar --create --file "$work_dir/$module-tests.jar" -C "$test_classes" .
         scope=test
         case "$module" in
-            cosbench-provider-spike|cosbench-http-spike|cosbench-driver-app) scope=mock-test ;;
+            cosbench-mock-test-support|cosbench-provider-spike|cosbench-http-spike|cosbench-driver-app) scope=mock-test ;;
         esac
         java -cp "$work_dir/tools" ArtifactAudit "$scope" "$work_dir/$module-tests.jar" \
             > "$module_report/test-artifact-scan.txt"

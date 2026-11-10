@@ -85,11 +85,11 @@ c) Additional libraries used with COSBench have their own licensing; refer to 3r
 Distribution Packages
 ---------------------
 
-Build the Java 21 archive and separate production/development images using [BUILD-java21.md](BUILD-java21.md). The production archive includes executable applications, YAML, commands, supported Provider examples, licenses and checksums. The candidate is subject to [release acceptance](docs/release-rollback.md); root-build switching remains #23.
+Build the Java 21 archive and separate production/development images using [BUILD-java21.md](BUILD-java21.md). The production archive includes executable applications, YAML, commands, supported Provider examples, licenses and checksums. The candidate is subject to [release acceptance](docs/release-rollback.md); final Scheme 3 acceptance remains open for the baseline inputs tracked by #01.
 
 Previous SineIO binary distributions are published on the [GitHub Releases page](https://github.com/sine-io/cosbench-sineio/releases). Each legacy `*-sineio` release contains `cosbench-<version>-sineio.tar.gz` and its `.sha256` checksum. See [DISTRIBUTIONS.md](DISTRIBUTIONS.md) for legacy package details and [BUILD-sineio.md](BUILD-sineio.md) for their build procedure.
 
-The same tagged release workflow publishes Docker images to [GitHub Container Registry](https://github.com/orgs/sine-io/packages). See [ci/docker/README.md](ci/docker/README.md) for image tags and usage.
+The historical `<version>-sineio` workflow and image instructions are retained under [`legacy/osgi/`](legacy/osgi/); they do not publish Java 21 candidate artifacts.
 
 
 Installation & Usage

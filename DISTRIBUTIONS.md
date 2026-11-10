@@ -12,4 +12,4 @@ VERSION=0.6.0.2
 sha256sum -c "cosbench-${VERSION}-sineio.tar.gz.sha256"
 ```
 
-Pushing a matching `<version>-sineio` tag starts the GitHub Actions workflow, which builds the archive and publishes both the GitHub Release and three Docker images in GHCR. See [ci/docker/README.md](ci/docker/README.md) for image tags and usage. For the full release procedure and local reproduction steps, see [BUILD-sineio.md](BUILD-sineio.md).
+The `<version>-sineio` workflow and Docker instructions are archived under [`legacy/osgi/`](legacy/osgi/); they do not publish Java 21 candidate artifacts. For the historical release format and rollback rebuild, see [BUILD-sineio.md](BUILD-sineio.md). Build the current Java 21 candidate using [BUILD-java21.md](BUILD-java21.md).

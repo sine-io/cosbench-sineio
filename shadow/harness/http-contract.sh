@@ -13,16 +13,16 @@ test -n "${COSBENCH_HTTP_SERVICE_TOKEN:-}"
 keytool -list -keystore "$COSBENCH_HTTP_TEST_KEYSTORE_FILE" -storepass \
     "$(cat "$COSBENCH_HTTP_TEST_KEYSTORE_PASSWORD_FILE")" > "$report/http-keystore.txt"
 
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/shadow/pom.xml" \
-    -pl cosbench-driver-app -am -Dtest=com.intel.cosbench.app.driver.DriverHttpContractTest \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/pom.xml" \
+    -pl shadow/cosbench-driver-app -am -Dtest=com.intel.cosbench.app.driver.DriverHttpContractTest \
     -DfailIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false test \
     > "$report/driver-http-targeted-tests.log" 2>&1 || {
         cat "$report/driver-http-targeted-tests.log"
         exit 1
     }
 
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/shadow/pom.xml" \
-    -pl cosbench-http-spike -am -Dtest=IdempotencyStoreTest,RequestFingerprintTest,DriverCommandControllerTest,DriverHttpContractTest,RealDriverHttpContractTest,AuthenticatedDriverClientTest -DfailIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false install \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/pom.xml" \
+    -pl shadow/cosbench-http-spike -am -Dtest=IdempotencyStoreTest,RequestFingerprintTest,DriverCommandControllerTest,DriverHttpContractTest,RealDriverHttpContractTest,AuthenticatedDriverClientTest -DfailIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false install \
     > "$report/http-targeted-tests.log" 2>&1 || {
         cat "$report/http-targeted-tests.log"
         exit 1
@@ -49,8 +49,8 @@ printf '%s\n' \
     'idempotency_retention=Driver process lifetime; memory grows with unique writes and response bytes; no restart recovery' \
     > "$report/http-contract-summary.txt"
 
-mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/shadow/pom.xml" \
-    -pl cosbench-http-spike -Dscope=test -DoutputFile="$report/http-dependency-tree.txt" \
+mvn -B -ntp -Dmaven.repo.local="$maven_repo" -f "$repo/pom.xml" \
+    -pl shadow/cosbench-http-spike -Dscope=test -DoutputFile="$report/http-dependency-tree.txt" \
     org.apache.maven.plugins:maven-dependency-plugin:3.11.0:tree
 
 printf '%s\n' 'status=passed' 'tls_keystore=generated-test-keystore' 'test_commands=passed' \

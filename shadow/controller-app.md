@@ -12,7 +12,7 @@ Development and tests run in the digest-pinned Java 21 Docker harness. From the 
 bash ci/verify-shadow.sh /tmp/cosbench-controller-09
 ```
 
-This runs the entire reactor, all dependency/artifact gates, Controller process tests and packaged replay, and the existing configuration, Provider, Web and HTTP replays. Containers, temporary secrets, the network and MinIO volume are removed on every exit path. The packaged Controller replay can also be supplied to the lower-level harness:
+This runs the entire root reactor, all dependency/artifact gates, Controller process tests and packaged replay, and the existing configuration, Provider, Web and HTTP replays. Containers, temporary secrets, and the network are removed on every exit path; the project-scoped MinIO data volume is retained. The packaged Controller replay can also be supplied to the lower-level harness:
 
 ```sh
 bash shadow/harness/run.sh /tmp/cosbench-controller-09-replay -- \

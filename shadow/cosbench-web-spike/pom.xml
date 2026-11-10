@@ -24,6 +24,11 @@
     </dependency>
     <dependency>
       <groupId>com.intel.cosbench.shadow</groupId>
+      <artifactId>cosbench-controller-web-shadow</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.intel.cosbench.shadow</groupId>
       <artifactId>cosbench-api-shadow</artifactId>
       <version>${project.version}</version>
       <exclusions>
@@ -91,36 +96,6 @@
   </dependencies>
 
   <build>
-    <testResources>
-      <testResource>
-        <directory>${project.basedir}/src/test/resources</directory>
-      </testResource>
-      <testResource>
-        <directory>${project.basedir}/../../.scratch/scheme3-migration/baseline/fixtures</directory>
-        <targetPath>baseline</targetPath>
-        <includes>
-          <include>mock-noop.xml</include>
-        </includes>
-      </testResource>
-    </testResources>
-    <resources>
-      <resource>
-        <directory>${project.basedir}/../../dev/cosbench-controller-web/WEB-INF/freemarker</directory>
-        <targetPath>templates</targetPath>
-      </resource>
-      <resource>
-        <directory>${project.basedir}/../../dev/cosbench-controller-web/resources</directory>
-        <targetPath>static/resources</targetPath>
-      </resource>
-      <resource>
-        <directory>${project.basedir}/../../dev/cosbench-controller-web</directory>
-        <targetPath>static</targetPath>
-        <includes>
-          <include>index.html</include>
-          <include>favicon.ico</include>
-        </includes>
-      </resource>
-    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
