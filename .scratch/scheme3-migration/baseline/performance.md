@@ -1,4 +1,6 @@
-# PERF-01 sampling and current result
+# PERF-01 sampling and historical result
+
+This file preserves the legacy release workload and observations for historical context. The legacy results are not a performance acceptance baseline, do not define migration pass/fail thresholds, and are not required to be compared with the migrated version. Ticket #20 separately records the migrated-version profile in [its replay report](../../../shadow/evidence/2026-11-06/performance-profile/README.md).
 
 ## Frozen workload and procedure
 
@@ -28,15 +30,15 @@ The harness verification with one 100-operation measured run produced 100 sample
 
 The final default replay was completed on the same 2-vCPU/1.9-GiB host with each container limited to 1 CPU, 768 MiB memory, and 512 PIDs. Each measured run reported 10,000 samples, 640,000 bytes, and `100%` success; elapsed times were 1,551/1,530/1,548 ms, Driver-published throughput was 10,799/17,730/17,544 ops/s, and inclusive p50/p95/p99 buckets were `0~10 ms` in every run. These values are a captured sample for later product review, not an approved threshold.
 
-## Missing measurements and thresholds
+## Unavailable legacy measurements
 
-The following remain unmeasured or unresolved, so the ticket cannot claim PERF-01 acceptance yet:
+The following are unavailable in the legacy historical record and remain labeled as such. Their absence does not block the migrated-version profile or define a release performance threshold:
 
 - exact Java heap used/committed and garbage-collection activity; this release JRE lacks `jcmd` and `jstat`;
 - HTTP pool/keep-alive/idle connection counts; the old client does not expose a stable public metrics endpoint;
 - CPU, threads and FD sampled throughout each run rather than only at run boundaries;
 - cold-start, first storage operation, graceful stop, residual thread/socket, and archive-size repeat measurements;
 - a SineIO and S3 workload on real/compatible endpoints, since no endpoint credentials were provided;
-- an approved numeric regression limit from product expectations, based on repeated noise/variation. No percentage threshold is inferred from the short diagnostic data.
+- a product performance SLO. Any such SLO is a separate requirement and is not inferred from this legacy data.
 
-`performance.csv` keeps raw run values; it is not a pass/fail file until the product owner records tolerance and comparison method in this document before any migrated build is measured.
+`performance.csv` keeps raw historical values. It is descriptive evidence only, not a pass/fail file and not a comparison input for #20.

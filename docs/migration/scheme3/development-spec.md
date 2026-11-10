@@ -12,12 +12,12 @@
 
 ## 2. 实施顺序
 
-1. #01 冻结旧版本行为、配置边界、性能/资源基线和回退制品。
+1. #01 冻结旧版本行为、配置边界、性能探针历史记录和回退制品；旧版性能值/阈值不作为迁移验收标准。
 2. #02 建立 Java 21/release=21 工具链、单模块 Maven 影子构建和可复用 Docker/MinIO 环境，固定 Boot 3.x BOM。
 3. #03–#06 验证配置转换/生命周期/旧 archive、全部目标 Provider、代表性 Web 页面与 multipart、带认证/重试/幂等的 HTTP 路径；四项均为 #07 的显式 blockers。
 4. #07 分批迁移公共基础，#08 建立持续 CI 审计闸门；旧构建由固定的基线 checkout/归档提供，新影子构建保持可独立验证。
 5. #09–#18 按依赖图完成两个组合根、测试 registry、生产 Provider、HTTP、两侧 Web 和完整运维命令。每票只承担其模块批次和外部行为，标准目录迁移随所属批次完成。
-6. #19 完成部署组合和端到端回归，#20 完成三次同参数性能/资源对比，#21 生成独立生产包/镜像。
+6. #19 完成部署组合和端到端回归，#20 完成迁移版三次同参数性能/资源画像，#21 生成独立生产包/镜像。
 7. #22 验收实际生产制品、旧数据读取与回退；#23 切换根构建入口并清理活跃 OSGi/Tycho/P2，重建并复验受影响的最终制品，保留 legacy 和历史回退包。
 
 票的唯一当前列表、依赖、旧票映射见[执行索引](../../../.scratch/scheme3-migration/README.md)。编号按依赖排序；可领取所有 blockers 已通过的票，不要求逐号串行。
@@ -70,4 +70,4 @@
 
 ## 8. 完成门槛
 
-只有同时满足以下条件才算方案三完成：普通 Maven `clean verify` 通过；两个 Java 21 应用可启动/停止；页面和 `/i` 合同通过；SineIO/S3 MinIO smoke 通过；生产包无活跃 OSGi/Tycho/P2/Mock/legacy；Docker 镜像和回退演练通过；旧配置、workspace、archive 和 mission 数据可诊断迁移或继续读取；同参数至少三次性能/资源对比满足基线阈值；部署组合、命令幂等及 CI 审计通过。各项首责票与复验票见[验收责任表](acceptance-matrix.md#ticket-ownership)。
+只有同时满足以下条件才算方案三完成：普通 Maven `clean verify` 通过；两个 Java 21 应用可启动/停止；页面和 `/i` 合同通过；SineIO/S3 MinIO smoke 通过；生产包无活跃 OSGi/Tycho/P2/Mock/legacy；Docker 镜像和回退演练通过；旧配置、workspace、archive 和 mission 数据可诊断迁移或继续读取；迁移版至少三次同参数性能/资源画像已记录并报告波动，不作旧版性能回归判定；部署组合、命令幂等及 CI 审计通过。各项首责票与复验票见[验收责任表](acceptance-matrix.md#ticket-ownership)。

@@ -1,10 +1,10 @@
 # PERF-02 Performance Comparison Preflight
 
-Status: not passed; migrated-version measurements are blocked by incomplete PERF-01 inputs.
+Status: superseded by the 2026-11-06 scope decision; see the migrated-version profile under `shadow/evidence/2026-11-06/performance-profile/`.
 
 ## Decision
 
-No migrated-version benchmark was run. The PERF-01 procedure says the tolerance and comparison method must be recorded before measuring a migrated build. The baseline currently says no product-approved numeric regression limit exists, so running the candidate now would produce measurements without an admissible acceptance rule.
+This preflight originally held migrated-version measurements because no legacy performance threshold had been approved. On 2026-11-06, the user clarified that legacy comparison and legacy-derived thresholds are not required or authoritative. The #20 contract was changed to record a candidate-only three-run profile; it makes no cross-version regression claim.
 
 ## Inputs Checked
 
@@ -21,21 +21,19 @@ No migrated-version benchmark was run. The PERF-01 procedure says the tolerance 
 - Startup, first-operation, graceful-stop, residual-thread, and comparable production-artifact measurements remain incomplete.
 - The baseline issue also records unavailable real/compatible SineIO and S3 endpoints; those Provider runs are not represented by the Mock baseline.
 
-## Metric Disposition
+## Historical Metric Disposition
 
-| Metric group | Legacy baseline evidence | Migrated candidate | PERF-02 result |
+| Metric group | Legacy historical evidence | Use in PERF-02 |
 | --- | --- | --- | --- |
-| Completed operations, success/failure, operation counts | Three Mock read runs each recorded 10,000 samples, 640,000 bytes, and 100% success | Not measured | Not passed; no candidate result or approved tolerance |
-| Throughput and p50/p95/p99 | Throughput and coarse inclusive `0~10 ms` buckets are recorded for three runs | Not measured | Not passed; the legacy throughput spread is about 64%, and no tolerance is approved |
-| Errors and retries | Success ratio is recorded; raw retry counts are unavailable | Not measured | Not passed; complete baseline and candidate retry data are missing |
-| CPU, heap, threads, file descriptors, connection pool | Docker/process metrics are only partially sampled at run boundaries; heap/GC and pool counts are unavailable | Not measured | Not passed; the required baseline set is incomplete |
-| Startup, first operation, graceful stop, residual threads | Not measured in the accepted baseline | Not measured | Not passed; no comparable baseline or candidate measurements |
-| Artifact size | Legacy release archive size is recorded; no comparable decomposed runtime measurement | Current development JAR sizes are recorded above; production package is outside this candidate artifact | Not passed; the artifact boundaries are not comparable |
+| Completed operations, success/failure, operation counts | Three Mock read runs each recorded 10,000 samples, 640,000 bytes, and 100% success | Historical context only; not a comparison gate |
+| Throughput and p50/p95/p99 | Published throughput and coarse inclusive `0~10 ms` buckets are recorded; throughput varied by about 64% max-to-min | Legacy values and thresholds are not used to judge the migrated candidate |
+| Errors/retries and resources | Retry counts, heap/GC and connection-pool counts are unavailable; other resource readings are partial | Candidate profile records available metrics and marks Mock-only N/A items |
+| Startup, first operation, graceful stop, residual threads, artifact size | Accepted legacy baseline is incomplete | Candidate-only observations are reported without cross-version claims |
 
 ## Required Before PERF-02 Execution
 
-1. Complete the open PERF-01 measurements and retain the raw baseline data under the baseline evidence directory.
-2. Record product-approved tolerances and the per-metric comparison method in [baseline/performance.md](../../../../.scratch/scheme3-migration/baseline/performance.md) before any migrated build is measured.
-3. Pin the comparison host, candidate build/artifact, workload, container limits, warmup, and run count, then run at least three migrated trials and capture the PERF-02 metrics and raw data.
+1. Pin the candidate build/artifact, workload, container limits, warmup, and run count.
+2. Run at least three migrated trials and capture the PERF-02 metrics and raw data.
+3. Do not infer a relative regression threshold from these historical legacy measurements.
 
-Until these inputs exist, PERF-02 is not passed. No Docker containers, images, or temporary resources were created for this preflight.
+This preflight did not create Docker resources. The superseding candidate profile owns its own run and cleanup evidence.

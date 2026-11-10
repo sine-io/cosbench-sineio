@@ -1,0 +1,9 @@
+driver_startup_ms=6255
+driver_stop_ms=402
+term_exit_code=143
+http_port_released=true
+driver_process_alive_after_stop=false
+mission_log_bytes=10300576
+system_log_bytes=2008
+provider_http_pool=not_applicable_mock_provider
+controller_process=not_included_driver_only_profile

@@ -1,0 +1,5 @@
+status=profile-recorded
+warmup_runs=1
+measured_runs=3
+gc_reset_before=each_measured_run
+legacy_comparison=not_performed_by_scope

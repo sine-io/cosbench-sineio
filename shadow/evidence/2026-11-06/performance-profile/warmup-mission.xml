@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mission name="performance-profile-warmup" workers="1" totalWorkers="1" totalOps="25000" interval="1">
+  <auth type="mock" config="delay=0;errors=0" />
+  <storage type="profile" config="size=64;delay=0;errors=0" />
+  <operation type="read" ratio="100" config="containers=c(1);objects=c(1)" />
+</mission>

@@ -1,0 +1,73 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-06T01:55:29.176Z  INFO 276 --- [           main] c.i.c.app.driver.DriverApplication       : Starting DriverApplication using Java 21.0.12.1 with PID 276 (/workspace/shadow/cosbench-driver-app/target/classes started by root in /workspace/shadow/cosbench-driver-app/target)
+2026-11-06T01:55:29.180Z  INFO 276 --- [           main] c.i.c.app.driver.DriverApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-11-06T01:55:30.839Z  INFO 276 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 40495 (https)
+2026-11-06T01:55:30.862Z  INFO 276 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-06T01:55:30.862Z  INFO 276 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-11-06T01:55:30.946Z  INFO 276 --- [           main] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring embedded WebApplicationContext
+2026-11-06T01:55:30.947Z  INFO 276 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1625 ms
+(Log4jLogManager.java:121)
+2026-11-06 01:55:31,064 [main           ] [INFO ] - will append log to console
+2026-11-06T01:55:31.111Z  INFO 276 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/auth-mapping.xml
+2026-11-06T01:55:31.111Z  INFO 276 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/storage-mapping.xml
+2026-11-06T01:55:31.111Z  INFO 276 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/operation-mapping.xml
+2026-11-06T01:55:31.112Z  INFO 276 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/mission-mapping.xml
+2026-11-06T01:55:31.112Z  INFO 276 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/work-mapping.xml
+2026-11-06T01:55:31.112Z  INFO 276 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/stage-mapping.xml
+2026-11-06T01:55:31.112Z  INFO 276 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workflow-mapping.xml
+2026-11-06T01:55:31.112Z  INFO 276 --- [           main] org.exolab.castor.mapping.Mapping        : Loading mapping descriptors from jar:file:/workspace/shadow/cosbench-config/target/cosbench-config-shadow-0.1.0-SNAPSHOT.jar!/com/intel/cosbench/config/castor/workload-mapping.xml
+(COSBAuthAPIService.java:56)
+2026-11-06 01:55:31,312 [main           ] [INFO ] - detected supported auth types: mock
+(COSBStorageAPIService.java:56)
+2026-11-06 01:55:31,314 [main           ] [INFO ] - detected supported storage types: gdas, profile, s3, sio, siov1
+2026-11-06T01:55:32.694Z  INFO 276 --- [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-127.0.0.1-40495], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [Set directly - location unknown] using alias [tomcat] with trust store [null]
+2026-11-06T01:55:32.715Z  INFO 276 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 40495 (https) with context path '/driver'
+2026-11-06T01:55:32.742Z  INFO 276 --- [           main] c.i.c.app.driver.DriverApplication       : Started DriverApplication in 4.369 seconds (process running for 5.454)
+2026-11-06T01:55:33.305Z  INFO 276 --- [.1-40495-exec-1] o.a.c.c.C.[.[localhost].[/driver]        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-06T01:55:33.306Z  INFO 276 --- [.1-40495-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-06T01:55:33.307Z  INFO 276 --- [.1-40495-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+(COSBDriverService.java:198)
+2026-11-06 01:55:33,977 [.1-40495-exec-4] [INFO ] - handler=M3AE9180D70
+(MissionHandler.java:284)
+2026-11-06 01:55:33,986 [-driver-mission] [INFO ] - mission M3AE9180D70 has been authed successfully
+(MissionHandler.java:351)
+2026-11-06 01:55:35,592 [-driver-mission] [INFO ] - mission M3AE9180D70 has been executed successfully
+(MissionHandler.java:419)
+2026-11-06 01:55:35,647 [.1-40495-exec-1] [INFO ] - mission M3AE9180D70 has been closed successfully
+(COSBDriverService.java:198)
+2026-11-06 01:55:36,433 [.1-40495-exec-3] [INFO ] - handler=M4AE918AFBD
+(MissionHandler.java:284)
+2026-11-06 01:55:36,433 [-driver-mission] [INFO ] - mission M4AE918AFBD has been authed successfully
+(MissionHandler.java:351)
+2026-11-06 01:55:37,241 [-driver-mission] [INFO ] - mission M4AE918AFBD has been executed successfully
+(MissionHandler.java:419)
+2026-11-06 01:55:37,299 [.1-40495-exec-1] [INFO ] - mission M4AE918AFBD has been closed successfully
+(COSBDriverService.java:198)
+2026-11-06 01:55:37,676 [.1-40495-exec-3] [INFO ] - handler=MEAE91919ED
+(MissionHandler.java:284)
+2026-11-06 01:55:37,677 [-driver-mission] [INFO ] - mission MEAE91919ED has been authed successfully
+(MissionHandler.java:351)
+2026-11-06 01:55:38,436 [-driver-mission] [INFO ] - mission MEAE91919ED has been executed successfully
+(MissionHandler.java:419)
+2026-11-06 01:55:38,488 [1-40495-exec-10] [INFO ] - mission MEAE91919ED has been closed successfully
+(COSBDriverService.java:198)
+2026-11-06 01:55:38,753 [.1-40495-exec-2] [INFO ] - handler=MBAE9195CC8
+(MissionHandler.java:284)
+2026-11-06 01:55:38,755 [-driver-mission] [INFO ] - mission MBAE9195CC8 has been authed successfully
+(MissionHandler.java:351)
+2026-11-06 01:55:39,502 [-driver-mission] [INFO ] - mission MBAE9195CC8 has been executed successfully
+(MissionHandler.java:419)
+2026-11-06 01:55:39,554 [1-40495-exec-10] [INFO ] - mission MBAE9195CC8 has been closed successfully
+2026-11-06T01:55:39.716Z  INFO 276 --- [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+(COSBDriverService.java:305)
+2026-11-06 01:55:39,718 [driver-shutdown] [INFO ] - Driver stopped: mission executor terminated
+2026-11-06T01:55:39.726Z  INFO 276 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete

@@ -111,6 +111,8 @@ Build
 -----
 Use [BUILD-java21.md](BUILD-java21.md) for Java 21 Docker builds and development. [BUILD.md](BUILD.md) and [BUILD-sineio.md](BUILD-sineio.md) retain the legacy Eclipse/Tycho instructions for rollback and older releases.
 
+The runtime modernization options, including the Go rewrite path, are documented in [docs/migration/runtime-modernization.md](docs/migration/runtime-modernization.md). The complete Scheme 3 development package is in [docs/migration/scheme3/README.md](docs/migration/scheme3/README.md), including the development specification, detailed plan, module inventory, acceptance matrix, decisions, and scope estimate. Research notes cover [Spring DM product migrations](docs/migration/spring-dm-migration-cases.md) and [Java 21 virtual-thread performance](docs/migration/java21-virtual-threads-performance.md).
+
 
 Resources
 ---------

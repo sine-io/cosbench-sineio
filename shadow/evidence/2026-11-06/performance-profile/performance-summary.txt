@@ -1,0 +1,10 @@
+measured_runs=3
+throughput_mean_ops_per_second=44208.75
+throughput_min_ops_per_second=41459.37
+throughput_max_ops_per_second=46040.52
+throughput_population_cv_percent=4.48
+throughput_range_over_mean_percent=10.36
+elapsed_mean_ms=1005.67
+elapsed_min_ms=923.00
+elapsed_max_ms=1116.00
+elapsed_population_cv_percent=8.07
